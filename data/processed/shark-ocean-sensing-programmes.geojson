@@ -1,0 +1,80 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -148.0,
+     58.0
+    ]
+   },
+   "properties": {
+    "programme": "Pagniello et al. 2024 (Stanford / Block Lab)",
+    "species": "Salmon shark (Lamna ditropis)",
+    "region": "Gulf of Alaska",
+    "n_animals": 1,
+    "n_profiles": 56,
+    "variables": "temperature, salinity, depth (CTD-SRDL fin tag)",
+    "year_start": 2015,
+    "year_end": 2015,
+    "duration_days": 36,
+    "track_km": 1360,
+    "finding": "First CTD tags on a shark dorsal fin; resolved a salinity plume from the 2014-16 marine heatwave (the Blob) and several mesoscale eddies",
+    "doi": "10.1038/s41598-024-63543-5",
+    "tag_maker": "SMRU Instrumentation"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -157.8,
+     21.4
+    ]
+   },
+   "properties": {
+    "programme": "Holland et al. 2022",
+    "species": "Tiger shark (Galeocerdo cuvier)",
+    "region": "Off Oahu, Hawaii",
+    "n_animals": 1,
+    "n_profiles": 500,
+    "variables": "temperature, depth (bathygraph tag)",
+    "year_start": 2022,
+    "year_end": 2022,
+    "duration_days": 102,
+    "track_km": null,
+    "finding": "Over 500 temperature-depth profiles from a single deployment, for operational oceanography",
+    "doi": "10.1186/s40317-022-00306-x",
+    "tag_maker": null
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -73.0,
+     36.0
+    ]
+   },
+   "properties": {
+    "programme": "McDonnell et al. 2026 (WHOI / Rosenstiel / Shark Research Foundation)",
+    "species": "Blue shark (Prionace glauca) and shortfin mako (Isurus oxyrinchus)",
+    "region": "Northwest Atlantic / Gulf Stream",
+    "n_animals": 29,
+    "n_profiles": 8200,
+    "variables": "temperature, depth (satellite tags)",
+    "year_start": 2021,
+    "year_end": 2023,
+    "duration_days": null,
+    "track_km": null,
+    "finding": "Up to 40% lower surface temperature forecast error when assimilated; largest gains in dynamic shelf and slope regions that conventional observing under-samples",
+    "doi": "10.1038/s41612-026-01394-9",
+    "tag_maker": "Wildlife Computers"
+   }
+  }
+ ]
+}
