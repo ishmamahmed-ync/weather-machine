@@ -147,6 +147,8 @@ cells) and loggerhead (*Caretta caretta*, 991 cells) filtered from
 `obis-species-by-cell.csv`: 1,323 distinct cells, built by `scripts/add_turtles_layer.py`.
 → `data/processed/obis-sharks-by-cell.csv` — **311 rows**, 16 shark species.
 
+On the globe the `sharks` layer is trimmed to the NW Atlantic (82–60°W, 24–46°N): 61 of 137 cells, by `scripts/trim_sharks_layer.py`. These are OBIS sightings in the study region, **not** the tracks of the 29 tagged sharks.
+
 **Location only — no environmental measurements.** The `species` field in the
 source is a semicolon-delimited list per cell, so record counts belong to the
 cell, not to any one species.
@@ -158,7 +160,7 @@ region centroids.
 
 - Pagniello et al. 2024, *Sci Rep* 14:13837 — salmon shark, Gulf of Alaska, 56 CTD profiles. `10.1038/s41598-024-63543-5`
 - Holland et al. 2022, *Anim Biotelem* 10:34 — tiger shark, Oahu, 500+ temperature-depth profiles
-- McDonnell et al. 2026, *npj Clim Atmos Sci* 9:147 — 29 sharks, Gulf Stream, 8,200 profiles, up to 40% lower surface temperature forecast error. `10.1038/s41612-026-01394-9`
+- McDonnell, Kirtman, Braun & Hammerschlag 2026, "Improved seasonal climate forecasting using shark-borne sensor data in a dynamic ocean", *npj Clim Atmos Sci* 9:147 — 29 sharks, Northwest Atlantic, >8,200 depth–temperature profiles; retrospective forecasts up to 40% lower surface temperature error in a proof-of-concept experiment, strongest over shelf and slope. `10.1038/s41612-026-01394-9`
 
 ---
 

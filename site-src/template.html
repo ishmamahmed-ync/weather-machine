@@ -36,7 +36,8 @@ const LAYERS = {
   years:     { label:'Stations by record length', color:'#FFD08A', power:0.85 },
   argo:      { label:'Argo floats',             color:'#45B0CE', power:0.85 },
   seals:     { label:'Seal profiles',           color:'#6FD8B4', power:0.85 },
-  sharks:    { label:'Shark profiles',          color:'#F07A55', power:0.85 },
+  // OBIS shark sightings, trimmed to the NW Atlantic study region. See scripts/trim_sharks_layer.py.
+  sharks:    { label:'Shark sightings, NW Atlantic', color:'#F07A55', power:0.85 },
   telemetry: { label:'Tracked, no sensors',     color:'#B98CE0', power:0.85 },
   // These two are plain dot layers, not density grids. dot = radius in pixels
   // at normal zoom, alpha = opacity. Light and crisp, no density maths.
@@ -325,9 +326,15 @@ const SCENES = [
   { center:[-68, 34], zoom:1.3, layers:{ sharks:1, argo:0.35, seals:0.3 },
     html:`<div class="ttl">Sharks</div>
           <span class="stat shark">40%</span>
-          <span class="note">lower forecast error in the Gulf Stream</span>
-          <p>29 tagged sharks swam through shallow water Argo avoids. No new satellites.
-             No new budget.</p>` },
+          <span class="note">lower surface temperature forecast error, at best</span>
+          <p>29 sharks carrying depth and temperature tags logged more than 8,200 ocean
+             profiles in the Northwest Atlantic. Fed into an operational forecast model in
+             a proof-of-concept test, they cut surface temperature error by up to 40%.
+             The gains were largest over the continental shelf and slope, water that
+             conventional instruments under-sample.</p>
+          <p class="cite">McDonnell, Kirtman, Braun &amp; Hammerschlag, &ldquo;Improved seasonal
+             climate forecasting using shark-borne sensor data in a dynamic ocean&rdquo;,
+             <i>npj Climate and Atmospheric Science</i> 9:147 (2026).</p>` },
 
   // 24
   { center:[0, 6], zoom:0.86, layers:{ telemetry:1, seals:0.35, sharks:0.55, argo:0.25 },
@@ -493,6 +500,7 @@ const SETTINGS = {
   .ttl.big{font-size:clamp(1.9rem,3.4vw,2.7rem); line-height:1.08; letter-spacing:-.02em;
        margin-bottom:.55rem}
   .sub{font-size:.92rem; color:#8B95A1; margin:0 0 1rem}
+  .card p.cite{font-size:.78rem; line-height:1.5; color:#8B95A1; margin-top:1rem}
   .ttl + .stat{margin-top:.55rem}
   .card.bare .ttl, .card.quote .ttl, .card.bare .sub, .card.quote .sub{
        text-shadow:0 2px 22px rgba(5,8,14,.95), 0 0 56px rgba(5,8,14,.8)}
