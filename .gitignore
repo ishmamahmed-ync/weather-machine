@@ -1,0 +1,14 @@
+# raw downloads are too large to commit (50-330 MB each)
+data/raw/*
+!data/raw/.gitkeep
+!data/raw/README.md
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# os
+.DS_Store
+Thumbs.db

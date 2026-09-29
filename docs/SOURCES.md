@@ -142,6 +142,9 @@ excluded from the criteria-based download route.
 
 → `data/processed/obis-species-by-cell.csv` — **27,291 species-cell rows**,
 315 species, from 1,427,856 records in 12,735 cells of 1°.
+→ `site-src/layers/globe-data.json` `turtles` — leatherback (*Dermochelys coriacea*, 435
+cells) and loggerhead (*Caretta caretta*, 991 cells) filtered from
+`obis-species-by-cell.csv`: 1,323 distinct cells, built by `scripts/add_turtles_layer.py`.
 → `data/processed/obis-sharks-by-cell.csv` — **311 rows**, 16 shark species.
 
 **Location only — no environmental measurements.** The `species` field in the
@@ -184,10 +187,45 @@ used instead if precision matters.
 
 ---
 
+## Early warning systems
+
+### Sendai Framework Monitor, Target G-1
+UNDRR, Sendai Framework Monitor public analytics API.
+`https://sendaimonitor.undrr.org/analytics/global-target/16/7`
+**Fetched 28 September 2026** by `scripts/fetch_sendai_g1.py`. UNDRR terms of use; cite
+the Sendai Framework Monitor.
+
+G-1 is a 0–1 composite score of MHEWS capability, one value per country per
+reporting year. Countries report irregularly: 54 filed for 2022 and 44 for 2025.
+A country counts as **reported having MHEWS as of year Y** if its most recent
+G-1 value for any year up to and including Y is above 0.
+
+→ `data/processed/sendai-g1-mhews.csv` — 195 countries, G-1 score by year 2005–2026.
+→ `data/processed/sendai-g1-mhews-2022.csv` — **85 countries** (6 more reported a score of 0).
+→ `data/processed/sendai-g1-mhews-2025.csv` — **105 countries** (8 more reported 0).
+On the globe, each country is filled with dots on the 1° grid (x.5 centres)
+inside its Natural Earth boundary; countries too small to hold a grid centre
+(10 in 2022, 16 in 2025, mostly small island states) get one dot at the
+Monitor's centroid. 2022: 8,993 dots; 2025: 10,681. Built by `scripts/add_mhews_layers.py`.
+
+### Natural Earth admin-0 countries, 1:50m
+`https://github.com/nvkelso/natural-earth-vector` → `geojson/ne_50m_admin_0_countries.geojson`
+**Downloaded 28 September 2026**, 3.1 MB, 242 features. Public domain. Kept in
+`data/raw/`. Matched on `ADM0_A3`, since `ISO_A3_EH` is shared by two Australian
+territories. Admin-0 shapes include overseas territories (France includes
+French Guiana and Réunion).
+**These counts are lower than the published reports' figures** (see NOTES.md).
+
+---
+
 ## Literature cited in the piece
 
 - Wu, A.N., Zhang, Y. & Stouffs, R. (2026). Deep learning completes US flood hazard maps. *Nature Communications* **17**, 5983. `10.1038/s41467-026-74336-x`
-- Applequist, S., Durre, I. & Vose, R. (2024). GHCN Monthly Precipitation v4. *Scientific Data* **11**, 633. `10.1038/s41597-024-03457-z` — source for the decline being discontinued contributions rather than closures.
+- Applequist, S., Durre, I. & Vose, R. (2024). GHCN Monthly Precipitation v4. *Scientific Data* **11**, 633. `10.1038/s41597-024-03457-z` — the post-1970 decline is discontinued contributions, not station closures.
+- Menne, M.J. et al. (2012). An Overview of the GHCN-Daily Database. *J. Atmos. Oceanic Technol.* **29**, 897–910. — **the key source on sharing**: no formal mechanism or requirement to share daily data via the GTS, no central repository, transmission optional, and most countries provided historical records only once.
+- Lawrimore, J.H. et al. (2011). GHCN monthly mean temperature v3. *JGR Atmospheres* **116**, D19121. — station counts peak near 6,000 in the 1960s–70s.
+- WMO GBON Baseline 2023, SOFF Sixth Steering Committee — LDCs and SIDS at 9% of required surface stations, 13% of upper-air.
+- SOFF, `un-soff.org/operations` — African radiosonde observations to global models down ~50% between 2015 and early 2020.
 - Jaffrés, J.B.D. (2019). GHCN-Daily: a treasure trove awaiting discovery. *Computers & Geosciences* **122**, 35–44.
 - WMO (2019). *Origin, Impact and Aftermath of WMO Resolution 40*. WMO-No. 1244.
 - McCarthy, G.D. et al. (2025). Signal and Noise in the AMOC at 26°N. *Geophysical Research Letters*. `10.1029/2025GL115055`

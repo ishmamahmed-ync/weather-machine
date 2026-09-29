@@ -20,6 +20,13 @@ GFDRR's: GDP growth fell from a forecast 7% to 1.5%, and USAID records losses of
 about $600 million, more than double annual export earnings. The piece uses the
 growth and export figures.
 
+**"Countries stopped sharing weather data after a 1970s golden age" is not
+supported.** WMO's "end of the golden age" language (WMO-No. 1244) describes
+policy and diplomacy — real pressure on free exchange from the mid-1980s, a near
+"data war" by the early 1990s, and the Resolution 40 compromise of 1995. It does
+not describe a measured decline in stations transmitting, and connecting the two
+was an inference, not a finding. See the archival explanation below.
+
 **"Damage is roughly equal everywhere" is false.** Tested on the EM-DAT file:
 damage is *more* concentrated than deaths, Gini 0.870 against 0.836. What is
 true, and stronger, is the inversion — Europe holds 20.2% of flood damage and
@@ -83,16 +90,102 @@ mean Somalia owns no thermometers. The map measures participation in the
 international observing commons, not national infrastructure. Belgium's 1
 against ISD's 52 is the clearest demonstration.
 
-**The apparent post-1970 decline is largely archival.** NOAA attributes it to
-discontinued contributions from countries in the international collection, and
-the "international collection" is a static archive ending in 2008. Nearly half
-of Brazil's stations have their last year in either 1983 or 1997 — feeds ending,
-not instruments failing. The defensible claim is that the shared record is
-thinning, not that measurement stopped.
+**The apparent post-1970 decline is archival, and the reason is stronger than
+"countries stopped sharing".** An earlier draft of this project claimed that
+countries had retreated from a prior norm of sharing. That is wrong. Menne et
+al. (2012), NOAA's own description of GHCN-Daily, states there has been no
+formal mechanism or requirement to share daily data via the GTS, no central
+repository for daily climate reports, that transmission has been treated as
+optional, and that **most participating countries have provided historical daily
+station records only once**. The archive is built from one-off donations that
+age out — which is why nearly half of Brazil's stations have their last year in
+either 1983 or 1997.
+
+So the defensible claim is not that the commons was dismantled. It is that a
+commons for daily climate data **was never built**. Sharing became obligatory
+for the first time in 2021, when all 193 WMO members adopted GBON. Under its
+compliance criteria, least-developed countries and small island states report 9%
+of required surface stations and 13% of required upper-air stations.
+
+One decline in *transmission* is separately documented and does hold: SOFF
+reports that African radiosonde observations reaching global models fell by
+roughly 50% between 2015 and early 2020, and further since.
 
 **Damage and deaths have different coverage.** In the flood file, 1,243 events
 carry deaths and only 406 carry damage. Comparing the two maps without saying so
 would read a reporting gap as a finding.
+
+---
+
+## Sendai G-1 counts do not match the published MHEWS reports
+
+The *Global Status of MHEWS* reports give 95 countries with MHEWS in 2022 and
+119 in 2025. Rebuilding the lists from the Sendai Framework Monitor in September
+2026 gives **85 as of 2022 and 105 as of 2025**. Counting any G-1 filing, even a
+score of 0, gives 91 and 113, and adding countries that filed only G-2 to G-5
+gives 112 and 131. None of these reproduces the published figures. The likely
+causes are that the Monitor is revised as countries back-fill past years, and
+that each report was a snapshot on its publication date. The reports' own
+country lists could not be checked: the WMO library puts the PDF behind a
+human-verification page. **Quote the report's number with the report's name,
+and our number with "Sendai Framework Monitor, September 2026". Do not mix the two.**
+
+Also worth knowing before captioning the map: the "as of" rule carries old
+filings forward. The United States last filed G-1 for 2021 and Japan for 2020,
+but both count in 2025. China, India, Germany and Spain have never filed G-1,
+so they appear as having no MHEWS when in fact they have not reported.
+
+---
+
+## Checked while building scene spec 3 (28 September 2026)
+
+**The AI-spending comparison was off by a factor of four.** The spec said $3.1 bn
+is "less than two days" of AI spending, using $1.65 bn a day. $2.7 trillion over
+365 days is **$7.4 bn a day**, so the five-year early warning plan is about
+**10 hours** of 2026 AI spending. The scene now says "less than half a day". The
+870-to-1 ratio stands, but it compares **one year** of AI spending with the
+**whole five-year** plan, so the copy now says exactly that.
+
+**Volunteer rain gauges: 51,229, not 53,167.** Counted from
+`ghcnd-stations-with-age.csv`: GHCN network code `1` (CoCoRaHS), in the
+contiguous US, all with a first year of 1998 or later. There are 51,468 across
+all states. The 53,167 in the spec could not be reproduced from the processed
+file, so the scene uses 51,229.
+
+**Africa's 2,166 stations could not be reproduced from a country list.**
+Filtering GHCN by African country names, French and British island
+territories included, gives 2,119, with a median record of 69 years (the spec
+has 68). The 2,166 has been in the piece since an earlier build and is kept, but
+whoever wrote it should record how Africa was defined.
+
+**Turtle cell counts differ between files.** The spec quotes leatherbacks in
+508 cells and loggerheads in 1,105. `obis-species-by-cell.csv` has 435 and 991,
+or 1,323 distinct cells combined. The new `turtles` layer is built from that CSV
+and the scene quotes no cell count. Verified from the same files: zero MEOP seal
+cells in the Mozambique Channel (32–50°E, 27–10°S), and 28 loggerhead plus 5
+leatherback cells inside it.
+
+**Checked and confirmed:** 76,708 contiguous-US stations; 59.3% US share; US
+median record 8 years; Mozambique 19 stations, 16 active, 14 active with 30+
+years; Michael and Haiyan both 125 kt and 204 h in `storms.csv`; 545,596 MEOP
+profiles ("half a million").
+
+**Scene 22's copy changed.** The spec said "about half the world's countries
+had an early warning system of any kind" in 2022. The Sendai data is 85 of 195
+(44%), and G-1 measures *multi-hazard* systems, not systems of any kind. The copy
+now says "fewer than half … covers more than one hazard".
+
+---
+
+## On-screen caveats removed (28 September 2026)
+
+At the author's request, the scene cards no longer carry caveat or citation
+lines. These include "dots are illustrative" (US flood dots, satellite shell),
+"as recorded in IBTrACS", the EM-DAT 12% geocoding note, and "no dot means no
+report" (Sendai G-1). The caveats still apply and are recorded in SOURCES.md and
+above. This departs from the CLAUDE.md rule that captions using the US flood
+dots say "illustrative". A `/data` or `/notes` page is the natural place to
+restore them.
 
 ---
 

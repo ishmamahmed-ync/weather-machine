@@ -1,0 +1,86 @@
+iso3,name,region,lat,lon,g1_latest
+AFG,Afghanistan,Asia and Pacific,33.93911,67.709953,0.15
+ALB,Albania,Europe,41.153332,20.168331,0.5
+AGO,Angola,Africa,-11.202692,17.873887,0.37
+ARM,Armenia,Europe,40.069099,45.038189,0.59
+AUS,Australia,Asia and Pacific,-25.274398,133.775136,0.18
+BGD,Bangladesh,Asia and Pacific,23.684994,90.356331,0.13
+BRB,Barbados,Americas,13.193887,-59.543198,0.38
+BLR,Belarus,Europe,53.709807,27.953389,0.25
+BTN,Bhutan,Asia and Pacific,27.514162,90.433601,0.2
+BWA,Botswana,Africa,-22.328474,24.684866,0.83
+BGR,Bulgaria,Europe,42.733883,25.48583,0.18
+KHM,Cambodia,Asia and Pacific,12.565679,104.990963,0.56
+CMR,Cameroon,Africa,7.369722,12.354722,0.63
+CAN,Canada,Americas,56.130366,-106.346771,1.0
+CHL,Chile,Americas,-35.675147,-71.542969,0.65
+COL,Colombia,Americas,4.570868,-74.297333,0.46
+CRI,Costa Rica,Americas,9.748917,-83.753428,0.62
+HRV,Croatia,Europe,45.1,15.2,0.54
+CZE,Czech Republic (the),Europe,49.817492,15.472962,0.87
+CIV,Côte d'Ivoire,Africa,7.539989,-5.54708,0.23
+ECU,Ecuador,Americas,-1.831239,-78.183406,0.24
+EGY,Egypt,Arab States,26.820553,30.802498,0.2
+EST,Estonia,Europe,58.595272,25.013607,1.0
+SWZ,Eswatini,Africa,-26.522503,31.465866,0.49
+ETH,Ethiopia,Africa,9.145,40.489673,0.46
+FJI,Fiji,Asia and Pacific,-16.578193,179.414413,0.54
+FIN,Finland,Europe,61.92411,25.748151,0.5
+FRA,France,Europe,46.227638,2.213749,0.68
+GEO,Georgia,Europe,42.315407,43.356892,0.13
+GHA,Ghana,Africa,7.946527,-1.023194,0.41
+GTM,Guatemala,Americas,15.783471,-90.230759,0.05
+HUN,Hungary,Europe,47.162494,19.503304,0.33
+IDN,Indonesia,Asia and Pacific,-0.789275,113.921327,0.66
+IRL,Ireland,Europe,53.41291,-8.24389,0.25
+ITA,Italy,Europe,41.87194,12.56738,0.77
+JPN,Japan,Asia and Pacific,36.204824,138.252924,1.0
+JOR,Jordan,Arab States,30.585164,36.238414,0.2
+KEN,Kenya,Africa,-0.023559,37.906193,0.25
+KIR,Kiribati,Asia and Pacific,-3.370417,-168.734039,0.34
+KWT,Kuwait,Arab States,29.31166,47.481766,0.25
+KGZ,Kyrgyzstan,Europe,41.20438,74.766098,0.51
+LBN,Lebanon,Arab States,33.854721,35.862285,0.54
+LBR,Liberia,Africa,6.428055,-9.429499,0.83
+LTU,Lithuania,Europe,55.169438,23.881275,0.45
+MDG,Madagascar,Africa,-18.766947,46.869107,0.38
+MWI,Malawi,Africa,-13.254308,34.301525,0.25
+MYS,Malaysia,Asia and Pacific,4.210484,101.975766,0.23
+MHL,Marshall Islands (the),Asia and Pacific,7.131474,171.184478,0.5
+MUS,Mauritius,Africa,-20.348404,57.552152,0.25
+MEX,Mexico,Americas,23.634501,-102.552784,0.69
+FSM,Micronesia (Federated States of),Asia and Pacific,7.425554,150.550812,0.36
+MCO,Monaco,Europe,43.750298,7.412841,0.75
+MNG,Mongolia,Asia and Pacific,46.862496,103.846656,0.13
+NAM,Namibia,Africa,-22.95764,18.49041,0.2
+NRU,Nauru,Asia and Pacific,-0.522778,166.931503,0.84
+NPL,Nepal,Asia and Pacific,28.394857,84.124008,0.24
+NZL,New Zealand,Asia and Pacific,-40.900557,174.885971,0.55
+NER,Niger (the),Africa,17.607789,8.081666,0.25
+PLW,Palau,Asia and Pacific,7.51498,134.58252,0.86
+PHL,Philippines (the),Asia and Pacific,12.879721,121.774017,0.9
+PRT,Portugal,Europe,39.399872,-8.224454,0.89
+QAT,Qatar,Arab States,25.354826,51.183884,1.0
+KOR,Republic of Korea (the),Asia and Pacific,35.907757,127.766922,1.0
+ROU,Romania,Europe,45.943161,24.96676,0.68
+RUS,Russian Federation (the),Europe,61.52401,105.318756,0.25
+RWA,Rwanda,Africa,-1.940278,29.873888,0.18
+WSM,Samoa,Asia and Pacific,-13.759029,-172.104629,0.41
+SVN,Slovenia,Europe,46.151241,14.995463,0.91
+SLB,Solomon Islands,Asia and Pacific,-9.64571,160.156194,0.35
+SOM,Somalia,Arab States,5.152149,46.199616,0.05
+ZAF,South Africa,Africa,-30.559482,22.937506,0.3
+LKA,Sri Lanka,Asia and Pacific,7.873054,80.771797,0.33
+CHE,Switzerland,Europe,46.818188,8.227512,0.88
+TJK,Tajikistan,Europe,38.861034,71.276093,0.2
+TGO,Togo,Africa,8.619543,0.824782,0.2
+TUV,Tuvalu,Asia and Pacific,-7.109535,177.64933,0.92
+UGA,Uganda,Africa,1.373333,32.290275,0.73
+UKR,Ukraine,Europe,48.379433,31.16558,0.71
+GBR,United Kingdom of Great Britain and Northern Ireland (the),Europe,55.378051,-3.435973,0.49
+TZA,United Republic of Tanzania (the),Africa,-6.369028,34.888822,0.47
+USA,United States of America (the),Americas,37.09024,-95.712891,0.98
+UZB,Uzbekistan,Europe,41.377491,64.585262,0.25
+VUT,Vanuatu,Asia and Pacific,-15.376706,166.959158,0.51
+ZMB,Zambia,Africa,-13.133897,27.849332,0.71
+ZWE,Zimbabwe,Africa,-19.015438,29.154857,0.2

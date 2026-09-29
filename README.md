@@ -4,7 +4,7 @@ A data visualisation about who can measure their own climate, and who cannot.
 
 Harvard GSD, Master in Design Engineering — studio project.
 
-**Live site:** _(add your URL here once deployed)_
+**Live site:** https://ishmamahmed-ync.github.io/weather-machine/
 
 ---
 
@@ -39,17 +39,24 @@ docs/NOTES.md      data problems found and how they were handled
 
 ## Running the site
 
-The site is one self-contained HTML file with no build step and no network
-dependencies. Open it directly:
+The site is one self-contained HTML file with no network dependencies. Open it
+directly:
 
 ```
-open site/index.html
+open index.html
+```
+
+`index.html` is **generated** — do not hand-edit it. Edit `site-src/template.html`
+and rebuild:
+
+```
+python scripts/build_site.py
 ```
 
 It has two views, switched from the top right:
 
-- **Story** — a scroll-driven narrative, 32 scenes
-- **Explore** — drag to rotate, scroll to zoom, toggle any of 20 data layers
+- **Story** — a scroll-driven narrative, 29 scenes
+- **Explore** — drag to rotate, scroll to zoom, toggle any of 24 data layers
 
 Pressing `D` anywhere opens a live styling panel for tuning colours, dot sizes
 and camera positions.
