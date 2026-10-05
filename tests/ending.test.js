@@ -37,7 +37,7 @@ const URL = process.argv[2];
 
     await go(p, 'end'); await p.waitForTimeout(900);
     r = await p.evaluate(() => ({ end: [...document.querySelectorAll('#slide .end .wm-quote')].map(x => x.textContent).join(' '), view: WMSTORY.view() }));
-    check(`${w}x${h} the end: the end card, the whole globe`, r.end === 'Weather stations. Rain gauges. River gauges. Radiosondes. Collective Planetary Stewardship.' && Math.abs(r.view.zoom - 0.82) < 0.01, JSON.stringify(r));
+    check(`${w}x${h} the end: the end card, the whole globe`, r.end === 'Weather stations. Rain gauges. River gauges. Radiosondes. Collective Planetary Stewardship.' && Math.abs(r.view.zoom - 0.84) < 0.01, JSON.stringify(r));
     check(`${w}x${h} the end fits on screen`, await bottom() <= h - 8, await bottom());
 
     // the last slide: four link cards, each opening in a new tab
@@ -57,10 +57,15 @@ const URL = process.argv[2];
   await p.waitForTimeout(3000);
   const y2 = +(await p.evaluate(() => document.querySelector('#slide [data-year="sweep"]').textContent));
   check('slide 19 with motion: the year counter advances', y1 < 1980 && y2 > y1 + 10, y1 + ' → ' + y2);
-  await go(p, 'end'); await p.waitForTimeout(1500);
-  const z1 = await p.evaluate(() => WMSTORY.view().zoom); await p.waitForTimeout(3000);
-  const z2 = await p.evaluate(() => WMSTORY.view().zoom);
-  check('the end with motion: it arrives close and pulls slowly out', z1 > 1.8 && z2 < z1 && z2 > 0.82, z1.toFixed(2) + ' → ' + z2.toFixed(2));
+  // the end (since 5 Oct): no zooming; the globe turns back to the equator view at the same distance, rotates, and
+  // the sensors fill in year by year (1 s a decade)
+  await go(p, 'fraying'); await p.waitForTimeout(1500);
+  const z0 = await p.evaluate(() => WMSTORY.view().zoom);
+  await go(p, 'end'); await p.waitForTimeout(1200);
+  const v1 = await p.evaluate(() => WMSTORY.view()); await p.waitForTimeout(2500);
+  const v2 = await p.evaluate(() => WMSTORY.view());
+  check('the end with motion: no zoom in or out from the slide before, back to the equator view, turning',
+    Math.abs(v1.zoom - z0) < 0.01 && Math.abs(v2.zoom - z0) < 0.01 && Math.abs(v1.centre[1] - 20) < 3 && Math.abs(v2.centre[0] - v1.centre[0]) > 5, JSON.stringify([z0, v1, v2]));
 
   check('no JavaScript errors or warnings', errs.length === 0, errs.join(' | '));
   console.log(failed ? `\n${failed} check(s) FAILED` : '\nall checks passed'); await b.close(); process.exit(failed ? 1 : 0);

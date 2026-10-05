@@ -358,3 +358,5 @@ and the slide's note says so. "Beyond people": animal counts in red, grid figure
 "The damage cascades: lost herds and a broken grid keep costing families long after the water goes down."
 
 **Flicker revised (5 Oct 2026, late):** all the lights switch on and off together, abruptly, in an irregular Morse-like rhythm (a failing bulb); off leaves a faint ghost. The faint layer of all other stations was removed from that slide so the flicker reads, including over the dense US.
+
+**End slide transition (5 Oct 2026, late):** no zoom any more (zoomFrom/slow removed: it lagged). From the arctic view the globe turns back to the slides 2-5 view (equator from slightly above) at the same distance (0.84) and rotates; the stations, satellites and Argo floats fill in year by year as on slides 2-5, at 1 s a decade instead of 1.5 (a hidden `era` sweep, 1900 to 2025). No rain gauges, no pulsing cold spots.

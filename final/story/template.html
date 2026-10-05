@@ -445,14 +445,16 @@ const SCENES = [
     views:[ { center:[-20, 70], zoom:0.84, layers:{ st_flicker:1 } } ] },
 
   { id:'end', act:'VI · Closing the gaps',
-    title:'There can be no gaps in the weather machine',
+    title:'There can be no gaps in our weather machine',
     text:['Climate change threatens every nation’s security, and it hits hardest where the sensors are fewest. The world’s highest court calls it “an existential problem of planetary proportions”. The Cold War moved rivals to build this machine together. This threat is greater.',
           'Every forecast on Earth runs on one machine. No country can see the storm coming alone.'],
-    below:{ legend:['stations','sats_shell','argo','coldspots'], end:['Weather stations.','Rain gauges.','River gauges.','Radiosondes.','Collective Planetary Stewardship.'] },
+    below:{ legend:['hist_stations','hist_sats','hist_argo'], end:['Weather stations.','Rain gauges.','River gauges.','Radiosondes.','Collective Planetary Stewardship.'] },
+    // the machine fills in again, as on slides 2-5 but 4.5x faster (0.33 s a decade, 1900 to today), with no bar
+    era:{ from:1900, to:2025, perDecade:0.33, hidden:true },
     source:'International Court of Justice, advisory opinion, 23 Jul 2025 (quoted via UNRIC and the UK Human Rights Blog).',
-    // every layer on; the gap cells (land and ocean) breathe; it arrives close on Africa and pulls slowly out
-    views:[ { center:[6, 14], zoom:0.82, zoomFrom:2.2, slow:9000, pulse:['coldspots'],
-              layers:{ stations:1, argo:1, sats_shell:1, coldspots:0.6 } } ] },
+    // the author, 5 Oct: no zooming (it lagged). The globe turns back to its natural view, the equator from slightly
+    // above, at the previous slide's distance, and rotates; the sensors (no rain gauges) fill it year by year
+    views:[ { center:MACHINE_VIEW, zoom:0.84, spin:8, layers:{ hist_stations:1, hist_sats:1, hist_argo:1 } } ] },
 
   // the last slide, on its own (the author, 5 Oct): four places to go next, the empty globe turning slowly
   { id:'resources', act:'VI · Closing the gaps',
@@ -981,11 +983,11 @@ function START(){
   function eraDraw(){ eraRange.value=eraYear; eraRange.style.setProperty('--p',((eraYear-ERAS.start)/(ERAS.end-ERAS.start)*100)+'%');
     const H=window.WMSTORY&&WMSTORY.plugins.history; if(H&&H.setYear) H.setYear(eraYear); }
   function setEra(e){
-    cancelAnimationFrame(eraRaf); eraEl.hidden=!e; if(!e) return;
+    cancelAnimationFrame(eraRaf); eraEl.hidden=!e || !!e.hidden; if(!e) return;   // hidden: the sweep runs, the bar stays out of sight
     eraEl.querySelectorAll('.c').forEach(c=>c.classList.toggle('is-on', c.dataset.k===e.on));
     if(reduce || e.to===e.from){ eraYear=e.to; eraDraw(); return; }
     // across this era at 1.5 s per decade (going forward, the last era ended where this one starts)
-    const start=performance.now(), y0=e.from, dur=(e.to-y0)/10*ERAS.secondsPerDecade*1000;
+    const start=performance.now(), y0=e.from, dur=(e.to-y0)/10*(e.perDecade||ERAS.secondsPerDecade)*1000;
     const step=now=>{ const f=Math.min(1,(now-start)/dur); eraYear=y0+(e.to-y0)*f; eraDraw(); if(f<1) eraRaf=requestAnimationFrame(step); };
     eraRaf=requestAnimationFrame(step);
   }
