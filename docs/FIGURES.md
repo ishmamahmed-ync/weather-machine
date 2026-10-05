@@ -7,7 +7,7 @@ Status: **data** recomputed from the repo and must match · **arithmetic** redon
 **paper** quoted from the paper (the author's rule; the map's cleaned data differs slightly) ·
 **cited** from the named source, not checkable here · **unsourced** needs a source.
 
-Totals: data 20 · arithmetic 7 · paper 4 · cited 19 · unsourced 7 · **failed 0**
+Totals: data 20 · arithmetic 7 · paper 4 · cited 21 · unsourced 7 · **failed 0**
 
 | Slide | On the page | Value | Status | Source | Check |
 |---|---|---|---|---|---|
@@ -68,3 +68,5 @@ Totals: data 20 · arithmetic 7 · paper 4 · cited 19 · unsourced 7 · **faile
 | 24 | war has destroyed or cut off a quarter of Ukraine's observing network | 25% | cited | Proceedings, 15th Int. Conf. 'Monitoring', EAGE 2023 [W-6] (losses since 2014) |  |
 | 24 | EUMETSAT and the Arctic Council suspended cooperation with Russia | - | cited | Reuters, 22 Mar 2022 [W-5]; Scientific American / E&E News [W-7] |  |
 | 25 | 'an existential problem of planetary proportions' (ICJ) | - | cited | ICJ advisory opinion, 23 Jul 2025 [E-63][E-64] (quote via [E-65]; check the opinion's own text) |  |
+| 26 | TAHMO: more than 600 stations in over 20 African countries, aiming for 20,000 | 600 | cited | TU Delft; METER Group case study |  |
+| 26 | HOT volunteers mapped over 200,000 buildings after Idai | 200,000 | cited | HOT, 'Maps in action: how maps help the aid response for Cyclone Idai'; OSM wiki, Cyclone Idai |  |

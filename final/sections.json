@@ -46,7 +46,8 @@
         "not-enough",
         "money",
         "fraying",
-        "end"
+        "end",
+        "resources"
       ]
     }
   ],

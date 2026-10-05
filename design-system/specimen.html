@@ -477,6 +477,18 @@ select.wm-field option{background:#0B111A; color:var(--wm-text)}
   .wm-events.is-vertical .key .ill{display:inline}
 }
 
+/* ---------- Link cards (.wm-links): where to go next, a 2 x 2 grid of outlined cards, each one link out.
+   A label (what you can do), the name with an arrow, one line on what it is. The whole card is the link. */
+.wm-links{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:var(--wm-s3); width:100%; max-width:30rem}
+.wm-links a{display:flex; flex-direction:column; gap:4px; padding:12px 14px 14px; border:1px solid var(--wm-line); border-radius:var(--wm-r-card);
+  color:inherit; text-decoration:none; background:var(--wm-glass); transition:border-color var(--wm-fast, .15s) ease, background var(--wm-fast, .15s) ease}
+.wm-links a:hover, .wm-links a:focus-visible{border-color:var(--wm-text); outline:none}
+.wm-links .name{font:500 var(--wm-fs-title)/1.25 var(--wm-disp); letter-spacing:var(--wm-track-title); color:var(--wm-text);
+  display:flex; align-items:baseline; justify-content:space-between; gap:8px}
+.wm-links .name svg{flex:none; width:12px; height:12px; transform:translateY(1px)}
+.wm-links .what{font-size:var(--wm-fs-small); line-height:1.45; color:var(--wm-text-2)}
+@media (max-height:820px){ .wm-links a{padding:10px 12px 12px} .wm-links .name{font-size:1.05rem} .wm-links .what{font-size:var(--wm-fs-caption)} }
+
 
 
 /* ---- specimen page layout: a sticky index on the left, the sheets on the right ---- */
@@ -824,6 +836,16 @@ td:first-child{color:var(--wm-text); white-space:nowrap; font-weight:500}
               <div class="nums"><div><span class="wm-stat">US$400 million</span><span class="wm-note">sought</span></div><div><span class="wm-stat">1 h 13 min</span><span class="wm-note">of world military spending</span></div></div></div>
           </div>
           <div class="cap"><span class="wm-label">Dial: a quantity against a unit</span><code>.wm-dial .val .lap</code></div>
+        </div>
+
+        <div class="tile">
+          <div class="stage">
+            <div class="wm-links">
+              <a href="https://wmo.int/activities/early-warnings-all" target="_blank" rel="noopener"><span class="wm-label">Learn</span><span class="name">Early Warnings for All <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 10L10 3M4.5 3H10v5.5"/></svg></span><span class="what">The UN plan to cover everyone by 2027</span></a>
+              <a href="https://tahmo.org" target="_blank" rel="noopener"><span class="wm-label">Build</span><span class="name">TAHMO <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 10L10 3M4.5 3H10v5.5"/></svg></span><span class="what">Low-cost weather stations across Africa</span></a>
+            </div>
+          </div>
+          <div class="cap"><span class="wm-label">Link cards: where to go next</span><code>.wm-links</code></div>
         </div>
 
         <div class="tile">

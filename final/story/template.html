@@ -93,7 +93,9 @@ const LAYERS = {
                 yearAt:[30, 28] },   // the counter's year is drawn on the map here: the top right of Africa (the author, 5 Oct)
   // slide 21: the weather stations split at the Arctic Circle, so the Arctic can fade on its own (same brightness as stations)
   st_low:     { label:'Weather stations', color:'#FFB547', power:0.85, maxOf:'stations', explore:false },
-  st_arctic:  { label:'Weather stations north of the Arctic Circle', color:'#FFB547', power:0.85, maxOf:'stations', explore:false }
+  st_arctic:  { label:'Weather stations north of the Arctic Circle', color:'#FFB547', power:0.85, maxOf:'stations', explore:false },
+  // "Yet the world is pulling back": stations in the countries it names, flickering like failing lights (illustrative)
+  st_flicker: { label:'Weather stations in the countries pulling back (flicker illustrative)', color:'#FFB547', dot:1.1, alpha:1, flicker:true, explore:false }
 };
 
 // ---------------------------------------------------------------------------
@@ -335,10 +337,10 @@ const SCENES = [
     title:'Beyond people',
     // the animals, one number at a time like 'Idai in numbers' (figures from the author's long narrative, likely the
     // PDNA: 124,498 + 10,305 + 5,428 + 3,191 = 143,422 animals)
-    text:[ { stat:'124,498', text:'birds killed.', at:0.4 },
-           { stat:'10,305', text:'sheep and goats.', at:0.9 },
-           { stat:'5,428', text:'cows.', at:1.4 },
-           { stat:'3,191', text:'pigs.', at:1.9 },
+    text:[ { stat:'124,498', text:'birds killed.', at:0.4, color:'var(--wm-deaths)' },
+           { stat:'10,305', text:'sheep and goats.', at:0.9, color:'var(--wm-deaths)' },
+           { stat:'5,428', text:'cows.', at:1.4, color:'var(--wm-deaths)' },
+           { stat:'3,191', text:'pigs.', at:1.9, color:'var(--wm-deaths)' },
            { stat:'US$3.1 million', text:'lost, in places where families depend on their animals.', at:2.4 } ],
     below:{ legend:false },
     source:'Source to come (likely the Government of Mozambique’s Post-Disaster Needs Assessment, 2019). Photo: credit to come.',
@@ -347,11 +349,11 @@ const SCENES = [
   { id:'beyond-grid', act:'IV · Idai', plugin:'idai',
     title:'Beyond people',
     // the power grid, in the same form (figures from the author's long narrative, likely the PDNA)
-    text:[ { stat:'1,345 km', text:'of transmission lines damaged.', at:0.4 },
-           { stat:'10,216 km', text:'of distribution lines.', at:0.9 },
-           { stat:'3,990', text:'transformers.', at:1.4 },
-           { stat:'30', text:'substations.', at:1.9 },
-           { text:'A flood doesn’t stop at the people it kills.', at:2.4 } ],
+    text:[ { stat:'1,345 km', text:'of transmission lines damaged.', at:0.4, color:'var(--wm-dmg-2)' },
+           { stat:'10,216 km', text:'of distribution lines.', at:0.9, color:'var(--wm-dmg-2)' },
+           { stat:'3,990', text:'transformers.', at:1.4, color:'var(--wm-dmg-2)' },
+           { stat:'30', text:'substations.', at:1.9, color:'var(--wm-dmg-2)' },
+           { text:'The damage cascades: lost herds and a broken grid keep costing families long after the water goes down.', at:2.4 } ],
     below:{ legend:false },
     source:'Source to come (likely the Government of Mozambique’s Post-Disaster Needs Assessment, 2019). Photo: credit to come.',
     views:[ { center:[34.6, -19.2], zoom:4.2, photo:'idai-pylons', idai:'lens', layers:{ idai_tracks:1 } } ] },
@@ -418,39 +420,54 @@ const SCENES = [
     // US$400 million laps it once and 13 minutes more
     below:{ dial:{ value:400, unit:2887000/8760, caption:'One ring: an hour of world military spending, about US$330 million', stats:[ { v:'US$400 million', note:'sought by SOFF, the UN fund for basic weather observations' },
                     { v:'1 hour 13 minutes', note:'of world military spending, at US$2,887 billion a year (2025)' } ] },
-            legend:['gaugegap'] },
+            legend:false },
     source:'SOFF, <i>Action Report 2025</i>; SIPRI, world military expenditure 2025 (27 Apr 2026); return on investment: World Bank, via WMO (2021).',
-    views:[ { center:[10, 16], zoom:0.84, layers:{ gaugegap:0.4 } } ] },   // the gauge-gap cells of slide 8, faint
+    views:[ { center:[10, 16], zoom:0.84, layers:{} } ] },   // no rain-gauge layer here (the author, 5 Oct: too heavy)
 
   { id:'fraying', act:'VI · Closing the gaps',
     title:'Yet the world is pulling back',
-    text:['The US, long the machine’s biggest backer, is pulling back: fewer weather balloons, a suspended famine-warning system, exit from 66 international bodies, proposals to cut NOAA by a quarter. Elsewhere, war has destroyed or cut off a quarter of Ukraine’s observing network, and Europe’s weather-satellite agency and the Arctic Council have suspended cooperation with Russia. It is erosion, not collapse. But a lost year of records can never be measured again.'],
+    text:['The US, long the machine’s biggest backer, is pulling back: fewer weather balloons, a suspended famine-warning system, exit from 66 international bodies, proposals to cut NOAA by a quarter. Elsewhere, war has destroyed or cut off a quarter of Ukraine’s observing network, and Europe’s weather-satellite agency and the Arctic Council have suspended cooperation with Russia.'],
     // the timeline: US events above the line, the wider world below, each dated from its source (the research
     // dossier's chronology). The world's events are from 2022-23, so the line runs 2022 to 2026.
     // the timeline, vertical (the author, 5 Oct): one event a row, in date order, evenly spaced
-    below:{ events:{ vertical:true, from:2022, to:2027, upLabel:'United States', downLabel:'The wider world', shortNote:'Globe: illustrative fade', items:[
+    below:{ events:{ vertical:true, from:2022, to:2027, upLabel:'United States', downLabel:'The wider world', shortNote:'Globe: illustrative flicker', items:[
               { side:'up',   at:2025.08, tier:1, when:'Early 2025', text:'FEWS NET famine warnings suspended' },
               { side:'up',   at:2025.23, tier:2, when:'Mar 2025', text:'Fewer weather balloons' },
               { side:'up',   at:2025.29, tier:3, when:'Apr 2025', text:'Plan to cut NOAA by a quarter' },
               { side:'up',   at:2026.02, tier:4, when:'Jan 2026', text:'Exit from 66 international bodies' },
               { side:'down', at:2022.2,  tier:2, when:'Mar 2022', text:'EUMETSAT and the Arctic Council suspend work with Russia' },
               { side:'down', at:2023.0,  tier:1, when:'By 2023', text:'Ukraine: a quarter of its network lost (since 2014)' } ] },
-            note:'Illustrative: the fade shows records no longer shared, not closures.' },
+            note:'Illustrative: the flicker marks the countries above, not real station outages.' },
     source:'NPR/AP (Jan 2026); NPR, FEWS NET (Sep 2026); Spectrum News (Mar 2025); NYT (Apr 2025); EAGE “Monitoring” (2023); Reuters (Mar 2022); <i>Scientific American</i>/E&amp;E News.',
-    // the layers fade one by one: Argo floats, then the weather stations north of the Arctic Circle
-    views:[ { center:[20, 52], zoom:0.9, layers:{ st_low:1, st_arctic:1, argo:1 } },
-            { center:[20, 52], zoom:0.9, layers:{ st_low:1, st_arctic:1, argo:0 } },
-            { center:[20, 52], zoom:0.9, layers:{ st_low:1, st_arctic:0, argo:0 } } ] },
+    // the countries pulling back (the US, Russia, Ukraine, and Finland, Sweden and Denmark, the EU members of the
+    // Arctic Council): their station lights flicker; the rest of the world's stations stay faint. Framed so the US,
+    // Europe and Russia are all in view (the author, 5 Oct)
+    views:[ { center:[-20, 70], zoom:0.84, layers:{ st_flicker:1 } } ] },
 
   { id:'end', act:'VI · Closing the gaps',
     title:'There can be no gaps in the weather machine',
     text:['Climate change threatens every nation’s security, and it hits hardest where the sensors are fewest. The world’s highest court calls it “an existential problem of planetary proportions”. The Cold War moved rivals to build this machine together. This threat is greater.',
           'Every forecast on Earth runs on one machine. No country can see the storm coming alone.'],
-    below:{ legend:['stations','sats_shell','argo','gaugegap','coldspots'], end:['Weather stations.','Rain gauges.','River gauges.','Radiosondes.','Collective Planetary Stewardship.'] },
+    below:{ legend:['stations','sats_shell','argo','coldspots'], end:['Weather stations.','Rain gauges.','River gauges.','Radiosondes.','Collective Planetary Stewardship.'] },
     source:'International Court of Justice, advisory opinion, 23 Jul 2025 (quoted via UNRIC and the UK Human Rights Blog).',
     // every layer on; the gap cells (land and ocean) breathe; it arrives close on Africa and pulls slowly out
-    views:[ { center:[6, 14], zoom:0.82, zoomFrom:2.2, slow:9000, pulse:['gaugegap','coldspots'],
-              layers:{ stations:1, argo:1, sats_shell:1, gaugegap:0.5, coldspots:0.6 } } ] }
+    views:[ { center:[6, 14], zoom:0.82, zoomFrom:2.2, slow:9000, pulse:['coldspots'],
+              layers:{ stations:1, argo:1, sats_shell:1, coldspots:0.6 } } ] },
+
+  // the last slide, on its own (the author, 5 Oct): four places to go next, the empty globe turning slowly
+  { id:'resources', act:'VI · Closing the gaps',
+    title:'Help close the gaps',
+    below:{ legend:false, links:[
+      { label:'Learn', name:'Early Warnings for All', url:'https://wmo.int/activities/early-warnings-all',
+        what:'The UN plan to cover everyone on Earth with early warnings by the end of 2027.' },
+      { label:'Build', name:'TAHMO', url:'https://tahmo.org',
+        what:'More than 600 low-cost weather stations in over 20 African countries, aiming for 20,000.' },
+      { label:'Donate', name:'Practical Action', url:'https://practicalaction.org/donate/',
+        what:'Builds community flood warnings; in Nepal since 2002.' },
+      { label:'Volunteer', name:'Humanitarian OpenStreetMap Team', url:'https://tasks.hotosm.org',
+        what:'Map buildings for disaster response. After Idai, volunteers mapped over 200,000.' } ] },
+    source:'WMO; TAHMO, via TU Delft and METER Group; Practical Action; HOT (Cyclone Idai response, 2019).',
+    views:[ { center:[14, 8], zoom:0.84, spin:4, layers:{} } ] }
 ];
 
 // ---------------------------------------------------------------------------
@@ -844,6 +861,10 @@ function START(){
       h+='<div class="wm-readout sweep"><b data-year="sweep">1970</b><span data-count="sweep"></span></div>';
     if(b.events) h+=eventsHTML(b.events);
     if(b.dial) h+=dialHTML(b.dial);
+    if(b.links) h+='<div class="wm-links">'+b.links.map(x=>'<a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+
+      '<span class="wm-label">'+esc(x.label)+'</span><span class="name">'+esc(x.name)+
+      ' <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 10L10 3M4.5 3H10v5.5"/></svg></span>'+
+      '<span class="what">'+esc(x.what)+'</span></a>').join('')+'</div>';
     if(b.note) h+='<span class="wm-note">'+esc(b.note)+'</span>';
     if(s.module) h+='<span class="wm-note">The '+esc(s.module)+' section will carry this slide; it is built in a later step.</span>';
     h+='</div>';
@@ -1155,6 +1176,8 @@ function START(){
   }
 
   // plain dots: one small circle each, drawn normally. ~9,000 of them, cheap.
+  const FLICKER=[1600,70, 90,60, 70,380, 900,110, 60,70, 50,900, 1300,60, 120,240, 70,60, 2200,500, 160,80, 60,1200];
+  const FLICKER_LEN=FLICKER.reduce((a,b)=>a+b,0);
   function drawPoints(key,cfg,alpha){
     const arr=L[key], c=proj.rotate(), ctr=[-c[0],-c[1]];
     if(cfg.square){                                         // one square per cell, sized like the density grids
@@ -1167,6 +1190,17 @@ function START(){
     // grow gently with zoom (fourth root) so close-ups don't turn into blobs
     const g=Math.min(2.6,Math.max(0.6,Math.pow(proj.scale()/520,0.25)));
     const r=Math.max(0.5,(cfg.dot===undefined?1.3:cfg.dot)*g*SETTINGS.dotScale);
+    if(cfg.flicker && !reduce){
+      // a failing bulb: every light switches on and off together, abruptly, in an irregular Morse-like rhythm of
+      // long and short bursts (ms; even entries on, odd entries off); off leaves a faint ghost of each dot
+      const P=FLICKER, t=performance.now()%FLICKER_LEN; let k=0, acc=0; while(acc+P[k]<=t){ acc+=P[k]; k++; }
+      ctx.fillStyle=cfg.color; ctx.globalAlpha=alpha*(k%2===0 ? 1 : 0.07);
+      ctx.beginPath();
+      for(let i=0;i<arr.length;i+=2){ const lo=arr[i],la=arr[i+1];
+        if(d3.geoDistance([lo,la],ctr)>1.5533) continue; const xy=proj([lo,la]); if(!xy) continue;
+        ctx.moveTo(xy[0]+r,xy[1]); ctx.arc(xy[0],xy[1],r,0,6.2832); }
+      ctx.fill(); ctx.globalAlpha=1; return;
+    }
     ctx.fillStyle=cfg.color; ctx.globalAlpha=alpha*(cfg.alpha===undefined?0.95:cfg.alpha);
     ctx.beginPath();
     for(let i=0;i<arr.length;i+=2){
@@ -1468,6 +1502,7 @@ function START(){
     for(const k in LAYERS){
       if(ISPT[k]==='tracks' && (cur.a[k]||0)>0.02 && LAYERS[k].animate!==false) anim=true;
       if(ISPT[k]==='timeline' && (cur.a[k]||0)>0.02) sweeping=true;
+      if(LAYERS[k].flicker && (cur.a[k]||0)>0.02) anim=true;
     }
     if(sweeping){ sweepT=reduce?1:Math.min(1,sweepT+0.0018); if(!reduce) anim=true; }
     if(!sweeping) sweepT=0;

@@ -16,6 +16,9 @@ af_decay Slide 19: Africa's weather stations on 0.5-degree land cells (GHCN-Dail
          the first year any of its stations reports and the last year any does (y0, y); the slide lights a
          cell between the two as a year counter runs 1970 to 2025. A cell going dark means its records stop
          reaching the global archive, not necessarily that its stations closed (docs/NOTES.md, Menne 2012).
+st_flicker  "Yet the world is pulling back": the 0.5-degree cells with a weather station reporting in 2024 or later
+         in the countries the slide names (the United States, Russia, Ukraine, and Finland, Sweden and Denmark,
+         the EU members of the Arctic Council). The slide makes them flicker: illustrative, not real outages.
 st_low, st_arctic  Slide 21: the base weather-station grid (0.5 degrees) split at the Arctic Circle
          (66.56 N), so the Arctic stations can fade on their own. Together they are the base layer exactly.
 """
@@ -78,6 +81,20 @@ def af_decay():
             "from": 1970, "to": 2025}
 
 
+FLICKER = ("United States", "Russia", "Ukraine", "Finland", "Sweden", "Denmark")
+
+
+def st_flicker():
+    cells, n = set(), {}
+    for r in csv.DictReader(open(PROC / "ghcnd-stations-with-age.csv")):
+        c = r["country_name"]
+        if c not in FLICKER or int(r["last_year"] or 0) < 2024: continue
+        cells.add((int((float(r["lon"]) + 180) // 0.5), int((float(r["lat"]) + 90) // 0.5))); n[c] = n.get(c, 0) + 1
+    keys = sorted(cells)
+    print(f"st_flicker: {len(keys)} cells of 0.5 degrees, stations reporting 2024+: " + ", ".join(f"{k} {v}" for k, v in n.items()))
+    return {"type": "points", "xy": [v for (i, j) in keys for v in (round(i * 0.5 - 180 + 0.25, 2), round(j * 0.5 - 90 + 0.25, 2))]}
+
+
 def stations_split():
     sys.path.insert(0, str(ROOT / "scripts"))
     from regrid_layers import decode, encode, cell
@@ -95,7 +112,7 @@ def stations_split():
 def main():
     OUT.parent.mkdir(parents=True, exist_ok=True)
     low, arc = stations_split()
-    extra = {"storms": storms(), "af_decay": af_decay(), "st_low": low, "st_arctic": arc}
+    extra = {"storms": storms(), "af_decay": af_decay(), "st_low": low, "st_arctic": arc, "st_flicker": st_flicker()}
     OUT.write_text(json.dumps(extra, separators=(",", ":")))
     print(f"wrote {OUT.relative_to(ROOT)}  {OUT.stat().st_size/1e6:.2f} MB")
 

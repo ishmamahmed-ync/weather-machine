@@ -16,7 +16,7 @@ const URL = process.argv[2];
     let r = await p.evaluate(() => ({ yr: document.querySelector('#slide [data-year="sweep"]').textContent, n: document.querySelector('#slide [data-count="sweep"]').textContent }));
     check(`${w}x${h} not enough: the counter ends in 2025 with 399 African cells reporting`, r.yr === '2025' && /^399 cells/.test(r.n), JSON.stringify(r));
 
-    for (const n of [0, 1, 2]) {
+    for (const n of [0]) {   // one view since 5 Oct: the flicker replaces the fade sequence
       await go(p, 'fraying', n); await p.waitForTimeout(900);
       const a = await p.evaluate(() => [...document.querySelectorAll('#slide .wm-events li')].length);
       if (n === 0) check(`${w}x${h} pulling back: the timeline has 6 dated events`, a === 6, a);
@@ -39,6 +39,13 @@ const URL = process.argv[2];
     r = await p.evaluate(() => ({ end: [...document.querySelectorAll('#slide .end .wm-quote')].map(x => x.textContent).join(' '), view: WMSTORY.view() }));
     check(`${w}x${h} the end: the end card, the whole globe`, r.end === 'Weather stations. Rain gauges. River gauges. Radiosondes. Collective Planetary Stewardship.' && Math.abs(r.view.zoom - 0.82) < 0.01, JSON.stringify(r));
     check(`${w}x${h} the end fits on screen`, await bottom() <= h - 8, await bottom());
+
+    // the last slide: four link cards, each opening in a new tab
+    await go(p, 'resources'); await p.waitForTimeout(900);
+    r = await p.evaluate(() => [...document.querySelectorAll('#slide .wm-links a')].map(a => [a.querySelector('.wm-label').textContent, a.href, a.target]));
+    check(`${w}x${h} help close the gaps: Learn, Build, Donate, Volunteer, each a link out in a new tab`,
+      r.map(x => x[0]).join() === 'Learn,Build,Donate,Volunteer' && r.every(x => /^https:\/\//.test(x[1]) && x[2] === '_blank'), JSON.stringify(r));
+    check(`${w}x${h} help close the gaps fits on screen`, await bottom() <= h - 8, await bottom());
     await ctx.close();
   }
 

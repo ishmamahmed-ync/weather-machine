@@ -348,3 +348,13 @@ narration was shortened to one line by the author, and the descriptions are cut 
   browser skipped the rules after them up to the next comment's end (the end card's short-screen rule, the
   timeline legend rule, the stats layout). All style blocks were scanned; none is left open.
 
+
+**More edits (5 Oct 2026, late).** The rain-gauge gap layer is off "We can afford to fix it" and the end slide (the
+author: too heavy). "Yet the world is pulling back": the narration ends at "...suspended cooperation with Russia";
+the globe is tilted towards the pole so the US, Europe and Russia show together; the station lights of the countries
+it names flicker (`st_flicker`: 4,437 cells of 0.5° with a GHCN-Daily station reporting in 2024 or later in the US,
+Russia, Ukraine, and Finland, Sweden and Denmark, the EU members of the Arctic Council). The flicker is illustrative
+and the slide's note says so. "Beyond people": animal counts in red, grid figures in orange; the closing line is now
+"The damage cascades: lost herds and a broken grid keep costing families long after the water goes down."
+
+**Flicker revised (5 Oct 2026, late):** all the lights switch on and off together, abruptly, in an irregular Morse-like rhythm (a failing bulb); off leaves a faint ghost. The faint layer of all other stations was removed from that slide so the flicker reads, including over the dense US.

@@ -305,6 +305,10 @@ FIGURES = [
      "Reuters, 22 Mar 2022 [W-5]; Scientific American / E&E News [W-7]", None),
     (25, "'an existential problem of planetary proportions' (ICJ)", "-", "cited",
      "ICJ advisory opinion, 23 Jul 2025 [E-63][E-64] (quote via [E-65]; check the opinion's own text)", None),
+    (26, "TAHMO: more than 600 stations in over 20 African countries, aiming for 20,000", 600, "cited",
+     "TU Delft; METER Group case study", None),
+    (26, "HOT volunteers mapped over 200,000 buildings after Idai", 200000, "cited",
+     "HOT, 'Maps in action: how maps help the aid response for Cyclone Idai'; OSM wiki, Cyclone Idai", None),
 ]
 
 

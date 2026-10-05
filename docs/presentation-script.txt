@@ -1,0 +1,111 @@
+THE GAPS IN THE WEATHER MACHINE: presentation script
+Studio presentation, about 8 minutes (about 1,100 words at a calm pace). Every figure matches the website as of 5 October 2026.
+Stage directions are in (brackets). Press Space to move to the next slide.
+
+
+[Slide 1 : The Gaps in the Weather Machine]
+
+For most of history, we guessed at the weather. Today, recorded disasters have risen nearly fivefold in fifty years, yet deaths have fallen almost threefold. The reason is early warning: we can see the storm coming. Our project asks what makes that possible, and who gets left out of it.
+
+[Slide 2 : The weather machine]
+
+Every forecast you check is built from millions of measurements taken around the world. Together they make up what we call the weather machine. It starts on the ground, with 132,501 weather stations in the global archive. (The globe fills in decade by decade.)
+
+[Slide 3 : The weather machine]
+
+From the 1960s, satellites joined. 439 Earth-observing satellites are in operation today.
+
+[Slide 4 : The weather machine]
+
+From the 1990s, Argo floats began to measure the ocean: more than three million profiles from 20,530 floats.
+
+[Slide 5 : The weather machine]
+
+And on land, 221,483 rain gauges share their records. The machine runs on sharing. Even the United States takes in three times as much weather data as it sends out. No country forecasts alone.
+
+[Slide 6 : The Gaps]
+
+But the machine is not evenly built. The United States has 78,567 weather stations, 59% of all on Earth. Africa has more than three times the land and 2,119 stations. The US and the EU share 636 weather radars among 1.1 billion people. Africa has 37 for 1.2 billion.
+
+[Slide 7 : The Gaps]
+
+The ocean has gaps too. Floats drift with the currents and miss shelves, enclosed seas and ice. One of these cold spots is the Mozambique Channel, which gets a third of the global average of Argo profiles. Remember this place.
+
+[Slide 8 : The Gaps: Cell by cell]
+
+Here we rebuilt a figure from a 2026 Nature paper, using its published data. Every square is one degree of land, measured against the WMO minimum for its terrain. (Click a square.) Only 13.4% of the world's land meets the standard. Europe has 2.4 gauges per 1,000 square kilometres. Africa has 0.09.
+
+[Slide 9 : What happens when we can't predict what's coming]
+
+So what does a gap cost? Our case study is Cyclone Idai in Mozambique. (Let the track draw in.) This is Idai's real track: it formed over Malawi, drifted out into that same under-measured Channel, strengthened, and turned back towards the coast.
+
+[Slide 10 : Mozambique, 2019]
+
+Mozambique is one of the world's least developed countries, and among the most exposed to climate change. Over 60% of its people live in low-lying coastal areas. Just 19 of its weather stations reach the global archive, and much of the water that floods its rivers falls in its neighbours' highlands.
+
+[Slide 11 : One season, three storms]
+
+In January 2019, Tropical Storm Desmond brought severe flooding. 52 days later came Idai. 42 days after that, Kenneth. Mozambique had never been hit by so many cyclones in one season.
+
+[Slide 12 : The storm was expected. The flood was not.]
+
+This is the key point. Forecasters saw Idai coming five days ahead, and warnings went out. The flood was another matter. Idai dumped torrential rain over Zimbabwe, and the rivers carried it back down. (The flood layer rises.) The Pungwe–Buzi plain became an inland sea. Seeing a storm takes satellites. Knowing what its rain will do takes gauges on the ground.
+
+[Slide 13 : Before and after]
+
+(Drag the handle.) The same plain, from satellite, on 24 February and 21 March 2019. The dark blue is water.
+
+[Slide 14 : Idai in numbers]
+
+1.85 million people affected. 603 deaths in Mozambique, more than 1,000 across three countries. 122,700 houses destroyed. 400,000 people in shelters. The map is central Beira: 8,705 buildings graded from satellite images, red for destroyed.
+
+[Slide 15 : Beyond people]
+
+The losses kept spreading. More than 124,000 birds, 10,305 sheep and goats, 5,428 cows and 3,191 pigs were killed: about 3.1 million dollars, in places where families depend on their animals.
+
+[Slide 16 : Beyond people]
+
+And the power everything else runs on: 1,345 kilometres of transmission lines, 3,990 transformers, 30 substations. A flood doesn't stop at the people it kills.
+
+[Slide 17 : Who lives and who dies]
+
+Idai is not an exception. Since 2016, Africa has had 27% of recorded flood deaths, and Europe 1.5%. Count the damage in dollars and it flips: Europe 20.2%, Africa 2.9%. If you measure disasters in money, you look in the wrong place.
+
+[Slide 18 : How about the place you were born?]
+
+So we made it personal. (Type a country and a birth year, for example Bangladesh and 2000.) Since 2000, floods there have killed 3,581 people and affected 114 million. The bars compare it with any other country, on one scale. Try your own after the presentation.
+
+[Slide 19 : The frontlines are responding]
+
+But this is not only a story of loss. The places least responsible for climate change are not waiting. In Malawi, river sensors now give families up to 72 hours' warning. In Bangladesh, more than 70,000 volunteers spread cyclone warnings by megaphone and door to door. (Press Next to show one or two more.) There are 23 stories here, each linked to its source.
+
+[Slide 20 : What can we do to support them?]
+
+(Pause.) So what can we do to support them?
+
+[Slide 21 : We know what works]
+
+We know what works. In the UN Secretary-General's words, disaster deaths are at least six times lower in countries with good early-warning systems. Yet about 90 countries still haven't reported one.
+
+[Slide 22 : But where it matters most, the sensors are missing]
+
+And early warning depends on measurement. The poorest countries deliver 9% of the surface data WMO requires. African weather-balloon reports reaching global models fell by half from 2015 to 2020. (Watch the counter.) In 1980, 1,003 cells across Africa had a station reporting to the global archive. Today, 399. Stations get installed, then fall silent, because nobody pays to keep them running.
+
+[Slide 23 : We can afford to fix it]
+
+The fix is not expensive. The UN fund for these missing observations is seeking 400 million dollars. The world spends that on its militaries in about an hour and thirteen minutes. Every dollar invested returns more than 25.
+
+[Slide 24 : Yet the world is pulling back]
+
+Yet the world is moving the other way. The US is launching fewer weather balloons, suspended its famine-warning system, and has proposed cutting its weather agency by a quarter. War has cost Ukraine a quarter of its observing network. It is erosion, not collapse, but a lost year of records can never be measured again.
+
+[Slide 25 : There can be no gaps in the weather machine]
+
+During the Cold War, rivals built this machine together. Climate change is a greater threat, and it hits hardest where the sensors are fewest. Every forecast on Earth runs on one machine, and no country can see the storm coming alone. Thank you.
+
+
+---
+Notes for questions (not to read aloud)
+- Data: GHCN-Daily, Argo, IBTrACS, Su et al. (Nature 2026), Copernicus EMS, EM-DAT, IDMC; every source is on its slide.
+- Method: one shared globe; land at 0.5°, ocean at 1°; a script re-checks 57 figures on the site against the data or the cited source.
+- Caveats: the Arctic fade on slide 24 is illustrative; the animal and power-grid figures are "source to come" (likely Mozambique's 2019 Post-Disaster Needs Assessment).
