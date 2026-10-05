@@ -1,0 +1,9 @@
+{
+  "name": "weather-machine-tests",
+  "private": true,
+  "description": "Test tools only: jsdom and Playwright check the built pages. The site itself needs none of this.",
+  "devDependencies": {
+    "jsdom": "^30.1.2",
+    "playwright": "^1.63.0"
+  }
+}

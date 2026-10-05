@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Idai</title>
+<style>
+  :root{
+    --bg:#05080E; --text:#ECEAE5; --muted:#8B95A1; --faint:#5C6773; --line:rgba(236,234,229,.55);
+    --red:#E8433F; --yellow:#F2C744; --orange:#F29A3A; --flood:#7DB4D1; --track:#9DBBC9;
+    --sans:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+    --disp:"Space Grotesk","IBM Plex Sans",system-ui,sans-serif;
+    --serif:Georgia,"Times New Roman",serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-snap-type:y mandatory; scroll-behavior:smooth}
+  body{margin:0; background:var(--bg); color:var(--text); font:16px/1.55 var(--sans)}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+
+  /* ---------- fixed layers ---------- */
+  .photos{position:fixed; inset:0; z-index:0}
+  .photos div{position:absolute; inset:0; background:center/cover no-repeat; opacity:0; transform:scale(1.04);
+    transition:opacity 1.1s ease, transform 7s ease-out}
+  .photos div.on{opacity:1; transform:scale(1)}
+  .maps{position:fixed; inset:0; z-index:1; opacity:0; transition:opacity .9s ease; pointer-events:none}
+  .maps.on{opacity:1}
+  .maps.ui{z-index:4}
+  #stage{position:fixed; inset:0; width:100%; height:100%; display:block; pointer-events:none; z-index:2}
+  .lbl .dot{position:absolute; left:-11.5px; top:50%; width:7px; height:7px; margin-top:-3.5px; border-radius:50%; background:#ECEAE5}
+  .lbl.town.l .dot{left:auto; right:-11.5px}
+  .maps canvas{position:absolute; inset:0; width:100%; height:100%}
+  .shade{position:fixed; inset:0; z-index:2; pointer-events:none; transition:opacity .6s;
+    background:linear-gradient(90deg, rgba(5,8,14,.92) 0%, rgba(5,8,14,.72) 30%, rgba(5,8,14,.15) 62%, rgba(5,8,14,0) 100%),
+               radial-gradient(circle at 90% 15%, rgba(5,8,14,.8) 0, rgba(5,8,14,0) 26%)}
+  body.mapmode .shade{opacity:0}
+
+  /* map labels, NYT-style: spaced caps for countries, italic serif for water, plain for towns */
+  .lbl{position:absolute; transform:translate(-50%,-50%); white-space:nowrap; pointer-events:none; z-index:3}
+  .lbl.cty{font:500 12px var(--sans); letter-spacing:.32em; text-transform:uppercase; color:#6F7884}
+  .lbl.big{font:500 15px var(--sans); letter-spacing:.38em; text-transform:uppercase; color:#8B95A1}
+  .lbl.sea{font:italic 14px var(--serif); color:#5F8FA8}
+  .lbl.town{font:500 13px var(--sans); color:#C9C6BF; transform:translate(8px,-50%)}
+  .lbl.town.l{transform:translate(calc(-100% - 8px),-50%)}
+  .lbl.town b{font-weight:600; color:var(--text); font-size:15px}
+  .lbl.note{font:400 12.5px/1.35 var(--sans); color:#C9C6BF; transform:translate(10px,-50%)}
+  .lbl.note.l{transform:translate(calc(-100% - 10px),-50%); text-align:right}
+  .lbl.note b{font-weight:600; color:var(--text)}
+  .lbl.key{transform:none; font:400 13px/1.4 var(--sans); color:#C9C6BF}
+  .lbl.key b{display:block; font:600 14px var(--sans); color:var(--flood)}
+  .lbl.pending{opacity:0}
+  .lbl{transition:opacity .5s}
+  .catkey{position:absolute; z-index:3; display:flex; flex-wrap:nowrap; white-space:nowrap; align-items:center; gap:6px 12px;
+    font:500 11px var(--sans); color:#C9C6BF}
+  .catkey .ttl{font:600 10px var(--sans); letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-right:4px}
+  .catkey span{display:flex; align-items:center; gap:6px}
+  .catkey i{width:16px; height:4px; display:inline-block; border-radius:1px}
+  .catkey i.td{background:repeating-linear-gradient(90deg,#6F7884 0 3px,transparent 3px 6px)}
+  .legend{position:absolute; display:flex; gap:16px; font:500 12px var(--sans); color:#C9C6BF; z-index:3}
+  .legend span{display:flex; align-items:center; gap:7px}
+  .legend i{width:13px; height:13px; display:inline-block}
+  .scale{position:absolute; z-index:3; font:500 11px var(--sans); color:#C9C6BF; border-top:1px solid #C9C6BF; padding-top:4px; text-align:right}
+  .msrc{position:absolute; z-index:3; font:400 11px/1.4 var(--serif); color:#8B95A1; max-width:62ch; background:rgba(5,8,14,.84); padding:4px 8px}
+
+  /* before / after slider */
+  .slider{position:fixed; z-index:3; display:none; touch-action:none}
+  .slider.on{display:block}
+  .slider img{position:absolute; inset:0; width:100%; height:100%; display:block; user-select:none; -webkit-user-drag:none}
+  .slider .after{clip-path:inset(0 0 0 50%)}
+  .slider .bar{position:absolute; top:0; bottom:0; width:2px; margin-left:-1px; background:var(--text); left:50%; cursor:ew-resize}
+  .slider .knob{position:absolute; top:50%; left:50%; width:34px; height:34px; margin:-17px 0 0 -17px; border-radius:50%;
+    background:var(--text); color:#0B111A; display:flex; align-items:center; justify-content:center; font:600 14px var(--sans);
+    cursor:ew-resize}
+  .slider .tag{position:absolute; top:12px; font:600 10.5px var(--sans); letter-spacing:.1em; text-transform:uppercase;
+    background:rgba(5,8,14,.75); padding:.3rem .55rem; color:var(--text)}
+  .slider .tag.l{left:12px} .slider .tag.r{right:12px}
+
+  /* globe: the NYT locator globe, in black */
+  .gcap{position:fixed; z-index:4; right:3vw; font:600 10px var(--sans); letter-spacing:.12em; text-transform:uppercase;
+    color:var(--muted); text-align:right; opacity:0; transition:opacity .6s}
+  .gcap.on{opacity:1}
+  .gcap b{color:var(--text); font-weight:600}
+
+  /* ---------- the scrolling text ---------- */
+  main{position:relative; z-index:5; pointer-events:none}
+  section{height:100vh; scroll-snap-align:start; display:flex; align-items:center; padding:0 6vw}
+  .txt{max-width:34ch; opacity:0; transform:translateY(18px); transition:opacity .8s ease .15s, transform .8s ease .15s; pointer-events:auto}
+  section.on .txt{opacity:1; transform:none}
+  body.mapmode section .txt{background:rgba(5,8,14,.84); border:1px solid #222C38; border-radius:3px; padding:1.7rem 1.85rem; margin-left:-1.85rem}
+  .txt p{font:400 clamp(1.3rem,2.05vw,2.05rem)/1.32 var(--disp); letter-spacing:-.012em; margin:0 0 .7em}
+  .txt p:last-child{margin-bottom:0}
+  .txt p.sm{font:400 clamp(.85rem,.95vw,.95rem)/1.5 var(--sans); letter-spacing:0; color:#A9AFB7}
+  .txt .k{font:600 11px var(--sans); letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:1.1rem; display:block}
+  .txt h1{font:400 clamp(3rem,7vw,6.5rem)/.95 var(--disp); letter-spacing:-.035em; margin:0 0 2.5vh}
+  .stats{display:grid; gap:2.2vh 2.4vw; grid-template-columns:repeat(2,minmax(0,auto)); margin-top:.4rem}
+  .stats.one{grid-template-columns:1fr}
+  .stats div b{display:block; font:500 clamp(1.9rem,3.6vw,3.6rem)/1 var(--disp); letter-spacing:-.025em; white-space:nowrap}
+  .stats div b small{font-size:.5em; margin-left:.12em; letter-spacing:0}
+  section .txt:has(.stats){max-width:52ch}
+  .stats div span{display:block; color:#C9C6BF; font-size:clamp(.85rem,1vw,1rem); margin-top:.35rem; max-width:24ch}
+  .stats b.r{color:var(--red)} .stats b.y{color:var(--yellow)}
+  .beats{display:grid; gap:1.4vh; margin:0 0 2.4vh}
+  .beats div{font:400 clamp(1rem,1.25vw,1.25rem)/1.4 var(--disp); color:#D9D6CF}
+  .beats b{display:block; font:600 10.5px var(--sans); letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:.15rem}
+  .stats.six{grid-template-columns:repeat(2,minmax(0,1fr)); gap:2vh 2vw}
+  .stats.six div b{font-size:clamp(1.5rem,2.6vw,2.6rem)}
+  .stats.six div span{font-size:clamp(.78rem,.9vw,.9rem)}
+  body.herophoto .shade{background:linear-gradient(90deg, rgba(5,8,14,.9) 0%, rgba(5,8,14,.7) 35%, rgba(5,8,14,.55) 100%)}
+  .hint{margin-top:5vh; font:600 10px var(--sans); letter-spacing:.12em; text-transform:uppercase; color:var(--faint)}
+  .count{position:fixed; z-index:5; left:6vw; bottom:4vh; font:500 .78rem var(--sans); color:var(--faint); letter-spacing:.08em}
+  .credit{position:fixed; z-index:5; right:3vw; bottom:3vh; font-size:.7rem; color:rgba(236,234,229,.55); max-width:44ch; text-align:right}
+  @media (max-width:760px){ .shade{background:linear-gradient(0deg, rgba(5,8,14,.92) 0, rgba(5,8,14,.55) 55%, rgba(5,8,14,.2) 100%)}
+    section{align-items:flex-end; padding:0 20px 14vh} }
+</style>
+</head>
+<body>
+<div class="photos" id="photos"></div>
+<div class="slider" id="slider">
+  <img class="before" id="sBefore" alt="Satellite image, 24 February 2019">
+  <img class="after" id="sAfter" alt="Satellite image, 21 March 2019">
+  <div class="tag l">24 Feb 2019</div><div class="tag r">21 Mar 2019</div>
+  <div class="bar" id="sBar"></div><div class="knob" id="sKnob">&#8596;</div>
+</div>
+<div class="shade"></div>
+<canvas id="stage"></canvas>
+<div class="maps ui" id="mapui"></div>
+<div class="gcap" id="gcap"></div>
+<main id="story"></main>
+<div class="count" id="count"></div>
+<div class="credit" id="credit"></div>
+
+__D3__
+<script id="DATA">const DATA = __DATA__;</script>
+<script>
+// ---------------------------------------------------------------------------
+// THE STORY. One entry per screen. Edit the text here.
+//   photo  : file in photos/ ('' = none)        credit : shown bottom right
+//   map    : 'track' | 'flood' | 'slider' | 'damage'  (full-screen map instead of a photo)
+//   globe  : 'hero' | 'inset'; storms: tracks to draw (first is drawn in); k: lens zoom
+// ---------------------------------------------------------------------------
+const SLIDES = [
+  { photo:"photos/aerial-floodplain.jpg", credit:"", globe:'hero', storms:[],
+    html:`<span class="k">Mozambique, 2019</span><h1>Idai</h1>
+          <p>Mozambique is one of the least developed countries in the world, and one of the most exposed to climate change.</p>
+          <div class="hint">Scroll or press space</div>` },
+  { photo:"photos/aerial-floodplain.jpg", credit:"", globe:'inset', k:2.8, storms:[],
+    html:`<p>More than 60% of its people live in low-lying coastal areas.</p>` },
+  { map:'season', credit:"Tracks: IBTrACS v04 (NOAA NCEI)",
+    html:`<span class="k">One season, three storms</span>
+          <div class="beats">
+            <div><b>21 January 2019</b>Tropical Storm Desmond makes landfall, causing severe flooding.</div>
+            <div><b>51 days later</b>Idai, a Category 4 cyclone.</div>
+            <div><b>42 days after that</b>Cyclone Kenneth, also Category 4.</div>
+          </div>
+          <p>Mozambique had never been hit by so many tropical cyclones in a single season. Climate change was no longer intangible.</p>` },
+  { map:'flood', credit:"Flood extent: UNOSAT, via the Humanitarian Data Exchange",
+    html:`<span class="k">14 March 2019</span>
+          <p>Cyclone Idai made landfall near the port city of Beira. It was the deadliest natural disaster in southern Africa in nearly two decades.</p>
+          <p class="sm">Blue: land that flooded between 13 and 20 March, seen by radar. The plain between the Pungwe and Buzi rivers became an inland sea.</p>` },
+  { map:'slider', credit:"Images: NASA MODIS (Aqua), via NASA GIBS. Public domain.",
+    html:`<span class="k">Before and after</span>
+          <p>Drag the handle: the same plain on 24 February and on 21 March.</p>
+          <p class="sm">False colour: water is dark blue, vegetation green, cloud cyan. Each pixel is 250&nbsp;m.</p>` },
+  { map:'damage', credit:"Map: building damage in Beira, &copy; European Union, Copernicus EMS (EMSR348)",
+    html:`<span class="k">Idai in numbers</span>
+          <div class="stats six">
+            <div><b class="y">1.85<small>million</small></b><span>people affected</span></div>
+            <div><b class="r">603</b><span>deaths, the official toll</span></div>
+            <div><b>122,700</b><span>houses destroyed</span></div>
+            <div><b>111,200</b><span>houses partially destroyed</span></div>
+            <div><b>77</b><span>health facilities severely damaged</span></div>
+            <div><b>400,000</b><span>displaced people in shelters, most with poor access to basic services</span></div>
+          </div>
+          <p class="sm" style="margin-top:2vh">Map: in Beira alone, satellite analysts graded 16,333 damaged buildings.</p>` },
+  { photo:"photos/drowned-cow.jpg", credit:"", globe:'inset', k:4.2, storms:['idai'], beira:true, cap:'Beyond people',
+    html:`<span class="k">Beyond people</span>
+          <div class="stats"><div><b>124,498</b><span>birds</span></div><div><b>10,305</b><span>sheep and goats</span></div>
+            <div><b>5,428</b><span>cows</span></div><div><b>3,191</b><span>pigs</span></div></div>
+          <p class="sm" style="margin-top:2.4vh">were killed: about US$3.1 million in losses.</p>` },
+  { photo:"photos/pylons-floodwater.jpg", credit:"", globe:'inset', k:4.2, storms:['idai'], beira:true, cap:'The grid',
+    html:`<span class="k">In the energy sector</span>
+          <div class="stats"><div><b>1,345<small>km</small></b><span>of transmission lines</span></div><div><b>10,216<small>km</small></b><span>of distribution lines</span></div>
+            <div><b>3,990</b><span>transformers</span></div><div><b>30</b><span>substations</span></div></div>
+          <p class="sm" style="margin-top:2.4vh">were damaged.</p>` }
+];
+const SAT = { before:"maps/modis-721-2019-02-24.jpg", after:"maps/modis-721-2019-03-21.jpg" };
+</script>
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const dpr = Math.min(devicePixelRatio || 1, 2), RAD = Math.PI / 180;
+
+  // ---------- sections and photo stack ----------
+  const story = $('story'), photos = $('photos');
+  const urls = [...new Set(SLIDES.map(s => s.photo).filter(Boolean))], layer = {};
+  urls.forEach(u => { const d = document.createElement('div'); d.style.backgroundImage = `url("${u}")`; photos.appendChild(d); layer[u] = d; });
+  SLIDES.forEach((s, i) => { const sec = document.createElement('section'); sec.dataset.i = i; sec.innerHTML = `<div class="txt">${s.html}</div>`; story.appendChild(sec); });
+  const secs = [...story.children];
+
+  // ---------- data, decoded once ----------
+  const dec = (a, sc) => { const out = []; let x = 0, y = 0; for(let i = 0; i < a.length; i += 2){ x += a[i]; y += a[i+1]; out.push([x / sc, y / sc]); } return out; };
+  const feat = polys => {
+    const coords = polys.map(p => p.map(r => r.map(([x, y]) => [x / 100, y / 100])));
+    coords.forEach(p => { if(d3.geoArea({type:'Polygon', coordinates:[p[0]]}) > 2 * Math.PI) p.forEach(r => r.reverse()); });
+    return { type:'Feature', geometry:{ type:'MultiPolygon', coordinates:coords } };
+  };
+  const world = Object.entries(DATA.world).map(([iso, p]) => Object.assign(feat(p), { id:iso }));
+  const region = Object.entries(DATA.region).map(([iso, p]) => Object.assign(feat(p), { id:iso }));
+  const moz = feat(DATA.moz), mozFine = region.find(f => f.id === 'MOZ');
+  const flood = DATA.flood.map(r => dec(r, 1e4));
+  const roads = DATA.roads.map(r => ({ rail:r[0], pts:dec(r.slice(1), 1e5) }));
+  const water = DATA.water.map(r => dec(r, 1e5)), coast = DATA.coast.map(r => dec(r, 1e5)), aoi = DATA.aoi.map(r => dec(r, 1e5));
+  const dmg = []; for(let i = 0; i < DATA.dmg.length; i += 3) dmg.push([DATA.dmg[i] / 1e5, DATA.dmg[i+1] / 1e5, DATA.dmg[i+2]]);
+  const track = n => ({ type:'LineString', coordinates:DATA.tracks[n].map(q => [q[0], q[1]]) });
+  // the main site's storm ramp (LAYERS.storms.ramp): tropical storm -> Category 5
+  const RAMP = ['#F5E06A','#F6C243','#F09A3E','#E8703E','#DC4340','#B81D2C'];
+  const catIdx = c => c === 'ts' ? 0 : c && c.startsWith('cat') ? +c.slice(3) : -1;      // -1: depression
+  // draw a track coloured by category, up to `frac` of its length (0..1), segment by segment
+  function catTrack(c, n, frac, w){
+    const t = DATA.tracks[n], segs = t.length - 1, upto = frac * segs;
+    for(let i = 0; i < segs && i < upto; i++){
+      const a = t[i], b = t[i + 1], f = Math.min(1, upto - i);
+      const end = [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f];
+      const k = Math.max(catIdx(a[3]), catIdx(b[3]));
+      c.beginPath(); path.context(c); path({ type:'LineString', coordinates:[[a[0], a[1]], end] }); path.context(ctx);
+      c.strokeStyle = k < 0 ? '#6F7884' : RAMP[k]; c.lineWidth = k < 0 ? w * .6 : w; c.setLineDash(k < 0 ? [3, 3] : []);
+      c.lineCap = 'round'; c.stroke(); c.setLineDash([]);
+    }
+  }
+  const SEASON = ['desmond', 'kenneth', 'idai'];          // drawn in this order
+  let seasonT = 1;
+
+  // ---------- one globe, one projection, every view ----------
+  // A view is { tx, ty, scale, center, clip }: where the globe's centre sits on screen, how big it
+  // is (pixels per radian), what it looks at, and the radius of the round lens (Infinity = no lens).
+  // Photo slides put the globe in the corner; map slides fly it to the middle and zoom in.
+  const cv = $('stage'), ctx = cv.getContext('2d');
+  const relief = null;      // flat land, the main site's original globe; no terrain texture to load
+  const proj = d3.geoOrthographic().clipAngle(90).precision(0.2), path = d3.geoPath(proj, ctx);
+  const sphere = { type:'Sphere' };
+  function graticule(v){
+    const step = v.scale < 900 ? 10 : v.scale < 6000 ? 2 : v.scale < 60000 ? 0.5 : 0.02;
+    if(step === 10) return d3.geoGraticule10();
+    const half = Math.min(80, Math.hypot(W, H) / v.scale / RAD), c = v.center;
+    return d3.geoGraticule().extent([[c[0] - half, Math.max(-89, c[1] - half)], [c[0] + half, Math.min(89, c[1] + half)]])
+      .step([step, step]).precision(step / 2)();
+  }
+  const BOX = { season:[28.5, -27, 54, -8], flood:DATA.satBox, slider:DATA.satBox, damage:DATA.dmgBox };
+  const INSET = 125;
+  let W = 0, H = 0, view = null, slide = null, tween = null, layerA = 0, trackT = 1, cache = null;
+
+  function frame(){ const L = innerWidth < 760 ? 0.04 : 0.40; return { x:W * L, y:H * 0.07, w:W * (0.97 - L), h:H * 0.80 }; }
+  function viewFor(s){
+    if(s.map){
+      const b = BOX[s.map], f = frame(), c = [(b[0] + b[2]) / 2, (b[1] + b[3]) / 2];
+      const sc = Math.min(f.w / ((b[2] - b[0]) * RAD * Math.cos(c[1] * RAD)), f.h / ((b[3] - b[1]) * RAD));
+      return { tx:f.x + f.w / 2, ty:f.y + f.h / 2, scale:sc, center:c, clip:Infinity };
+    }
+    if(s.globe === 'hero'){ const G = Math.min(H * 0.8, W * 0.46); return { tx:W - W * 0.07 - G / 2, ty:H / 2, scale:G / 2 * 0.96, center:[32, -12], clip:G / 2 }; }
+    return { tx:W - W * 0.03 - INSET, ty:H * 0.04 + INSET, scale:INSET * (s.k || 3), center:[35.5, -18.2], clip:INSET };
+  }
+  function apply(v){ proj.translate([v.tx, v.ty]).scale(v.scale).rotate([-v.center[0], -v.center[1]]); }
+  const kmPerPx = () => 6371 / proj.scale();
+
+  function draw(){
+    if(!view) return;
+    apply(view);
+    ctx.clearRect(0, 0, W, H);
+    const lens = isFinite(view.clip);
+    ctx.save();
+    if(lens){ ctx.beginPath(); ctx.arc(view.tx, view.ty, view.clip, 0, 6.2832); ctx.clip(); }
+    const zoomed = view.scale > 1500, lw = lens && view.clip < 200 ? 1.4 : 1, shaded = relief && relief.ok();
+    if(shaded) relief.draw(view);
+    else{ ctx.beginPath(); path(sphere); ctx.fillStyle = '#0B121B'; ctx.fill();          // LOOK.ocean
+          ctx.fillStyle = '#161D26'; for(const f of (zoomed ? region : world)){ ctx.beginPath(); path(f); ctx.fill(); } }   // LOOK.land
+    ctx.beginPath(); path(graticule(view)); ctx.strokeStyle = '#1F2A37'; ctx.lineWidth = .6; ctx.stroke();               // the lat/lon grid
+    ctx.beginPath(); path(zoomed ? mozFine : moz); ctx.fillStyle = 'rgba(236,234,229,.07)'; ctx.fill();               // Mozambique, a touch lighter
+    for(const f of (zoomed ? region : world)){ ctx.beginPath(); path(f); ctx.strokeStyle = '#242E3A'; ctx.lineWidth = .6; ctx.stroke(); }   // LOOK.coastline
+    ctx.beginPath(); path(zoomed ? mozFine : moz); ctx.strokeStyle = '#8B95A1'; ctx.lineWidth = .8 * lw; ctx.stroke();
+
+    // storm tracks on photo slides (the lens) and on the opening globe
+    if(slide && !slide.map && slide.storms){
+      slide.storms.forEach((n, i) => { ctx.globalAlpha = i === 0 ? 1 : .4; catTrack(ctx, n, i === 0 ? trackT : 1, 2.2 * lw); ctx.globalAlpha = 1; });
+    }
+    if(slide && slide.map === 'season' && layerA > 0){
+      // Desmond, then Kenneth, then Idai, each over a third of seasonT
+      SEASON.forEach((n, i) => { const f = Math.max(0, Math.min(1, seasonT * 3 - i)); if(f > 0) catTrack(ctx, n, f, 2.6); });
+    } else if(slide && slide.map && layerA > 0){
+      if(!cache || cache.key !== slide.map){                      // render ~24,000 flood shapes once, not every frame of the fade
+        cache = cache || { cv:document.createElement('canvas') };
+        cache.cv.width = W * dpr; cache.cv.height = H * dpr;
+        const c = cache.cv.getContext('2d'); c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, W, H);
+        layers(slide.map, c); cache.key = slide.map;
+      }
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = layerA; ctx.drawImage(cache.cv, 0, 0); ctx.restore();
+    }
+    ctx.restore();
+    if(lens && view.clip < view.scale * .98){ ctx.beginPath(); ctx.arc(view.tx, view.ty, view.clip - .5, 0, 6.2832); ctx.strokeStyle = 'rgba(236,234,229,.35)'; ctx.lineWidth = 1; ctx.stroke(); }
+    else { ctx.beginPath(); path(sphere); ctx.strokeStyle = '#242E3A'; ctx.lineWidth = 1; ctx.stroke(); }          // the main site's rim
+    if(slide && slide.globe === 'hero' && !tween){
+      label(ctx, 'AFRICA', [20, 5], view.clip / 16, '#5C6773');
+      label(ctx, 'MOZAMBIQUE', [36.8, -6.5], view.clip / 15, '#C9C6BF');
+    }
+  }
+  function label(c, text, ll, size, color){
+    const q = proj(ll); if(!q) return;
+    c.font = `500 ${Math.round(size)}px IBM Plex Sans, sans-serif`; c.fillStyle = color; c.textAlign = 'center'; c.textBaseline = 'middle';
+    if('letterSpacing' in c) c.letterSpacing = (size / 4) + 'px';
+    c.fillText(text, q[0], q[1]); if('letterSpacing' in c) c.letterSpacing = '0px';
+  }
+  function ring(pts, c){ pts.forEach((q, i) => { const v = proj(q); i ? c.lineTo(v[0], v[1]) : c.moveTo(v[0], v[1]); }); }
+
+  // ---------- the layers each map slide adds once the globe has arrived ----------
+  function layers(kind, c){
+    path.context(c);
+    if(kind === 'flood'){
+      c.beginPath(); for(const r of flood){ ring(r, c); c.closePath(); }
+      c.fillStyle = 'rgba(125,180,209,.92)'; c.fill('nonzero');          // passes overlap; nonzero keeps their union
+      c.beginPath(); path(track('idai')); c.strokeStyle = '#ECEAE5'; c.lineWidth = 2; c.stroke();
+    }
+    if(kind === 'damage'){
+      for(const r of water){ c.beginPath(); ring(r, c); c.closePath(); c.fillStyle = '#071019'; c.fill(); }
+      for(const r of coast){ c.beginPath(); ring(r, c); c.strokeStyle = '#3E5466'; c.lineWidth = 1; c.stroke(); }
+      for(const r of roads){ c.beginPath(); ring(r.pts, c); c.strokeStyle = r.rail ? '#3A424D' : '#262D36'; c.lineWidth = r.rail ? 1 : .8; c.setLineDash(r.rail ? [4, 3] : []); c.stroke(); }
+      c.setLineDash([]);
+      for(const r of aoi){ c.beginPath(); ring(r, c); c.closePath(); c.strokeStyle = 'rgba(236,234,229,.22)'; c.setLineDash([3, 4]); c.stroke(); }
+      c.setLineDash([]);
+      const col = { 1:'#56606C', 2:'#F29A3A', 3:'#E8433F' }, sz = { 1:2.2, 2:2.8, 3:3.6 };
+      for(const g of [1, 2, 3]){ c.fillStyle = col[g]; for(const d of dmg){ if(d[2] !== g) continue; const v = proj(d); c.fillRect(v[0] - sz[g] / 2, v[1] - sz[g] / 2, sz[g], sz[g]); } }
+    }
+    path.context(ctx);
+  }
+
+  // ---------- HTML labels, legends and the satellite slider, placed from the same projection ----------
+  const ui = $('mapui'), slider = $('slider');
+  function overlays(){
+    const s = slide, out = [], add = (cls, ll, txt, style) => { const v = proj(ll); if(v) out.push(`<div class="${cls}" style="left:${v[0]}px;top:${v[1]}px;${style || ''}">${txt}</div>`); };
+    const town = (n, side, big) => add('lbl town' + (side ? ' l' : ''), DATA.places[n], `<span class="dot"></span>${big ? '<b>' + n + '</b>' : n}`, 'text-shadow:0 1px 3px #05080E,0 0 6px #05080E');
+    const bar = km => { const f = frame(), px = km / kmPerPx(); out.push(`<div class="scale" style="left:${f.x + f.w - px - 8}px;top:${f.y + f.h + 6}px;width:${px}px">${km} km</div>`); };
+    const note = txt => { const f = frame(); out.push(`<div class="msrc" style="left:${f.x}px;top:${f.y + f.h + 14}px">${txt}</div>`); };
+    slider.classList.toggle('on', !!(s && s.map === 'slider' && !tween));
+    if(s && s.map && !tween){
+      if(s.map === 'season'){
+        const pend = n => seasonT * 3 >= SEASON.indexOf(n) + 1 ? '' : ' pending';
+        add('lbl note' + pend('kenneth'), DATA.tracks.kenneth[0], '<b>Kenneth</b><br>April 2019', '" data-st="kenneth');
+        add('lbl note' + pend('idai'), [43.1, -17.3], '<b>Idai</b><br>March 2019', 'transform:translate(10px,-120%)" data-st="idai');
+        add('lbl note l' + pend('desmond'), DATA.tracks.desmond[0], '<b>Desmond</b><br>January 2019', '" data-st="desmond');
+        const f = frame();
+        out.push(`<div class="catkey" style="left:${f.x + 14}px;top:${f.y + 6}px"><span class="ttl">Storm strength</span>` +
+          `<span><i class="td"></i>Depression</span>` + ['Tropical storm', 'Cat. 1', '2', '3', '4', '5'].map((t, k) => `<span><i style="background:${RAMP[k]}"></i>${t}</span>`).join('') + `</div>`);
+        [['MOZAMBIQUE', [37.6, -15.9], 'big'], ['MALAWI', [34.0, -12.6], 'cty'], ['ZIMBABWE', [30.0, -18.6], 'cty'],
+         ['MADAGASCAR', [46.0, -19.6], 'cty'], ['SOUTH AFRICA', [30.0, -25.2], 'cty'], ['TANZANIA', [36.0, -9.0], 'cty']].forEach(([t, ll, c]) => add('lbl ' + c, ll, t));
+        add('lbl sea', [41.2, -22.4], 'Mozambique Channel');
+        add('lbl town', DATA.places.Beira, '<span class="dot"></span><b>Beira</b>', 'transform:translate(-50%,-180%)');
+        bar(300); note('Storm tracks from IBTrACS, positions every 12 hours, coloured by Saffir-Simpson category at each position. Dashed grey: tropical depression.');
+      }
+      if(s.map === 'flood' || s.map === 'slider'){
+        town('Beira', '', true); town('Dondo'); town('Buzi'); town('Nhamatanda'); town('Mafambisse', 'l'); town('Tica'); town('Guara-Guara', 'l');
+        add('lbl sea', [35.0, -20.15], 'Mozambique<br>Channel', 'text-align:center');
+        if(s.map === 'flood'){
+          const f = frame(); out.push(`<div class="lbl key" style="left:${f.x + 16}px;top:${f.y + f.h - 70}px;background:rgba(5,8,14,.7);padding:6px 8px"><b>Areas that flooded</b>13&ndash;20 March 2019</div>`);
+          add('lbl note', [35.3, -19.7], '&larr; Path of the cyclone', 'transform:translate(-50%,-190%);text-shadow:0 1px 3px #05080E');
+          note('Water detected by Sentinel-1 radar where there was none before, five passes from 13 to 20 March 2019. UNOSAT rapid mapping, not field-validated.');
+        } else {
+          // the satellite pair, pinned to its own corners on the globe
+          const b = DATA.satBox, a = proj([b[0], b[3]]), c = proj([b[2], b[1]]);
+          Object.assign(slider.style, { left:a[0] + 'px', top:a[1] + 'px', width:(c[0] - a[0]) + 'px', height:(c[1] - a[1]) + 'px' });
+          note('NASA MODIS (Aqua) corrected reflectance, bands 7-2-1, 24 February and 21 March 2019, via NASA GIBS.');
+        }
+        bar(20);
+      }
+      if(s.map === 'damage'){
+        const f = frame();
+        out.push(`<div class="legend" style="left:${f.x + 14}px;top:${f.y + 10}px"><span><i style="background:#E8433F"></i>Destroyed</span><span><i style="background:#F29A3A"></i>Damaged</span><span><i style="background:#56606C"></i>Possibly damaged</span></div>`);
+        add('lbl big', [34.876, -19.8335], 'B E I R A', 'letter-spacing:.1em;color:#ECEAE5;text-shadow:0 1px 4px #05080E');
+        add('lbl sea', [34.905, -19.857], 'Mozambique Channel');
+        bar(1); note('Buildings graded from Pl&eacute;iades 0.5 m imagery of 26 March 2019, against WorldView imagery of September 2018. Dashed outlines: the four districts analysed.');
+      }
+    }
+    ui.innerHTML = out.join('');
+    ui.classList.toggle('on', out.length > 0);
+  }
+
+  // before / after drag
+  $('sBefore').src = SAT.before; $('sAfter').src = SAT.after;
+  function setSplit(f){ f = Math.max(0, Math.min(1, f)); $('sAfter').style.clipPath = `inset(0 0 0 ${f * 100}%)`; $('sBar').style.left = $('sKnob').style.left = (f * 100) + '%'; }
+  let dragging = false;
+  slider.addEventListener('pointerdown', e => { dragging = true; slider.setPointerCapture(e.pointerId); mv(e); });
+  slider.addEventListener('pointermove', e => dragging && mv(e));
+  slider.addEventListener('pointerup', () => dragging = false);
+  function mv(e){ const r = slider.getBoundingClientRect(); setSplit((e.clientX - r.left) / r.width); }
+  setSplit(0.5);
+
+  // ---------- flying between views ----------
+  const ease = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+  function fly(to, done){
+    const from = view ? { ...view } : to;
+    const ci = d3.geoInterpolate(from.center, to.center);
+    const s0 = Math.log(from.scale), s1 = Math.log(to.scale);
+    const BIG = Math.hypot(W, H);                                   // "no lens" as a finite radius we can tween
+    const c0 = isFinite(from.clip) ? from.clip : BIG, c1 = isFinite(to.clip) ? to.clip : BIG;
+    const dur = Math.min(2600, 1100 + 260 * Math.abs(s1 - s0)), t0 = performance.now();
+    cancelAnimationFrame(tween);
+    const step = now => {
+      const t = Math.min(1, (now - t0) / dur), e = ease(t);
+      view = { tx:from.tx + (to.tx - from.tx) * e, ty:from.ty + (to.ty - from.ty) * e, scale:Math.exp(s0 + (s1 - s0) * e),
+               center:ci(e), clip:(t === 1 && !isFinite(to.clip)) ? Infinity : c0 + (c1 - c0) * e };
+      draw();
+      if(t < 1) tween = requestAnimationFrame(step); else { tween = null; view = { ...to }; done && done(); }
+    };
+    tween = requestAnimationFrame(step);
+  }
+  function fade(target, ms, then){
+    const a0 = layerA, t0 = performance.now();
+    const step = now => { const t = Math.min(1, (now - t0) / ms); layerA = a0 + (target - a0) * t; draw(); t < 1 ? requestAnimationFrame(step) : then && then(); };
+    requestAnimationFrame(step);
+  }
+  function animateSeason(){
+    const t0 = performance.now(), D = 6000;
+    const step = now => {
+      if(slide.map !== 'season') return;
+      seasonT = Math.min(1, (now - t0) / D); draw();
+      ui.querySelectorAll('[data-st]').forEach(el => el.classList.toggle('pending', seasonT * 3 < SEASON.indexOf(el.dataset.st) + 1));
+      if(seasonT < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+  function drawTrack(){
+    const t0 = performance.now();
+    const step = now => { trackT = Math.min(1, (now - t0) / 1400); draw(); if(trackT < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+
+  function go(i){
+    const s = SLIDES[i]; if(slide === s) return;
+    const prev = slide; slide = s;
+    secs.forEach((x, j) => x.classList.toggle('on', j === i));
+    Object.entries(layer).forEach(([u, d]) => d.classList.toggle('on', u === s.photo));
+    document.body.classList.toggle('mapmode', !!s.map);
+    document.body.classList.toggle('herophoto', s.globe === 'hero' && !!s.photo);
+    $('count').textContent = String(i + 1).padStart(2, '0') + ' / ' + String(SLIDES.length).padStart(2, '0');
+    $('credit').innerHTML = s.credit ? (s.map ? s.credit : 'Photo: ' + s.credit) : '';
+    const cap = $('gcap'); cap.innerHTML = s.cap ? `<b>${s.cap}</b>` : ''; cap.classList.toggle('on', !s.map && s.globe === 'inset' && !!s.cap);
+    cap.style.top = (H * 0.04 + INSET * 2 + 12) + 'px';
+    if(cache) cache.key = null;
+    seasonT = s.map === 'season' ? 0 : 1;          // labels start hidden, appear as each track finishes
+    layerA = 0; trackT = (s.storms && s.storms[0] && !(prev && prev.storms && prev.storms[0] === s.storms[0])) ? 0 : 1;
+    ui.innerHTML = ''; ui.classList.remove('on'); slider.classList.remove('on');   // nothing pinned while flying
+    fly(viewFor(s), () => {
+      overlays();
+      if(s.map === 'season'){ seasonT = 0; layerA = 1; animateSeason(); }
+      else if(s.map) fade(1, 500); else if(trackT < 1) drawTrack(); else draw();
+    });
+  }
+
+  // ---------- navigation ----------
+  function layout(){
+    W = innerWidth; H = innerHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if(relief) relief.size();
+    if(cache) cache.key = null;
+    // a resize mid-flight would otherwise finish on a view computed for the old window
+    if(slide){ cancelAnimationFrame(tween); tween = null; view = viewFor(slide); layerA = slide.map ? 1 : 0; trackT = 1; draw(); overlays(); }
+  }
+  let idx = 0, pending = null;
+  const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ idx = +e.target.dataset.i; if(idx === pending) pending = null; go(idx); } }), { threshold:.55 });
+  secs.forEach(s => io.observe(s));
+  addEventListener('keydown', e => {
+    if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)) return;
+    const at = pending === null ? idx : pending; let to = null;
+    if(e.key === ' ' || e.key === 'ArrowDown' || e.key === 'PageDown') to = e.shiftKey && e.key === ' ' ? at - 1 : at + 1;
+    if(e.key === 'ArrowUp' || e.key === 'PageUp') to = at - 1;
+    if(e.key === 'Home') to = 0; if(e.key === 'End') to = SLIDES.length - 1;
+    if(slide && slide.map === 'slider' && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')){
+      setSplit(parseFloat($('sKnob').style.left) / 100 + (e.key === 'ArrowLeft' ? -.05 : .05)); e.preventDefault(); return; }
+    if(to === null) return;
+    e.preventDefault(); to = Math.max(0, Math.min(SLIDES.length - 1, to)); pending = to;
+    secs[to].scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  });
+  addEventListener('resize', layout);
+  document.addEventListener('visibilitychange', () => { if(!document.hidden) draw(); });
+  W = innerWidth; H = innerHeight; layout(); view = viewFor(SLIDES[0]); go(0);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+/* "Since you were born" (story-plugin.js): the panel under slide 17's words. Design system parts only:
+   .wm-field, .wm-seg, .wm-bars with bar pairs, .wm-legend, .wm-note; this file only lays them out.
+   Bars stay horizontal, one per line, at every screen size (the author, 5 Oct). */
+.cp-panel{display:flex; flex-direction:column; gap:var(--wm-s3); width:100%; max-width:30rem}
+.cp-fields{display:grid; grid-template-columns:1.35fr 1fr 1.35fr; gap:var(--wm-s4)}
+.wm-lead.cp-finding b{font-weight:500; color:var(--wm-text)}
+.cp-head{display:flex; justify-content:space-between; align-items:center; gap:var(--wm-s3)}
+.cp-key{flex-wrap:nowrap; min-width:0; overflow:hidden}
+.cp-key span{min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block}
+.cp-key span .wm-swatch{display:inline-block; margin-right:.5rem; vertical-align:middle}
+.cp-key .wm-swatch{width:16px; height:6px; border-radius:1px}
+/* your country: the four measures' colours; the comparison: white, as its bars */
+.cp-key .cp-me{background:linear-gradient(90deg, var(--wm-deaths) 0 25%, var(--wm-affected) 25% 50%, var(--wm-flood) 50% 75%, var(--wm-displaced) 75%)}
+.cp-key .cp-ref-sw{background:var(--wm-text)}
+.cp-bars{max-width:none; gap:var(--wm-s2)}
+.cp-panel .wm-note{margin:0}
+.cp-panel .wm-note:empty{display:none}
+@media (max-height:820px){
+  .cp-panel{gap:var(--wm-s2)}
+  .cp-panel .wm-bar .v{font-size:1rem}
+  .cp-bars .ref .in{display:none}          /* the key names the white country */
+}
+@media (max-height:760px){
+  .cp-panel{gap:6px}
+  .cp-head .wm-btn{padding-top:.25rem; padding-bottom:.25rem}
+  .cp-fields .wm-field{padding-top:.3rem; padding-bottom:.35rem}
+  .cp-bars .fill{height:8px}
+  .cp-panel{gap:4px}
+  .cp-bars{gap:4px}
+  .cp-bars .wm-bar{row-gap:0}
+}

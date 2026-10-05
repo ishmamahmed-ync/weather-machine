@@ -1,0 +1,55 @@
+{
+  "_about": "The order of the final page. scripts/build_all.py reads this and writes one self-contained file. 'story' runs are scenes from final/story/template.html (SCENES), by id, or '*' for all of them; 'module' entries are prototype sections, placed between them; 'plugin' entries bring in a prototype's layers for the story's shared globe without placing a section. Edit the order here, never in the built file.",
+  "output": "weather-machine.html",
+  "order": [
+    {
+      "plugin": "rain-gauges",
+      "panels": [
+        "explorer-panel"
+      ]
+    },
+    {
+      "plugin": "history"
+    },
+    {
+      "plugin": "idai"
+    },
+    {
+      "plugin": "country-profile"
+    },
+    {
+      "plugin": "stories"
+    },
+    {
+      "story": [
+        "title",
+        "stations",
+        "satellites",
+        "argo",
+        "machine",
+        "view",
+        "coldspots",
+        "cells",
+        "cant-see",
+        "mozambique",
+        "three-storms",
+        "seen",
+        "before-after",
+        "numbers",
+        "beyond",
+        "beyond-grid",
+        "who-pays",
+        "born",
+        "frontline",
+        "question",
+        "works",
+        "not-enough",
+        "money",
+        "fraying",
+        "end"
+      ]
+    }
+  ],
+  "_note": "Option A (5 Oct): one shared globe. The rain gauges come in as a plugin: their layers (slide 5's map, the gap cells) and the explorer's panel, which the story mounts under slide 8's words. Slides 2-4 (history), 10-15 (Idai), 17 (country profile) and 18 (stories) are story slides until those prototypes are built in the same way.",
+  "nav": true
+}

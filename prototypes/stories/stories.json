@@ -1,0 +1,458 @@
+{
+ "title": "Those least responsible for climate change are coping, and showing resilience",
+ "subtitle": "Stories about how citizen scientists, researchers, and people on the frontline, are …",
+ "stories": [
+  {
+   "id": "malawi-karonga",
+   "list": "flood",
+   "title": "Improved flood detectors save lives and property",
+   "description": "River sensors and an automated alert system on the North Rukuru River now warn families in Karonga District up to 72 hours before a flood, up from less than six hours. The district has had 21 major floods in five decades.",
+   "place": "Karonga District, Malawi",
+   "lon": 33.93,
+   "lat": -9.93,
+   "source": "UNICEF Malawi",
+   "date": "2024-07-16",
+   "url": "https://www.unicef.org/malawi/stories/improved-flood-detectors-save-lives-and-property",
+   "color": "#2E4A5C",
+   "photo_ref": "https://www.unicef.org/malawi/sites/unicef.org.malawi/files/styles/hero_desktop/public/UNI613281.webp",
+   "photo_credit": "UNICEF Malawi/2024/Elephant Media",
+   "photo_url": "https://www.unicef.org/malawi/sites/unicef.org.malawi/files/styles/open_graph_image/public/UNI613281.webp.jpeg?itok=GuRsCtFq",
+   "photo_fetched": "2026-10-05"
+  },
+  {
+   "id": "bangladesh-cpp",
+   "list": "flood",
+   "title": "Cyclone Amphan: In Bangladesh, Preparedness Paid Off",
+   "description": "As Cyclone Amphan approached in May 2020, more than 70,000 Cyclone Preparedness Programme volunteers spread warnings by megaphone, flag and door to door, and over two million people reached shelters. In 1970, the Bhola cyclone killed at least 300,000.",
+   "place": "Coastal Bangladesh",
+   "lon": 90.3,
+   "lat": 22.3,
+   "source": "American Red Cross",
+   "date": "2020-05-29",
+   "url": "https://www.redcross.org/about-us/news-and-events/news/2020/cyclone-amphan-in-bangladesh-preparedness-paid-off.html",
+   "color": "#2E4A3F",
+   "photo_ref": "",
+   "photo_credit": "Bangladesh Red Crescent; Brad Zerivitz / American Red Cross (photos on the page)",
+   "photo_url": "https://www.redcross.org/content/dam/redcross/about-us/news/2020/12631-185.jpg.img.jpeg",
+   "photo_fetched": "2026-10-05"
+  },
+  {
+   "id": "nepal-india-ratu",
+   "list": "flood",
+   "title": "Community cooperation across Nepal-India border saves lives during flood",
+   "description": "Volunteers on both sides of the border watch a low-cost sensor on the Ratu River and phone warnings downstream when the water rises. The system cost about US$3,500 and gives around 64,000 people one to three hours' warning each year.",
+   "place": "Ratu River, Nepal–India border",
+   "lon": 85.85,
+   "lat": 26.75,
+   "source": "ICIMOD",
+   "date": "2023-02-27",
+   "url": "https://www.icimod.org/article/community-cooperation-across-nepal-india-border-saves-lives-during-flood/",
+   "color": "#3B4A2E",
+   "photo_ref": "",
+   "photo_credit": "Krishna Murari Kishan / Alamy (main image on the page)",
+   "photo_note": "article image is an Alamy stock photo (licensed separately): not used"
+  },
+  {
+   "id": "cambodia",
+   "list": "flood",
+   "title": "Protecting lives in flood-prone Cambodia",
+   "description": "People in Need built an early warning system that sends flood alerts straight to mobile phones, triggered automatically by a river sensor called Tepmachcha. It covers more than 200,000 households, after floods in 2013 affected 1.7 million people.",
+   "place": "Cambodia",
+   "lon": 104.9,
+   "lat": 12.6,
+   "source": "UNICEF Office of Innovation",
+   "date": "2017-07-06",
+   "url": "https://www.unicef.org/innovation/stories/protecting-lives-flood-prone-cambodia",
+   "color": "#4A3B2E",
+   "photo_ref": "https://www.unicef.org/innovation/sites/unicef.org.innovation/files/styles/hero_desktop/public/UN0222133.jpg.webp",
+   "photo_credit": "UNICEF/UN0222133/Brown",
+   "photo_url": "https://www.unicef.org/innovation/sites/unicef.org.innovation/files/styles/open_graph_image/public/UN0222133.jpg.jpeg?itok=i2Gg5QXA",
+   "photo_fetched": "2026-10-05"
+  },
+  {
+   "id": "nepal-saptari",
+   "list": "flood",
+   "title": "Putting resilience at the centre of development",
+   "description": "In Saptari, river early warning systems and community emergency centres, backed by UNICEF, let families prepare and move before floods arrive, as part of a programme that puts children at the centre of disaster planning.",
+   "place": "Saptari District, Nepal",
+   "lon": 86.7,
+   "lat": 26.6,
+   "source": "UNICEF Nepal",
+   "date": "2020-02-25",
+   "url": "https://www.unicef.org/nepal/stories/putting-resilience-centre-development",
+   "color": "#2E3F4A",
+   "photo_ref": "",
+   "photo_credit": "UNICEF Nepal/2019/PShrestha",
+   "photo_url": "https://www.unicef.org/nepal/sites/unicef.org.nepal/files/styles/open_graph_image/public/DSC_1479.JPG.jpeg?itok=J4og189Q",
+   "photo_fetched": "2026-10-05"
+  },
+  {
+   "id": "kenya-tana",
+   "list": "flood",
+   "title": "Bridging the monitoring gap: UNESCO and WRA launch IoT to enhance flood early warnings",
+   "description": "In March 2026, UNESCO and Kenya's Water Resources Authority installed internet-connected sensors in the Tana River Basin that report river levels, rainfall and soil moisture in real time, giving downstream communities earlier notice of floods.",
+   "place": "Tana River Basin, Kenya",
+   "lon": 39.0,
+   "lat": -0.8,
+   "source": "UNESCO",
+   "date": "2026-04-14",
+   "url": "https://www.unesco.org/en/articles/bridging-monitoring-gap-unesco-and-wra-launch-iot-enhance-flood-early-warnings",
+   "color": "#2E4A44",
+   "photo_ref": "https://www.unesco.org/sites/default/files/styles/paragraph_medium_desktop/article/2026-04/DSC_1044.JPG",
+   "photo_credit": "UNESCO",
+   "photo_url": "https://www.unesco.org/sites/default/files/styles/best_image/article/2026-04/DSC_1044.JPG?itok=zZy_n14f",
+   "photo_fetched": "2026-10-05"
+  },
+  {
+   "id": "ghana-aboabo",
+   "list": "flood",
+   "title": "TAHMO: Leveraging commercial microwave link data to develop flood early warning systems",
+   "description": "In Aboabo, TAHMO measures rainfall from the way it weakens the signal between mobile-phone masts, adds low-cost river sensors and residents' smartphone videos of the river, and sends flood alerts by SMS, voice call and WhatsApp.",
+   "place": "Aboabo, Ghana",
+   "lon": -1.61,
+   "lat": 6.69,
+   "source": "GSMA",
+   "date": "2025-12-03",
+   "url": "https://www.gsma.com/solutions-and-impact/connectivity-for-good/mobile-for-development/gsma_resources/tahmo-leveraging-commercial-microwave-link-data-to-develop-flood-early-warning-systems/",
+   "color": "#4A2E3B",
+   "photo_ref": "",
+   "photo_credit": ""
+  },
+  {
+   "id": "india-assam",
+   "list": "flood",
+   "title": "Community-Based Flood Early Warning System — India",
+   "description": "In Assam's Lakhimpur and Dhemaji districts, a riverbank sensor radios a signal when the water reaches a critical level, and the warning is passed by mobile phone to 45 vulnerable communities downstream. It won a UNFCCC Momentum for Change award in 2014.",
+   "place": "Lakhimpur and Dhemaji, Assam, India",
+   "lon": 94.5,
+   "lat": 27.4,
+   "source": "UNFCCC; ICIMOD",
+   "date": "2014-12-10",
+   "url": "https://unfccc.int/climate-action/un-global-climate-action-awards/winning-projects/activity-database/community-based-flood-early-warning-system-india",
+   "color": "#3F3A4A",
+   "photo_ref": "",
+   "photo_credit": ""
+  },
+  {
+   "id": "seals",
+   "list": "animals",
+   "title": "Elephant seals measure the ocean where floats can't go",
+   "description": "Argo floats can't surface through sea ice to report, but elephant seals carrying sensor tags dive beneath it. In the data used here, about three-quarters of ocean temperature profiles south of 65°S come from seals: a network nobody planned.",
+   "place": "Southern Ocean",
+   "lon": 70.0,
+   "lat": -60.0,
+   "zoom": 1.0,
+   "layers": [
+    {
+     "key": "seals",
+     "alpha": 1
+    },
+    {
+     "key": "argo",
+     "alpha": 0.45
+    }
+   ],
+   "source": "MEOP-CTD database; Argo",
+   "date": "2026-09-23",
+   "url": "https://www.meop.net/database/meop-databases/meop-ctd-database.html",
+   "color": "#2E4A44",
+   "photo_ref": "",
+   "photo_credit": "",
+   "link": {
+    "text": "elephant seals",
+    "url": "https://www.meop.net/database/meop-databases/meop-ctd-database.html",
+    "note": "the seal data: MEOP-CTD database (marine mammals exploring the oceans pole to pole)"
+   },
+   "photo_note": "the project's own seal photo (site-src/layers/seal.webp.b64)"
+  },
+  {
+   "id": "sharks",
+   "list": "animals",
+   "title": "Sharks carrying sensors sharpen ocean forecasts",
+   "description": "29 blue and shortfin mako sharks tagged with depth and temperature sensors logged more than 8,200 ocean profiles in the Northwest Atlantic. Fed into a forecast model, they cut surface temperature error by up to 40%, most over the continental shelf and slope.",
+   "place": "Northwest Atlantic, Gulf Stream",
+   "lon": -73.0,
+   "lat": 36.0,
+   "zoom": 2.2,
+   "layers": [
+    {
+     "key": "sharks",
+     "alpha": 1
+    },
+    {
+     "key": "argo",
+     "alpha": 0.35
+    }
+   ],
+   "source": "McDonnell et al., npj Climate and Atmospheric Science 9:147",
+   "date": "2026",
+   "url": "https://doi.org/10.1038/s41612-026-01394-9",
+   "color": "#4A3A33",
+   "photo_ref": "",
+   "photo_credit": "",
+   "photo_note": "the article's only image is a chart (Fig. 1): not used"
+  },
+  {
+   "id": "march-2020",
+   "list": "animals",
+   "title": "Tagged animals could carry sensors into the gaps Argo misses",
+   "description": "Mapping over 1.5 million Argo profiles, a study found gaps covering 18.6% of the ocean: polar seas, shallow shelves, marginal seas and upwelling zones. Set against 183 marine species and more than 3,000 tracked animals, it argues seals, turtles and sharks could fill them.",
+   "place": "Global study; the Caribbean is one of the gaps it names",
+   "lon": -75.0,
+   "lat": 15.0,
+   "zoom": 1.0,
+   "layers": [
+    {
+     "key": "coldspots",
+     "alpha": 1
+    },
+    {
+     "key": "telemetry",
+     "alpha": 0.7
+    }
+   ],
+   "source": "March et al., Global Change Biology 26:586",
+   "date": "2020",
+   "url": "https://doi.org/10.1111/gcb.14902",
+   "color": "#33304A",
+   "photo_ref": "",
+   "photo_credit": ""
+  },
+  {
+   "id": "ai-flood-maps",
+   "list": "hope",
+   "title": "Deep learning completes US flood hazard maps",
+   "description": "Trained on America's official flood maps, a deep-learning model filled in the areas they leave unmapped and found 11 million more people living in flood zones, 69% above the official count. It can only learn where a national map exists.",
+   "place": "United States",
+   "lon": -96,
+   "lat": 38,
+   "zoom": 2.2,
+   "source": "Wu, Zhang & Stouffs, Nature Communications 17:5983",
+   "date": "2026",
+   "url": "https://doi.org/10.1038/s41467-026-74336-x",
+   "color": "#2E3F52",
+   "layers": [
+    {
+     "key": "fema",
+     "alpha": 1
+    },
+    {
+     "key": "aiextra",
+     "alpha": 1
+    }
+   ],
+   "photo_note": "no photo: the dots on the globe are the story's picture (illustrative, sampled from a density)",
+   "added": "2026-10-05, the author: the AI flood-map slide becomes a hope story"
+  },
+  {
+   "id": "south-australia",
+   "list": "hope",
+   "title": "South Australia increases its net electricity generation from renewables from 1% in 2007 to over 75% in 2025",
+   "description": "Wind and solar are now the state's main sources of electricity: wind supplied around 45% and solar over 32% in 2024/25, with about half of homes carrying rooftop panels. The state aims for 100% net renewable electricity by 2027.",
+   "place": "South Australia",
+   "lon": 135.8,
+   "lat": -30.5,
+   "source": "Government of South Australia",
+   "date": "2026",
+   "url": "https://www.energymining.sa.gov.au/industry/hydrogen-and-renewable-energy/leading-the-green-economy",
+   "color": "#4A452E",
+   "photo_ref": "",
+   "photo_credit": ""
+  },
+  {
+   "id": "eu-wind-solar",
+   "list": "hope",
+   "title": "Wind and solar overtake fossil power in the EU for the first time in 2025",
+   "description": "In 2025, wind and solar generated 30% of the EU's electricity, ahead of fossil fuels at 29%, for the first time. Solar alone reached a record 13%, and coal fell to a historic low of 9.2%.",
+   "place": "European Union",
+   "lon": 9.9,
+   "lat": 49.8,
+   "source": "Ember",
+   "date": "2026-01-22",
+   "url": "https://ember-energy.org/latest-updates/wind-and-solar-generated-more-power-than-fossil-fuels-in-the-eu-for-the-first-time-in-2025/",
+   "color": "#2E3B4A",
+   "photo_ref": "",
+   "photo_credit": ""
+  },
+  {
+   "id": "right-whales",
+   "list": "hope",
+   "title": "Endangered North Atlantic right whales had their most calves in nearly two decades",
+   "description": "Aerial surveys off the southeastern United States counted 23 right whale calves in the 2026 calving season, the most since 2009, and sighted 129 individual whales across more than 1,400 flight hours.",
+   "place": "Calving grounds, southeastern United States",
+   "lon": -80.9,
+   "lat": 30.6,
+   "source": "NOAA Fisheries",
+   "date": "2026-04-30",
+   "url": "https://www.fisheries.noaa.gov/feature-story/numbers-2026-north-atlantic-right-whale-calving-season",
+   "color": "#2E444A",
+   "photo_ref": "https://www.fisheries.noaa.gov/s3/2026-04/fwc_0892_14mar2026_4617_mom.JPG",
+   "photo_credit": "Florida Fish and Wildlife Conservation Commission, NOAA permit #26919",
+   "photo_url": "https://www.fisheries.noaa.gov/s3/2026-04/fwc_0892_14mar2026_4617_mom.JPG",
+   "photo_fetched": "2026-10-05"
+  },
+  {
+   "id": "mangroves",
+   "list": "hope",
+   "title": "Global mangrove forests rebound, offering signs for climate and coastal resilience",
+   "description": "A four-decade satellite study led by Tulane University found that mangrove gains have outpaced losses for the past 16 years, leaving a net decline of only about 1% since the 1980s.",
+   "place": "Global study, Tulane University, New Orleans",
+   "lon": -89.4,
+   "lat": 29.2,
+   "source": "Tulane University",
+   "date": "2026-06-04",
+   "url": "https://news.tulane.edu/pr/global-mangrove-forests-rebound-offering-hopeful-sign-climate-and-coastal-resilience",
+   "color": "#2F4A3A",
+   "photo_ref": "https://tulane.edu/sites/default/files/styles/manual_crop/public/2026-06/Mangroves%202.jpg",
+   "photo_credit": "Daniel Friess",
+   "photo_url": "https://news.tulane.edu/sites/default/files/2026-06/Mangroves%202.jpg",
+   "photo_fetched": "2026-10-05"
+  },
+  {
+   "id": "dorset-puffins",
+   "list": "hope",
+   "title": "First puffling sighting in three decades gives hope for Dorset's dwindling puffin colony",
+   "description": "Volunteers monitoring Dancing Ledge on the Purbeck coast saw a young puffin leave its cliff crevice, the first in about 30 years, at a colony now down to around three breeding pairs.",
+   "place": "Dancing Ledge, Dorset, UK",
+   "lon": -2.01,
+   "lat": 50.59,
+   "source": "National Trust",
+   "date": "2026-07-22",
+   "url": "https://www.nationaltrust.org.uk/services/media/2026/july/first-puffling-sighting-in-three-decades-gives-hope-for-dorsets-dwindling-puffin-colony",
+   "color": "#3A3F4A",
+   "photo_ref": "https://nt.global.ssl.fastly.net/binaries/content/gallery/website/national/library/our-cause/general-conservation/dancing-ledge-dorset.jpg",
+   "photo_credit": "© Will Wilkinson",
+   "photo_url": "https://nt.global.ssl.fastly.net/binaries/content/gallery/website/national/library/our-cause/general-conservation/dancing-ledge-dorset.jpg?auto=webp&width=1200&crop=16:9",
+   "photo_fetched": "2026-10-05"
+  },
+  {
+   "id": "yangtze",
+   "list": "hope",
+   "title": "China's Yangtze River shows dramatic recovery after four-year fishing ban",
+   "description": "After China banned commercial fishing across the Yangtze basin in 2021, a study in Science found the mass of fish in survey samples more than doubled between 2018 and 2023, and finless porpoises rose from 445 in 2017 to 595 in 2022.",
+   "place": "Yangtze River, China",
+   "lon": 114.3,
+   "lat": 30.6,
+   "source": "Live Science",
+   "date": "2026-02-12",
+   "url": "https://www.livescience.com/planet-earth/rivers-oceans/china-banned-fishing-in-its-biggest-river-and-species-are-starting-to-recover",
+   "color": "#4A3A2E",
+   "photo_ref": "",
+   "photo_credit": "CFOTO via Getty Images (main image on the page)",
+   "photo_note": "article image is a stock photo (Getty Images, licensed separately): not used"
+  },
+  {
+   "id": "kenya-flies",
+   "list": "hope",
+   "title": "From waste to wealth: How fly farming is building climate resilience and creating jobs",
+   "description": "In Mukuru, an informal settlement in Nairobi, black soldier fly larvae turn food waste into animal feed and fertiliser, creating jobs, cutting feed costs by about 30% and, by clearing waste, reducing flooding.",
+   "place": "Mukuru, Nairobi, Kenya",
+   "lon": 36.88,
+   "lat": -1.31,
+   "source": "Global Center on Adaptation",
+   "date": "2025-03-30",
+   "url": "https://gca.org/from-waste-to-wealth-how-fly-farming-is-building-climate-resilience-and-creating-jobs/",
+   "color": "#44402E",
+   "photo_ref": "",
+   "photo_credit": "",
+   "photo_url": "https://gca.org/wp-content/uploads/2025/03/53999837799_15162738fb_o-scaled.jpg",
+   "photo_fetched": "2026-10-05"
+  },
+  {
+   "id": "guyana",
+   "list": "hope",
+   "title": "Guyana's forests drive a new era of low-carbon development",
+   "description": "Guyana has kept more than 99% of its forest, about 18 million hectares, and turned it into income through carbon markets, earning 33.47 million carbon credits for 2022 under its low-carbon development strategy.",
+   "place": "Guyana",
+   "lon": -58.9,
+   "lat": 5.0,
+   "source": "CVF-V20",
+   "date": "2026-05-28",
+   "url": "https://cvfv20.org/guyanas-forests-drive-a-new-era-of-low-carbon-development/",
+   "color": "#2E4A33",
+   "photo_ref": "",
+   "photo_credit": "Shutterstock",
+   "photo_note": "article image is a stock photo (Shutterstock, licensed separately): not used"
+  },
+  {
+   "id": "panama",
+   "list": "hope",
+   "title": "Adapting to climate change in Panama",
+   "description": "Farming communities, including in the Santa María watershed, are adopting better water management, agroforestry and ecosystem restoration to cope with heat, shifting rainfall and water scarcity. The project supports more than 114,000 people and has restored 600 hectares.",
+   "place": "Santa María watershed, Panama",
+   "lon": -80.7,
+   "lat": 8.1,
+   "source": "Adaptation Fund",
+   "date": "2026-07-16",
+   "url": "https://www.adaptation-fund.org/stories-of-resilience-adapting-to-climate-change-in-panama/",
+   "color": "#3A4A2E",
+   "photo_ref": "",
+   "photo_credit": "",
+   "photo_url": "https://www.adaptation-fund.org/wp-content/uploads/2026/07/55138170259_5782348326_k.jpg",
+   "photo_fetched": "2026-10-05"
+  },
+  {
+   "id": "central-asia",
+   "list": "hope",
+   "title": "Early warning systems are saving lives in Central Asia",
+   "description": "Early warning systems that pair local knowledge with remote sensors are being installed to warn mountain communities of glacial lake outburst floods. A UNESCO project in Central Asia aims to protect about 100,000 people, alongside a larger programme in Pakistan.",
+   "place": "Central Asia",
+   "lon": 73.0,
+   "lat": 40.8,
+   "source": "Climate Home News",
+   "date": "2026-03-24",
+   "url": "https://www.climatechangenews.com/2026/03/24/early-warning-systems-are-saving-lives-in-central-asia/",
+   "color": "#2E3A4A",
+   "photo_ref": "",
+   "photo_credit": "",
+   "photo_url": "https://www.climatechangenews.com/wp-content/files/2022/03/Pakistan-flooding.jpg",
+   "photo_fetched": "2026-10-05"
+  },
+  {
+   "id": "vanuatu",
+   "list": "hope",
+   "title": "How climate adaptation in Vanuatu is protecting forests, oceans and communities",
+   "description": "On Espiritu Santo, the Indigenous-led Santo Sunset Environment Network trained 89 climate rangers and set up community conservation areas across 42 villages to restore forests, secure food and prepare for cyclones.",
+   "place": "Espiritu Santo, Vanuatu",
+   "lon": 166.9,
+   "lat": -15.3,
+   "source": "UNDP",
+   "date": "2025-06-12",
+   "url": "https://www.adaptation-undp.org/how-climate-adaptation-vanuatu-protecting-forests-oceans-and-communities",
+   "color": "#2E4A4A",
+   "photo_ref": "https://www.adaptation-undp.org/sites/default/files/styles/webp/public/news/AFCIA_059_Vanuatu_SantoSunsetEnvironmentNetwork_hero.jpg.webp",
+   "photo_credit": "SSEN",
+   "photo_note": "article image not used: a posed group photo, too busy for the card (5 Oct 2026)"
+  }
+ ],
+ "layerStyles": {
+  "seals": {
+   "label": "Seal-borne ocean profiles (MEOP)",
+   "color": "#6FD8B4"
+  },
+  "argo": {
+   "label": "Argo float profiles",
+   "color": "#45B0CE"
+  },
+  "sharks": {
+   "label": "Shark sightings in the study region (OBIS), not the tagged sharks",
+   "color": "#F07A55"
+  },
+  "telemetry": {
+   "label": "Tracked marine animals, 315 species (OBIS-SEAMAP)",
+   "color": "#B98CE0"
+  },
+  "coldspots": {
+   "label": "Argo coldspots, as calculated for this project (the paper's own map differs)",
+   "color": "#E4EEFF"
+  },
+  "fema": {
+   "label": "FEMA flood zones (illustrative dots)",
+   "color": "#ECEAE5"
+  },
+  "aiextra": {
+   "label": "Added by the model (illustrative dots)",
+   "color": "#4FC3F7"
+  }
+ }
+}

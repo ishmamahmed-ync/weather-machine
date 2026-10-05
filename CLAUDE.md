@@ -2,6 +2,11 @@
 
 Context for Claude Code working on this repository.
 
+> **Start here: read `HANDOVER.md` in this folder first** (state of everything as of
+> 5 Oct 2026: what exists, the final-build plan, decisions made, what is open). Then the
+> author's current narrative document and instructions. The design system in
+> `design-system/` is authoritative.
+
 ---
 
 ## What this is
@@ -22,7 +27,7 @@ refactors.
 
 ## Current state
 
-Working and deployed. A single self-contained HTML file, 2.1 MB, no network
+Working and deployed. A single self-contained HTML file, 2.7 MB, no network
 dependencies, 29 scenes, two views.
 
 - **Story** — scroll-driven narrative, camera and layers driven by scroll position
@@ -52,7 +57,7 @@ filled and that no remote script sneaked in.
 
 ### Inside the template
 
-Four blocks, in order:
+Five blocks, in order:
 
 1. `<script id="IMG">` — base64 image constants
 2. `<script id="CONFIG">` — **the only part the author edits.** `LAYERS`,
@@ -102,6 +107,25 @@ Grid layers take `power`, `size`, `floor`, `gain`. Point layers take `dot` and
 scaling gave 9 px radii at zoom 9.5 and the map turned to mush.
 
 ---
+
+## Design system: authoritative
+
+`design-system/` holds the one visual language for the main site and every
+prototype: `wm.css` (tokens and `wm-*` components), `wm.js` (the same tokens for
+canvas, plus the globe's rendering rules as `WM.*`), and `inline.py`, which build
+scripts use to inline both, so pages stay single files. `README.md` has the rules
+and an audit of what each page still needs to change; `specimen.html`
+(`build_specimen.py`) shows it all rendered.
+
+**The design system is authoritative (author's decision, 5 Oct 2026).** Every page,
+the main site and all prototypes, follows it. Where a page or a prototype's own notes
+(e.g. `prototypes/rain-gauges/INTEGRATION.md`) disagree on anything visual, the design
+system wins; those notes still govern behaviour. Add a colour only by adding a token
+there first, with its one meaning.
+
+**Grid standard: land 0.5°, ocean 1°, everywhere** (author's decision, 5 Oct 2026). Every
+gridded layer on every page uses it, re-binned from real counts with
+`scripts/regrid_layers.py`, never finer than its source and never interpolated.
 
 ## Data pipeline
 
@@ -162,9 +186,12 @@ give picking for free and handle far more data, at the cost of rebuilding the
 visual language — additive blending, sub-pixel dots, the travelling pulse — as
 custom layers. Decide by target: polished narrative piece, or explorable atlas.
 
-**Splitting data out of the HTML.** Would let the page open instantly and make
-layers independently downloadable, at the cost of needing a local server and
-losing single-file portability. Keep a single-file export either way.
+**Splitting data out of the HTML. Decided 5 Oct 2026: combined.** The final page,
+main story plus every prototype, is **one self-contained file** (about 10–12 MB),
+built from the separate prototype folders and never edited by hand. It opens from
+`file://`, offline, from a USB stick. Costs accepted: the whole file loads before the
+first scene (seconds on Wi-Fi, longer on phones), images are embedded as base64
+(a third larger), and each rebuild commits a ~10 MB file.
 
 **The data-sharing argument, as now stated.** Sharing daily climate data was
 never required; most countries donated their history once; the archive decays as
@@ -186,6 +213,9 @@ statistic only; it should not become the spine, and claims should stay on
 ---
 
 ## Suggested next steps, in order
+
+> **Superseded on 5 Oct 2026 by `HANDOVER.md` section 8** (the section build, the design
+> system on every page and the grid standard come first). The list below is kept for reference.
 
 1. **`/data` page on the site.** `SOURCES.md` rendered as a designed page inside
    the piece. Highest value for the crit — it reads as part of the work rather
@@ -212,5 +242,4 @@ this has caught the author more than once. GitHub Pages redeploys in 2–3 minut
 
 - The repository is **private**; it needs to be public for instructors to
   inspect the data. Settings → General → Danger Zone → Change visibility.
-- `README.md` still says `open site/index.html`; the file is now at the root.
-- `README.md` still has a placeholder where the live URL should go.
+- `README.md`'s repository layout still lists a `site/` folder; the site is `index.html` at the root.

@@ -200,3 +200,151 @@ restore them.
   frame, from using label positions rather than the points they name.
 - Mozambique's 2000 GDP is used as approximately $4.2 billion and should be
   confirmed against World Bank series if the percentage is quoted.
+
+---
+
+## Checked for the final page (5 October 2026)
+
+`scripts/check_figures.py` holds every figure on the 24 slides of the author's narrative
+(v3 short), recomputes what the repo's data can recompute, and writes `docs/FIGURES.md`.
+
+**Africa's stations: 2,119, now with a recorded definition.** The 50 African country
+names in GHCN-Daily (49 states plus Western Sahara; Comoros, Djibouti, Sao Tome and
+Principe, Somalia and South Sudan have no stations in the file) give 2,110. Adding six
+island territories (Reunion, Mayotte, Juan de Nova, Europa and Tromelin [France]; Saint
+Helena [UK]) gives **2,119**, median record 69 years. The old 2,166 could not be
+reproduced under any definition tried, including the Canaries and Madeira (14 more).
+The author chose 2,119 on 5 Oct.
+
+**"76,708 stations, 59% of all on Earth" mixes two areas.** 59% (59.3%) is the whole
+United States, 78,567 stations including Alaska (1,053) and Hawaii (805). The contiguous
+US alone, 76,708, is **57.9%**. The live site carries the same mismatch. Either "76,708 …
+58%" or "78,567 … 59%".
+
+**Su et al. figures: quote the paper.** Author's rule, 5 Oct: on screen, rain-gauge
+totals are the paper's own (221,483 gauges, 13.4% of land meeting the WMO minimum,
+Europe 2.4 and Africa 0.09 per 1,000 km²). The published Fig. 2c data inside the map gives
+212,996 gauges, 13.5% of cells, Europe 1.99 and Africa 0.10, because some cells were
+cleaned. Only 123 excluded cells (an eighth terrain class) are documented in
+`prototypes/rain-gauges/INTEGRATION.md`; the rest of the cleaning is not yet recorded. Per-cell
+values in the hover and the explorer come from the data, since the paper does not publish them.
+
+**Mozambique Channel, "a third of the global average": the method.** Argo profiles per
+unit ocean area (1° cells with at least one profile, each weighted by cos latitude) in
+35–45°E, 26–11°S, against the same over the whole ocean: 0.35. A plain mean of profiles
+per cell gives 0.44 instead, so the method has to travel with the number.
+
+**The US flood-map wipe had its labels swapped (live site too).** The model's additions
+are drawn left of the handle, but the left label read "Official FEMA flood map" and the
+right "After the model fills the gaps". Fixed in the final page's story
+(`final/story/template.html`, `WIPE.us`); the live `site-src/template.html` still has it.
+
+**Argo on the instrument card: "3,375,214 profiles from 20,530 floats", reconciled with the raw index.**
+The raw GDAC index on this machine (`data/raw/ar_index_global_prof.txt.gz`, "Date of update 20260923152414")
+has 3,411,164 rows. The processed density file keeps the rows that have both a date and a valid position:
+that rule gives **20,530 floats** exactly, and 3,375,215 profiles, one more than the 3,375,214 summed from
+`data/processed/argo-density-1deg.geojson`. The rest are 18,926 rows with no date and 288 with fill-value
+positions. The one-profile difference is not explained; the card quotes the processed total.
+`scripts/check_figures.py` recomputes both from the files.
+
+**Idai on the final page (5 Oct 2026): what was simplified, and what is approximate.**
+- One readable map for the damage (the author's note): **central Beira only** (Copernicus EMS EMSR348,
+  23BEIRACENTER), 8,705 graded buildings: 33 destroyed, 2,968 damaged, 5,704 possibly damaged. Copernicus's own
+  table gives 33, 2,968 and 5,705. The prototype's four districts (16,333 buildings) are not stitched together.
+- The **river names** on the flood map are placed by towns that stand on each river (Mafambisse on the Pungwe,
+  Buzi town on the Buzi). They are approximate positions, not river geometry: the page has no river data.
+- The **arrow** from Zimbabwe's highlands to the coast is schematic, and its key says so.
+- At city scale the land is plain: the Natural Earth outlines, simplified for the wide maps, are about 1 km off
+  there, so only Copernicus's own water and coastline are drawn.
+
+**Country profile on the final page (slide 17, 5 Oct 2026).** *Update, same day: the author dropped the slide's
+rain-gauge half, so the Su et al. part below is not on the page (the code is kept in `build_globe.py`,
+`su_by_country()`, unused). The slide's narration now becomes the finding once a country and year are chosen;
+for anyone born before 2000 it reads "Since 2000, when the records begin (you were born in 1990)", not "Since
+1990", because EM-DAT here starts in 2000. The clause about rain gauges was cut from the slide's words, and
+Su et al. from its source line.*
+- The gauges are now Su et al.'s (2026) 1° cells, the rain-gauge explorer's own data, instead of GHCN-Daily
+  stations active in 2025-26. Per country: the gauges in its cells, and the gauges its cells would hold at the
+  WMO minimum **for each cell's terrain** (minimum density x cell area, summed), replacing the single 575 km²
+  rule. Per-country values are computed from the data; the paper publishes none. All 174 of Su et al.'s country
+  names match Natural Earth ("Svalbard and Jan Mayen" goes to Norway); the 49 cells the explorer notes are in
+  South Sudan today (pre-2011 borders in the source) are counted for South Sudan, not Sudan.
+- **The urban class makes rich, dense countries fall short.** Su et al. class every one of Germany's 44 cells
+  (and Belgium's, the Netherlands') as *Urban*, whose WMO minimum is 66.7 gauges per 1,000 km². Germany's 7,685
+  gauges are 34% of the 22,700 that implies, and none of its cells meets it. This is the paper's classification,
+  as in the explorer's Urban tab; it is not corrected here, but a reader comparing with Germany should know.
+- The comparison is a **share of the minimum**, both countries on one bar (Bangladesh 46 of 951, 5%; Germany
+  34%), because raw counts would compare countries of very different size.
+- **EM-DAT's export runs into 2026**; the totals stop at 2025 ("Records to 2025"). Recomputed from the raw
+  files independently of `build_globe.py`: Bangladesh, born 2000, floods: 3,581 deaths and 113,527,462 affected
+  (2000-2025; 2026 adds 59 and 1,280,039); 11,915,755 flood displacements (IDMC 2008-2025); 46 gauges in 10
+  cells, 951 needed. `tests/profile.test.js` checks the page shows these.
+- Small states with no 1° land cell in Su et al. (49 of the 219 countries offered, e.g. Malta, Mauritius,
+  Luxembourg) get a line saying so instead of a gauge bar.
+
+**Slides 18 to 24 on the final page (5 Oct 2026, late): choices and checks.**
+- **Slide 19, Africa's stations go dark.** 2,119 African stations (the slide 6 definition) on 1,100 cells of 0.5°;
+  a cell is lit from the first year any of its stations reports to the last. Cells reporting: 878 in 1970,
+  1,003 in 1980 (the peak), 519 in 2000, 399 in 2025 (`check_figures.py` recomputes 1970 and 2025). A cell going
+  dark means its records stop reaching the global archive (GHCN-Daily), not necessarily that its stations closed:
+  the Menne et al. (2012) finding above. Lighting cells from their first year (not only switching them off) shows
+  stations being installed too, so the map does not overstate the fall.
+- **Slide 21, the timeline runs 2022 to 2026**, not 2024 to 2026 as the narrative's visual note says: the world's
+  events are from 2022 and 2023 (EUMETSAT suspended Russia's licences in March 2022; the Arctic Council paused on
+  3 March 2022; Ukraine's hydromet service reported losing a quarter of its observing network by 2023, counting
+  since 2014, and the label says so). US dates from the research dossier's chronology: FEWS NET suspended early
+  2025, balloon cuts March 2025, the plan to cut NOAA by a quarter April 2025 (NYT), the 66 withdrawals
+  7 January 2026. The second NOAA proposal (April 2026) was left off for space; the narration's "proposals" covers it.
+- **Slide 21's Arctic fade** uses the base station grid split at 66.56 N (731 of the 132,501 station counts, in
+  478 cells); the two parts add back to the base layer exactly and are drawn at its brightness. Still illustrative.
+- **Slide 23's dial**: one ring = one hour of world military spending, US$2,887 billion / 8,760 h = US$329.6
+  million ("about US$330 million"); US$400 million is 1.21 rings, 1 hour 13 minutes.
+- **Slide 18's photos are placeholders** in each story's colour. The article images are listed in stories.json
+  (`photo_ref`, `photo_credit`); their licences are not cleared and nothing has been downloaded.
+
+**Slide 18's photos (5 Oct 2026, the author's go-ahead).** Each story's own article image, read from the
+article's og:image, downloaded to `prototypes/stories/photos/raw/` (git-ignored, about 28 MB), centre-cropped to
+16:9 (Bangladesh from the top, to keep the faces), and saved at 640 x 360 WebP in `photos/web/` (about 30 KB
+each); the page shows them in the design system's duotone over each story's colour, with the credit from
+`stories.json`. Source URLs are kept there as `photo_url`. 12 of 22 have a photo (11 articles plus the
+project's own seal photo). Not used, with the reason in `photo_note`: Ratu River (Alamy), Yangtze (Getty
+Images), Guyana (Shutterstock), all stock photos licensed separately; Vanuatu (a posed group photo, too busy);
+sharks (the only image is a chart); EU wind and solar (a logo); Ghana, Assam, March et al., South Australia
+(no image found). **None of the licences is cleared**: clear them before the repository is public, as for the
+Idai photos. The page grew from 10.0 to 10.5 MB. The card follows the design system's story card; the slide's
+narration was shortened to one line by the author, and the descriptions are cut to three lines on the card.
+
+**The author's revised order (5 Oct 2026, late; `website-text_v2.txt`).**
+- Six acts. Removed: "The rich get better maps". The closing order is now question, works, not-enough, money,
+  fraying, end; four titles and two passages are the author's rewordings (slides 2-5's "from around the world";
+  the end's "No country can see the storm coming alone").
+- **Clarified the same evening:** slide 18 is the stories, retitled "The frontlines are responding"; slide 19 is a
+  new pause, "What can we do to support them?", the line alone over an empty globe (it replaces "What can we do to
+  stop this needless loss of life?"); then "We know what works". 24 slides.
+- **The AI flood-map study is a hope story** (Wu, Zhang & Stouffs 2026, doi 10.1038/s41467-026-74336-x), with the
+  illustrative FEMA and model dots on the US. Its description quotes only the paper's figures (11.04 million more
+  people, 69% above baseline); the old slide's "it couldn't be done for Mozambique" was unsourced and is gone.
+- Figures no longer on the page and removed from `check_figures.py`: Sub-Saharan Africa's <1% of CO2, "about
+  thirty" deaths in 2020, "Mozambique has no national flood map". 56 figures now, 0 failed.
+- On slide 22 the two March 2022 events share one line ("EUMETSAT and the Arctic Council suspend work with Russia"),
+  as in the narration, so the slide fits a 720 px screen under its longer title.
+
+**Further edits from the author (5 Oct 2026, late).**
+- Titles: slide 8 "The Gaps: Cell by cell"; slide 9 "What happens when we can't predict what's coming" with
+  the subtitle "A case study of Cyclone Idai in Mozambique" (Idai's track alone, drawn in over 5 s); slide 12 "The
+  storm was expected. The flood was not." (its flood layer now rises from faint to 90% over 3 s); slide 16 "Who
+  lives and who dies" (the line "Counted in money, disasters look like a rich-world problem" removed); slide 17
+  "How about the place you were born?"; the last slide "There can be no gaps in the weather machine", its end
+  card ending "Collective Planetary Stewardship." instead of "Radar."
+- "Beyond people" is two slides, both numbered like "Idai in numbers": the animals (124,498 birds, 10,305 sheep and
+  goats, 5,428 cows, 3,191 pigs; US$3.1 million) and the power grid (1,345 km of transmission lines, 10,216 km of
+  distribution lines, 3,990 transformers, 30 substations), from the author's long narrative, likely the 2019
+  PDNA: still "source to come". The transformers were in the long narrative but not the short text.
+- Slide 21's year and live cell count are drawn on the map, top right of Africa.
+- Slide 24's timeline is vertical: one event a row in date order, a filled dot for the US, hollow for the wider
+  world. On screens under 820 px tall the layer legend steps aside and the illustrative note moves into the
+  timeline's key ("Globe: illustrative fade").
+- **Bug found and fixed:** two CSS comments added on 5 Oct were never closed (`/* ...` with no `*/`), so the
+  browser skipped the rules after them up to the next comment's end (the end card's short-screen rule, the
+  timeline legend rule, the stats layout). All style blocks were scanned; none is left open.
+

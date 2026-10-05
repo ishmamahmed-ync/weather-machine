@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Country's Weather Gap</title>
+<style>
+  :root{
+    --bg:#05080E; --panel:#0B111A; --line:#1E2733; --text:#ECEAE5; --muted:#8B95A1; --faint:#5C6773;
+    --amber:#FFB547; --red:#E8433F; --yellow:#F2C744; --blue:#45B0CE; --violet:#B98CE0;
+    --sans:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+    --disp:"Space Grotesk","IBM Plex Sans",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--text); font:16px/1.55 var(--sans)}
+  main{max-width:1080px; margin:0 auto; padding:56px 24px 80px}
+  .kicker{font:600 11px var(--sans); letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+  h1{font:500 clamp(2rem,4.4vw,3.1rem)/1.06 var(--disp); letter-spacing:-.02em; margin:.5rem 0 .6rem}
+  .lede{color:var(--muted); max-width:56ch; margin:0 0 2rem}
+
+  /* country picker */
+  .pick{position:relative; max-width:460px}
+  .pick input{width:100%; background:var(--panel); color:var(--text); border:1px solid var(--line);
+    border-radius:3px; padding:.85rem 1rem; font:500 1.05rem var(--sans); outline:none}
+  .pick input:focus{border-color:#3A4656}
+  .pick ul{position:absolute; z-index:5; left:0; right:0; top:100%; margin:4px 0 0; padding:4px 0;
+    list-style:none; background:var(--panel); border:1px solid var(--line); border-radius:3px;
+    max-height:300px; overflow:auto; display:none}
+  .pick ul.on{display:block}
+  .pick li{padding:.45rem 1rem; cursor:pointer; color:#C3CBD4}
+  .pick li.act, .pick li:hover{background:#151E2A; color:var(--text)}
+  .chips{margin:.8rem 0 0; display:flex; gap:.5rem; flex-wrap:wrap}
+  .chips button{background:none; border:1px solid var(--line); color:var(--muted); border-radius:20px;
+    padding:.25rem .75rem; font:12.5px var(--sans); cursor:pointer}
+  .chips button:hover{color:var(--text); border-color:#3A4656}
+
+  /* result */
+  #out{margin-top:3rem; display:none}
+  #out.on{display:block}
+  .country{font:500 clamp(1.6rem,3vw,2.2rem) var(--disp); letter-spacing:-.015em; margin:0 0 .2rem}
+  .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:1.6rem}
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:3px; padding:1.5rem 1.6rem 1.3rem;
+    display:flex; flex-direction:column}
+  .card h2{font:600 11px var(--sans); letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin:0}
+  .card .sub{color:var(--faint); font-size:.85rem; margin:.15rem 0 1.1rem}
+  .big{font:500 clamp(2rem,4vw,2.8rem)/1 var(--disp); letter-spacing:-.02em}
+  .unit{color:var(--muted); font-size:.92rem; margin:.3rem 0 0}
+  .row{display:flex; gap:1.6rem; margin-top:1.1rem; flex-wrap:wrap}
+  .row div{min-width:110px}
+  .row b{display:block; font:500 1.35rem var(--disp)}
+  .row span{color:var(--muted); font-size:.82rem}
+  .rank{color:var(--muted); font-size:.85rem; margin-top:.9rem}
+  .rank strong{color:var(--text); font-weight:500}
+  .na{color:var(--faint); font-style:italic; margin:.4rem 0}
+  .src{margin-top:auto; padding-top:1.1rem; color:var(--faint); font-size:.74rem; line-height:1.45}
+
+  /* NYT-style stepped / position bars */
+  .bar{position:relative; height:8px; background:#18212C; border-radius:1px; margin:1rem 0 .35rem; overflow:hidden}
+  .bar i{position:absolute; top:0; bottom:0; left:0; border-radius:1px}
+  .ticks{display:flex; justify-content:space-between; color:var(--faint); font-size:.72rem}
+  .scale{display:flex; gap:2px; margin:1rem 0 .35rem}
+  .scale span{flex:1; height:8px; background:#18212C}
+  .scale span.on{background:var(--amber)}
+  .marker{position:relative; height:14px; margin-top:-2px}
+  .marker em{position:absolute; top:0; width:2px; height:14px; background:var(--text); transform:translateX(-1px)}
+  .note{color:var(--faint); font-size:.78rem; margin-top:.6rem}
+
+  footer{margin-top:3rem; color:var(--faint); font-size:.78rem; max-width:80ch; line-height:1.6}
+  footer b{color:var(--muted); font-weight:500}
+  @media (max-width:760px){ .grid{grid-template-columns:1fr} main{padding-top:36px} }
+</style>
+</head>
+<body>
+<main>
+  <div class="kicker">The Gaps in the Weather Machine</div>
+  <h1>How well can your country see the storm coming?</h1>
+  <p class="lede">Pick a country to see what weather and climate disasters have cost it,
+     how it ranks for climate risk, and how many rain gauges it shares with the world.</p>
+
+  <div class="pick">
+    <input id="q" type="text" placeholder="Type a country&hellip;" autocomplete="off" aria-label="Country">
+    <ul id="list" role="listbox"></ul>
+  </div>
+  <div class="chips" id="chips"></div>
+
+  <section id="out" aria-live="polite">
+    <div class="kicker" id="region"></div>
+    <div class="country" id="cname"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <footer>
+    <b>Sources.</b> EM-DAT, CRED / UCLouvain (weather and climate disasters only; events
+    are recorded only above a threshold of 10 deaths or 100 people affected, and coverage is
+    weakest where measurement is weakest). Germanwatch, Climate Risk Index 2026. NOAA NCEI,
+    GHCN-Daily station inventory; WMO-No. 168, Guide to Hydrological Practices, Table I.2.6.
+    IDMC, Global Internal Displacement Database. Country areas from Natural Earth.
+    Prototype built <span id="built"></span>.
+  </footer>
+</main>
+
+<script id="DATA">const DATA = __DATA__;</script>
+<script>
+(function(){
+  const C = DATA.countries, M = DATA.meta, byIso = {};
+  C.forEach(c => byIso[c.iso] = c);
+  document.getElementById('built').textContent = M.built;
+
+  // ---------- formatting ----------
+  const fmt = n => n.toLocaleString('en-US');
+  function compact(n){
+    if(n >= 1e9) return (n/1e9).toFixed(n >= 1e10 ? 0 : 1) + ' billion';
+    if(n >= 1e6) return (n/1e6).toFixed(n >= 1e7 ? 0 : 1) + ' million';
+    return fmt(n);
+  }
+  const ord = n => n + (['th','st','nd','rd'][(n%100-20)%10] || ['th','st','nd','rd'][n%100] || 'th');
+  const rankLine = (r, what) => r ? `<strong>${ord(r[0])}</strong> highest ${what} of ${r[1]} countries` : '';
+
+  // ---------- cards ----------
+  function cardDisasters(c){
+    const e = c.emdat, w = M.emdat_window;
+    let body;
+    if(!e) body = `<p class="na">No weather or climate disasters recorded in EM-DAT for ${w[0]}&ndash;${w[1]}.</p>`;
+    else body = `
+      <div class="big" style="color:var(--red)">${fmt(e.deaths)}</div>
+      <div class="unit">people killed in ${fmt(e.events)} recorded events</div>
+      <div class="row">
+        <div><b>${compact(e.affected)}</b><span>people affected</span></div>
+        <div><b>${fmt(e.injured)}</b><span>injured</span></div>
+      </div>
+      <div class="rank">${rankLine(c.ranks && c.ranks.deaths, 'death toll')}<br>
+        ${rankLine(c.ranks && c.ranks.affected, 'number affected')}</div>`;
+    return card('Disasters, ' + w[0] + '&ndash;' + w[1], 'Floods, storms, heat, drought, wildfire, landslides', body,
+      'EM-DAT. &ldquo;Affected&rdquo; is EM-DAT&rsquo;s total affected: injured, homeless and needing assistance. Small events below the recording threshold are missing, most often in countries with weak monitoring.');
+  }
+
+  function cardCRI(c){
+    const r = c.cri, n = M.cri_ranked;
+    let body;
+    if(!r) body = `<p class="na">Not ranked in the Climate Risk Index 2026.</p>`;
+    else{
+      const seg = 10, on = Math.ceil((n - r.rank_1995_2024 + 1) / n * seg);
+      body = `
+        <div class="big" style="color:var(--amber)">${ord(r.rank_1995_2024)}</div>
+        <div class="unit">most affected of ${n} countries, 1995&ndash;2024</div>
+        <div class="scale">${Array.from({length:seg}, (_, i) => `<span class="${i < on ? 'on' : ''}"></span>`).join('')}</div>
+        <div class="ticks"><span>least affected</span><span>most affected</span></div>
+        <div class="row"><div><b>${ord(r.rank_2024)}</b><span>in 2024 alone</span></div></div>`;
+    }
+    return card('Climate Risk Index', 'Germanwatch, 2026 edition', body,
+      'Germanwatch CRI 2026, ranking countries by deaths, people affected and economic losses from extreme weather, absolute and relative. Rank 1 is the most affected.');
+  }
+
+  function cardGauges(c){
+    const g = c.gauges, need = g.wmo_needed, pct = need ? Math.min(100, g.active / need * 100) : 0;
+    const color = pct >= 100 ? 'var(--blue)' : 'var(--amber)';
+    let line;
+    if(!g.active) line = `No active rain gauges from ${c.name} in the global archive.`;
+    else line = `one per <strong>${fmt(g.km2_per_gauge)} km&sup2;</strong>, against the WMO minimum of one per ${M.wmo_km2} km&sup2;`;
+    const body = `
+      <div class="big" style="color:${color}">${fmt(g.active)}</div>
+      <div class="unit">active rain gauges shared with the global archive</div>
+      <div class="bar"><i style="width:${Math.max(pct, g.active ? 1 : 0)}%; background:${color}"></i></div>
+      <div class="ticks"><span>0</span><span>WMO minimum: ~${fmt(need)}</span></div>
+      <div class="rank">${line}${g.active && pct < 100 ? `<br><strong>${pct < 1 ? '&lt;1' : Math.round(pct)}%</strong> of the minimum` : ''}</div>`;
+    return card('Rain gauges', 'Compared with the WMO minimum density', body,
+      'GHCN-Daily: stations with a precipitation record reporting in 2025 or 2026. This counts gauges shared with the global archive, not every gauge a country operates. WMO minimum uses the plains figure (575 km&sup2;); mountains need more, coasts fewer.');
+  }
+
+  function cardDisplacement(c){
+    const d = c.gidd, w = M.gidd_window;
+    let body;
+    if(!d || !d.disaster) body = `<p class="na">No disaster displacement recorded by IDMC for ${w[0]}&ndash;${w[1]}.</p>`;
+    else{
+      const share = d.flood / d.disaster * 100;
+      body = `
+        <div class="big" style="color:var(--violet)">${compact(d.disaster)}</div>
+        <div class="unit">times people were forced from their homes by disasters</div>
+        <div class="bar"><i style="width:${share}%; background:var(--blue)"></i></div>
+        <div class="ticks"><span>${Math.round(share)}% by floods</span><span>all disasters</span></div>
+        <div class="row"><div><b style="color:var(--blue)">${compact(d.flood)}</b><span>displaced by floods</span></div></div>
+        <div class="rank">${rankLine(c.ranks && c.ranks.disaster_disp, 'disaster displacement')}<br>
+          ${rankLine(c.ranks && c.ranks.flood_disp, 'flood displacement')}</div>`;
+    }
+    return card('Displacement, ' + w[0] + '&ndash;' + w[1], 'Internal displacements caused by disasters', body,
+      'IDMC GIDD. Internal displacements count movements, not people: someone who flees twice counts twice. Disaster data starts in 2008.');
+  }
+
+  function card(title, sub, body, src){
+    return `<article class="card"><h2>${title}</h2><div class="sub">${sub}</div>${body}<div class="src">${src}</div></article>`;
+  }
+
+  function show(iso){
+    const c = byIso[iso]; if(!c) return;
+    document.getElementById('cname').textContent = c.name;
+    document.getElementById('region').textContent = 'Country profile';
+    document.getElementById('grid').innerHTML = cardDisasters(c) + cardCRI(c) + cardGauges(c) + cardDisplacement(c);
+    document.getElementById('out').classList.add('on');
+    q.value = c.name; list.classList.remove('on');
+    if(location.hash.slice(1) !== iso) history.replaceState(null, '', '#' + iso);
+  }
+
+  // ---------- picker: type to filter, arrows + enter, click ----------
+  const q = document.getElementById('q'), list = document.getElementById('list');
+  const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  let hits = [], act = 0;
+  function filter(){
+    const t = norm(q.value.trim());
+    hits = t ? C.filter(c => norm(c.name).includes(t))
+                 .sort((a, b) => norm(a.name).indexOf(t) - norm(b.name).indexOf(t)).slice(0, 12) : [];
+    act = 0; draw();
+  }
+  function draw(){
+    list.innerHTML = hits.map((c, i) => `<li role="option" data-iso="${c.iso}" class="${i === act ? 'act' : ''}">${c.name}</li>`).join('');
+    list.classList.toggle('on', hits.length > 0);
+  }
+  q.addEventListener('input', filter);
+  q.addEventListener('focus', () => { if(q.value) { q.select(); } });
+  q.addEventListener('keydown', e => {
+    if(e.key === 'ArrowDown'){ act = Math.min(act + 1, hits.length - 1); draw(); e.preventDefault(); }
+    else if(e.key === 'ArrowUp'){ act = Math.max(act - 1, 0); draw(); e.preventDefault(); }
+    else if(e.key === 'Enter' && hits[act]) show(hits[act].iso);
+    else if(e.key === 'Escape') list.classList.remove('on');
+  });
+  list.addEventListener('mousedown', e => { const li = e.target.closest('li'); if(li) show(li.dataset.iso); });
+  document.addEventListener('click', e => { if(!e.target.closest('.pick')) list.classList.remove('on'); });
+
+  // quick picks
+  const chips = document.getElementById('chips');
+  ['MOZ', 'BGD', 'PHL', 'USA', 'DEU', 'IND'].forEach(iso => {
+    if(!byIso[iso]) return;
+    const b = document.createElement('button'); b.textContent = byIso[iso].name;
+    b.onclick = () => show(iso); chips.appendChild(b);
+  });
+
+  if(byIso[location.hash.slice(1)]) show(location.hash.slice(1));
+  addEventListener('hashchange', () => { if(byIso[location.hash.slice(1)]) show(location.hash.slice(1)); });
+})();
+</script>
+</body>
+</html>

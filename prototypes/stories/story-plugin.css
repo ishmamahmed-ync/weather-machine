@@ -1,0 +1,36 @@
+/* The frontline stories (story-plugin.js): the design system's story card (.wm-card.is-tight, as in the
+   specimen) under slide 18's words: photo first, then place, title, description (three lines at most), the
+   layer key, source and Next. This file only sizes it to the screen: on a screen 860px tall or more the
+   photo spans the card; on shorter ones a full-width 16:9 photo cannot fit under the title, so it is capped
+   by the screen's height. */
+.sto-panel{width:100%; max-width:30rem}
+.sto-card{display:flex; flex-direction:column; gap:6px}
+.sto-meta{display:flex; justify-content:space-between; align-items:baseline; gap:var(--wm-s3); margin-top:var(--wm-s2)}
+.sto-photo{width:100%; transition:background-color var(--wm-slow) ease}
+@media (max-height:960px){ .sto-photo{width:min(100%, calc(27vh * 16 / 9))} .sto-card{gap:5px} }
+@media (max-height:860px){ .sto-photo{width:min(100%, calc(17vh * 16 / 9))} }
+/* the credit on a soft band along the photo's foot, clear of the link button */
+.sto-photo .sto-credit{position:absolute; left:0; right:0; bottom:0; padding:18px 48px 6px 10px; margin:0;
+  background:linear-gradient(rgba(5,8,14,0), rgba(5,8,14,.78)); color:var(--wm-text-2);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.sto-photo .wm-icon-btn{z-index:1}
+.sto-desc{color:var(--wm-text-2); display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; line-clamp:3; overflow:hidden}   /* at most three lines; the full story is a click away */
+.sto-card .sto-key{flex-direction:row; flex-wrap:nowrap; gap:var(--wm-s3); overflow:hidden}
+.sto-card .sto-key span{white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0}   /* one line */
+.sto-key:empty{display:none}
+.sto-foot{display:flex; align-items:center; gap:var(--wm-s3); margin-top:4px}
+.sto-src{flex:1; min-width:0; margin:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}   /* one line; the full source on hover */
+.sto-count{white-space:nowrap}
+.sto-next{display:inline-flex; align-items:center; gap:.45rem}
+@media (max-height:820px){
+  .sto-meta{margin-top:2px}
+  .sto-desc{font-size:var(--wm-fs-small); line-height:1.5}
+  .sto-title{font-size:1.1rem}
+}
+@media (max-height:760px){
+  .sto-card{padding:12px; gap:5px}
+  .sto-photo{width:min(100%, calc(13vh * 16 / 9))}
+}
+/* while the stories show, the slide's own legend (the warning-map key) steps aside for the card */
+body[data-stories] #slide .below > .rest > .wm-legend, body[data-stories] #slide .below > .wm-legend{display:none}
+.sto-panel[hidden]{display:none}

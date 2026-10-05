@@ -1,0 +1,508 @@
+<title>Weather Machine Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/*__WM_CSS__*/
+
+/* ---- specimen page layout: a sticky index on the left, the sheets on the right ---- */
+html{background:var(--wm-bg); scroll-padding-top:24px}
+body{background:var(--wm-bg); color:var(--wm-text); margin:0}
+.page{display:grid; grid-template-columns:200px minmax(0,1fr); gap:var(--wm-s7);
+  max-width:1240px; margin:0 auto; padding-inline:var(--wm-gutter); padding-block:var(--wm-s7) var(--wm-s8)}
+nav.index{position:sticky; top:var(--wm-s5); align-self:start; display:flex; flex-direction:column; gap:var(--wm-s2)}
+nav.index a{color:var(--wm-muted); text-decoration:none; font-size:var(--wm-fs-small)}
+nav.index a:hover{color:var(--wm-text)}
+nav.index .wm-label{margin-bottom:var(--wm-s2)}
+main{min-width:0; display:flex; flex-direction:column; gap:var(--wm-s8)}
+section{display:flex; flex-direction:column; gap:var(--wm-s5); min-width:0}
+section > header{display:flex; flex-direction:column; gap:var(--wm-s2); border-top:1px solid var(--wm-line); padding-top:var(--wm-s4)}
+h2{font:500 1.5rem/1.2 var(--wm-disp); letter-spacing:var(--wm-track-title); margin:0}
+h3{font:600 var(--wm-fs-label)/1.3 var(--wm-sans); letter-spacing:var(--wm-track-label); text-transform:uppercase; color:var(--wm-muted); margin:0}
+.intro{display:flex; flex-direction:column; gap:var(--wm-s4)}
+.intro p{margin:0}
+code{font:400 .8em ui-monospace, "SF Mono", Menlo, monospace; color:var(--wm-text-2)}
+
+/* principles */
+.principles{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill, minmax(230px,1fr)); gap:var(--wm-s5)}
+.principles li{display:flex; flex-direction:column; gap:var(--wm-s2); border-top:1px solid var(--wm-line); padding-top:var(--wm-s3)}
+.principles b{font:500 1.05rem/1.25 var(--wm-disp)}
+.principles span{color:var(--wm-muted); font-size:var(--wm-fs-small); line-height:1.5}
+
+/* swatches */
+.group{display:flex; flex-direction:column; gap:var(--wm-s3)}
+.swatches{display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:var(--wm-s4) var(--wm-s3)}
+.sw{display:flex; flex-direction:column; gap:6px; min-width:0}
+.sw .chip{height:44px; border-radius:var(--wm-r-control); border:1px solid var(--wm-line)}
+.sw .name{font:500 .78rem var(--wm-sans); color:var(--wm-text)}
+.sw .val{font:400 .7rem ui-monospace, Menlo, monospace; color:var(--wm-faint); overflow-wrap:anywhere}
+.sw .use{font-size:.75rem; color:var(--wm-muted); line-height:1.35}
+.ramp{display:grid; grid-template-columns:repeat(6,1fr); gap:2px}
+.ramp div{height:44px; border-radius:var(--wm-r-control)}
+.ramp span{font:600 9.5px var(--wm-sans); letter-spacing:.08em; color:var(--wm-muted); text-transform:uppercase}
+
+/* type */
+.type{display:flex; flex-direction:column}
+.type .row{display:grid; grid-template-columns:180px minmax(0,1fr); gap:var(--wm-s5); align-items:baseline;
+  border-top:1px solid var(--wm-line-soft); padding:var(--wm-s4) 0}
+.type .meta{display:flex; flex-direction:column; gap:2px}
+.type .meta code{font-size:.72rem}
+.type .meta span{font-size:.72rem; color:var(--wm-faint)}
+
+/* space and shape */
+.scale{display:flex; flex-direction:column; gap:6px}
+.scale div{display:grid; grid-template-columns:70px 1fr; align-items:center; gap:var(--wm-s3); font:400 .72rem ui-monospace, Menlo, monospace; color:var(--wm-faint)}
+.scale i{display:block; height:8px; background:var(--wm-station); border-radius:1px}
+.shapes{display:flex; flex-wrap:wrap; gap:var(--wm-s5)}
+.shapes figure{margin:0; display:flex; flex-direction:column; gap:var(--wm-s2); align-items:flex-start}
+.shapes .box{width:96px; height:64px; border:1px solid var(--wm-outline); background:var(--wm-hover)}
+.shapes figcaption{font-size:.75rem; color:var(--wm-muted)}
+
+/* component board */
+.board{display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:var(--wm-s5)}
+.tile{display:flex; flex-direction:column; gap:var(--wm-s3); min-width:0}
+.tile .stage{background:radial-gradient(120% 120% at 80% 20%, #0D1621 0%, var(--wm-bg) 70%); border:1px solid var(--wm-line-soft);
+  border-radius:var(--wm-r-card); padding:var(--wm-s5); display:flex; flex-direction:column; gap:var(--wm-s4); min-height:120px; position:relative}
+.tile .cap{display:flex; justify-content:space-between; gap:var(--wm-s3)}
+.tile .cap code{font-size:.72rem}
+.row-btns{display:flex; flex-wrap:wrap; gap:var(--wm-s2); align-items:center}
+.foot{display:flex; justify-content:space-between; align-items:center; gap:var(--wm-s3)}
+
+/* globe */
+.globe-sheet{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,300px); gap:var(--wm-s6); align-items:center}
+.globe-box{position:relative; aspect-ratio:1/1; max-width:100%}
+.globe-box canvas{position:absolute; inset:0; width:100%; height:100%; cursor:grab}
+.globe-box canvas:active{cursor:grabbing}
+.rules{display:flex; flex-direction:column; gap:var(--wm-s3); margin:0; padding:0; list-style:none}
+.rules li{display:flex; flex-direction:column; gap:2px; border-top:1px solid var(--wm-line-soft); padding-top:var(--wm-s2)}
+.rules b{font-weight:500; font-size:var(--wm-fs-small)}
+.rules span{color:var(--wm-muted); font-size:.78rem; line-height:1.45}
+
+/* tables */
+.table{overflow-x:auto}
+table{width:100%; border-collapse:collapse; font-size:var(--wm-fs-small)}
+th{text-align:left; font:600 var(--wm-fs-label) var(--wm-sans); letter-spacing:var(--wm-track-label); text-transform:uppercase; color:var(--wm-muted);
+  padding:var(--wm-s2) var(--wm-s3) var(--wm-s2) 0; border-bottom:1px solid var(--wm-line)}
+td{padding:var(--wm-s3) var(--wm-s3) var(--wm-s3) 0; border-bottom:1px solid var(--wm-line-soft); vertical-align:top; color:var(--wm-text-2); line-height:1.5}
+td:first-child{color:var(--wm-text); white-space:nowrap; font-weight:500}
+.screen{position:relative; aspect-ratio:16/9; max-width:100%; border:1px solid var(--wm-line-soft); border-radius:var(--wm-r-card);
+  background:var(--wm-bg); overflow:hidden; --mini:clamp(34px, 6.4%, 62px)}
+.screen-text{position:absolute; left:5%; top:50%; transform:translateY(-50%); width:33%; display:flex; flex-direction:column; gap:var(--wm-s2)}
+.screen-figure{position:absolute; z-index:1; right:16%; top:20%; width:48%}   /* placed by drawMini(): its corner on the globe's centre */
+.screen-figure .wm-frame{width:100%}
+#spec-mini{position:absolute; z-index:2; inset:0; width:100%; height:100%; pointer-events:none}
+@media (max-width:600px){ .screen{aspect-ratio:3/4} .screen-text{top:auto; bottom:6%; transform:none; width:88%} .screen-figure{width:62%; top:46%} }
+/* placeholder "photo" for the instrument demo: a grey study, tinted by the card */
+.ph-sample{background:radial-gradient(60% 80% at 30% 35%, #9a9a9a 0%, transparent 60%),
+  linear-gradient(170deg, #d8d8d8 0%, #7a7a7a 55%, #2a2a2a 100%),
+  repeating-linear-gradient(90deg, rgba(0,0,0,.25) 0 2px, transparent 2px 22px)}
+.words{display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:var(--wm-s5)}
+.words div{display:flex; flex-direction:column; gap:6px; border-top:1px solid var(--wm-line); padding-top:var(--wm-s3)}
+.words p{margin:0; font-size:var(--wm-fs-small); color:var(--wm-text-2); line-height:1.5}
+.words .eg{color:var(--wm-muted)}
+
+@media (max-width:820px){
+  .page{grid-template-columns:1fr; gap:var(--wm-s5)}
+  nav.index{position:static; flex-direction:row; flex-wrap:wrap; gap:var(--wm-s2) var(--wm-s4)}
+  nav.index .wm-label{width:100%; margin:0}
+  .type .row{grid-template-columns:1fr; gap:var(--wm-s2)}
+  .globe-sheet{grid-template-columns:1fr}
+}
+</style>
+
+<div class="wm page">
+  <nav class="index" aria-label="Sections">
+    <span class="wm-label">Weather Machine</span>
+    <a href="#principles">Principles</a>
+    <a href="#colour">Colour</a>
+    <a href="#type">Type</a>
+    <a href="#space">Space and shape</a>
+    <a href="#components">Components</a>
+    <a href="#images">Images</a>
+    <a href="#globe">The globe</a>
+    <a href="#words">Words</a>
+    <a href="#audit">Audit</a>
+  </nav>
+
+  <main>
+    <div class="intro">
+      <span class="wm-label">Design system · 4 Oct 2026</span>
+      <h1 class="wm-display">The Gaps in the Weather Machine</h1>
+      <p class="wm-sub" style="max-width:62ch">One visual language for the main piece and every prototype around it.
+        Written from what the pages already do, with the drift between them removed. Tokens and
+        components live in <code>design-system/wm.css</code>; the globe's rules in <code>wm.js</code>.</p>
+    </div>
+
+    <section id="principles">
+      <header><h3>Principles</h3><h2>Six rules the rest follows</h2></header>
+      <ul class="principles">
+        <li><b>The night side of the planet</b><span>Dark ground, light data. Colour belongs to the data; text, lines and controls are warm grey.</span></li>
+        <li><b>One hue, one meaning</b><span>Amber is always weather stations, blue is always Argo, on every page. A colour never stands for two things.</span></li>
+        <li><b>Say what is shown, and what is not</b><span>Every card names its source. Anything not real says <i>illustrative</i> where it appears. Keys say what a layer is not.</span></li>
+        <li><b>Lines before boxes</b><span>Cards over the globe are the only boxes. Fields are underlines, buttons are outlines. No drop shadows.</span></li>
+        <li><b>The globe is always there</b><span>Words on the left, globe on the right. When a big image takes the stage, the globe minimises to the top-right corner. It never leaves.</span></li>
+        <li><b>Every image is framed</b><span>A white frame round every photograph: 16:9 inside cards, 4:3 for big images beside the text. Every image has a credit.</span></li>
+      </ul>
+    </section>
+
+    <section id="colour">
+      <header><h3>Colour</h3><h2>Grey interface, coloured data</h2></header>
+      __SWATCHES__
+      <div class="group">
+        <h3>Rain-gauge density, gauges per 1,000 km²</h3>
+        <div class="ramp" style="grid-template-columns:repeat(8,1fr)">
+          <div style="background:var(--wm-gauge-0)"></div><div style="background:var(--wm-gauge-1)"></div><div style="background:var(--wm-gauge-2)"></div><div style="background:var(--wm-gauge-3)"></div>
+          <div style="background:var(--wm-gauge-4)"></div><div style="background:var(--wm-gauge-5)"></div><div style="background:var(--wm-gauge-6)"></div><div style="background:var(--wm-gauge-7)"></div>
+          <span>None</span><span>&lt;0.1</span><span>0.1–0.5</span><span>0.5–1</span><span>1–2</span><span>2–5</span><span>5–10</span><span>10+</span>
+        </div>
+      </div>
+      <div class="group">
+        <h3>Storm intensity, Saffir-Simpson</h3>
+        <div class="ramp">
+          <div style="background:var(--wm-ts)"></div><div style="background:var(--wm-c1)"></div><div style="background:var(--wm-c2)"></div>
+          <div style="background:var(--wm-c3)"></div><div style="background:var(--wm-c4)"></div><div style="background:var(--wm-c5)"></div>
+          <span>Tropical storm</span><span>Cat 1</span><span>Cat 2</span><span>Cat 3</span><span>Cat 4</span><span>Cat 5</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="type">
+      <header><h3>Type</h3><h2>Space Grotesk for display, IBM Plex Sans for reading</h2></header>
+      <div class="type">
+        <div class="row"><div class="meta"><code>.wm-hero</code><span>500 · clamp 4–7.5rem · tabular</span></div><p class="wm-hero">1970</p></div>
+        <div class="row"><div class="meta"><code>.wm-display</code><span>400 · clamp 1.9–2.7rem · −.02em</span></div><p class="wm-display">Those least responsible for climate change are coping</p></div>
+        <div class="row"><div class="meta"><code>.wm-stat</code> + <code>.wm-note</code><span>500 · clamp 1.7–2.6rem</span></div><div><span class="wm-stat" style="color:var(--wm-station)">132,501</span><span class="wm-note">weather stations in the global archive</span></div></div>
+        <div class="row"><div class="meta"><code>.wm-title</code><span>500 · 1.25rem · −.01em</span></div><p class="wm-title">Elephant seals measure the ocean where floats can't go</p></div>
+        <div class="row"><div class="meta"><code>.wm-lead</code><span>1.125rem / 1.55 · with halo</span></div><p class="wm-lead" style="margin:0">For most of history we could only guess at the weather. We prayed, consulted oracles and made calendars.</p></div>
+        <div class="row"><div class="meta"><code>.wm-body</code><span>.875rem / 1.55 · text-2 · 62ch</span></div><p class="wm-body" style="margin:0">Aerial surveys off the southeastern United States counted 23 right whale calves in the 2026 calving season, the most since 2009.</p></div>
+        <div class="row"><div class="meta"><code>.wm-label</code><span>600 · ~10.5px · +.1em · caps</span></div><p class="wm-label" style="margin:0">2 of 3 · From orbit</p></div>
+        <div class="row"><div class="meta"><code>.wm-source</code><span>.75rem · faint</span></div><p class="wm-source" style="margin:0">McDonnell et al., <i>npj Climate and Atmospheric Science</i> 9:147 (2026)</p></div>
+        <div class="row"><div class="meta"><code>.wm-place</code> <code>.wm-water</code> <code>.wm-town</code><span>Map labels, NYT style</span></div>
+          <p style="margin:0; display:flex; gap:var(--wm-s5); flex-wrap:wrap; align-items:baseline"><span class="wm-place">Mozambique</span><span class="wm-water">Mozambique Channel</span><span class="wm-town">Beira</span></p></div>
+      </div>
+    </section>
+
+    <section id="space">
+      <header><h3>Space and shape</h3><h2>4px steps, three radii, one line weight</h2></header>
+      <div class="board" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">
+        <div class="group"><h3>Space</h3>
+          <div class="scale">
+            <div>s1 · 4<i style="width:4px"></i></div><div>s2 · 8<i style="width:8px"></i></div><div>s3 · 12<i style="width:12px"></i></div>
+            <div>s4 · 16<i style="width:16px"></i></div><div>s5 · 24<i style="width:24px"></i></div><div>s6 · 32<i style="width:32px"></i></div>
+            <div>s7 · 48<i style="width:48px"></i></div><div>s8 · 64<i style="width:64px"></i></div>
+          </div>
+        </div>
+        <div class="group"><h3>Radius</h3>
+          <div class="shapes">
+            <figure><div class="box" style="border-radius:var(--wm-r-control)"></div><figcaption>2px · controls, photos</figcaption></figure>
+            <figure><div class="box" style="border-radius:var(--wm-r-card)"></div><figcaption>3px · cards, tooltips</figcaption></figure>
+            <figure><div class="box" style="width:64px; border-radius:50%"></div><figcaption>50% · dots, round buttons</figcaption></figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="components">
+      <header><h3>Components</h3><h2>The pieces every page is built from</h2></header>
+      <div class="board">
+
+        <div class="tile">
+          <div class="stage">
+            <article class="wm-card is-tight">
+              <div class="wm-photo" style="background-color:#2E4A44">
+                <a class="wm-icon-btn" href="https://www.meop.net/" target="_blank" rel="noopener" aria-label="Read the full story">
+                  <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 10L10 3M4.5 3H10v5.5"/></svg></a>
+              </div>
+              <span class="wm-label">Southern Ocean</span>
+              <h4 class="wm-title">Elephant seals measure the ocean where floats can't go</h4>
+              <p class="wm-body">Argo floats can't surface through sea ice to report, but elephant seals carrying sensor tags dive beneath it.</p>
+              <div class="wm-legend is-stacked"><span><i class="wm-swatch" style="background:var(--wm-seal)"></i>Seal-borne ocean profiles (MEOP)</span><span><i class="wm-swatch" style="background:var(--wm-argo)"></i>Argo float profiles</span></div>
+              <div class="foot"><span class="wm-source">MEOP-CTD database, 23 Sep 2026</span>
+                <button class="wm-btn" type="button">Next <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1.5 6h9M7 2.5L10.5 6 7 9.5"/></svg></button></div>
+            </article>
+          </div>
+          <div class="cap"><span class="wm-label">Story card</span><code>.wm-card.is-tight</code></div>
+        </div>
+
+        <div class="tile">
+          <div class="stage">
+            <article class="wm-card">
+              <h4 class="wm-title">Sharks</h4>
+              <div><span class="wm-stat" style="color:var(--wm-shark)">40%</span><span class="wm-note">lower surface temperature forecast error, at best</span></div>
+              <p class="wm-body">29 sharks carrying depth and temperature tags logged more than 8,200 ocean profiles in the Northwest Atlantic.</p>
+              <p class="wm-source">McDonnell et al., <i>npj Climate and Atmospheric Science</i> 9:147 (2026)</p>
+            </article>
+          </div>
+          <div class="cap"><span class="wm-label">Scene card with stat</span><code>.wm-card</code></div>
+        </div>
+
+        <div class="tile">
+          <div class="stage" style="justify-content:center">
+            <div class="wm-bare" style="display:flex; flex-direction:column; gap:var(--wm-s2)">
+              <h4 class="wm-title">The limits</h4>
+              <p class="wm-sub">Clever fixes are cheap</p>
+              <p class="wm-lead" style="margin:0">But animals can't measure rainfall over Chókwè, or give a district 30 years of records to size a drain.</p>
+            </div>
+          </div>
+          <div class="cap"><span class="wm-label">Bare narration</span><code>.wm-bare</code></div>
+        </div>
+
+
+        <div class="tile">
+          <div class="stage" style="flex-direction:row; align-items:center; gap:var(--wm-s7)">
+            <nav class="wm-nav is-static" aria-label="Slides (example: slide 7 is current)"><ol><li class="act"><span class="num" aria-hidden="true">I</span><ol><li><button class="ln is-past" type="button" aria-label="The Gaps in the Weather Machine"></button></li></ol></li><li class="act"><span class="num" aria-hidden="true">II</span><ol><li><button class="ln is-past" type="button" aria-label="Ground stations"></button></li><li><button class="ln is-past" type="button" aria-label="Satellites"></button></li><li><button class="ln is-past" type="button" aria-label="Argo floats"></button></li><li><button class="ln is-past" type="button" aria-label="Rain gauges, and the whole machine"></button></li></ol></li><li class="act is-on"><span class="num" aria-hidden="true">III</span><ol><li><button class="ln is-past" type="button" aria-label="Not everyone has the same view of the storm"></button></li><li><button class="ln" type="button" aria-label="Cold spots" aria-current="step"></button></li><li><button class="ln" type="button" aria-label="Cell by cell"></button></li></ol></li><li class="act"><span class="num" aria-hidden="true">IV</span><ol><li><button class="ln" type="button" aria-label="Can’t see the storm coming"></button></li><li><button class="ln" type="button" aria-label="Mozambique, 2019"></button></li><li><button class="ln" type="button" aria-label="One season, three storms"></button></li><li><button class="ln" type="button" aria-label="The storm was seen. The flood was not."></button></li><li><button class="ln" type="button" aria-label="Before and after"></button></li><li><button class="ln" type="button" aria-label="Idai in numbers"></button></li><li><button class="ln" type="button" aria-label="Beyond people"></button></li></ol></li><li class="act"><span class="num" aria-hidden="true">V</span><ol><li><button class="ln" type="button" aria-label="Who dies, and who pays"></button></li><li><button class="ln" type="button" aria-label="Since you were born"></button></li></ol></li><li class="act"><span class="num" aria-hidden="true">VI</span><ol><li><button class="ln" type="button" aria-label="The frontline is not waiting"></button></li></ol></li><li class="act"><span class="num" aria-hidden="true">VII</span><ol><li><button class="ln" type="button" aria-label="Adaptation is not enough"></button></li><li><button class="ln" type="button" aria-label="The rich get better maps"></button></li></ol></li><li class="act"><span class="num" aria-hidden="true">VIII</span><ol><li><button class="ln" type="button" aria-label="The machine is fraying"></button></li></ol></li><li class="act"><span class="num" aria-hidden="true">IX</span><ol><li><button class="ln" type="button" aria-label="We know what works"></button></li><li><button class="ln" type="button" aria-label="The money exists"></button></li><li><button class="ln" type="button" aria-label="The weather machine"></button></li></ol></li></ol></nav>
+            <div style="display:flex; flex-direction:column; gap:var(--wm-s3); font-size:var(--wm-fs-caption); color:var(--wm-muted); max-width:22ch">
+              <span>24 slides, 9 sections. Slide 7 is current (section III lit); 1 to 6 visited; the rest to come.</span>
+              <span>On phones:</span><span class="wm-label wm-nav-mini is-static" style="display:block; color:var(--wm-text)">III · 7 / 24</span>
+            </div>
+          </div>
+          <div class="cap"><span class="wm-label">Slide navigator</span><code>.wm-nav .wm-nav-mini</code></div>
+        </div>
+        <div class="tile">
+          <div class="stage">
+            <div class="row-btns"><div class="wm-seg"><button class="wm-btn is-on" type="button">Story</button><button class="wm-btn" type="button">Explore</button></div></div>
+            <div class="row-btns">
+              <button class="wm-btn" type="button">Next <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1.5 6h9M7 2.5L10.5 6 7 9.5"/></svg></button>
+              <button class="wm-btn is-primary" type="button">Refresh table</button>
+              <button class="wm-btn" type="button" disabled>Disabled</button>
+            </div>
+            <div class="row-btns">
+              <button class="wm-icon-btn" type="button" aria-label="Play"><svg viewBox="0 0 12 12" fill="currentColor"><path d="M3 1l8 5-8 5z"/></svg></button>
+              <button class="wm-icon-btn" type="button" aria-label="Pause"><svg viewBox="0 0 12 12" fill="currentColor"><rect x="2" y="1" width="3" height="10"/><rect x="7" y="1" width="3" height="10"/></svg></button>
+              <a class="wm-icon-btn" href="#globe" aria-label="Link out"><svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 10L10 3M4.5 3H10v5.5"/></svg></a>
+              <button class="wm-icon-btn is-small" type="button" aria-label="Close">×</button>
+            </div>
+          </div>
+          <div class="cap"><span class="wm-label">Buttons</span><code>.wm-btn .wm-seg .wm-icon-btn</code></div>
+        </div>
+
+        <div class="tile">
+          <div class="stage">
+            <div class="wm-readout"><i class="wm-swatch" style="background:var(--wm-station)"></i><b>45,462</b><span>weather stations with data in the 1970s</span></div>
+            <div class="wm-readout"><i class="wm-swatch" style="background:var(--wm-sat)"></i><b>43</b><span>Earth-observing satellites in operation</span></div>
+            <div class="wm-readout"><i class="wm-swatch" style="background:var(--wm-argo)"></i><b>–</b><span>Argo floats: none yet</span></div>
+            <span class="wm-hint">Space or scroll to continue</span>
+          </div>
+          <div class="cap"><span class="wm-label">Readouts and hint</span><code>.wm-readout .wm-hint</code></div>
+        </div>
+
+        <div class="tile">
+          <div class="stage">
+            <div class="wm-timeline">
+              <input class="wm-range" id="spec-year" type="range" min="1900" max="2025" step="1" value="1975" aria-label="Year" style="--p:60%">
+              <div class="ticks">
+                <span class="c" style="left:24%">Weather stations</span><span class="c is-on" style="left:60%">Satellites</span><span class="c" style="left:86%">Argo floats</span>
+                <span class="t" style="left:0%">1900</span><span class="t" style="left:48%">1960</span><span class="t" style="left:72%">1990</span><span class="t" style="left:100%">2025</span>
+              </div>
+            </div>
+            <label style="display:flex; gap:.6rem; align-items:center; font-size:.8rem; color:var(--wm-text-2)"><input class="wm-check" id="spec-check" type="checkbox" checked> Argo floats</label>
+          </div>
+          <div class="cap"><span class="wm-label">Timeline and checkbox</span><code>.wm-timeline .wm-check</code></div>
+        </div>
+
+        <div class="tile">
+          <div class="stage">
+            <select class="wm-field" id="spec-country" required aria-label="Your country"><option value="" selected>Your country</option><option>Mozambique</option><option>Malawi</option></select>
+            <input class="wm-field" id="spec-dob" type="text" placeholder="Date of birth" aria-label="Date of birth">
+            <input class="wm-field is-bad" id="spec-bad" type="text" value="31/02/1990" aria-label="Invalid date example">
+          </div>
+          <div class="cap"><span class="wm-label">Fields: an underline, no box</span><code>.wm-field</code></div>
+        </div>
+
+        <div class="tile">
+          <div class="stage">
+            <div class="wm-bars" style="width:100%">
+              <div class="wm-bar" style="--c:var(--wm-deaths)"><span class="k">Deaths</span><span class="v" style="color:var(--c)">1,250<span class="ref">vs 310 in Germany</span></span>
+                <div class="track is-pair"><span class="fill" style="width:80%"></span><span class="fill is-ref" style="width:20%"></span></div></div>
+              <div class="wm-bar" style="--c:var(--wm-affected)"><span class="k">Affected</span><span class="v" style="color:var(--c)">114<small>million</small><span class="ref">vs 344,315 in Germany</span></span>
+                <div class="track is-pair"><span class="fill" style="width:100%"></span><span class="fill is-ref" style="width:2px"></span></div></div>
+            </div>
+          </div>
+          <div class="cap"><span class="wm-label">Bar pair: subject in colour, comparison white</span><code>.wm-bar .track.is-pair</code></div>
+        </div>
+
+        <div class="tile">
+          <div class="stage">
+            <div class="wm-events" style="--up:2; --down:1">
+              <div class="axis">
+                <span class="yr" style="left:0%">2022</span><span class="yr" style="left:25%">2023</span><span class="yr" style="left:50%">2024</span><span class="yr" style="left:75%">2025</span>
+                <div class="ev is-up" style="left:80%; --tier:1"><span class="lb"><b>Mar 2025</b> Fewer weather balloons</span></div>
+                <div class="ev is-up" style="left:100%; --tier:2"><span class="lb"><b>Jan 2026</b> Exit from 66 international bodies</span></div>
+                <div class="ev is-down" style="left:5%; --tier:1"><span class="lb"><b>Mar 2022</b> Arctic Council pauses</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="cap"><span class="wm-label">Events: a thin dated timeline</span><code>.wm-events .ev.is-up .is-down</code></div>
+        </div>
+
+        <div class="tile">
+          <div class="stage">
+            <div class="wm-dial"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="track" cx="50" cy="50" r="44"/>
+              <circle class="val" cx="50" cy="50" r="44" style="--len:276.46; --to:0"/><circle class="val lap" cx="50" cy="50" r="37" style="--len:232.48; --to:182.89"/></svg>
+              <div class="nums"><div><span class="wm-stat">US$400 million</span><span class="wm-note">sought</span></div><div><span class="wm-stat">1 h 13 min</span><span class="wm-note">of world military spending</span></div></div></div>
+          </div>
+          <div class="cap"><span class="wm-label">Dial: a quantity against a unit</span><code>.wm-dial .val .lap</code></div>
+        </div>
+
+        <div class="tile">
+          <div class="stage" style="min-height:150px">
+            <div class="wm-legend"><span><i class="wm-swatch" style="background:var(--wm-station)"></i>Weather stations</span><span><i class="wm-swatch" style="background:var(--wm-argo)"></i>Argo floats</span><span><i class="wm-swatch is-line" style="background:var(--wm-c3)"></i>Storm track, cat 3</span></div>
+            <div class="wm-tip" style="position:relative; align-self:flex-start">Improved flood detectors save lives and property<small>Karonga District, Malawi</small></div>
+          </div>
+          <div class="cap"><span class="wm-label">Legend and tooltip</span><code>.wm-legend .wm-tip</code></div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="images">
+      <header><h3>Images</h3><h2>White frames, big side images, and the globe centred on their corner</h2></header>
+      <div class="tile">
+        <div class="screen" aria-label="Example screen: text on the left, a 4:3 framed image on the right, the globe minimised in the top-right corner">
+          <div class="screen-text">
+            <span class="wm-label">Beyond people</span>
+            <h4 class="wm-title">124,498 birds, 10,305 sheep and goats, 5,428 cows</h4>
+            <p class="wm-body">were killed: about US$3.1 million in losses.</p>
+          </div>
+          <figure class="wm-figure screen-figure">
+            <div class="wm-frame" style="background-color:#3B4A2E"></div>
+            <figcaption class="wm-credit">Photo: credit required before publishing</figcaption>
+          </figure>
+          <canvas id="spec-mini" aria-hidden="true"></canvas>
+        </div>
+        <div class="cap"><span class="wm-label">A big image on screen: 4:3, framed, most of the right side · the globe minimised and centred on its top-right corner, white lines visible</span><code>.wm-figure.is-side · WM.miniView()</code></div>
+      </div>
+      <div class="board" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr))">
+        <div class="tile">
+          <div class="stage">
+            __INSTRUMENTS__
+          </div>
+          <div class="cap"><span class="wm-label">Instrument cards: the newest at 16:9, earlier ones as rows · the author's photos, tinted</span><code>.wm-instrument .is-row</code></div>
+        </div>
+        <div class="tile"><div class="stage"><div class="wm-photo" style="background-color:#2E4A5C"></div></div>
+          <div class="cap"><span class="wm-label">Card photo · 16:9</span><code>.wm-photo</code></div></div>
+        <div class="tile"><div class="stage"><figure class="wm-figure"><div class="wm-frame" style="background-color:#4A3B2E"></div><figcaption class="wm-credit">Every image carries a credit line</figcaption></figure></div>
+          <div class="cap"><span class="wm-label">Side image · 4:3</span><code>.wm-figure</code></div></div>
+        <div class="tile"><div class="stage" style="align-items:flex-start">
+            <ul class="rules" style="width:100%">
+              <li><b>1px white frame, 2px corners</b><span>No unframed, full-bleed or background photographs.</span></li>
+              <li><b>Corner globe</b><span>Radius 80–125px, 3vw from the right, below the top bar, centred on the side image's top-right corner. Grid 30% white, edge 75%.</span></li>
+              <li><b>Full globe</b><span>Grid 15% white, edge 60%. Lines always white, never dark.</span></li>
+            </ul></div>
+          <div class="cap"><span class="wm-label">Rules</span><code>--wm-frame · --wm-mini-*</code></div></div>
+      </div>
+    </section>
+
+    <section id="globe">
+      <header><h3>The globe</h3><h2>Real data, drawn with <code>wm.js</code></h2></header>
+      <div class="globe-sheet">
+        <div class="globe-box"><canvas id="spec-globe" aria-label="Globe: weather stations at 0.5 degrees and Argo floats at 1 degree, three story markers"></canvas></div>
+        <ul class="rules">
+          <li><b>Orthographic, rotation negated once</b><span>Store real [lon, lat]; <code>WM.rotateFor()</code> negates it for d3. Drag to turn.</span></li>
+          <li><b>Density grids</b><span>Additive squares, density as brightness. <code>WM.gridAlpha(n, max)</code>: power .85, floor .13, gain 7.</span></li>
+          <li><b>Dots</b><span>Radius grows with the fourth root of zoom, <code>WM.dotRadius()</code>.</span></li>
+          <li><b>Markers</b><span>Ring, hover fill, selected solid with a halo; <code>WM.drawMarker()</code>; 14px hit radius.</span></li>
+          <li><b>Graticule and rim</b><span>10° at 0.5px, 15% white; rim 1px, 60% white. Shaded relief on the live pages.</span></li>
+          <li class="wm-legend is-stacked" style="border:0"><span><i class="wm-swatch" style="background:var(--wm-station)"></i>Weather stations, 0.5° cells (land standard)</span><span><i class="wm-swatch" style="background:var(--wm-argo)"></i>Argo profiles, 1° cells (ocean standard)</span><span><i class="wm-swatch" style="background:var(--wm-text)"></i>Markers: rest, hover, selected</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="words">
+      <header><h3>Words</h3><h2>Plain, sourced, honest about what is shown</h2></header>
+      <div class="words">
+        <div><h3>Numbers</h3><p>Commas for thousands, tabular figures in readouts, "about" for rounded values, en dash for ranges.</p><p class="eg">132,501 · about three-quarters · 2018–2023 · 69.76 million km²</p></div>
+        <div><h3>Dates</h3><p>Day, short month, year. A year alone when that is all the source gives.</p><p class="eg">16 Jul 2024 · 2026</p></div>
+        <div><h3>Sources</h3><p>One line on every card. Papers as author, journal in italics, volume and page, year.</p><p class="eg">UNICEF Malawi, 16 Jul 2024</p></div>
+        <div><h3>Illustrative</h3><p>Anything not real says so in its own label or key, every time it appears.</p><p class="eg">Satellites, positions illustrative</p></div>
+        <div><h3>Keys</h3><p>Say what a layer is, and what it is not when it could be mistaken.</p><p class="eg">Shark sightings in the study region, not the tagged sharks</p></div>
+        <div><h3>Case</h3><p>Sentence case for titles. Capitals only for labels, hints, keys and country names on maps.</p><p class="eg">Seals measure the ocean · 2 OF 3 · FROM ORBIT</p></div>
+      </div>
+    </section>
+
+    <section id="audit">
+      <header><h3>Audit, 4 Oct 2026</h3><h2>What each page changes to align</h2></header>
+      <div class="table"><table>
+        <thead><tr><th>Page</th><th>Change</th></tr></thead>
+        <tbody>
+          <tr><td>Main site</td><td><b>Seal photo is an unframed 132px square</b> → framed 16:9 card photo, or a 4:3 side image. Panel <code>#0A0E15</code> → raised surface. Extra greys <code>#C3CBD4</code> <code>#7C8794</code> <code>#6B7684</code> <code>#9FB3C8</code> → the four text greys. Root 17px → 16px. Toggle outline → <code>--wm-outline</code>. FEMA dots <code>#FFFFFF</code> → text colour. Flood blues: a decision for the author.</td></tr>
+          <tr><td>Country profile</td><td><b>Rain gauges use Argo blue</b> → <code>--wm-gauge</code> green <span class="wm-swatch" style="background:var(--wm-gauge)"></span>. Root 15px → 16px. Labels 9.5, 10 and 10.5px → <code>.wm-label</code>.</td></tr>
+          <tr><td>Idai</td><td><b>Photos are full-bleed backgrounds</b> → framed 4:3 side images with credits. <b>Globe lines are dark</b> (<code>#1F2A37</code>, <code>#242E3A</code>) → white. The corner lens already matches. Warm greys <code>#C9C6BF</code> (×9) <code>#A9AFB7</code> <code>#56606C</code> → text greys. Orange <code>#F29A3A</code> → storm cat 2. Map labels already match. Flat globe stays.</td></tr>
+          <tr><td>History</td><td>Slider thumb → <code>.wm-range</code>. Readouts already match.</td></tr>
+          <tr><td>Stories</td><td>Card photo gets its white frame. Next pill → <code>.wm-btn</code>. Close → <code>.wm-icon-btn.is-small</code>. Legend dots 7px → 8px swatch.</td></tr>
+          <tr><td>Rain gauges</td><td>Globe present and unframed ✓. Its greens are now the system's ✓. Graticule → the new white grid.</td></tr>
+          <tr><td>All pages</td><td>Globe grid and edge → 15% / 60% white.</td></tr>
+          <tr><td>Open conflicts</td><td>Three teals (seals, damage, status ok) never share a screen; keep it so. Three flood blues across the main site and Idai: the system uses <code>#7DB4D1</code> for flood extent.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+  </main>
+</div>
+
+__D3__
+<script>/*__WM_JS__*/</script>
+<script>const SPEC = __SPEC__;</script>
+<script>
+(function(){
+  // the globe sheet: draws itself with the system's own helpers
+  const cv = document.getElementById('spec-globe'), ctx = cv.getContext('2d'), box = cv.parentElement;
+  const proj = d3.geoOrthographic().clipAngle(90).precision(0.4), path = d3.geoPath(proj, ctx);
+  const grat = d3.geoGraticule().step([WM.GLOBE.gratStep, WM.GLOBE.gratStep])(), sphere = { type:'Sphere' };
+  let rot = WM.rotateFor([-30, 18]), W = 0;
+  const decode = L => { const st = L.s, N = Math.round(360 / st), la0 = Math.round(90 / st), lo0 = Math.round(180 / st), o = []; let idx = 0, mx = 0;
+    for(let i = 0; i < L.n.length; i++){ idx += L.d[i]; const la = Math.floor(idx / N) - la0, lo = idx - (la + la0) * N - lo0;
+      o.push([lo * st + st / 2, la * st + st / 2, L.n[i]]); if(L.n[i] > mx) mx = L.n[i]; } return { cells:o, max:mx }; };
+  const ST = decode(SPEC.stations), AR = decode(SPEC.argo);
+  const MARKS = [{ p:[33.93, -9.93], s:'rest' }, { p:[-73, 36], s:'hover' }, { p:[-80.9, 30.6], s:'active' }];
+  function grid(G, hex){
+    const col = WM.rgb(hex), ctr = [-rot[0], -rot[1]], sz = WM.gridSize(proj.scale()), h = sz / 2;
+    ctx.globalCompositeOperation = 'lighter';
+    for(const [lo, la, n] of G.cells){ if(d3.geoDistance([lo, la], ctr) > WM.GLOBE.backCull) continue;
+      const q = proj([lo, la]); ctx.fillStyle = 'rgba(' + col + ',' + WM.gridAlpha(n, G.max).toFixed(3) + ')'; ctx.fillRect(q[0] - h, q[1] - h, sz, sz); }
+    ctx.globalCompositeOperation = 'source-over';
+  }
+  function draw(){
+    const r = box.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
+    W = r.width; cv.width = W * dpr; cv.height = W * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    proj.translate([W / 2, W / 2]).scale(W * 0.46).rotate(rot);
+    ctx.clearRect(0, 0, W, W);
+    ctx.beginPath(); path(sphere); ctx.fillStyle = WM.LOOK.ocean; ctx.fill();
+    ctx.beginPath(); path(SPEC.land); ctx.fillStyle = WM.LOOK.land; ctx.fill();
+    ctx.beginPath(); path(grat); ctx.strokeStyle = WM.LOOK.grat; ctx.lineWidth = WM.GLOBE.gratWidth; ctx.stroke();
+    grid(AR, WM.COLOR.argo); grid(ST, WM.COLOR.stations);
+    ctx.beginPath(); path(sphere); ctx.strokeStyle = WM.LOOK.rim; ctx.lineWidth = WM.GLOBE.rimWidth; ctx.stroke();
+    const ctr = [-rot[0], -rot[1]];
+    for(const m of MARKS){ if(d3.geoDistance(m.p, ctr) > 1.52) continue; const q = proj(m.p); WM.drawMarker(ctx, q[0], q[1], m.s); }
+  }
+  let drag = null;
+  cv.addEventListener('pointerdown', e => { drag = { x:e.clientX, y:e.clientY, rot:rot.slice() }; cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener('pointermove', e => { if(!drag) return;
+    rot = [drag.rot[0] + (e.clientX - drag.x) * 0.3, Math.max(-85, Math.min(85, drag.rot[1] - (e.clientY - drag.y) * 0.3))]; draw(); });
+  cv.addEventListener('pointerup', () => drag = null);
+  if(window.ResizeObserver) new ResizeObserver(draw).observe(box); else addEventListener('resize', draw);
+  draw();
+  // the corner globe on the demo screen, drawn with the corner rules
+  const mc = document.getElementById('spec-mini'), mx = mc.getContext('2d');
+  const mproj = d3.geoOrthographic().clipAngle(90).precision(0.5), mpath = d3.geoPath(mproj, mx);
+  function drawMini(){
+    const r = mc.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2), W = r.width, H = r.height;
+    mc.width = W * dpr; mc.height = H * dpr; mx.setTransform(dpr, 0, 0, dpr, 0, 0); mx.clearRect(0, 0, W, H);
+    const m = WM.GLOBE.mini, R = Math.max(26, Math.min(62, W * m.rShare)), cx = W - W * m.right - R, cy = H * m.top + R + 4;
+    mproj.translate([cx, cy]).scale(R).rotate(WM.rotateFor([35, -18]));
+    mx.beginPath(); mpath(sphere); mx.fillStyle = WM.LOOK.ocean; mx.fill();
+    mx.beginPath(); mpath(SPEC.land); mx.fillStyle = WM.LOOK.land; mx.fill();
+    mx.beginPath(); mpath(d3.geoGraticule10()); mx.strokeStyle = m.grat; mx.lineWidth = m.gratWidth; mx.stroke();
+    mx.beginPath(); mpath(sphere); mx.strokeStyle = m.rim; mx.lineWidth = m.rimWidth; mx.stroke();
+    const q = mproj([34.84, -19.84]); WM.drawMarker(mx, q[0], q[1], 'active', 0.4);
+    // the side image: its top-right corner on the globe's centre, as big as the screen allows
+    const fig = document.querySelector('.screen-figure');
+    if(fig && W > 600){ fig.style.right = (W - cx) + 'px'; fig.style.top = cy + 'px';
+      fig.style.width = Math.min(W * 0.5, (H - cy - H * 0.1) * 4 / 3) + 'px'; }
+  }
+  if(window.ResizeObserver) new ResizeObserver(drawMini).observe(mc); drawMini();
+
+  // keep the demo slider's filled part in step with its thumb
+  const yr = document.getElementById('spec-year');
+  yr.addEventListener('input', () => yr.style.setProperty('--p', ((yr.value - yr.min) / (yr.max - yr.min) * 100) + '%'));
+})();
+</script>

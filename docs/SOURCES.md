@@ -189,6 +189,28 @@ used instead if precision matters.
 
 ---
 
+## Rain gauges
+
+### Su et al. 2026, Fig. 2c data
+Su, J. *et al.* "Precipitation observing network gaps limit climate change impact
+assessment". *Nature* **652**, 119–125 (2026).
+`Figure2/all_loc_gauge_density_1degree.csv` in
+`github.com/JJiaSu/Precipitation-Observing-Network-Gaps-Limit-Climate-Change-Impact-Assessment`,
+supplement to Zenodo `10.5281/zenodo.18364510`. **CC BY 4.0** (the article itself is
+CC BY-NC-ND, so the figure is rebuilt from the data, not reproduced).
+
+→ `prototypes/rain-gauges/rain-gauge-sections.html` — **15,263 land cells of 1°**,
+8,303 with at least one gauge; seven terrain classes, each with its WMO minimum
+(gauges per 1,000 km²): Plains 1.74, Hilly 1.74, Mountains 4, Coastal 1.11,
+Islands 40, Urban 66.7, Polar/Arid 0.1. 123 cells in an eighth class the paper does
+not plot are excluded. Country labels repaired (India labelled "Republic of
+Indonesia"; Algeria and North Korea truncated); pre-2011 borders. Full detail in
+`prototypes/rain-gauges/INTEGRATION.md` §7.
+
+These are **rain (precipitation) gauges**, not flood or stream gauges.
+
+---
+
 ## Early warning systems
 
 ### Sendai Framework Monitor, Target G-1

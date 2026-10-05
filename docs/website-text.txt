@@ -1,0 +1,404 @@
+THE GAPS IN THE WEATHER MACHINE: the words on the final page
+Exported 5 October 2026 from weather-machine.html (final/story/template.html and prototypes/stories/stories.json).
+
+HOW TO EDIT: change any text after a label (Title:, Text:, ...). Keep the [id] lines and the labels as they are,
+so each correction goes back to the right place. Delete a line's text to remove it. Notes to me: start a line with >>
+
+==============================================================================
+SLIDE 1   [title]
+==============================================================================
+Act: I · The storm is changing
+Title: The Gaps in the Weather Machine
+Subtitle: Who can see the storm coming, and who can’t
+Text 1: For most of history we guessed at the weather. Now recorded disasters have risen nearly fivefold in fifty years. Yet deaths have fallen almost threefold, thanks to early warning. Our best defence is seeing the storm coming. That depends on a machine.
+Source: Disasters and deaths: WMO and UNDRR, *Atlas of Mortality and Economic Losses, 1970–2019* (2021). Tracks: IBTrACS v04r01, NOAA NCEI.
+
+==============================================================================
+SLIDE 2   [stations]
+==============================================================================
+Act: II · The weather machine
+Title: The weather machine
+Text 1: Every forecast is built from millions of measurements no country could gather alone. Put it all together and you have the weather machine. It runs on sharing: the US takes in three times the weather data it sends out. No country forecasts alone.
+Instrument cards shown: stations
+Source: GHCN-Daily (NOAA NCEI); WMO OSCAR/Space, satellite positions illustrative; Argo GDAC; Su et al., *Nature* 652:119 (2026); NOAA NWS. Photos: credit to come.
+
+==============================================================================
+SLIDE 3   [satellites]
+==============================================================================
+Act: II · The weather machine
+Title: The weather machine
+Text 1: Every forecast is built from millions of measurements no country could gather alone. Put it all together and you have the weather machine. It runs on sharing: the US takes in three times the weather data it sends out. No country forecasts alone.
+Instrument cards shown: stations, sats
+Source: GHCN-Daily (NOAA NCEI); WMO OSCAR/Space, satellite positions illustrative; Argo GDAC; Su et al., *Nature* 652:119 (2026); NOAA NWS. Photos: credit to come.
+
+==============================================================================
+SLIDE 4   [argo]
+==============================================================================
+Act: II · The weather machine
+Title: The weather machine
+Text 1: Every forecast is built from millions of measurements no country could gather alone. Put it all together and you have the weather machine. It runs on sharing: the US takes in three times the weather data it sends out. No country forecasts alone.
+Instrument cards shown: stations, sats, argo
+Source: GHCN-Daily (NOAA NCEI); WMO OSCAR/Space, satellite positions illustrative; Argo GDAC; Su et al., *Nature* 652:119 (2026); NOAA NWS. Photos: credit to come.
+
+==============================================================================
+SLIDE 5   [machine]
+==============================================================================
+Act: II · The weather machine
+Title: The weather machine
+Text 1: Every forecast is built from millions of measurements no country could gather alone. Put it all together and you have the weather machine. It runs on sharing: the US takes in three times the weather data it sends out. No country forecasts alone.
+Instrument cards shown: stations, sats, argo, gauges
+Source: GHCN-Daily (NOAA NCEI); WMO OSCAR/Space, satellite positions illustrative; Argo GDAC; Su et al., *Nature* 652:119 (2026); NOAA NWS. Photos: credit to come.
+
+==============================================================================
+SLIDE 6   [view]
+==============================================================================
+Act: III · The gaps
+Title: The Gaps
+Text 1: The United States has 78,567 weather stations, 59% of all on Earth. Africa, with more than three times the land, has 2,119. The US and EU share 636 weather radars among 1.1 billion people. Africa has 37 for 1.2 billion.
+Bars caption: Weather radars
+Bar: United States and EU | 636 | for 1.1 billion people
+Bar: Africa | 37 | for 1.2 billion people
+Source: Stations: GHCN-Daily, NOAA NCEI, downloaded 19 Sep 2026. Radars: WMO figures cited by F. Otto, *Yale Environment 360*, 31 Oct 2023.
+
+==============================================================================
+SLIDE 7   [coldspots]
+==============================================================================
+Act: III · The gaps
+Title: The Gaps
+Text 1: The ocean has gaps too. Floats drift with the currents and miss shelves, enclosed seas and ice. One of these cold spots lies off Mozambique: the Channel gets a third of the global average density of Argo profiles. In March 2019, a cyclone gathered strength there.
+Source: Argo GDAC index, downloaded 23 Sep 2026 (profiles per unit area, 35–45°E, 26–11°S). Cold spots: this project’s analysis of that index.
+
+==============================================================================
+SLIDE 8   [cells]
+==============================================================================
+Act: III · The gaps
+Title: Cell by cell
+Text 1: WMO says open plains need about one rain gauge per 575 km², up to about 21 in every one-degree square. Tap any square to see how close it comes. Only 13.4% of the world’s land meets the standard. Europe has 2.4 gauges per 1,000 km². Africa has 0.09.
+Source: Su et al., *Nature* 652:119 (2026), Fig. 2c data (CC BY 4.0); WMO-No. 168.
+
+==============================================================================
+SLIDE 9   [cant-see]
+==============================================================================
+Act: IV · Idai
+Title: Can’t see the storm coming
+Text 1: So what happens to a place that can’t see the storm coming?
+Source: IBTrACS v04r01, NOAA NCEI.
+
+==============================================================================
+SLIDE 10   [mozambique]
+==============================================================================
+Act: IV · Idai
+Title: Mozambique, 2019
+Text 1: One of the world’s least developed countries, and among the most exposed to climate change. Over 60% of its people live in low-lying coastal areas. Just 19 of its weather stations reach the global archive, and much of the water that floods its rivers falls in its neighbours’ highlands.
+Source: Stations: GHCN-Daily. Rivers: ISET-International, *Learning from Cyclone Idai and Cyclone Kenneth*, via ReliefWeb. Photo: credit to come.
+
+==============================================================================
+SLIDE 11   [three-storms]
+==============================================================================
+Act: IV · Idai
+Title: One season, three storms
+Text 1 (appears at 1 s):  | 21 January 2019: Tropical Storm Desmond brings severe flooding.
+Text 2 (appears at 3 s): 52 | days later: Cyclone Idai.
+Text 3 (appears at 5 s): 42 | days after that: Cyclone Kenneth.
+Text 4 (appears at 7 s):  | Mozambique had never been hit by so many cyclones in one season. Climate change was no longer intangible.
+Source: IBTrACS v04r01, NOAA NCEI, categories as recorded; landfall dates: ISET-International, via ReliefWeb.
+
+==============================================================================
+SLIDE 12   [seen]
+==============================================================================
+Act: IV · Idai
+Title: The storm was seen. The flood was not.
+Text 1: Forecasters saw Idai coming five days ahead, and warnings went out. The flood was another matter. Idai moved inland, dumped torrential rain over Zimbabwe, and the rivers carried it back. The Pungwe–Buzi plain became an inland sea. Seeing a storm takes satellites. Knowing what its rain will do takes gauges on the ground.
+Key: Land that flooded, 13–20 March 2019 (Sentinel-1 radar)
+Key: Rain over Zimbabwe’s highlands, carried back down the rivers (schematic)
+Source: ECMWF (2019); ISET-International, via ReliefWeb; flood extent: UNOSAT, Sentinel-1, 13–20 Mar 2019 (rapid mapping, not field-validated).
+
+==============================================================================
+SLIDE 13   [before-after]
+==============================================================================
+Act: IV · Idai
+Title: Before and after
+Text 1: Drag the handle: the same plain on 24 February and 21 March 2019. Water is dark blue, vegetation green, cloud cyan.
+Wipe (idai): left label: photo:modis-before | right label: photo:modis-after
+Source: NASA MODIS (Aqua) corrected reflectance, bands 7-2-1, via NASA GIBS, 24 Feb and 21 Mar 2019 (public domain). Each pixel is 250 m.
+
+==============================================================================
+SLIDE 14   [numbers]
+==============================================================================
+Act: IV · Idai
+Title: Idai in numbers
+Text 1 (appears at 0.4 s): 1.85 million | people affected.
+Text 2 (appears at 0.9 s): 603 | deaths in Mozambique; more than 1,000 across three countries.
+Text 3 (appears at 1.4 s): 122,700 | houses destroyed and 111,200 damaged.
+Text 4 (appears at 1.9 s): 77 | health facilities severely damaged.
+Text 5 (appears at 2.4 s): 400,000 | people in shelters.
+Key: Destroyed
+Key: Damaged
+Key: Possibly damaged
+Note: Map: central Beira, 8,705 buildings graded from satellite images of 26 March 2019.
+Source: Map: Copernicus EMS EMSR348, © European Union. Regional toll: F. Otto, *Yale Environment 360* (2023); ECMWF (2019). Other figures: source to come.
+
+==============================================================================
+SLIDE 15   [beyond]
+==============================================================================
+Act: IV · Idai
+Title: Beyond people
+Text 1: Over 140,000 animals killed, about US$3.1 million lost, in places where families depend on their herds. 1,345 km of transmission lines, 10,216 km of distribution lines and 30 substations damaged. A flood doesn’t stop at the people it kills.
+Source: Source to come (likely the Government of Mozambique’s Post-Disaster Needs Assessment, 2019). Photos: credit to come.
+
+==============================================================================
+SLIDE 16   [who-pays]
+==============================================================================
+Act: V · Who pays
+Title: Who dies, and who pays
+Text 1: This is a broader pattern across the world.
+Text 2: Since 2016, Africa has 27% of recorded flood deaths, Europe 1.5%. Count the damage in dollars and it flips: Europe 20.2%, Africa 2.9%. Counted in money, disasters look like a rich-world problem. Counted in lives, they are not.
+Source: EM-DAT, CRED (UCLouvain), floods 2016–2026, export 18 Sep 2026.
+
+==============================================================================
+SLIDE 17   [born]
+==============================================================================
+Act: V · Who pays
+Title: Since you were born
+Text 1: Enter your country and birth year. See how many people floods have killed, affected and displaced there since you were born, compared with another country.
+Source: EM-DAT, CRED; IDMC GIDD; Rentschler et al., *Nature Communications* 13:3527 (2022).
+
+==============================================================================
+SLIDE 18   [frontline]
+==============================================================================
+Act: VI · The frontline
+Title: The frontline is not waiting
+Text 1: Stories of adaptation, resilience, and ingenuity around the world.
+Source: Each story’s source is on its card, with a link to the article.
+
+==============================================================================
+SLIDE 19   [not-enough]
+==============================================================================
+Act: VII · Not enough
+Title: Adaptation is not enough
+Text 1: Every one of those systems works because someone measured something. The poorest countries and small island states deliver 9% of the surface data WMO requires. African weather-balloon reports reaching global models fell by half from 2015 to 2020. Stations get installed, then fall silent, because nobody pays to keep them running.
+Bars caption: African weather-balloon reports reaching global models (2015 = 100)
+Bar: 2015 | 100
+Bar: 2020 | about 50
+Source: WMO GBON Baseline 2023 (SOFF); WMO, “Global observing system needs sustainable investments” (2021); stations: GHCN-Daily, 2,119 African stations on 0.5° cells, lit from the first year a cell’s stations report to the last.
+
+==============================================================================
+SLIDE 20   [rich-maps]
+==============================================================================
+Act: VII · Not enough
+Title: The rich get better maps
+Text 1: Where data is rich, technology fills the gaps. Trained on America’s flood maps, an AI model found 11 million people living in flood zones no official map had recorded. It couldn’t be done for Mozambique. With no national flood map to learn from, the plains Idai drowned could not have been flagged this way. And a gap anywhere weakens everyone’s forecast.
+Wipe (us): left label: After the model fills the gaps | right label: Official FEMA flood map
+Wipe (mozambique): left label: Official national flood map | right label: Model output
+Source: Wu, Zhang & Stouffs, *Nature Communications* 17:5983 (2026). The US dots are sampled from a density, not real locations.
+
+==============================================================================
+SLIDE 21   [fraying]
+==============================================================================
+Act: VIII · The machine is fraying
+Title: The machine is fraying
+Text 1: The US, long the machine’s biggest backer, is pulling back: fewer weather balloons, a suspended famine-warning system, exit from 66 international bodies, proposals to cut NOAA by a quarter. Elsewhere, war has destroyed or cut off a quarter of Ukraine’s observing network, and Europe’s weather-satellite agency and the Arctic Council have suspended cooperation with Russia. It is erosion, not collapse. But a lost year of records can never be measured again.
+Timeline side labels: United States (above) | The wider world (below)
+Event (above): Early 2025 | FEWS NET famine warnings suspended
+Event (above): Mar 2025 | Fewer weather balloons
+Event (above): Apr 2025 | Plan to cut NOAA by a quarter
+Event (above): Jan 2026 | Exit from 66 international bodies
+Event (below): Mar 2022 | Arctic Council pauses work with Russia
+Event (below): Mar 2022 | EUMETSAT suspends cooperation with Russia
+Event (below): By 2023 | Ukraine: a quarter of its network lost (since 2014)
+Note: Illustrative: the fade shows records no longer shared, not closures.
+Source: NPR and AP (Jan 2026); NPR, FEWS NET (Sep 2026); Spectrum News (Mar 2025); NYT (Apr 2025); Ukraine: EAGE “Monitoring” conference (2023); Reuters (22 Mar 2022); *Scientific American*/E&E News.
+
+==============================================================================
+SLIDE 22   [works]
+==============================================================================
+Act: IX · What we do now
+Title: We know what works
+Quote: “Disaster-related mortality is at least six times lower in countries with good early-warning systems in place.”
+Quote by: António Guterres, UN Secretary-General
+Text 1: The technology exists, from Bangladesh’s volunteers to Malawi’s river sensors. Yet about 90 countries still haven’t reported a multi-hazard warning system.
+Source: A. Guterres, Early Warnings for All event, 22 Oct 2025; Sendai Framework Monitor, Target G-1, fetched 28 Sep 2026.
+
+==============================================================================
+SLIDE 23   [money]
+==============================================================================
+Act: IX · What we do now
+Title: The money exists
+Text 1: What’s missing is the money to build the instruments and keep them running, and the poorest countries can’t find it alone. The UN fund for their missing weather data is seeking US$400 million. The world spends that on its militaries in just over an hour. Every dollar invested returns more than 25.
+Dial caption: One ring: an hour of world military spending, about US$330 million
+Dial number: US$400 million | sought by SOFF, the UN fund for basic weather observations
+Dial number: 1 hour 13 minutes | of world military spending, at US$2,887 billion a year (2025)
+Source: SOFF, *Action Report 2025*; SIPRI, world military expenditure 2025 (27 Apr 2026); return on investment: World Bank, via WMO (2021).
+
+==============================================================================
+SLIDE 24   [end]
+==============================================================================
+Act: IX · What we do now
+Title: The weather machine
+Text 1: Climate change threatens every nation’s security, and it hits hardest where the sensors are fewest. The world’s highest court calls it “an existential problem of planetary proportions”. The Cold War moved rivals to build this machine together. This threat is greater.
+Text 2: Every forecast on Earth runs on one machine, and it is only as strong as its emptiest places. Fill the gaps in the weather machine.
+End card: Weather stations. Rain gauges. River gauges. Radiosondes. Radar.
+Source: International Court of Justice, advisory opinion, 23 Jul 2025 (quoted via UNRIC and the UK Human Rights Blog).
+
+==============================================================================
+SLIDE 18 STORY CARDS (in order; Next steps through them)
+==============================================================================
+--- Story 1   [malawi-karonga]
+Place: Karonga District, Malawi
+Title: Improved flood detectors save lives and property
+Description: River sensors and an automated alert system on the North Rukuru River now warn families in Karonga District up to 72 hours before a flood, up from less than six hours. The district has had 21 major floods in five decades.
+Source: UNICEF Malawi, 2024-07-16
+Photo credit: UNICEF Malawi/2024/Elephant Media
+
+--- Story 2   [bangladesh-cpp]
+Place: Coastal Bangladesh
+Title: Cyclone Amphan: In Bangladesh, Preparedness Paid Off
+Description: As Cyclone Amphan approached in May 2020, more than 70,000 Cyclone Preparedness Programme volunteers spread warnings by megaphone, flag and door to door, and over two million people reached shelters. In 1970, the Bhola cyclone killed at least 300,000.
+Source: American Red Cross, 2020-05-29
+Photo credit: Bangladesh Red Crescent; Brad Zerivitz / American Red Cross (photos on the page)
+
+--- Story 3   [nepal-india-ratu]
+Place: Ratu River, Nepal–India border
+Title: Community cooperation across Nepal-India border saves lives during flood
+Description: Volunteers on both sides of the border watch a low-cost sensor on the Ratu River and phone warnings downstream when the water rises. The system cost about US$3,500 and gives around 64,000 people one to three hours' warning each year.
+Source: ICIMOD, 2023-02-27
+
+--- Story 4   [cambodia]
+Place: Cambodia
+Title: Protecting lives in flood-prone Cambodia
+Description: People in Need built an early warning system that sends flood alerts straight to mobile phones, triggered automatically by a river sensor called Tepmachcha. It covers more than 200,000 households, after floods in 2013 affected 1.7 million people.
+Source: UNICEF Office of Innovation, 2017-07-06
+Photo credit: UNICEF/UN0222133/Brown
+
+--- Story 5   [nepal-saptari]
+Place: Saptari District, Nepal
+Title: Putting resilience at the centre of development
+Description: In Saptari, river early warning systems and community emergency centres, backed by UNICEF, let families prepare and move before floods arrive, as part of a programme that puts children at the centre of disaster planning.
+Source: UNICEF Nepal, 2020-02-25
+Photo credit: UNICEF Nepal/2019/PShrestha
+
+--- Story 6   [kenya-tana]
+Place: Tana River Basin, Kenya
+Title: Bridging the monitoring gap: UNESCO and WRA launch IoT to enhance flood early warnings
+Description: In March 2026, UNESCO and Kenya's Water Resources Authority installed internet-connected sensors in the Tana River Basin that report river levels, rainfall and soil moisture in real time, giving downstream communities earlier notice of floods.
+Source: UNESCO, 2026-04-14
+Photo credit: UNESCO
+
+--- Story 7   [ghana-aboabo]
+Place: Aboabo, Ghana
+Title: TAHMO: Leveraging commercial microwave link data to develop flood early warning systems
+Description: In Aboabo, TAHMO measures rainfall from the way it weakens the signal between mobile-phone masts, adds low-cost river sensors and residents' smartphone videos of the river, and sends flood alerts by SMS, voice call and WhatsApp.
+Source: GSMA, 2025-12-03
+
+--- Story 8   [india-assam]
+Place: Lakhimpur and Dhemaji, Assam, India
+Title: Community-Based Flood Early Warning System — India
+Description: In Assam's Lakhimpur and Dhemaji districts, a riverbank sensor radios a signal when the water reaches a critical level, and the warning is passed by mobile phone to 45 vulnerable communities downstream. It won a UNFCCC Momentum for Change award in 2014.
+Source: UNFCCC; ICIMOD, 2014-12-10
+
+--- Story 9   [seals]
+Place: Southern Ocean
+Title: Elephant seals measure the ocean where floats can't go
+Description: Argo floats can't surface through sea ice to report, but elephant seals carrying sensor tags dive beneath it. In the data used here, about three-quarters of ocean temperature profiles south of 65°S come from seals: a network nobody planned.
+Linked phrase: elephant seals
+Source: MEOP-CTD database; Argo, 2026-09-23
+
+--- Story 10   [sharks]
+Place: Northwest Atlantic, Gulf Stream
+Title: Sharks carrying sensors sharpen ocean forecasts
+Description: 29 blue and shortfin mako sharks tagged with depth and temperature sensors logged more than 8,200 ocean profiles in the Northwest Atlantic. Fed into a forecast model, they cut surface temperature error by up to 40%, most over the continental shelf and slope.
+Source: McDonnell et al., npj Climate and Atmospheric Science 9:147, 2026
+
+--- Story 11   [march-2020]
+Place: Global study; the Caribbean is one of the gaps it names
+Title: Tagged animals could carry sensors into the gaps Argo misses
+Description: Mapping over 1.5 million Argo profiles, a study found gaps covering 18.6% of the ocean: polar seas, shallow shelves, marginal seas and upwelling zones. Set against 183 marine species and more than 3,000 tracked animals, it argues seals, turtles and sharks could fill them.
+Source: March et al., Global Change Biology 26:586, 2020
+
+--- Story 12   [south-australia]
+Place: South Australia
+Title: South Australia increases its net electricity generation from renewables from 1% in 2007 to over 75% in 2025
+Description: Wind and solar are now the state's main sources of electricity: wind supplied around 45% and solar over 32% in 2024/25, with about half of homes carrying rooftop panels. The state aims for 100% net renewable electricity by 2027.
+Source: Government of South Australia, 2026
+
+--- Story 13   [eu-wind-solar]
+Place: European Union
+Title: Wind and solar overtake fossil power in the EU for the first time in 2025
+Description: In 2025, wind and solar generated 30% of the EU's electricity, ahead of fossil fuels at 29%, for the first time. Solar alone reached a record 13%, and coal fell to a historic low of 9.2%.
+Source: Ember, 2026-01-22
+
+--- Story 14   [right-whales]
+Place: Calving grounds, southeastern United States
+Title: Endangered North Atlantic right whales had their most calves in nearly two decades
+Description: Aerial surveys off the southeastern United States counted 23 right whale calves in the 2026 calving season, the most since 2009, and sighted 129 individual whales across more than 1,400 flight hours.
+Source: NOAA Fisheries, 2026-04-30
+Photo credit: Florida Fish and Wildlife Conservation Commission, NOAA permit #26919
+
+--- Story 15   [mangroves]
+Place: Global study, Tulane University, New Orleans
+Title: Global mangrove forests rebound, offering signs for climate and coastal resilience
+Description: A four-decade satellite study led by Tulane University found that mangrove gains have outpaced losses for the past 16 years, leaving a net decline of only about 1% since the 1980s.
+Source: Tulane University, 2026-06-04
+Photo credit: Daniel Friess
+
+--- Story 16   [dorset-puffins]
+Place: Dancing Ledge, Dorset, UK
+Title: First puffling sighting in three decades gives hope for Dorset's dwindling puffin colony
+Description: Volunteers monitoring Dancing Ledge on the Purbeck coast saw a young puffin leave its cliff crevice, the first in about 30 years, at a colony now down to around three breeding pairs.
+Source: National Trust, 2026-07-22
+Photo credit: © Will Wilkinson
+
+--- Story 17   [yangtze]
+Place: Yangtze River, China
+Title: China's Yangtze River shows dramatic recovery after four-year fishing ban
+Description: After China banned commercial fishing across the Yangtze basin in 2021, a study in Science found the mass of fish in survey samples more than doubled between 2018 and 2023, and finless porpoises rose from 445 in 2017 to 595 in 2022.
+Source: Live Science, 2026-02-12
+
+--- Story 18   [kenya-flies]
+Place: Mukuru, Nairobi, Kenya
+Title: From waste to wealth: How fly farming is building climate resilience and creating jobs
+Description: In Mukuru, an informal settlement in Nairobi, black soldier fly larvae turn food waste into animal feed and fertiliser, creating jobs, cutting feed costs by about 30% and, by clearing waste, reducing flooding.
+Source: Global Center on Adaptation, 2025-03-30
+
+--- Story 19   [guyana]
+Place: Guyana
+Title: Guyana's forests drive a new era of low-carbon development
+Description: Guyana has kept more than 99% of its forest, about 18 million hectares, and turned it into income through carbon markets, earning 33.47 million carbon credits for 2022 under its low-carbon development strategy.
+Source: CVF-V20, 2026-05-28
+
+--- Story 20   [panama]
+Place: Santa María watershed, Panama
+Title: Adapting to climate change in Panama
+Description: Farming communities, including in the Santa María watershed, are adopting better water management, agroforestry and ecosystem restoration to cope with heat, shifting rainfall and water scarcity. The project supports more than 114,000 people and has restored 600 hectares.
+Source: Adaptation Fund, 2026-07-16
+
+--- Story 21   [central-asia]
+Place: Central Asia
+Title: Early warning systems are saving lives in Central Asia
+Description: Early warning systems that pair local knowledge with remote sensors are being installed to warn mountain communities of glacial lake outburst floods. A UNESCO project in Central Asia aims to protect about 100,000 people, alongside a larger programme in Pakistan.
+Source: Climate Home News, 2026-03-24
+
+--- Story 22   [vanuatu]
+Place: Espiritu Santo, Vanuatu
+Title: How climate adaptation in Vanuatu is protecting forests, oceans and communities
+Description: On Espiritu Santo, the Indigenous-led Santo Sunset Environment Network trained 89 climate rangers and set up community conservation areas across 42 villages to restore forests, secure food and prepare for cyclones.
+Source: UNDP, 2025-06-12
+
+==============================================================================
+OTHER TEXT ON THE PAGE
+==============================================================================
+Instrument cards (slides 2-5), name | line:
+  Weather stations | 132,501 in the global archive
+  Argo floats | 3,375,214 profiles from 20,530 floats
+  Satellites | 439 Earth-observing, in operation (2025)
+  Rain gauges | 221,483 sharing their records
+History timeline labels (slides 2-5): Weather stations 1900-1960 | Satellites 1960-1990 | Argo floats 1990-2025 | Rain gauges: Today
+Slide 17 fields: Your country | Year of birth | Compare with;  toggle: Flood | Others
+Slide 17 bars: Deaths | Affected | At risk of a 1-in-100-year flood | Displacements
+Slide 17 finding, as written by the page (born 2000 or later):
+  Since [year], the year you were born, floods have killed [N] people in [country], affected [N], and forced people from their homes [N] times.
+Slide 17 finding (born before 2000):
+  Since 2000, when the records begin (you were born in [year]), floods have killed [N] people in [country], ...
+  (Others mode says 'weather and climate disasters' instead of 'floods'.)
+Slide 17 note: One scale for all four bars: the longest fills the width. Displacements are movements, not people (records from 2008). Records to 2025.
+Slide 19 counter: [year] | [N] cells with a station reporting

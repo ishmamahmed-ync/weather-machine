@@ -18,6 +18,7 @@ Placeholders in the template, each replaced once:
     __XXB__    Lower Limpopo, before image, base64 WebP
     __XXA__    Lower Limpopo, after image, base64 WebP
     __SEAL__   instrumented seal photograph, base64 WebP
+    __RELIEF__ grey shaded-relief globe texture, base64 WebP (scripts/make_relief.py)
 """
 import sys
 from pathlib import Path
@@ -32,6 +33,7 @@ SUBS = {
     "__XXB__": LAYERS / "limpopo-before.webp.b64",
     "__XXA__": LAYERS / "limpopo-after.webp.b64",
     "__SEAL__": LAYERS / "seal.webp.b64",
+    "__RELIEF__": LAYERS / "relief.webp.b64",
 }
 
 

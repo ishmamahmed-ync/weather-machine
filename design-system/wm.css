@@ -1,0 +1,469 @@
+/* ==========================================================================
+   Weather Machine design system: wm.css
+   The one stylesheet every page shares: the main site and every prototype.
+   Pages stay single files: build scripts inline this file (design-system/inline.py),
+   they never link to it.
+
+   1. Tokens       colour, type, space, shape, line, motion, layers
+   2. Base         page, type defaults, focus, reduced motion
+   3. Components   wm-* classes
+   Globe and data colours for canvas drawing live in wm.js, with the same values.
+   ========================================================================== */
+
+/* ---------- 1. Tokens ---------- */
+:root{
+  color-scheme:dark;
+
+  /* Surfaces: the night side of the planet */
+  --wm-bg:        #05080E;              /* page, and space around the globe */
+  --wm-raised:    #080C13;              /* side panels (Explore, controls) */
+  --wm-glass:     rgba(5,8,14,.84);     /* cards over the globe, with --wm-blur */
+  --wm-blur:      blur(14px);
+  --wm-ocean:     #0B121B;              /* the sphere */
+  --wm-land:      #161D26;              /* flat land, when relief is off */
+  --wm-coast:     #242E3A;              /* coastlines on flat land (WM.LOOK.coast) */
+  --wm-coast-2:   #4A5B6E;              /* coastlines and borders once a map is zoomed in */
+  --wm-relief-lo: #14171B;              /* shaded relief: valleys */
+  --wm-relief-hi: #40454B;              /* shaded relief: ridges */
+
+  /* Text: four steps, nothing in between */
+  --wm-text:      #ECEAE5;              /* headings, numbers, primary text */
+  --wm-text-2:    #D9D6CF;              /* running text in cards */
+  --wm-muted:     #8B95A1;              /* subtitles, notes, secondary labels */
+  --wm-faint:     #5C6773;              /* sources, fine print, inactive ticks */
+
+  /* Lines */
+  --wm-line:      #222C38;              /* card borders, rules between rows */
+  --wm-line-soft: #1B2531;              /* dividers inside panels */
+  --wm-outline:   rgba(236,234,229,.55);/* buttons, chips, controls at rest */
+  --wm-track:     rgba(236,234,229,.26);/* slider tracks, unchecked boxes */
+  --wm-hover:     rgba(236,234,229,.08);/* hover fill on outlined controls */
+  --wm-rim:       rgba(236,234,229,.6); /* the globe's edge (stronger since 5 Oct) */
+  --wm-grat:      rgba(236,234,229,.15);/* the globe's lat/lon lines (stronger since 5 Oct) */
+  --wm-rim-mini:  rgba(236,234,229,.75);/* the corner globe's edge */
+  --wm-grat-mini: rgba(236,234,229,.3); /* the corner globe's lat/lon lines */
+  --wm-frame:     #ECEAE5;              /* the white frame round every image */
+
+  /* Status (interface only, never on the globe) */
+  --wm-alert:     #E8433F;              /* deaths, danger, invalid input */
+  --wm-ok:        #3FB6A8;              /* meets a threshold */
+
+  /* Instruments: one hue per kind of observer, same everywhere */
+  --wm-station:   #FFB547;              /* weather stations (GHCN-Daily) */
+  --wm-station-2: #FFD08A;              /* stations by record length */
+  --wm-gauge:     #3FD98A;              /* rain gauges, the rain-gauge prototype's green; also "meets the WMO minimum" */
+  --wm-gauge-lo:  #2A6B49;              /* rain gauges below the WMO minimum */
+  --wm-gauge-no:  #76818D;              /* a cell with no rain gauge */
+  --wm-gauge-wmo: #58C48A;              /* the WMO minimum line */
+  /* rain-gauge density, gauges per 1,000 km²: none, <0.1, 0.1-0.5, 0.5-1, 1-2, 2-5, 5-10, 10+ */
+  --wm-gauge-0: #2E3745; --wm-gauge-1: #1E4D36; --wm-gauge-2: #266B48; --wm-gauge-3: #2F8C5C;
+  --wm-gauge-4: #3DB074; --wm-gauge-5: #5FD394; --wm-gauge-6: #A2EBC2; --wm-gauge-7: #E3FFF0;
+  --wm-argo:      #45B0CE;              /* Argo floats */
+  --wm-seal:      #6FD8B4;              /* seal-borne profiles (MEOP) */
+  --wm-shark:     #F07A55;              /* sharks */
+  --wm-tracked:   #B98CE0;              /* tracked animals, no sensors */
+  --wm-turtle:    #C6E377;              /* leatherback and loggerhead turtles */
+  --wm-sat:       #CBD6E2;              /* satellites */
+  --wm-gap:       #E4EEFF;              /* coldspots: where nobody measures */
+
+  /* Impacts: what happens to people */
+  --wm-deaths:    #E8433F;
+  --wm-affected:  #F2C744;
+  --wm-damage:    #5BC8A8;
+  --wm-flood:     #7DB4D1;              /* flood extent on maps; people at risk of a 1-in-100-year flood */
+  --wm-displaced: #B98CE0;              /* displacements (movements, not people) */
+  --wm-settle:    #E05CC8;              /* settlements before */
+  --wm-settle-x:  #FF3D6E;              /* settlements gone */
+  --wm-warn-22:   #F5D04A;              /* reported an early warning system, 2022 */
+  --wm-dmg-3:     #E8433F;              /* buildings destroyed (the worst grade: the impact red, as for deaths) */
+  --wm-dmg-2:     #F29A3A;              /* buildings damaged */
+  --wm-dmg-1:     #5C6773;              /* buildings possibly damaged */
+  --wm-warn-25:   #F08A3E;              /* ... added by 2025 */
+
+  /* Storm intensity, Saffir-Simpson: tropical storm, then categories 1 to 5 */
+  --wm-ts: #F5E06A; --wm-c1: #F6C243; --wm-c2: #F09A3E; --wm-c3: #E8703E; --wm-c4: #DC4340; --wm-c5: #B81D2C;
+
+  /* Type */
+  --wm-sans:  "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --wm-disp:  "Space Grotesk", "IBM Plex Sans", system-ui, sans-serif;
+  --wm-serif: Georgia, "Times New Roman", serif;             /* water names on maps, only */
+
+  --wm-fs-hero:    clamp(4rem, 9vw, 7.5rem);   /* one number that is the page: a year */
+  --wm-fs-display: clamp(1.9rem, 3.2vw, 2.7rem); /* page titles */
+  --wm-fs-stat:    clamp(1.7rem, 3.8vw, 2.6rem); /* the figure a card is about */
+  --wm-fs-title:   1.25rem;                     /* card titles */
+  --wm-fs-lead:    1.125rem;                    /* narration over the globe */
+  --wm-fs-body:    1rem;                        /* running text */
+  --wm-fs-small:   .875rem;                     /* card body, readouts */
+  --wm-fs-caption: .75rem;                      /* sources, legends, tooltips */
+  --wm-fs-label:   .66rem;                      /* uppercase labels (about 10.5px) */
+
+  --wm-track-tight: -.02em;   /* display and stat */
+  --wm-track-title: -.01em;
+  --wm-track-label: .1em;     /* uppercase labels */
+  --wm-track-place: .32em;    /* country names on maps */
+
+  /* Space: 4px steps */
+  --wm-s1: 4px;  --wm-s2: 8px;  --wm-s3: 12px; --wm-s4: 16px;
+  --wm-s5: 24px; --wm-s6: 32px; --wm-s7: 48px; --wm-s8: 64px;
+  --wm-gutter: max(16px, 4vw);                  /* page edge */
+  --wm-measure: 62ch;                           /* longest line of running text */
+
+  /* The slide navigator: one short line per slide in the left margin (author's design, 5 Oct) */
+  --wm-nav-line:    10px;                        /* a slide's line */
+  --wm-nav-line-on: 26px;                        /* the current slide's line, extending to the right */
+  --wm-nav-pitch:   11px;                        /* line to line, top to bottom (also each line's click height) */
+  --wm-nav-gap:     9px;                         /* the extra space between two sections */
+  --wm-nav-num:     22px;                        /* the column for the section numerals, left of the lines */
+  --wm-nav-x:       max(12px, 1.4vw);            /* its left edge: close to the window's edge, so it takes little room */
+  --wm-nav-w:       calc(var(--wm-nav-num) + var(--wm-s2) + var(--wm-nav-line-on));   /* its whole width */
+
+  /* The slide text: every slide's narrative sits in this one place (author's rule, 5 Oct) */
+  --wm-slide-top: clamp(4.75rem, 13vh, 9.5rem);  /* its top edge, the same on every slide */
+  --wm-slide-left: var(--wm-gutter);             /* its left edge; past the navigator when a page has one (.has-wm-nav) */
+  --wm-slide-w:   min(31rem, 38vw, calc(70vw - 0.42 * min(100vw, 100vh) - var(--wm-slide-left) - 24px));   /* the left column, clear of the globe at 70% */
+
+  /* Images: always framed, two ratios */
+  --wm-frame-w:    1px;
+  --wm-ratio-card: 16 / 9;    /* photos inside cards */
+  --wm-ratio-side: 4 / 3;     /* big images beside the text, e.g. Idai's devastation */
+
+  /* The corner globe: the globe, minimised while a big image is on screen */
+  --wm-mini-r:     clamp(80px, 8.7vw, 125px);   /* radius */
+  --wm-mini-top:   max(4vh, 3.4rem);            /* clears the top bar */
+  --wm-mini-right: 3vw;
+
+  /* Shape: three radii, nothing else */
+  --wm-r-control: 2px;      /* buttons, inputs, checkboxes, photo corners */
+  --wm-r-card:    3px;      /* cards, tooltips */
+  --wm-r-round:   50%;      /* dots, round icon buttons */
+
+  /* Motion */
+  --wm-fast: .15s;          /* hover, press */
+  --wm-med:  .4s;           /* cards in and out */
+  --wm-slow: .6s;           /* layers fading on the globe */
+  --wm-ease: cubic-bezier(.65,0,.35,1);   /* globe moves: ease in and out */
+
+  /* Text halo for words set straight over the globe (no box) */
+  --wm-halo: 0 2px 22px rgba(5,8,14,.95), 0 0 56px rgba(5,8,14,.8);
+
+  /* Layers */
+  --wm-z-globe: 0; --wm-z-content: 1; --wm-z-card: 2; --wm-z-mini: 3; --wm-z-bar: 6; --wm-z-panel: 10;   /* the corner globe sits above a side image */
+}
+
+/* ---------- 2. Base ---------- */
+.wm, .wm *, .wm *::before, .wm *::after{box-sizing:border-box}
+.wm{margin:0; background:var(--wm-bg); color:var(--wm-text);
+  font:400 var(--wm-fs-body)/1.6 var(--wm-sans); -webkit-font-smoothing:antialiased}
+.wm :focus-visible{outline:1.5px solid var(--wm-text); outline-offset:2px}
+.wm .num, .wm output{font-variant-numeric:tabular-nums}
+@media (prefers-reduced-motion: reduce){
+  .wm *, .wm *::before, .wm *::after{animation-duration:.01ms !important; transition-duration:.01ms !important}
+}
+
+/* ---------- 3. Components ---------- */
+
+/* Type roles */
+.wm-hero{font:500 var(--wm-fs-hero)/1 var(--wm-disp); letter-spacing:-.04em; font-variant-numeric:tabular-nums; margin:0}
+.wm-display{font:400 var(--wm-fs-display)/1.1 var(--wm-disp); letter-spacing:var(--wm-track-tight); text-wrap:balance; margin:0}
+.wm-title{font:500 var(--wm-fs-title)/1.25 var(--wm-disp); letter-spacing:var(--wm-track-title); text-wrap:balance; margin:0}
+.wm-stat{font:500 var(--wm-fs-stat)/1 var(--wm-disp); letter-spacing:var(--wm-track-tight); display:block; font-variant-numeric:tabular-nums}
+.wm-note{font-size:var(--wm-fs-small); color:var(--wm-muted); display:block}
+.wm-sub{font-size:var(--wm-fs-body); line-height:1.5; color:var(--wm-muted); margin:0; max-width:42ch}
+.wm-lead{font-size:var(--wm-fs-lead); line-height:1.55; color:var(--wm-text); text-shadow:var(--wm-halo); max-width:var(--wm-measure)}
+.wm-body{font-size:var(--wm-fs-small); line-height:1.55; color:var(--wm-text-2); max-width:var(--wm-measure)}
+.wm-label{font:600 var(--wm-fs-label)/1.3 var(--wm-sans); letter-spacing:var(--wm-track-label); text-transform:uppercase; color:var(--wm-muted)}
+.wm-source{font-size:var(--wm-fs-caption); line-height:1.5; color:var(--wm-faint)}
+.wm-source i{font-style:italic}
+
+/* Slide text: the core of the story, in one fixed place on every slide (author's rule, 5 Oct).
+   Top to bottom: label (the act), title, narration; then, below a rule, everything else
+   (legends, bars, controls, hints); the source line last. The block never moves between
+   slides, only its words change, and a slide's camera moves never re-draw it. */
+.wm-slide{position:fixed; z-index:var(--wm-z-card); left:var(--wm-slide-left); top:var(--wm-slide-top); width:var(--wm-slide-w);
+  display:flex; flex-direction:column; gap:var(--wm-s3); pointer-events:none}
+.wm-slide > *{margin:0}
+.wm-slide .wm-display, .wm-slide .wm-sub, .wm-slide .wm-quote{text-shadow:var(--wm-halo)}
+.wm-slide .wm-display{margin-bottom:var(--wm-s1)}
+.wm-slide .text{display:flex; flex-direction:column; gap:var(--wm-s3)}
+.wm-slide .text > p{margin:0}
+.wm-slide .below{display:flex; flex-direction:column; gap:var(--wm-s4); margin-top:var(--wm-s3);
+  padding-top:var(--wm-s4); border-top:1px solid var(--wm-line); pointer-events:auto}
+.wm-slide .below:empty{display:none}
+.wm-slide .wm-source{margin-top:var(--wm-s2); pointer-events:auto}
+/* Inside a prototype section: the same block, in the section's flow instead of fixed to the window.
+   The section starts its content at --wm-slide-top, so the words land in the same place. */
+.wm-slide.is-flow{position:relative; top:auto; left:auto; z-index:auto}
+/* a section's narration slot (filled by the story from its slide) lays out like the block itself */
+.wm-slide [data-slide-text]{display:flex; flex-direction:column; gap:var(--wm-s3)}
+.wm-slide [data-slide-text] > *{margin:0}
+.wm-slide [data-slide-text] .wm-display{margin-bottom:var(--wm-s1)}
+@media (max-width:760px){
+  .wm-slide{top:auto; bottom:calc(16px + env(safe-area-inset-bottom, 0px)); right:var(--wm-gutter); width:auto;
+    max-height:48vh; overflow-y:auto; pointer-events:auto}
+  .wm-slide.is-flow{bottom:auto; right:auto; max-height:none; overflow:visible}
+}
+
+/* Slide navigator: one short horizontal line per slide, top to bottom in the left margin, following the scroll.
+   Each section's Roman numeral sits left of its first line, with a little extra space between sections; the
+   current section's numeral is lit. The current slide's line is longer and in the full text colour; visited
+   lines are muted, upcoming ones faint. Only lines and numerals: each line is a button whose aria-label is its
+   slide's title, and the current one carries aria-current. A page with a navigator sets .has-wm-nav on the body,
+   which moves the slide text past it. On phones it collapses to .wm-nav-mini, "III · 7 / 24". */
+.has-wm-nav{--wm-slide-left:max(var(--wm-gutter), calc(var(--wm-nav-x) + var(--wm-nav-w) + var(--wm-s5)))}
+/* its top lines up with the slide text: the first numeral level with the slide's label */
+.wm-nav{position:fixed; z-index:var(--wm-z-card); left:var(--wm-nav-x); width:var(--wm-nav-w);
+  top:calc(var(--wm-slide-top) + (var(--wm-fs-label) * 1.3 - var(--wm-nav-pitch)) / 2)}   /* the first row centred on the label's line (.wm-label, line-height 1.3) */
+.wm-nav.is-static{position:relative; left:auto; top:auto}                           /* in a specimen or a document */
+.wm-nav ol{list-style:none; margin:0; padding:0}
+.wm-nav .act{position:relative; padding-left:calc(var(--wm-nav-num) + var(--wm-s2))}
+.wm-nav .act + .act{margin-top:var(--wm-nav-gap)}
+/* the numeral is set exactly like .wm-label (same size, same 1.3 line), centred on its section's first line */
+.wm-nav .num{position:absolute; left:0; top:calc((var(--wm-nav-pitch) - var(--wm-fs-label) * 1.3) / 2); width:var(--wm-nav-num);
+  text-align:right; white-space:nowrap; direction:rtl; font:600 var(--wm-fs-label)/1.3 var(--wm-sans); letter-spacing:var(--wm-track-label); color:var(--wm-faint);
+  transition:color var(--wm-med)}
+.wm-nav .act.is-on .num{color:var(--wm-text)}
+.wm-nav .ln{display:block; position:relative; width:var(--wm-nav-line-on); height:var(--wm-nav-pitch); margin:0; padding:0;
+  border:0; background:none; cursor:pointer; border-radius:0}
+.wm-nav .ln::before{content:""; position:absolute; left:0; top:50%; width:var(--wm-nav-line); height:1px; background:var(--wm-faint);
+  transition:width var(--wm-med) var(--wm-ease), background-color var(--wm-fast)}
+.wm-nav .ln.is-past::before{background:var(--wm-muted)}
+.wm-nav .ln[aria-current]::before{width:var(--wm-nav-line-on); background:var(--wm-text)}
+.wm-nav .ln:hover::before{background:var(--wm-text)}
+.wm-nav .ln:disabled{cursor:default}
+.wm-nav .ln:disabled::before{background:var(--wm-line)}
+.wm-nav .ln:focus-visible{outline:1.5px solid var(--wm-text); outline-offset:1px}
+.wm-nav-mini{display:none}
+@media (max-width:760px){
+  .has-wm-nav{--wm-slide-left:var(--wm-gutter)}
+  .wm-nav:not(.is-static){display:none}
+  .wm-nav-mini{display:block; position:fixed; z-index:var(--wm-z-bar); left:var(--wm-gutter); top:calc(3rem + env(safe-area-inset-top, 0px));
+    font-variant-numeric:tabular-nums; text-shadow:var(--wm-halo)}
+  .wm-nav-mini.is-static{position:static}
+}
+
+/* Pull quote: a quoted line set large, inside the slide text, attribution as a note below */
+.wm-quote{font:500 clamp(1.3rem, 2.1vw, 1.65rem)/1.3 var(--wm-disp); letter-spacing:-.015em; color:var(--wm-text); margin:0}
+
+/* Bars on one shared scale (the country profile's style): the largest value fills the track.
+   Solid = the subject, outlined = the comparison. Colour with --c, from a data token. */
+.wm-bars{display:flex; flex-direction:column; gap:var(--wm-s3); max-width:26rem}
+.wm-bar{--c:var(--wm-text); display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:baseline; gap:2px var(--wm-s3)}
+.wm-bar .k{font-size:var(--wm-fs-small); color:var(--wm-text-2)}
+.wm-bar .v{font:500 1.15rem/1.1 var(--wm-disp); letter-spacing:var(--wm-track-tight); font-variant-numeric:tabular-nums}
+.wm-bar .v small{font:400 var(--wm-fs-caption) var(--wm-sans); color:var(--wm-muted); margin-left:.4em; letter-spacing:0}
+.wm-bar .track{grid-column:1 / -1; position:relative; height:10px; display:flex; align-items:center}
+.wm-bar .track::after{content:""; position:absolute; left:0; right:0; bottom:-3px; height:1px; background:var(--wm-line)}
+.wm-bar .fill{height:10px; min-width:2px; background:var(--c); border-radius:1px; transition:width var(--wm-slow) ease}
+.wm-bar.is-ref .fill{height:6px; background:none; border:1px solid var(--c)}
+/* a pair in one bar: the subject (its colour) above the comparison (solid white, the same thickness), one scale */
+.wm-bar .track.is-pair{height:auto; flex-direction:column; align-items:flex-start; gap:3px}
+.wm-bar .fill.is-ref{background:var(--wm-text)}
+.wm-bar .fill .part{display:block; height:100%; background:var(--c)}       /* the solid share of a faded fill */
+.wm-bar .v .ref{font:400 var(--wm-fs-caption) var(--wm-sans); color:var(--wm-muted); margin-left:.6em; letter-spacing:0}
+
+/* Inline link inside running text: underlined, in the text's own colour, never a new colour */
+.wm-link{color:inherit; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:2px;
+  text-decoration-color:var(--wm-muted); transition:text-decoration-color var(--wm-fast)}
+.wm-link:hover, .wm-link:focus-visible{text-decoration-color:currentColor}
+
+/* Card: glass over the globe. The only boxed element. */
+.wm-card{background:var(--wm-glass); backdrop-filter:var(--wm-blur); -webkit-backdrop-filter:var(--wm-blur);
+  border:1px solid var(--wm-line); border-radius:var(--wm-r-card); padding:var(--wm-s5) 28px;
+  display:flex; flex-direction:column; gap:var(--wm-s3); max-width:min(var(--wm-measure), 100%)}
+.wm-card > *{margin:0}
+.wm-card.is-tight{padding:14px 14px 16px}
+.wm-in{animation:wm-in var(--wm-med) ease}
+@keyframes wm-in{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+
+/* Bare: narration with no box, readable through the halo */
+.wm-bare{background:none; border:0; padding:0}
+.wm-bare .wm-title, .wm-bare .wm-sub, .wm-bare .wm-stat{text-shadow:var(--wm-halo)}
+
+/* Images. Every image sits in a white frame; there are no unframed images.
+   Card photo: 16:9, with the link to the source in its bottom-right corner. */
+.wm-photo{position:relative; aspect-ratio:var(--wm-ratio-card); max-width:100%; border-radius:var(--wm-r-control);
+  border:var(--wm-frame-w) solid var(--wm-frame); background:#2E3A4A center/cover no-repeat; overflow:hidden}
+.wm-photo > img, .wm-figure > .wm-frame > img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block}
+/* Big image beside the text: 4:3, framed, credit underneath, filling most of the right side.
+   The globe minimises to the corner and is CENTRED ON the image's top-right corner: the image is
+   inset by one globe radius from the right and the top, so the corner falls on the globe's centre.
+   Raise the globe's canvas to --wm-z-mini while it is in the corner. */
+.wm-figure{margin:0; display:flex; flex-direction:column; gap:var(--wm-s2); max-width:100%}
+.wm-figure > .wm-frame{position:relative; aspect-ratio:var(--wm-ratio-side); border:var(--wm-frame-w) solid var(--wm-frame);
+  border-radius:var(--wm-r-control); background:#2E3A4A center/cover no-repeat; overflow:hidden}
+.wm-figure.is-side{position:fixed; z-index:var(--wm-z-card);
+  right:calc(var(--wm-mini-right) + var(--wm-mini-r)); top:calc(var(--wm-mini-top) + var(--wm-mini-r));
+  width:min(56vw, calc((100vh - var(--wm-mini-top) - var(--wm-mini-r) - 7vh) * 4 / 3),
+            calc(100vw - var(--wm-mini-right) - var(--wm-mini-r) - var(--wm-slide-left) - var(--wm-slide-w) - var(--wm-s6)))}   /* as big as the screen allows, clear of the slide text */
+.wm-credit{font-size:var(--wm-fs-caption); line-height:1.4; color:var(--wm-faint)}
+@media (max-width:760px){ .wm-figure.is-side{position:relative; right:auto; top:auto; transform:none; width:100%} }
+.wm-photo .wm-icon-btn{position:absolute; right:10px; bottom:10px; background:rgba(5,8,14,.55)}
+/* a card photo in the main site's duotone (as the instrument cards): grayscale, laid over --tint */
+.wm-photo.is-duotone{--tint:#2E3A4A; background-color:var(--tint); overflow:hidden}
+.wm-photo.is-duotone > img{filter:grayscale(1) contrast(1.12) brightness(1.05); mix-blend-mode:luminosity}
+
+/* Instrument cards: introduce each kind of observer with its photo, tinted to its map colour.
+   First appearance: 16:9 framed photo, label below. When the next instrument arrives, the
+   earlier card becomes a row (square photo, label beside); the stack doubles as the legend.
+   Set the colour per card: style="--tint: var(--wm-station)". */
+.wm-instruments{display:flex; flex-direction:column; gap:var(--wm-s3); max-width:min(380px, 100%)}
+.wm-instrument{--tint:var(--wm-text); display:flex; flex-direction:column; gap:var(--wm-s2); animation:wm-in var(--wm-med) ease}
+.wm-instrument .ph{position:relative; aspect-ratio:var(--wm-ratio-card); border:var(--wm-frame-w) solid var(--wm-frame);
+  border-radius:var(--wm-r-control); overflow:hidden; background:var(--tint)}
+.wm-instrument .ph > img, .wm-instrument .ph > .img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
+  filter:grayscale(1) contrast(1.12) brightness(1.05); mix-blend-mode:luminosity}   /* the main site's duotone */
+.wm-instrument .name{display:flex; align-items:center; gap:.5rem; font:500 var(--wm-fs-small)/1.3 var(--wm-sans); color:var(--wm-text)}
+.wm-instrument .name::before{content:""; width:8px; height:8px; border-radius:50%; background:var(--tint); flex:none}
+.wm-instrument .desc{font-size:var(--wm-fs-caption); line-height:1.45; color:var(--wm-muted); margin:0}
+/* a row: square photo, label beside (the line under the name belongs to the card's first appearance) */
+.wm-instrument.is-row{display:grid; grid-template-columns:var(--wm-row-ph, 64px) minmax(0,1fr); grid-template-rows:auto auto; column-gap:var(--wm-s3); row-gap:2px; align-items:center}
+.wm-instrument.is-row .ph{aspect-ratio:1 / 1; grid-row:1 / 3; align-self:center}
+.wm-instrument.is-row .name{align-self:end}
+.wm-instrument.is-row .desc{align-self:start}
+/* short screens (under 820px tall): smaller photos, so a stack of four still fits under a slide's words */
+@media (max-height:820px){ .wm-instruments{--wm-row-ph:44px} }
+
+/* Buttons: outlined rectangles; one filled state for "on" */
+.wm-btn{display:inline-flex; align-items:center; gap:var(--wm-s2); font:500 .8rem var(--wm-sans); color:var(--wm-text);
+  background:none; border:1px solid var(--wm-outline); border-radius:var(--wm-r-control); padding:.42rem .9rem;
+  cursor:pointer; text-decoration:none; transition:background var(--wm-fast), border-color var(--wm-fast), color var(--wm-fast)}
+.wm-btn:hover{background:var(--wm-hover); border-color:var(--wm-text)}
+.wm-btn svg{width:12px; height:12px; flex:none}
+.wm-btn.is-on, .wm-btn.is-primary{background:var(--wm-text); border-color:var(--wm-text); color:var(--wm-bg)}
+.wm-btn:disabled{opacity:.35; cursor:default}
+/* Segmented: Story / Explore, Flood / Others */
+.wm-seg{display:inline-flex; gap:6px}
+.wm-seg .wm-btn{color:var(--wm-muted)}
+.wm-seg .wm-btn.is-on{color:var(--wm-bg)}
+/* Round icon button: play, pause, close, link out */
+.wm-icon-btn{width:34px; height:34px; border-radius:var(--wm-r-round); border:1px solid var(--wm-outline);
+  display:grid; place-items:center; background:none; color:var(--wm-text); cursor:pointer; padding:0; flex:none;
+  transition:background var(--wm-fast), border-color var(--wm-fast)}
+.wm-icon-btn:hover{border-color:var(--wm-text); background:var(--wm-hover)}
+.wm-icon-btn svg{width:12px; height:12px}
+.wm-icon-btn.is-small{width:26px; height:26px}
+
+/* Legend and readouts */
+.wm-legend{display:flex; flex-wrap:wrap; gap:var(--wm-s2) var(--wm-s4); font-size:var(--wm-fs-caption); color:var(--wm-muted); line-height:1.35}
+.wm-legend.is-stacked{flex-direction:column; gap:6px}
+.wm-legend span{display:inline-flex; align-items:baseline; gap:.5rem}
+.wm-swatch{width:8px; height:8px; border-radius:var(--wm-r-round); flex:none; display:inline-block}
+.wm-swatch.is-line{width:14px; height:2px; border-radius:0; transform:translateY(-3px)}
+.wm-readout{display:grid; grid-template-columns:auto 1fr; gap:2px var(--wm-s4); align-items:baseline;
+  border-top:1px solid var(--wm-line); padding:var(--wm-s3) 0}
+.wm-readout .wm-swatch{grid-row:1 / 3; align-self:center}
+.wm-readout b{font:500 1.6rem/1.1 var(--wm-disp); letter-spacing:var(--wm-track-tight); font-variant-numeric:tabular-nums}
+.wm-readout span{grid-column:2; color:var(--wm-muted); font-size:.82rem; line-height:1.35}
+
+/* Hint: tells the reader what to do next */
+.wm-hint{display:flex; align-items:center; gap:.6rem; font:600 var(--wm-fs-label) var(--wm-sans);
+  letter-spacing:.12em; text-transform:uppercase; color:var(--wm-text)}
+
+/* Tooltip */
+.wm-tip{position:absolute; pointer-events:none; max-width:260px; font:500 12.5px/1.35 var(--wm-sans); color:var(--wm-text);
+  background:var(--wm-glass); border:1px solid var(--wm-line); border-radius:var(--wm-r-card); padding:6px 9px}
+.wm-tip small{display:block; margin-top:2px; color:var(--wm-muted); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase}
+
+/* Controls */
+.wm-range{-webkit-appearance:none; appearance:none; width:100%; height:16px; background:transparent; cursor:pointer; margin:0}
+.wm-range::-webkit-slider-runnable-track{height:1px; background:linear-gradient(90deg, var(--wm-text) var(--p,0%), var(--wm-track) var(--p,0%))}
+.wm-range::-moz-range-track{height:1px; background:var(--wm-track)}
+.wm-range::-moz-range-progress{height:1px; background:var(--wm-text)}
+.wm-range::-webkit-slider-thumb{-webkit-appearance:none; width:11px; height:11px; margin-top:-5px; border-radius:50%;
+  background:var(--wm-bg); border:1.4px solid var(--wm-text); transition:background var(--wm-fast)}
+.wm-range::-moz-range-thumb{width:10px; height:10px; border-radius:50%; background:var(--wm-bg); border:1.4px solid var(--wm-text)}
+.wm-range:hover::-webkit-slider-thumb, .wm-range:focus-visible::-webkit-slider-thumb{background:var(--wm-text)}
+.wm-check{-webkit-appearance:none; appearance:none; width:13px; height:13px; margin:0; flex:none; position:relative; cursor:pointer;
+  border:1px solid var(--wm-track); border-radius:var(--wm-r-control); background:transparent; transition:border-color var(--wm-fast)}
+.wm-check:hover{border-color:var(--wm-text)}
+.wm-check:checked{background:var(--wm-text); border-color:var(--wm-text)}
+.wm-check:checked::after{content:""; position:absolute; left:4px; top:1px; width:3px; height:7px;
+  border:solid var(--wm-bg); border-width:0 1.6px 1.6px 0; transform:rotate(45deg)}
+/* Text fields and selects: a line underneath, no box. The placeholder is the label. */
+.wm-field{-webkit-appearance:none; appearance:none; width:100%; min-width:0; background:transparent; color:var(--wm-text);
+  border:0; border-bottom:1px solid var(--wm-outline); border-radius:0; padding:.5rem 0 .55rem; font:400 1.05rem var(--wm-sans); outline:none}
+.wm-field:focus{border-bottom-color:var(--wm-text)}
+.wm-field::placeholder{color:var(--wm-muted); opacity:1}
+.wm-field.is-bad{border-bottom-color:var(--wm-alert)}
+select.wm-field{cursor:pointer; padding-right:1.4rem; background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M1 1l4 4 4-4' fill='none' stroke='%23ECEAE5' stroke-width='1.3'/></svg>") no-repeat right .2rem center}
+select.wm-field option{background:#0B111A; color:var(--wm-text)}
+
+/* Timeline: a range with labelled ticks and named chapters above */
+.wm-timeline{position:relative; height:34px}
+.wm-timeline .wm-range{position:absolute; inset:0; height:34px}
+.wm-timeline .ticks{position:absolute; left:5.5px; right:5.5px; inset-block:0; pointer-events:none}
+.wm-timeline .t{position:absolute; top:24px; transform:translateX(-50%); font:600 9.5px var(--wm-sans); letter-spacing:.08em;
+  color:var(--wm-faint); font-variant-numeric:tabular-nums}
+.wm-timeline .t::before{content:""; position:absolute; left:50%; top:-14px; width:1px; height:9px; background:var(--wm-track)}
+.wm-timeline .c{position:absolute; top:0; transform:translateX(-50%); font:600 9.5px var(--wm-sans); letter-spacing:var(--wm-track-label);
+  text-transform:uppercase; color:var(--wm-faint); white-space:nowrap; transition:color var(--wm-med)}
+.wm-timeline .c.is-on{color:var(--wm-text)}
+
+/* Map labels, NYT style */
+.wm-place{font:500 12px var(--wm-sans); letter-spacing:var(--wm-track-place); text-transform:uppercase; color:#6F7884}
+.wm-place.is-big{font-size:15px; letter-spacing:.38em; color:var(--wm-muted)}
+.wm-water{font:italic 14px var(--wm-serif); color:#5F8FA8}
+.wm-town{font:500 13px var(--wm-sans); color:var(--wm-text-2)}
+
+/* ---------- Events: a thin timeline of dated events (slide 21) ----------
+   One hairline axis with a year label per year; events above (.is-up) or below (.is-down) on tiers
+   (--tier 1, 2, ...), each with a hairline to its date. Up labels end at their tick, down labels start
+   at theirs. --up and --down (the deepest tier on each side) set the height. */
+.wm-events{--row:17px; position:relative; width:100%; padding:calc(var(--up) * var(--row) + 4px) 0 calc(var(--down) * var(--row) + 4px);
+  font-size:var(--wm-fs-caption); color:var(--wm-text-2); line-height:1.25}
+.wm-events .axis{position:relative; height:1px; background:var(--wm-text)}
+.wm-events .yr{position:absolute; top:4px; transform:translateX(-50%); font-size:.64rem; color:var(--wm-muted); letter-spacing:.04em}
+.wm-events .tk{position:absolute; top:-3px; width:1px; height:7px; background:var(--wm-text)}   /* each year's start */
+.wm-events .ev{position:absolute; top:0; width:0}
+.wm-events .ev::before{content:""; position:absolute; left:0; width:1px; background:rgba(236,234,229,.45)}
+.wm-events .ev.is-up::before{bottom:0; height:calc(var(--tier) * var(--row) - 6px)}
+.wm-events .ev.is-down::before{top:1px; height:calc(var(--tier) * var(--row) + 8px)}
+.wm-events .lb{position:absolute; white-space:nowrap; line-height:var(--row)}   /* one row each: tiers never overlap */
+.wm-events .ev.is-up .lb{right:-1px; bottom:calc(var(--tier) * var(--row) - 6px); padding-right:4px; text-align:right}
+.wm-events .ev.is-down .lb{left:-1px; top:calc(var(--tier) * var(--row) + 2px); padding-left:4px}
+.wm-events .lb b{font-weight:500; color:var(--wm-text)}
+.wm-events .side{position:absolute; left:0; font:600 var(--wm-fs-label) var(--wm-sans); letter-spacing:var(--wm-track-label, .12em); text-transform:uppercase; color:var(--wm-muted)}
+.wm-events .side.up{top:0; left:0} .wm-events .side.down{bottom:0; right:0; left:auto}   /* clear of the labels: up labels end right, down labels start left */
+
+/* ---------- Dial: a thin-line ring for a quantity against a unit (slide 23, US$400 million against an hour
+   of world military spending). No clock face. The ring is one unit; the value sweeps round it from the top,
+   and a value past one unit laps on an inner ring. The sweep draws in over 1.6 s (none with reduced motion). */
+.wm-dial{display:flex; align-items:center; gap:var(--wm-s5)}
+.wm-dial .ring{display:flex; flex-direction:column; align-items:center; gap:var(--wm-s2); flex:none; width:clamp(96px, 10vw, 124px); text-align:center}
+.wm-dial svg{width:clamp(84px, 9vw, 112px); transform:rotate(-90deg); overflow:visible}
+.wm-dial circle{fill:none; stroke-width:1.2}
+.wm-dial .track{stroke:var(--wm-line)}
+.wm-dial .val{stroke:var(--wm-text); stroke-dasharray:var(--len); stroke-dashoffset:var(--to); animation:wm-dial 1.6s var(--wm-ease, ease) both}
+.wm-dial .val.lap{stroke:var(--wm-affected); animation-delay:1.1s}
+@keyframes wm-dial{from{stroke-dashoffset:var(--len)}}
+@media (prefers-reduced-motion: reduce){ .wm-dial .val{animation:none} }
+.wm-dial .nums{display:flex; flex-direction:column; gap:var(--wm-s3)}
+.wm-dial .nums > div{display:flex; flex-direction:column; gap:2px}
+@media (max-height:820px){
+  .wm-events{--row:13px}
+  .wm-slide .below:has(.wm-events){gap:var(--wm-s2)}
+}
+@media (max-height:760px){ .wm-events{--row:12px; font-size:.7rem} }
+
+/* Events, vertical (.wm-events.is-vertical): every event on its own row in date order, evenly spaced, on one
+   vertical hairline; a filled dot for one side (e.g. the United States), a hollow one for the other. */
+.wm-events.is-vertical{padding:0; --row:auto}
+.wm-events.is-vertical .key{display:flex; gap:var(--wm-s4); font-size:var(--wm-fs-caption); color:var(--wm-muted); margin-bottom:var(--wm-s2)}
+.wm-events.is-vertical .key span{display:inline-flex; align-items:center; gap:.45rem}
+.wm-events.is-vertical ol{list-style:none; margin:0; padding:0; position:relative}
+.wm-events.is-vertical ol::before{content:""; position:absolute; left:calc(5.2rem + var(--wm-s3) + 4px); top:8px; bottom:8px; width:1px; background:rgba(236,234,229,.45)}
+.wm-events.is-vertical li{display:grid; grid-template-columns:5.2rem 9px minmax(0,1fr); column-gap:var(--wm-s3); align-items:center;
+  padding:5px 0; font-size:var(--wm-fs-small); line-height:1.35; color:var(--wm-text-2)}
+.wm-events.is-vertical .when{font-weight:500; color:var(--wm-text); white-space:nowrap}
+.wm-events.is-vertical .lb{position:static; white-space:normal; line-height:inherit; padding:0}   /* in the flow, not on tiers */
+.wm-events .dot{width:9px; height:9px; border-radius:50%; box-sizing:border-box; position:relative; z-index:1; display:inline-block}
+.wm-events .dot.is-up{background:var(--wm-text)}
+.wm-events .dot.is-down{background:var(--wm-bg); border:1.5px solid var(--wm-text)}
+.wm-events.is-vertical .key .ill{display:none; color:var(--wm-muted)}
+@media (max-height:820px){
+  .wm-events.is-vertical li{padding:2px 0; font-size:var(--wm-fs-caption); line-height:1.25}
+  .wm-events.is-vertical .key{margin-bottom:4px}
+  .wm-events.is-vertical .key .ill{display:inline}
+}
+

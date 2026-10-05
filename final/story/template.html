@@ -6,9 +6,9 @@
 <title>The Gaps in the Weather Machine</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="wm">
 
 <!-- ==========================================================================
      EVERYTHING YOU EDIT IS IN THE BLOCK BELOW.
@@ -19,7 +19,8 @@
      ========================================================================== -->
 <script id="IMG">const PHOTO={seal:"data:image/webp;base64,__SEAL__"};
 const RELIEF="data:image/webp;base64,__RELIEF__";
-const IMG={xxBefore:"data:image/webp;base64,__XXB__",xxAfter:"data:image/webp;base64,__XXA__"};</script>
+const IMG={xxBefore:"data:image/webp;base64,__XXB__",xxAfter:"data:image/webp;base64,__XXA__"};
+const INSTRUMENT_PHOTOS=__INSTRUMENT_PHOTOS__;   // assets/instruments: name, tint token, crop, photo (build_all.py)</script>
 <script id="CONFIG">
 
 // ---------------------------------------------------------------------------
@@ -32,6 +33,22 @@ const IMG={xxBefore:"data:image/webp;base64,__XXB__",xxAfter:"data:image/webp;ba
 //    gain  : how fast brightness saturates. 7 is default; lower = more range.
 // ---------------------------------------------------------------------------
 const LAYERS = {
+  // Rain gauges, Su et al. (2026): drawn by the rain-gauge prototype's plugin from its own data (prototypes/rain-gauges),
+  // one 0.5° dot per quarter of each 1° cell, carrying that cell's value (the data exists only at 1°).
+  // gauges = density in eight classes; gaugegap = cells below the WMO minimum for their terrain, or with no gauge.
+  gauges:    { label:'Rain gauges per 1,000 km²', plugin:'rain-gauges', color:'#3FD98A', classes:true },
+  gaugegap:  { label:'Below the WMO minimum, or no rain gauge', plugin:'rain-gauges', color:'#2A6B49' },
+  // Idai (prototypes/idai): drawn by its plugin, for the slide that is showing (not offered in Explore)
+  idai_base:   { label:'Land', plugin:'idai', color:'#161D26', explore:false },
+  idai_tracks: { label:'Storm tracks, 2019', plugin:'idai', ramp:['#F5E06A','#F6C243','#F09A3E','#E8703E','#DC4340','#B81D2C'], explore:false },
+  idai_flood:  { label:'Land that flooded, 13–20 March 2019', plugin:'idai', color:'#7DB4D1', explore:false },
+  idai_damage: { label:'Building damage, central Beira', plugin:'idai', color:'#E8433F', explore:false },
+  idai_labels: { label:'Labels', plugin:'idai', color:'#ECEAE5', explore:false },
+  // the weather-machine slides: instruments filling in year by year with the era timeline (prototypes/history)
+  cp_outline:    { label:'Your country', plugin:'country-profile', color:'#ECEAE5', explore:false },
+  hist_stations: { label:'Weather stations, by decade', plugin:'history', color:'#FFB547', explore:false },
+  hist_sats:     { label:'Satellites in operation', plugin:'history', color:'#CBD6E2', explore:false },
+  hist_argo:     { label:'Argo floats, by year', plugin:'history', color:'#45B0CE', explore:false },
   stations:  { label:'Weather stations',        color:'#FFB547', power:0.85 },
   usable:    { label:'30-year records',         color:'#FFB547', power:0.85 },
   years:     { label:'Stations by record length', color:'#FFD08A', power:0.85 },
@@ -42,25 +59,25 @@ const LAYERS = {
   telemetry: { label:'Tracked, no sensors',     color:'#B98CE0', power:0.85 },
   // These two are plain dot layers, not density grids. dot = radius in pixels
   // at normal zoom, alpha = opacity. Light and crisp, no density maths.
-  fema:      { label:'FEMA flood exposure',     color:'#FFFFFF', dot:1.25, alpha:0.92 },
-  aiextra:   { label:'Model-added exposure',    color:'#4FC3F7', dot:1.55, alpha:0.98 },
+  fema:      { label:'FEMA flood zones (illustrative dots)', color:'#ECEAE5', dot:1.25, alpha:0.92 },
+  aiextra:   { label:'Added by the model (illustrative dots)',    color:'#4FC3F7', dot:1.55, alpha:0.98 },
   xx_before: { label:'Settlements before',      color:'#E05CC8', dot:0.75, alpha:0.95 },
   xx_lost:   { label:'Settlements gone',        color:'#FF3D6E', dot:0.95, alpha:1.00 },
   xx_water:  { label:'Floodwater',              color:'#2E6FA3', dot:0.85, alpha:0.80 },
   // one dot per 1-degree cell inside an Argo coldspot patch
-  coldspots: { label:'Argo coldspots',          color:'#E4EEFF', dot:0.9,  alpha:0.85 },
+  coldspots: { label:'Argo cold spots',          color:'#E4EEFF', alpha:0.85, square:true },   // drawn as the Argo cells are: 1° squares, scale / 210
   // Sendai Target G-1: one dot per country reporting a multi-hazard early
   // warning system, dots filling each country on a 1-degree grid. See
   // scripts/fetch_sendai_g1.py and scripts/add_mhews_layers.py.
   // Layers draw in the order listed, so 2025 comes first: with both on, the
   // 2022 dots sit on top and only the countries added since show orange.
-  mhews_2025:{ label:'Reported having MHEWS, 2025', color:'#F08A3E', dot:1.1, alpha:0.95 },
-  mhews_2022:{ label:'Reported having MHEWS, 2022', color:'#F5D04A', dot:1.1, alpha:0.95 },
+  mhews_2025:{ label:'Multi-hazard warning system, added by 2025', color:'#F08A3E', dot:1.1, alpha:0.95 },
+  mhews_2022:{ label:'Multi-hazard warning system, reported by 2022', color:'#F5D04A', dot:1.1, alpha:0.95 },
   // leatherback + loggerhead cells from OBIS. See scripts/add_turtles_layer.py.
   turtles:   { label:'Leatherback and loggerhead turtles', color:'#C6E377', dot:1.4, alpha:0.9 },
 
   // storm tracks. ramp runs tropical storm -> cat 5, yellow -> red.
-  storms:    { label:'Storm tracks 2006-2026',   ramp:['#F5E06A','#F6C243','#F09A3E','#E8703E','#DC4340','#B81D2C'], width:0.9, alpha:0.55, animate:true },
+  storms:    { label:'Storm tracks, 2006–2026',   ramp:['#F5E06A','#F6C243','#F09A3E','#E8703E','#DC4340','#B81D2C'], width:0.9, alpha:0.55, animate:true },
   michael:   { label:'Hurricane Michael 2018',   ramp:['#FFFFFF'], width:2.4, alpha:1, animate:true },
   haiyan:    { label:'Typhoon Haiyan 2013',      ramp:['#FFFFFF'], width:2.4, alpha:1, animate:true },
 
@@ -69,8 +86,14 @@ const LAYERS = {
   fl_deaths:  { label:'Deaths',                  color:'#E8433F', bubble:13, alpha:0.80 },
   fl_damage:  { label:'Damage (US$)',            color:'#5BC8A8', bubble:30, alpha:0.32 },
 
-  sats_shell: { label:'Satellites',              color:'#CBD6E2', dot:1.5, alpha:0.9 },
-  st_decay:   { label:'Stations, switching off', color:'#FFB547', dot:0.9, alpha:0.9, sweep:true }
+  sats_shell: { label:'Satellites (positions illustrative)',              color:'#CBD6E2', dot:1.5, alpha:0.9 },
+  st_decay:   { label:'Stations whose records stop reaching the global archive', color:'#FFB547', dot:0.9, alpha:0.9, sweep:true },
+  // slide 19: Africa's stations on 0.5° cells, each lit from its first year to its last (scripts/pack_final_layers.py)
+  af_decay:   { label:'Weather stations, 0.5° cells: dark when their records stop reaching the global archive', color:'#FFB547', dot:1.5, alpha:0.95, sweep:true, explore:false,
+                yearAt:[30, 28] },   // the counter's year is drawn on the map here: the top right of Africa (the author, 5 Oct)
+  // slide 21: the weather stations split at the Arctic Circle, so the Arctic can fade on its own (same brightness as stations)
+  st_low:     { label:'Weather stations', color:'#FFB547', power:0.85, maxOf:'stations', explore:false },
+  st_arctic:  { label:'Weather stations north of the Arctic Circle', color:'#FFB547', power:0.85, maxOf:'stations', explore:false }
 };
 
 // ---------------------------------------------------------------------------
@@ -108,9 +131,10 @@ const WIPE = {
     box   : [-125, 24, -66, 50],
     under : 'fema',
     over  : 'aiextra',
-    left  : 'Official FEMA flood map',
-    right : 'After the model fills the gaps',
-    note  : '11.04 million more people and 4.12 million more buildings in flood zones than the federal map records \u2014 a 69% and 81% increase. Wu, Zhang &amp; Stouffs, Nature Communications 17:5983 (2026).'
+    // the model's additions ('over') show LEFT of the handle, so the left label names them
+    left  : 'After the model fills the gaps',
+    right : 'Official FEMA flood map',
+    note  : ''
   },
 
   xaixai: {
@@ -124,6 +148,14 @@ const WIPE = {
     note  : 'Lower Limpopo valley around Xai-Xai, Chibuto, Chokwe and Macia. Magenta is built-up ground; blue is standing water. 55% of the settled area in this frame is under water on the later date. Less than a tenth of the water arriving here is generated inside Mozambique.'
   },
 
+  idai: {
+    box   : [33.9, -20.6, 35.2, -19.0],                // the NASA GIBS request (prototypes/idai/build_idai.py SAT_BBOX)
+    img   : { left:'photo:modis-before', right:'photo:modis-after' },
+    left  : '24 February 2019',
+    right : '21 March 2019',
+    note  : ''
+  },
+
   mozambique: {
     box    : [30, -27, 41, -10],
     under  : null,
@@ -131,261 +163,294 @@ const WIPE = {
     broken : true,
     left   : 'Official national flood map',
     right  : 'Model output',
-    note   : 'Nothing to wipe between. Mozambique has no national flood hazard map, so the model has nothing to learn from and nothing to be checked against.'
+    note   : ''
   }
 
 };
 
 // ---------------------------------------------------------------------------
-// 2. SCENES — the whole story, in order. One object per scroll step.
+// 2. SCENES — the narrative, one object per slide, in the words of the author's
+//    narrative (weather_machine_narrative_v3_short_1.txt, 5 Oct 2026). The ORDER of the
+//    page, and where the prototype sections go between slides, is final/sections.json.
 //
-//    center : [longitude, latitude]  where the globe points. Just type the
-//             real coordinates you want to look at. West and south are negative.
-//    zoom   : 1 is normal. 1.5 is closer. 0.8 is further away.
-//    layers : which layers are visible and how strongly, 0 to 1.
-//             Leave a layer out entirely and it's off.
-//    sats   : 0 to 1. How strongly to draw the geostationary footprints.
-//             Leave it out and they're off.
-//    wipe   : the name of an entry in WIPE, to frame a region and add a handle.
-//    quote  : true renders the text large and bare, with no box. For pull quotes.
-//    bare   : true removes the box but keeps normal size. For narration.
-//    photo  : { src, tint } shows a square image above the card, tinted to match
-//             the layer it belongs to. Put your own file next to this HTML and
-//             write src:'seal.jpg', or use one of the embedded PHOTO entries.
-//    legend : usually automatic from the visible layers. Pass an array of layer
-//             names to override, or false to hide it.
-//    html   : the text card. Plain HTML between the backticks.
+//    id     : the slide's name; sections.json places slides by id.
+//    act    : the label above the title (the act it belongs to).
+//    title  : the slide's title.      sub : a subtitle (slide 1 only).
+//    text   : the narration, one string per paragraph. Plain text; <em> is fine.
+//    quote  : { text, by } a pull quote, set large above the narration.
+//    below  : what goes under the narration, in order:
+//               legend : layer names to key (default: the visible layers), or false
+//               ramp   : true adds the storm-intensity key
+//               bars   : { caption, rows:[{ k, v, label, note, ref }] } on one shared scale
+//               stats  : [{ v, note }] big numbers
+//               note   : a line of fine print
+//    source : the one-line source. Every slide has one.
+//    views  : camera and layers, one per scroll step. The text stays put while the camera
+//             moves between a slide's views. Each view: center [lon, lat] (real
+//             coordinates), zoom, layers {name: opacity 0..1}, sats, wipe, grow.
+//    module : the prototype section that will carry this slide (still to be built in);
+//             until then the slide shows its words over the story's globe.
+//    plugin : a prototype that owns this slide on the shared globe: its panel goes under the words,
+//             it draws on the globe, and the globe takes drag, double-click and Ctrl/⌘ + scroll.
+//    flow   : the slide's text scrolls with the page instead of sitting fixed (for a slide taller
+//             than the screen, such as one with a plugin's panel). The globe stays fixed either way.
 //
-//    To add a scene, copy any block and paste it where you want it.
-//    To remove one, delete it. To reorder, move it.
+//    To change words: edit text here. To reorder: edit final/sections.json.
 // ---------------------------------------------------------------------------
+// the weather machine's shared words (slides 2 to 5) and the one line on each instrument's card
+// the timeline under the cards (design system .wm-timeline): the era in which each kind of instrument spread.
+// It shows when, not how many: the globe keeps today's layers. A slide's era plays from 'from' to 'to'.
+const ERAS = { labels:[ { k:'stations', text:'Weather stations', from:1900, to:1960 },
+                       { k:'sats', text:'Satellites', from:1960, to:1990 },
+                       { k:'argo', text:'Argo floats', from:1990, to:2025 } ],
+               start:1900, end:2025, secondsPerDecade:1.5 };
+// the weather-machine slides share one view: the globe stays put and turns slowly along the equator
+// (spin: 8 degrees a second, eastward like the Earth; the author, 5 Oct); moving between them never moves the camera
+const MACHINE_VIEW = [-20, 20];   // centred on 20°N: tilted toward the north, so more of the northern hemisphere shows
+const MACHINE_TEXT = 'Every forecast is built from millions of measurements from around the world. Put it all together and you have the weather machine. It runs on sharing: the US takes in three times the weather data it sends out. No country forecasts alone.';
+const MACHINE_SOURCE = 'GHCN-Daily (NOAA NCEI); WMO OSCAR/Space, satellite positions illustrative; Argo GDAC; Su et al., <i>Nature</i> 652:119 (2026); NOAA NWS. Photos: credit to come.';
+// instrument cards (design system .wm-instrument): the name, then one line, the instrument's number of sensors.
+// A card first appears as the 16:9 card; when the next instrument arrives it shrinks to a row (square photo,
+// name and line beside). Names, tints and photos come from assets/instruments; figures: scripts/check_figures.py.
+const INSTRUMENTS = {
+  stations: { line:'132,501 in the global archive' },
+  sats:     { line:'439 Earth-observing, in operation (2025)' },
+  argo:     { line:'3,375,214 profiles from 20,530 floats' },
+  gauges:   { line:'221,483 sharing their records' }
+};
+
 const SCENES = [
 
-  // 1
-  { center:[-40, 12], zoom:0.86, layers:{}, bare:true,
-    html:`<div class="ttl big">The Gaps in the Weather Machine</div>
-          <div class="sub">Who can see the storm coming, and who can't</div>
-          <p>For most of history we could only guess at the weather. We prayed, consulted
-             oracles and made calendars. None of it worked.</p>` },
+  // ============ I · The storm is changing ============
+  { id:'title', act:'I · Setup',
+    title:'The Gaps in the Weather Machine',
+    text:['For most of history we guessed at the weather. Now recorded disasters have risen nearly fivefold in fifty years. Yet deaths have fallen almost threefold, thanks to early warning. Our best defence is seeing the storm coming. That depends on a machine.'],
+    below:{ legend:false, ramp:true, grow:true },
+    source:'Disasters and deaths: WMO and UNDRR, <i>Atlas of Mortality and Economic Losses, 1970–2019</i> (2021). Tracks: IBTrACS v04r01, NOAA NCEI.',
+    views:[ { center:[-75, 18], zoom:0.86, layers:{ storms:1 }, grow:true } ] },
 
-  // 2
-  { center:[10, 45], zoom:1.05, layers:{ stations:0.7 }, bare:true,
-    html:`<div class="ttl">Weather stations</div>
-          <div class="sub">Since the 1800s</div>
-          <p>Then we started to <span style="color:#FFB547">measure</span>.</p>` },
+  // ============ II · The weather machine ============
+  // Four slides with the same title and words (the author, 5 Oct): each press of Space adds one instrument's
+  // card to the stack below the words (INSTRUMENTS, the stack is the legend) and its layer to the globe.
+  { id:'stations', act:'II · The weather machine',
+    title:'The weather machine', text:[MACHINE_TEXT], cards:['stations'], era:{ from:1900, to:1960, on:'stations' },
+    source:MACHINE_SOURCE,
+    views:[ { center:MACHINE_VIEW, zoom:0.8, spin:8, layers:{ hist_stations:1 } } ] },
+  { id:'satellites', act:'II · The weather machine',
+    title:'The weather machine', text:[MACHINE_TEXT], cards:['stations','sats'], era:{ from:1960, to:1990, on:'sats' },
+    source:MACHINE_SOURCE,
+    views:[ { center:MACHINE_VIEW, zoom:0.8, spin:8, layers:{ hist_stations:1, hist_sats:1 } } ] },
+  { id:'argo', act:'II · The weather machine',
+    title:'The weather machine', text:[MACHINE_TEXT], cards:['stations','sats','argo'], era:{ from:1990, to:2025, on:'argo' },
+    source:MACHINE_SOURCE,
+    views:[ { center:MACHINE_VIEW, zoom:0.8, spin:8, layers:{ hist_stations:1, hist_sats:1, hist_argo:1 } } ] },
+  { id:'machine', act:'II · The weather machine',
+    title:'The weather machine', text:[MACHINE_TEXT], cards:['stations','sats','argo','gauges'], era:{ from:2025, to:2025 },
+    source:MACHINE_SOURCE,
+    views:[ { center:MACHINE_VIEW, zoom:0.8, spin:8, layers:{ gauges:1, hist_stations:1, hist_sats:1, hist_argo:1 } } ] },
 
-  // 3
-  { center:[30, 12], zoom:0.68, sats:0, layers:{ sats_shell:1, stations:0.25 }, bare:true,
-    html:`<div class="ttl">Satellites</div>
-          <div class="sub">Since 1960</div>
-          <p>They watch from above, but cannot measure the air two metres off the ground,
-             where crops grow and people live.</p>` },
+  // ============ III · The gaps ============
+  { id:'view', act:'III · The gaps',
+    title:'The Gaps',
+    text:['The United States has 78,567 weather stations, 59% of all on Earth. Africa, with more than three times the land, has 2,119. The US and EU share 636 weather radars among 1.1 billion people. Africa has 37 for 1.2 billion.'],
+    below:{ bars:{ caption:'Weather radars', rows:[
+              { k:'United States and EU', v:636, note:'for 1.1 billion people' },
+              { k:'Africa', v:37, note:'for 1.2 billion people' } ] } },
+    source:'Stations: GHCN-Daily, NOAA NCEI, downloaded 19 Sep 2026. Radars: WMO figures cited by F. Otto, <i>Yale Environment 360</i>, 31 Oct 2023.',
+    views:[ { center:[-98, 39], zoom:1.8, layers:{ stations:1 } },
+            { center:[20, 2],   zoom:1.6, layers:{ stations:1 } } ] },
 
-  // 4
-  { center:[-150, 0], zoom:0.88, layers:{ argo:1, stations:0.2 },
-    html:`<div class="ttl">Argo floats</div>
-          <span class="stat float">3,375,214</span>
-          <span class="note">ocean profiles from 20,530 floats, since 1999</span>
-          <p>Floats drift through the oceans measuring temperature and salinity.</p>` },
+  { id:'coldspots', act:'III · The gaps',
+    title:'The Gaps',
+    text:['The ocean has gaps too. Floats drift with the currents and miss shelves, enclosed seas and ice. One of these cold spots lies off Mozambique: the Channel gets a third of the global average density of Argo profiles. In March 2019, a cyclone gathered strength there.'],
+    source:'Argo GDAC index, downloaded 23 Sep 2026 (profiles per unit area, 35–45°E, 26–11°S). Cold spots: this project’s analysis of that index.',
+    views:[ { center:[35, -18], zoom:1.3, layers:{ argo:1 } },
+            { center:[35, -18], zoom:2.2, layers:{ coldspots:1 } } ] },
 
-  // 5
-  { center:[20, 10], zoom:0.9, quote:true, layers:{ stations:1, argo:0.3 },
-    html:`<div class="ttl">An uneven machine</div>
-          <div class="sub">Coverage is not shared equally</div>
-          <p>We built a machine to watch the weather.</p>
-          <p>But not all places have the same view of the storm.</p>` },
+  { id:'cells', act:'III · The gaps', flow:true, plugin:'rain-gauges',   // the explorer: its panel under these words, its cells on this globe
+    title:'The Gaps: Cell by cell',
+    text:['WMO says open plains need about one rain gauge per 575 km², up to about 21 in every one-degree square. Tap any square to see how close it comes. Only 13.4% of the world’s land meets the standard. Europe has 2.4 gauges per 1,000 km². Africa has 0.09.'],
+    source:'Su et al., <i>Nature</i> 652:119 (2026), Fig. 2c data (CC BY 4.0); WMO-No. 168.',
+    views:[ { center:[15, 22], zoom:1, layers:{} } ] },
 
-  // 6
-  { center:[-98, 39], zoom:1.8, layers:{ stations:1 },
-    html:`<div class="ttl">The United States</div>
-          <span class="stat lamp">76,708</span>
-          <span class="note">weather stations, 59% of all on Earth</span>
-          <p>So many they merge into a solid surface. Most are new: 51,229 are volunteer
-             rain gauges put up since 1998.</p>` },
+  // ============ IV · Idai ============
+  { id:'cant-see', act:'IV · Idai', plugin:'idai',
+    title:'What happens when we can’t predict what’s coming',
+    sub:'A case study of Cyclone Idai in Mozambique',
+    // the author, 5 Oct: Idai's track alone (IBTrACS, coloured by category as recorded), close on Mozambique and
+    // the Channel: its loop over Malawi and back out to sea before Beira
+    below:{ legend:false, ramp:true },
+    source:'IBTrACS v04r01, NOAA NCEI, categories as recorded.',
+    views:[ { center:[38.2, -17.6], zoom:5.2, idai:'track', layers:{ idai_tracks:1 } } ] },
 
-  // 7
-  { center:[20, 2], zoom:1.6, layers:{ stations:1 },
-    html:`<div class="ttl">Africa</div>
-          <span class="stat lamp">2,166</span>
-          <span class="note">weather stations across the continent</span>
-          <p>Same layer, one turn east. Africa's stations are old, with a median record of
-             68 years against 8 in the US. The network is shrinking, not growing.</p>` },
+  { id:'mozambique', act:'IV · Idai', plugin:'idai',
+    title:'Mozambique, 2019',
+    text:['One of the world’s least developed countries, and among the most exposed to climate change. Over 60% of its people live in low-lying coastal areas. Just 19 of its weather stations reach the global archive, and much of the water that floods its rivers falls in its neighbours’ highlands.'],
+    below:{ legend:false },
+    source:'Stations: GHCN-Daily. Rivers: ISET-International, <i>Learning from Cyclone Idai and Cyclone Kenneth</i>, via ReliefWeb. Photo: credit to come.',
+    // the photo on the right; the globe minimises to the corner lens, zoomed toward Mozambique
+    views:[ { center:[35.5, -18.2], zoom:2.8, photo:'idai-floodplain', layers:{ stations:0.5, coldspots:0.6 } } ] },
 
-  // 8
-  { center:[-96, 38], zoom:2.0, wipe:'us', layers:{}, bare:true,
-    html:`<div class="ttl">Where data is rich</div>
-          <div class="sub">AI fills the gaps</div>
-          <p>Drag the handle. Trained on FEMA's flood maps, a model found
-             <strong>11 million people</strong> and <strong>4.1 million buildings</strong>
-             in flood zones no official map had recorded.</p>` },
+  { id:'three-storms', act:'IV · Idai', plugin:'idai',
+    title:'One season, three storms',
+    // each beat appears with its storm's track (prototypes/idai/story-plugin.js: SEASON, the same timings)
+    text:[ { text:'21 January 2019: Tropical Storm Desmond brings severe flooding.', at:1 },
+           { stat:'52', text:'days later: Cyclone Idai.', at:3 },
+           { stat:'42', text:'days after that: Cyclone Kenneth.', at:5 },
+           { text:'Mozambique had never been hit by so many cyclones in one season. Climate change was no longer intangible.', at:7 } ],
+    below:{ legend:false, ramp:true },
+    source:'IBTrACS v04r01, NOAA NCEI, categories as recorded; landfall dates: ISET-International, via ReliefWeb.',
+    views:[ { center:[41.2, -17.5], zoom:4.6, idai:'season', layers:{ idai_base:1, idai_tracks:1, idai_labels:1 } } ] },
 
-  // 9
-  { center:[35, -18], zoom:2.45, wipe:'mozambique', layers:{ stations:1 }, bare:true,
-    html:`<div class="ttl">Where data is poor</div>
-          <div class="sub">It can't</div>
-          <p>Mozambique has no national flood map, so the handle doesn't move. AI makes
-             the best-measured places better measured.</p>` },
+  { id:'seen', act:'IV · Idai', plugin:'idai',
+    title:'The storm was expected. The flood was not.',
+    text:['Forecasters saw Idai coming five days ahead, and warnings went out. The flood was another matter. Idai moved inland, dumped torrential rain over Zimbabwe, and the rivers carried it back. The Pungwe–Buzi plain became an inland sea. Seeing a storm takes satellites. Knowing what its rain will do takes gauges on the ground.'],
+    below:{ legend:false, key:[ { color:'var(--wm-flood)', label:'Land that flooded, 13–20 March 2019 (Sentinel-1 radar)' },
+                             { color:'var(--wm-text)', line:true, label:'Rain over Zimbabwe’s highlands, carried back down the rivers (schematic)' } ] },
+    source:'ECMWF (2019); ISET-International, via ReliefWeb; flood extent: UNOSAT, Sentinel-1, 13–20 Mar 2019 (rapid mapping, not field-validated).',
+    views:[ { center:[34.15, -19.8], zoom:39, idai:'flood', layers:{ idai_base:1, idai_flood:1, idai_labels:1 } } ] },
 
-  // 10
-  { center:[14, 8], zoom:0.92, quote:true, layers:{ stations:0.35 },
-    html:`<div class="ttl">The cost</div>
-          <div class="sub">Two storms, two outcomes</div>
-          <p>So what happens to a place that can't see the weather coming?</p>` },
+  { id:'before-after', act:'IV · Idai', plugin:'idai',
+    title:'Before and after',
+    text:['Drag the handle: the same plain on 24 February and 21 March 2019. Water is dark blue, vegetation green, cloud cyan.'],
+    below:{ legend:false },
+    source:'NASA MODIS (Aqua) corrected reflectance, bands 7-2-1, via NASA GIBS, 24 Feb and 21 Mar 2019 (public domain). Each pixel is 250 m.',
+    views:[ { center:[34.55, -19.8], zoom:66, idai:'wipe', wipe:'idai', layers:{ idai_base:1 } } ] },   // the whole image on screen
 
-  // 11
-  { center:[-86, 29], zoom:3.0, layers:{ michael:1, storms:0.18, stations:0.5 }, bare:true,
-    html:`<div class="ttl">Hurricane Michael</div>
-          <div class="sub">Florida, 2018 &middot; 125 knots</div>
-          <p>Tracked for days, warned, evacuated. <strong>74 people died.</strong></p>` },
+  { id:'numbers', act:'IV · Idai', plugin:'idai',
+    title:'Idai in numbers',
+    // the numbers appear one by one, each with its label (the words of the narrative, split at the number)
+    text:[ { stat:'1.85 million', text:'people affected.', at:0.4, color:'var(--wm-affected)' },
+           { stat:'603', text:'deaths in Mozambique; more than 1,000 across three countries.', at:0.9, color:'var(--wm-deaths)' },
+           { stat:'122,700', text:'houses destroyed and 111,200 damaged.', at:1.4 },
+           { stat:'77', text:'health facilities severely damaged.', at:1.9 },
+           { stat:'400,000', text:'people in shelters.', at:2.4 } ],
+    below:{ legend:false, key:[ { color:'var(--wm-dmg-3)', label:'Destroyed' }, { color:'var(--wm-dmg-2)', label:'Damaged' }, { color:'var(--wm-dmg-1)', label:'Possibly damaged' } ],
+            note:'Map: central Beira, 8,705 buildings graded from satellite images of 26 March 2019.' },
+    source:'Map: Copernicus EMS EMSR348, © European Union. Regional toll: F. Otto, <i>Yale Environment 360</i> (2023); ECMWF (2019). Other figures: source to come.',
+    // the regional map around Beira, with the zoom callout (small rectangle on central Beira, big one magnified)
+    views:[ { center:[35.7, -19.84], zoom:45, idai:'damage', layers:{ idai_base:1, idai_damage:1, idai_labels:1 } } ] },
 
-  // 12
-  { center:[125, 11], zoom:3.0, layers:{ haiyan:1, storms:0.18 }, bare:true,
-    html:`<div class="ttl">Typhoon Haiyan</div>
-          <div class="sub">Philippines, 2013 &middot; 125 knots</div>
-          <p><strong>6,352 people died.</strong> Another 1,071 were never found.</p>
-          <p>Measured in money, Michael was the bigger disaster: $25.5 billion against
-             $2.98 billion.</p>` },
+  { id:'beyond', act:'IV · Idai', plugin:'idai',
+    title:'Beyond people',
+    // the animals, one number at a time like 'Idai in numbers' (figures from the author's long narrative, likely the
+    // PDNA: 124,498 + 10,305 + 5,428 + 3,191 = 143,422 animals)
+    text:[ { stat:'124,498', text:'birds killed.', at:0.4 },
+           { stat:'10,305', text:'sheep and goats.', at:0.9 },
+           { stat:'5,428', text:'cows.', at:1.4 },
+           { stat:'3,191', text:'pigs.', at:1.9 },
+           { stat:'US$3.1 million', text:'lost, in places where families depend on their animals.', at:2.4 } ],
+    below:{ legend:false },
+    source:'Source to come (likely the Government of Mozambique’s Post-Disaster Needs Assessment, 2019). Photo: credit to come.',
+    views:[ { center:[34.6, -19.2], zoom:4.2, photo:'idai-cow', idai:'lens', layers:{ idai_tracks:1 } } ] },
 
-  // 13
-  { center:[24, 4], zoom:1.05, layers:{ stations:0.9 },
-    html:`<div class="ttl">The warning gap</div>
-          <span class="stat lamp">636 vs 37</span>
-          <span class="note">weather radars: US and EU vs Africa</span>
-          <p>Roughly the same population. 24 hours of warning cuts disaster damage by
-             about 30%, but you need instruments to give it.</p>` },
+  { id:'beyond-grid', act:'IV · Idai', plugin:'idai',
+    title:'Beyond people',
+    // the power grid, in the same form (figures from the author's long narrative, likely the PDNA)
+    text:[ { stat:'1,345 km', text:'of transmission lines damaged.', at:0.4 },
+           { stat:'10,216 km', text:'of distribution lines.', at:0.9 },
+           { stat:'3,990', text:'transformers.', at:1.4 },
+           { stat:'30', text:'substations.', at:1.9 },
+           { text:'A flood doesn’t stop at the people it kills.', at:2.4 } ],
+    below:{ legend:false },
+    source:'Source to come (likely the Government of Mozambique’s Post-Disaster Needs Assessment, 2019). Photo: credit to come.',
+    views:[ { center:[34.6, -19.2], zoom:4.2, photo:'idai-pylons', idai:'lens', layers:{ idai_tracks:1 } } ] },
 
-  // 14
-  { center:[35, -18], zoom:2.6, layers:{ stations:1, argo:0.5, coldspots:0.6 },
-    html:`<div class="ttl">Mozambique</div>
-          <span class="stat lamp">19</span>
-          <span class="note">weather stations for 34 million people</span>
-          <p>Offshore, the Mozambique Channel gets a third of the global average of Argo
-             profiles. Upstream, most of the water that floods the Limpopo flows past
-             gauges Mozambique doesn't own.</p>` },
+  // ============ V · Who pays ============
+  { id:'who-pays', act:'V · Who pays',
+    title:'Who lives and who dies',
+    text:['This is a broader pattern across the world.',
+          'Since 2016, Africa has 27% of recorded flood deaths, Europe 1.5%. Count the damage in dollars and it flips: Europe 20.2%, Africa 2.9%. Counted in lives, they are not.'],
+    source:'EM-DAT, CRED (UCLouvain), floods 2016–2026, export 18 Sep 2026.',
+    views:[ { center:[30, 14], zoom:0.86, layers:{ fl_affected:1, fl_deaths:1 } } ] },
 
-  // 15
-  { center:[33.44, -24.87], zoom:52, wipe:'xaixai', layers:{}, bare:true,
-    html:`<div class="ttl">Xai-Xai</div>
-          <div class="sub">The lower Limpopo, before and after</div>
-          <p>Drag the handle. <strong>55% of the built-up area in this frame ends up
-             underwater.</strong></p>` },
+  { id:'born', act:'V · Who pays', plugin:'country-profile',
+    title:'How about the place you were born?',
+    // the narration is replaced by the finding once a country and year are chosen (the plugin); the rain-gauge
+    // half of the slide was dropped (the author, 5 Oct), so its clause is cut from the words
+    text:['Enter your country and birth year. See how many people floods have killed, affected and displaced there since you were born, compared with another country.'],
+    source:'EM-DAT, CRED; IDMC GIDD; Rentschler et al., <i>Nature Communications</i> 13:3527 (2022).',
+    below:{ legend:false },
+    // the globe starts here; once a country is chosen the plugin turns it there (and back there on return)
+    views:[ { center:[20, 10], zoom:1, layers:{ cp_outline:1 } } ] },
 
-  // 16
-  { center:[30, 14], zoom:0.86, layers:{ fl_affected:1, fl_deaths:1 },
-    html:`<div class="ttl">Who dies</div>
-          <div class="sub">Every flood recorded since 2016</div>
-          <p><span style="color:#F2C744">Yellow</span> is people affected,
-             <span style="color:#E8433F">red</span> people killed. Africa has 27% of the
-             deaths. Europe has 1.5%.</p>` },
+  // ============ VI · Closing the gaps (the author's order, 5 Oct) ============
+  { id:'frontline', act:'VI · Closing the gaps', plugin:'stories',
+    title:'The frontlines are responding',
+    text:['Stories of adaptation, resilience, and ingenuity around the world.'],
+    // the frontline stories (the stories plugin: the design system's story card under the words, a circle on the
+    // globe per story; Next, the circles or ← → step through them, Space goes on)
+    below:{ legend:false },
+    source:'Each story’s source is on its card, with a link to the article.',
+    views:[ { center:[33.93, -9.93], zoom:0.8, stories:true, layers:{} } ] },
 
-  // 17
-  { center:[22, 0], zoom:1.2, layers:{ stations:0.8 },
-    html:`<div class="ttl">Getting worse</div>
-          <span class="stat lamp">&minus;50%</span>
-          <span class="note">African weather balloon reports, 2015 to 2020</span>
-          <p>The poorest countries and small island states have 9% of the surface
-             stations the WMO says they need, and 13% of the upper-air ones.</p>` },
+  { id:'question', act:'VI · Closing the gaps',
+    title:'What can we do to support them?',
+    // a pause: the question alone over the empty globe (no layers, so no source)
+    below:{ legend:false },
+    views:[ { center:[14, 8], zoom:0.84, layers:{} } ] },
 
-  // 18
-  { center:[14, 12], zoom:0.88, quote:true, layers:{ stations:0.25 },
-    html:`<div class="ttl">Early warning works</div>
-          <div class="sub">Ant&oacute;nio Guterres, UN Secretary-General, 2025</div>
-          <p>&ldquo;Disaster-related mortality is at least six times lower in countries
-             with good early-warning systems in place.&rdquo;</p>` },
+  { id:'works', act:'VI · Closing the gaps',
+    title:'We know what works',
+    quote:{ text:'“Disaster-related mortality is at least six times lower in countries with good early-warning systems in place.”', by:'António Guterres, UN Secretary-General' },
+    text:['The technology exists, from Bangladesh’s volunteers to Malawi’s river sensors. Yet about 90 countries still haven’t reported a multi-hazard warning system.'],
+    below:{ legend:['mhews_2022','mhews_2025'] },
+    source:'A. Guterres, Early Warnings for All event, 22 Oct 2025; Sendai Framework Monitor, Target G-1, fetched 28 Sep 2026.',
+    views:[ { center:[14, 10], zoom:0.9, layers:{ mhews_2022:1 } },
+            { center:[14, 10], zoom:0.9, layers:{ mhews_2025:1, mhews_2022:1 } } ] },
 
-  // 19
-  { center:[14, 10], zoom:0.9, layers:{ mhews_2022:1 },
-    html:`<div class="ttl">Early warning, 2022</div>
-          <span class="stat" style="color:#F5D04A">85</span>
-          <span class="note">countries with a multi-hazard system</span>
-          <p>Fewer than half the world's countries.</p>` },
+  { id:'not-enough', act:'VI · Closing the gaps',
+    title:'But where it matters most, the sensors are missing',
+    text:['The poorest countries and small island states deliver 9% of the surface data WMO requires. African weather-balloon reports reaching global models fell by half from 2015 to 2020. Stations get installed, then fall silent, because nobody pays to keep them running.'],
+    below:{ bars:{ caption:'African balloon reports reaching global models (2015 = 100)', rows:[
+              { k:'2015', v:100, label:'100' },
+              { k:'2020', v:50,  label:'about 50' } ] } },
+    source:'WMO GBON Baseline 2023 (SOFF); WMO, “Global observing system needs sustainable investments” (2021); stations: GHCN-Daily (2,119 African stations, 0.5° cells).',
+    // Africa's 0.5° station cells, lit from first to last year as the counter runs 1970 to 2025 (1,003 cells
+    // reporting in 1980, 399 in 2025: scripts/pack_final_layers.py)
+    views:[ { center:[20, 2], zoom:1.5, layers:{ af_decay:1 } } ] },
 
-  // 20
-  { center:[14, 10], zoom:0.9, layers:{ mhews_2025:1, mhews_2022:1 },
-    html:`<div class="ttl">Early warning, 2025</div>
-          <span class="stat warn">105</span>
-          <span class="note">countries, <span style="color:#F08A3E">orange</span> added since 2022</span>
-          <p>The map is filling in, but slowly.</p>` },
 
-  // 21
-  { center:[20, -5], zoom:1.3, layers:{ stations:0.7 }, bare:true,
-    html:`<div class="ttl">Sharing</div>
-          <div class="sub">Required since 2021</div>
-          <p>All 193 WMO members must now share basic weather observations. And
-             scientists are finding cheaper ways to collect the data.</p>` },
+  { id:'money', act:'VI · Closing the gaps',
+    title:'We can afford to fix it',
+    text:['What’s missing is the money to build the instruments and keep them running, and the poorest countries can’t find it alone. The UN fund for their missing weather data is seeking US$400 million. The world spends that on its militaries in just over an hour. Every dollar invested returns more than 25.'],
+    // the dial: one ring = one hour of world military spending (US$2,887 billion / 8,760 hours = US$329.6 million);
+    // US$400 million laps it once and 13 minutes more
+    below:{ dial:{ value:400, unit:2887000/8760, caption:'One ring: an hour of world military spending, about US$330 million', stats:[ { v:'US$400 million', note:'sought by SOFF, the UN fund for basic weather observations' },
+                    { v:'1 hour 13 minutes', note:'of world military spending, at US$2,887 billion a year (2025)' } ] },
+            legend:['gaugegap'] },
+    source:'SOFF, <i>Action Report 2025</i>; SIPRI, world military expenditure 2025 (27 Apr 2026); return on investment: World Bank, via WMO (2021).',
+    views:[ { center:[10, 16], zoom:0.84, layers:{ gaugegap:0.4 } } ] },   // the gauge-gap cells of slide 8, faint
 
-  // 22
-  { center:[30, -70], zoom:1.0, layers:{ seals:1, argo:0.45 },
-    photo:{ src:PHOTO.seal, tint:'#6FD8B4' },
-    html:`<div class="ttl">Seals</div>
-          <span class="stat seal">74%</span>
-          <span class="note">of ocean profiles south of 65&deg;S</span>
-          <p>Floats get trapped under sea ice. Elephant seals carrying sensors dive under
-             it anyway. Nobody planned this network.</p>` },
+  { id:'fraying', act:'VI · Closing the gaps',
+    title:'Yet the world is pulling back',
+    text:['The US, long the machine’s biggest backer, is pulling back: fewer weather balloons, a suspended famine-warning system, exit from 66 international bodies, proposals to cut NOAA by a quarter. Elsewhere, war has destroyed or cut off a quarter of Ukraine’s observing network, and Europe’s weather-satellite agency and the Arctic Council have suspended cooperation with Russia. It is erosion, not collapse. But a lost year of records can never be measured again.'],
+    // the timeline: US events above the line, the wider world below, each dated from its source (the research
+    // dossier's chronology). The world's events are from 2022-23, so the line runs 2022 to 2026.
+    // the timeline, vertical (the author, 5 Oct): one event a row, in date order, evenly spaced
+    below:{ events:{ vertical:true, from:2022, to:2027, upLabel:'United States', downLabel:'The wider world', shortNote:'Globe: illustrative fade', items:[
+              { side:'up',   at:2025.08, tier:1, when:'Early 2025', text:'FEWS NET famine warnings suspended' },
+              { side:'up',   at:2025.23, tier:2, when:'Mar 2025', text:'Fewer weather balloons' },
+              { side:'up',   at:2025.29, tier:3, when:'Apr 2025', text:'Plan to cut NOAA by a quarter' },
+              { side:'up',   at:2026.02, tier:4, when:'Jan 2026', text:'Exit from 66 international bodies' },
+              { side:'down', at:2022.2,  tier:2, when:'Mar 2022', text:'EUMETSAT and the Arctic Council suspend work with Russia' },
+              { side:'down', at:2023.0,  tier:1, when:'By 2023', text:'Ukraine: a quarter of its network lost (since 2014)' } ] },
+            note:'Illustrative: the fade shows records no longer shared, not closures.' },
+    source:'NPR/AP (Jan 2026); NPR, FEWS NET (Sep 2026); Spectrum News (Mar 2025); NYT (Apr 2025); EAGE “Monitoring” (2023); Reuters (Mar 2022); <i>Scientific American</i>/E&amp;E News.',
+    // the layers fade one by one: Argo floats, then the weather stations north of the Arctic Circle
+    views:[ { center:[20, 52], zoom:0.9, layers:{ st_low:1, st_arctic:1, argo:1 } },
+            { center:[20, 52], zoom:0.9, layers:{ st_low:1, st_arctic:1, argo:0 } },
+            { center:[20, 52], zoom:0.9, layers:{ st_low:1, st_arctic:0, argo:0 } } ] },
 
-  // 23
-  { center:[-68, 34], zoom:1.3, layers:{ sharks:1, argo:0.35, seals:0.3 },
-    html:`<div class="ttl">Sharks</div>
-          <span class="stat shark">40%</span>
-          <span class="note">lower surface temperature forecast error, at best</span>
-          <p>29 sharks carrying depth and temperature tags logged more than 8,200 ocean
-             profiles in the Northwest Atlantic. Fed into an operational forecast model in
-             a proof-of-concept test, they cut surface temperature error by up to 40%.
-             The gains were largest over the continental shelf and slope, water that
-             conventional instruments under-sample.</p>
-          <p class="cite">McDonnell, Kirtman, Braun &amp; Hammerschlag, &ldquo;Improved seasonal
-             climate forecasting using shark-borne sensor data in a dynamic ocean&rdquo;,
-             <i>npj Climate and Atmospheric Science</i> 9:147 (2026).</p>` },
-
-  // 24
-  { center:[0, 6], zoom:0.86, layers:{ telemetry:1, seals:0.35, sharks:0.55, argo:0.25 },
-    html:`<div class="ttl">We already track animals</div>
-          <span class="stat tele">315</span>
-          <span class="note">marine species tracked around the world, none carrying sensors</span>
-          <p>Whales, turtles, seabirds and sharks, followed for conservation. The tags
-             report where the animal is, and nothing about the water around it.</p>` },
-
-  // 25
-  { center:[32, -14], zoom:1.35, layers:{ coldspots:1, turtles:1, argo:0.35, stations:0.4 },
-    html:`<div class="ttl">Can we do the same for Mozambique?</div>
-          <div class="sub">The Mozambique Channel is an Argo coldspot</div>
-          <p>Floats sample it at a third of the global average, and no seal has been
-             tagged there. But leatherback and loggerhead turtles already migrate through
-             it. Add a sensor and the same tag closes an ocean data gap.</p>` },
-
-  // 26
-  { center:[20, 5], zoom:1.1, layers:{ stations:0.6 }, bare:true,
-    html:`<div class="ttl">The limits</div>
-          <div class="sub">Clever fixes are cheap</div>
-          <p>But animals can't measure rainfall over Ch&oacute;kw&egrave;, or give a
-             district 30 years of records to size a drain. The boring things still have
-             to be paid for.</p>` },
-
-  // 27
-  { center:[10, 16], zoom:0.84, layers:{ stations:0.15 },
-    html:`<div class="ttl">The money exists</div>
-          <span class="stat" style="color:#4FC3F7">$2.7 trillion</span>
-          <span class="note">worldwide spending on AI in 2026</span>
-          <p>The UN's plan to put every person on Earth under an early warning system
-             costs $3.1 billion over five years: less than half a day of AI
-             spending.</p>` },
-
-  // 28
-  { center:[6, 14], zoom:0.82, quote:true, layers:{ stations:0.2, argo:0.2, seals:0.3, sharks:0.4, telemetry:0.5 },
-    html:`<div class="ttl">What computation is for</div>
-          <div class="sub">Benjamin Bratton, Planetary Sapience</div>
-          <p>&ldquo;In its current commercial form, the primary purpose of planetary-scale
-             computation is to measure and model individual people in order to predict
-             their next impulse. But a more aspirational goal would be to contribute to
-             the comprehension, composition and enforcement of a shared future that is
-             more rich, diverse and viable.&rdquo;</p>` },
-
-  // 29 — ending
-  { center:[6, 14], zoom:0.82, quote:true, layers:{ stations:0.55, argo:0.3, seals:0.3, sharks:0.3, turtles:0.4 },
-    html:`<div class="ttl">What we need</div>
-          <div class="sub">Essential infrastructure</div>
-          <p><span style="color:#FFB547">Dams.<br>Weather stations.<br>Radiosondes.<br>Seawalls.</span></p>` }
-
+  { id:'end', act:'VI · Closing the gaps',
+    title:'There can be no gaps in the weather machine',
+    text:['Climate change threatens every nation’s security, and it hits hardest where the sensors are fewest. The world’s highest court calls it “an existential problem of planetary proportions”. The Cold War moved rivals to build this machine together. This threat is greater.',
+          'Every forecast on Earth runs on one machine. No country can see the storm coming alone.'],
+    below:{ legend:['stations','sats_shell','argo','gaugegap','coldspots'], end:['Weather stations.','Rain gauges.','River gauges.','Radiosondes.','Collective Planetary Stewardship.'] },
+    source:'International Court of Justice, advisory opinion, 23 Jul 2025 (quoted via UNRIC and the UK Human Rights Blog).',
+    // every layer on; the gap cells (land and ocean) breathe; it arrives close on Africa and pulls slowly out
+    views:[ { center:[6, 14], zoom:0.82, zoomFrom:2.2, slow:9000, pulse:['gaugegap','coldspots'],
+              layers:{ stations:1, argo:1, sats_shell:1, gaugegap:0.5, coldspots:0.6 } } ] }
 ];
 
 // ---------------------------------------------------------------------------
@@ -401,7 +466,8 @@ const LOOK = {
   reliefLow  : '#14171B',   // darkest land: valleys, shadowed slopes
   reliefHigh : '#40454B',   // brightest land: lit ridges, high plateaus
   reliefEdge : 0.55,        // darkening toward the globe's edge, 0 = none
-  graticule  : '#161F2A',   // the lat/lon grid
+  graticule  : 'rgba(236,234,229,.15)', // the lat/lon grid, white (design system, 5 Oct)
+  rim        : 'rgba(236,234,229,.6)',  // the globe's circular edge
   text       : '#ECEAE5',
   textMuted  : '#8B95A1',
   cardBg     : 'rgba(5,8,14,.84)',
@@ -414,8 +480,8 @@ const LOOK = {
 const SETTINGS = {
   easing      : 0.07,   // how fast the globe moves between scenes. Lower = slower.
   globeSize   : 0.42,   // globe radius as a fraction of the window
-  globeX      : 0.72,  // 0.5 = centred, higher = further right (desktop only)
-  showPanel   : true,   // set false to disable the D key entirely
+  globeX      : 0.70,  // 0.5 = centred, higher = further right (desktop only)
+  showPanel   : false,   // set false to disable the D key entirely
   dotScale    : 1.0     // overall size of every dot
 };
 
@@ -424,267 +490,187 @@ const SETTINGS = {
 
 
 <style>
-  :root{
-    --pad-x:1.6rem;          /* shared left edge: sidebar content and the title above it */
-    --sans:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
-    --disp:"Space Grotesk","IBM Plex Sans",system-ui,sans-serif;
-    box-sizing:border-box;
-    padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+/*__WM_CSS__*/
+  /* ===== The story, on the design system (design-system/README.md is authoritative) ===== */
+  html{scroll-padding-top:env(safe-area-inset-top,0px); scrollbar-width:thin; scrollbar-color:rgba(236,234,229,.3) transparent}
+  ::-webkit-scrollbar{width:5px; height:5px}
+  ::-webkit-scrollbar-track, ::-webkit-scrollbar-corner{background:transparent}
+  ::-webkit-scrollbar-thumb{background:rgba(236,234,229,.28); border-radius:3px}
+  ::-webkit-scrollbar-thumb:hover{background:rgba(236,234,229,.6)}
+
+  /* top bar: the piece's name, and Story / Explore */
+  /* the piece's name starts at the slide text's left edge (past the navigator when there is one) */
+  #topbar{position:fixed; top:0; left:0; right:0; z-index:var(--wm-z-bar); display:flex; align-items:center;
+     justify-content:space-between; padding:.85rem var(--wm-gutter) .85rem var(--wm-slide-left); padding-top:calc(.85rem + env(safe-area-inset-top,0px));
+     background:linear-gradient(var(--wm-bg), rgba(5,8,14,0)); pointer-events:none}
+  #topbar .wm-label{color:var(--wm-text)}
+  #topbar nav{pointer-events:auto}
+  #progress{position:fixed; top:0; left:0; height:1px; width:0; z-index:7; background:var(--wm-text); opacity:.85;
+     pointer-events:none; transition:width .12s linear}
+
+  /* the globe, fixed behind everything; the text column fades from the page colour */
+  #stage{position:fixed; inset:0; z-index:var(--wm-z-globe)}
+  #stage canvas{position:absolute; inset:0; width:100%; height:100%; display:block}
+  #fade{position:fixed; inset:0; z-index:1; pointer-events:none;
+     background:linear-gradient(90deg, var(--wm-bg) 0, rgba(5,8,14,.82) calc(var(--wm-slide-left) + var(--wm-slide-w) * .75),
+                rgba(5,8,14,0) calc(var(--wm-slide-left) + var(--wm-slide-w) + 5vw))}
+
+  /* scroll steps are triggers only; the slide text is pinned in its one place (.wm-slide) */
+  main{position:relative}
+  .step{position:relative; z-index:1; height:100vh}
+  #slide{transition:opacity .35s ease}                 /* back in: 0.35 s */
+  #slide.is-out{opacity:0; transition:opacity .25s ease}   /* out: 0.25 s */
+  #slide [data-p]{transition:opacity .18s ease}
+  #slide .is-swap{opacity:0}
+  #slide [data-p]:empty, #slide .below.is-empty{display:none}
+  /* the era timeline stays put: pinned at the bottom of the text column while the cards stack up above it */
+  #slide .wm-timeline.era{position:fixed; left:var(--wm-slide-left); bottom:calc(22px + env(safe-area-inset-bottom,0px));
+     width:min(380px, var(--wm-slide-w)); margin:0; pointer-events:none}
+  @media (max-width:760px){ #slide .wm-timeline.era{position:relative; left:auto; bottom:auto; width:auto; margin-top:var(--wm-s2)} }
+  #slide .wm-timeline.era[hidden]{display:none}
+  #slide .wm-timeline.era .wm-range:disabled{opacity:1; cursor:default}
+  #slide .rest{display:flex; flex-direction:column; gap:var(--wm-s4)}
+  .wm-slide .beat{animation:wm-in .5s ease both; animation-delay:var(--at,0s)}
+  .wm-slide .beat .wm-stat{margin-bottom:2px}
+  @media (prefers-reduced-motion: reduce){ .wm-slide .beat{animation:none} }
+  /* short screens: the beats' numbers a size smaller, so a list of five still fits */
+  @media (max-height:820px){ .wm-slide .beat .wm-stat{font-size:1.5rem} .wm-slide .text:has(.beat){gap:6px} .wm-slide .beat{line-height:1.4} }
+  /* rows use the column's width (their line stays on one line); only the newest card's 16:9 photo is held smaller */
+  #slide .wm-instruments{max-width:380px; gap:10px}
+  /* the newest card's 16:9 photo takes what the screen's height leaves: 240px on tall screens, down to 140px */
+  #slide .wm-instrument:not(.is-row) .ph{max-width:clamp(140px, calc((100vh - 782px) * 1.78), 240px)}
+  @media (max-height:820px){ #slide .wm-instruments{gap:8px} #slide .wm-instrument:not(.is-row) .ph{max-width:170px} }
+  /* very short screens (under 780px tall): the newest card arrives as a row too, so the words never shrink */
+  @media (max-height:780px){
+    #slide .wm-instrument{display:grid; grid-template-columns:44px minmax(0,1fr); grid-template-rows:auto auto; column-gap:var(--wm-s3); row-gap:2px; align-items:center}
+    #slide .wm-instrument .ph{aspect-ratio:1 / 1; grid-row:1 / 3; align-self:center}
+    #slide .wm-instrument .name{align-self:end} #slide .wm-instrument .desc{align-self:start}
   }
-  *,*::before,*::after{box-sizing:inherit}
-  html{scroll-padding-top:env(safe-area-inset-top,0px)}
-  body{margin:0; font-family:var(--sans); font-size:17px; line-height:1.62;
-       -webkit-font-smoothing:antialiased}
-  #topbar{position:fixed; top:0; left:0; right:0; z-index:6; display:flex;
-     align-items:center; justify-content:space-between; padding:.85rem 4vw;
-     padding-top:calc(.85rem + env(safe-area-inset-top,0px));
-     background:linear-gradient(#05080Ecc,#05080E00); pointer-events:none}
-  #topbar .brand{font:500 .92rem var(--disp); color:#ECEAE5; letter-spacing:-.01em; opacity:.85}
-  #topbar nav{display:flex; gap:.4rem; pointer-events:auto}
-  #topbar button{font:400 .82rem var(--sans); color:#8B95A1; background:none;
-     border:1px solid rgba(236,234,229,.3); border-radius:2px; padding:.34rem .9rem;
-     cursor:pointer; transition:color .15s,border-color .15s,background .15s}
-  #topbar button:hover{color:#ECEAE5}
-  #topbar button.on{color:#05080E; background:#ECEAE5; border-color:#ECEAE5}
+  #slide .wm-legend .wm-swatch.is-line{transform:translateY(-3px)}
+  #slide .end{display:flex; flex-direction:column; gap:2px; margin-top:var(--wm-s3)}
+  @media (max-height:820px){ #slide .end{flex-direction:row; flex-wrap:wrap; column-gap:.4em} }
+  @media (max-height:760px){ #slide .wm-readout.sweep b{font-size:1.15rem} }
+  /* short screens: the timeline names what fades, so the layer legend steps aside; the illustrative note moves into
+     the timeline's key (its .ill), so the caveat stays on screen */
+  @media (max-height:820px){ #slide .below:has(.wm-events) .wm-legend{display:none} }
+  @media (max-height:820px){ #slide .below:has(.wm-events.is-vertical) .rest > .wm-note{display:none} }
+  #slide .stats{display:flex; flex-direction:column; gap:var(--wm-s4)}
+  #slide .stats .wm-note{margin-top:var(--wm-s1); max-width:34ch}
+  #slide [data-year]{font-variant-numeric:tabular-nums}
+  #hintbar{position:fixed; left:var(--wm-gutter); bottom:calc(18px + env(safe-area-inset-bottom,0px)); z-index:var(--wm-z-card);
+     color:var(--wm-muted); pointer-events:none; transition:opacity var(--wm-med)}
+  #hintbar.is-done{opacity:0}
 
-  #explore{position:fixed; top:0; bottom:0; left:0; width:300px; z-index:5;
-     background:#080C13; border-right:1px solid #1B2531;
-     padding:4.6rem var(--pad-x) 2rem; overflow-y:auto; display:none; font-size:13px}
-  #explore h3{font:500 .78rem var(--disp); color:#ECEAE5; letter-spacing:.06em;
-     text-transform:uppercase; margin:1.4rem 0 .5rem}
-  #explore h3:first-of-type{margin-top:0}
+  /* the big photo: fades in and out; while it shows, the globe (now the corner lens) sits above it */
+  #photo{opacity:0; pointer-events:none; transition:opacity var(--wm-slow) ease}
+  #photo.on{opacity:1}
+  body[data-photo] #stage{z-index:var(--wm-z-mini); pointer-events:none}
+  body[data-mode="explore"] #photo{display:none}
+  /* steps let the pointer through to the globe; their text and controls still take it */
+  #story, .step{pointer-events:none}
+  .step .below, .step .wm-source, #story > .mod{pointer-events:auto}
+  /* a flow slide: the text block scrolls with the page, starting at the fixed text's top edge */
+  .step.is-flow{height:auto; min-height:100vh; box-sizing:border-box; padding:var(--wm-slide-top) 0 16px var(--wm-slide-left)}
+  .step.is-flow .wm-slide{width:auto}
+  .step.is-flow .wm-slide > :not(.below):not(.wm-source){max-width:var(--wm-slide-w)}
+  .step.is-flow .wm-slide > .below, .step.is-flow .wm-slide > .wm-source{width:min(36rem, calc(70vw - 0.42 * min(100vw, 100vh) - var(--wm-slide-left) - 24px))}
+  body[data-flow] #slide{display:none !important}
+  /* the globe's own controls, while a plugin's slide is on screen */
+  #gtools{position:fixed; z-index:var(--wm-z-card); bottom:calc(18px + env(safe-area-inset-bottom,0px)); right:var(--wm-gutter); display:none; gap:6px; align-items:center}
+  body[data-interactive] #gtools{display:flex}
+  body[data-interactive] #globe{cursor:grab}
+  body[data-interactive] #globe:active{cursor:grabbing}
+  body[data-mode="explore"] #gtools{display:none !important}
+
+  /* module sections (prototypes) placed between story steps by scripts/build_all.py */
+  .mod{position:relative; z-index:3}
+  #story .rg-sections{--rg-topbar:2.8rem}
+  body[data-mod] #slide, body[data-mod] #hintbar, body[data-mod] #cmp, body[data-mod] #fade{display:none !important}
+  /* modules' own styles */
+  __MODULE_CSS__
+
+  /* Explore: the same globe, driven by the reader */
+  #explore{position:fixed; top:0; bottom:0; left:0; width:300px; z-index:5; background:var(--wm-raised);
+     border-right:1px solid var(--wm-line-soft); padding:4.6rem var(--wm-gutter) 2rem; overflow-y:auto; display:none;
+     font-size:var(--wm-fs-small)}
+  #explore .wm-label{display:block; margin:1.4rem 0 .6rem}
+  #explore .wm-label:first-child{margin-top:0}
   #explore .lrow{display:flex; align-items:center; gap:.5rem; margin:.3rem 0}
-  #explore .lrow input[type=checkbox]{margin:0}
-  #explore .lrow i{width:9px; height:9px; border-radius:50%; flex:none}
-  #explore .lrow span{flex:1; color:#C3CBD4; font-size:12.5px}
-  #explore .lrow output{color:#7C8794; font-size:11px; font-variant-numeric:tabular-nums}
-  #explore input[type=range]{width:100%; margin:.1rem 0 .5rem}
+  #explore .lrow span{flex:1; color:var(--wm-text-2); font-size:var(--wm-fs-caption); line-height:1.35}
+  #explore .lrow output, #explore .row output, #explore .row label{color:var(--wm-muted); font-size:var(--wm-fs-caption)}
   #explore .row{display:flex; justify-content:space-between; align-items:baseline}
-  #explore label{color:#8B95A1; font-size:11.5px}
-  #explore output{color:#8B95A1; font-size:11.5px; font-variant-numeric:tabular-nums}
-  #explore select,#explore button{width:100%; background:none; color:#ECEAE5;
-     border:1px solid rgba(236,234,229,.35); border-radius:2px; padding:.44rem .6rem;
-     font:12px var(--sans); cursor:pointer; transition:background .15s,border-color .15s}
-  #explore select:hover,#explore button:hover{background:rgba(236,234,229,.08); border-color:#ECEAE5}
-  #explore button{margin-top:.7rem}
-  #explore .tip{color:#6B7684; font-size:11.5px; line-height:1.5; margin-top:1.4rem}
-
+  #explore .wm-range{margin:.15rem 0 .55rem}
+  #explore .wm-btn{width:100%; justify-content:center; margin-top:.8rem}
+  #explore .wm-note{margin-top:1.4rem; font-size:var(--wm-fs-caption)}
   body[data-mode="explore"] #explore{display:block}
-  body[data-mode="explore"] #topbar{padding-left:var(--pad-x)}
-  body[data-mode="explore"] #story,
-  body[data-mode="explore"] #cardhost,
-  body[data-mode="explore"] #hintbar,
-  body[data-mode="explore"] #cmp{display:none !important}
+  body[data-mode="explore"] #topbar{padding-left:var(--wm-gutter)}
+  body[data-mode="explore"] #story, body[data-mode="explore"] #slide, body[data-mode="explore"] #hintbar,
+  body[data-mode="explore"] #cmp, body[data-mode="explore"] #fade, body[data-mode="explore"] #progress,
+  body[data-mode="explore"] .wm-nav, body[data-mode="explore"] .wm-nav-mini{display:none !important}
   body[data-mode="explore"] #globe{cursor:grab}
   body[data-mode="explore"] #globe:active{cursor:grabbing}
 
-  #stage{position:fixed; inset:0; z-index:0}
-  #stage canvas{position:absolute; inset:0; width:100%; height:100%; display:block}
-  main{position:relative; z-index:1}
-  /* scroll sections are now just triggers; the card is pinned on screen */
-  .step{height:100vh}
-  #cardhost{position:fixed; z-index:2; left:4vw; top:50%; transform:translateY(-50%);
-       width:min(62ch,47vw); pointer-events:none}
-  #cardhost .inner{opacity:0; transform:translateY(10px);
-       transition:opacity .42s ease, transform .42s ease}
-  #cardhost.on .inner{opacity:1; transform:none}
-  .card{padding:1.7rem 1.85rem; border:1px solid; border-radius:3px;
-        backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-        max-height:78vh; overflow-y:auto; pointer-events:auto}
-  .card.bare, .card.quote{background:none !important; border:none; padding:0;
-        backdrop-filter:none; -webkit-backdrop-filter:none; overflow:visible}
-  .card.bare p{font-size:1.16rem; line-height:1.55;
-        text-shadow:0 2px 22px rgba(5,8,14,.95), 0 0 56px rgba(5,8,14,.8)}
-  .card.bare .stat{text-shadow:0 2px 22px rgba(5,8,14,.95)}
-  .card p{margin:0 0 .9em} .card p:last-child{margin-bottom:0}
-  .stat{font-family:var(--disp); font-weight:500; font-size:clamp(1.7rem,3.8vw,2.6rem);
-        line-height:1; letter-spacing:-.02em; display:block; margin-bottom:.32rem}
-  .note{font-size:.93rem; display:block; margin-bottom:1.15rem}
-  /* every scene opens with a title and a short subtitle */
-  .ttl{font-family:var(--disp); font-weight:500; font-size:1.3rem; line-height:1.2;
-       letter-spacing:-.01em; color:#ECEAE5; margin:0 0 .3rem}
-  .ttl.big{font-size:clamp(1.9rem,3.4vw,2.7rem); line-height:1.08; letter-spacing:-.02em;
-       margin-bottom:.55rem}
-  .sub{font-size:.92rem; color:#8B95A1; margin:0 0 1rem}
-  .card p.cite{font-size:.78rem; line-height:1.5; color:#8B95A1; margin-top:1rem}
-  .ttl + .stat{margin-top:.55rem}
-  .card.bare .ttl, .card.quote .ttl, .card.bare .sub, .card.quote .sub{
-       text-shadow:0 2px 22px rgba(5,8,14,.95), 0 0 56px rgba(5,8,14,.8)}
-  .card.quote .sub{margin-bottom:1.3rem}
-
-  /* control panel */
-  #panel{position:fixed; top:0; right:0; bottom:0; width:320px; z-index:10;
-    background:#0A0E15; border-left:1px solid #222C38; color:#ECEAE5;
-    font:13px/1.5 var(--sans); padding:1rem 1.1rem; overflow-y:auto;
-    transform:translateX(100%); transition:transform .25s ease}
-  #panel.open{transform:none}
-  #panel h4{font-family:var(--disp); font-weight:500; margin:0 0 .2rem; font-size:.95rem}
-  #panel .hint{color:#8B95A1; font-size:11.5px; margin:0 0 1.1rem}
-  #panel .grp{border-top:1px solid #1B2531; padding:.85rem 0}
-  #panel label{display:block; color:#8B95A1; font-size:11.5px; margin:.55rem 0 .15rem}
-  #panel input[type=range]{width:100%; margin:0}
-  #panel .row{display:flex; align-items:center; gap:.5rem; margin:.35rem 0}
-  #panel .row input[type=checkbox]{margin:0}
-  #panel .row span{flex:1}
-  #panel .row .val{color:#8B95A1; font-variant-numeric:tabular-nums; font-size:11px}
-  #panel input[type=color]{width:26px; height:18px; padding:0; border:none; background:none}
-  #panel button{width:100%; padding:.5rem; margin-top:.5rem; cursor:pointer;
-    background:none; color:#ECEAE5; border:1px solid rgba(236,234,229,.35);
-    border-radius:2px; font:12px var(--sans); transition:background .15s,border-color .15s}
-  #panel button:hover{background:rgba(236,234,229,.08); border-color:#ECEAE5}
-  #panel pre{background:#05080E; border:1px solid #1B2531; padding:.6rem; border-radius:3px;
-    font-size:11px; overflow-x:auto; color:#9FB3C8; margin:.5rem 0 0; white-space:pre-wrap}
-
-  /* ---- controls: one consistent set, white outlines throughout ---- */
-  input[type=range]{
-    -webkit-appearance:none; appearance:none; width:100%; height:16px;
-    background:transparent; cursor:pointer; margin:.15rem 0 .55rem}
-  input[type=range]::-webkit-slider-runnable-track{
-    height:1px; background:rgba(236,234,229,.26); border-radius:0}
-  input[type=range]::-webkit-slider-thumb{
-    -webkit-appearance:none; appearance:none; width:11px; height:11px; margin-top:-5px;
-    border-radius:50%; background:#05080E; border:1.4px solid #ECEAE5; transition:background .15s}
-  input[type=range]:hover::-webkit-slider-thumb,
-  input[type=range]:focus-visible::-webkit-slider-thumb{background:#ECEAE5}
-  input[type=range]::-moz-range-track{height:1px; background:rgba(236,234,229,.26)}
-  input[type=range]::-moz-range-thumb{width:10px; height:10px; border-radius:50%;
-    background:#05080E; border:1.4px solid #ECEAE5}
-  input[type=range]:disabled{opacity:.3; cursor:default}
-
-  input[type=checkbox]{
-    -webkit-appearance:none; appearance:none; width:13px; height:13px; flex:none;
-    border:1px solid rgba(236,234,229,.42); border-radius:2px; background:transparent;
-    cursor:pointer; position:relative; margin:0; transition:border-color .15s}
-  input[type=checkbox]:hover{border-color:#ECEAE5}
-  input[type=checkbox]:checked{background:#ECEAE5; border-color:#ECEAE5}
-  input[type=checkbox]:checked::after{content:''; position:absolute; left:4px; top:1px;
-    width:3px; height:7px; border:solid #05080E; border-width:0 1.6px 1.6px 0;
-    transform:rotate(45deg)}
-
-  select{-webkit-appearance:none; appearance:none;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M1 1l4 4 4-4' fill='none' stroke='%23ECEAE5' stroke-width='1.3'/></svg>");
-    background-repeat:no-repeat; background-position:right .6rem center; padding-right:1.6rem !important}
-
-  input[type=color]{-webkit-appearance:none; appearance:none; border:1px solid rgba(236,234,229,.35);
-    border-radius:2px; padding:0; background:none; cursor:pointer}
-  input[type=color]::-webkit-color-swatch-wrapper{padding:1px}
-  input[type=color]::-webkit-color-swatch{border:none; border-radius:1px}
-
-  /* ---- scrollbars: a thin white line ---- */
-  html{scrollbar-width:thin; scrollbar-color:rgba(236,234,229,.3) transparent}
-  ::-webkit-scrollbar{width:5px; height:5px}
-  ::-webkit-scrollbar-track{background:transparent}
-  ::-webkit-scrollbar-thumb{background:rgba(236,234,229,.28); border-radius:3px}
-  ::-webkit-scrollbar-thumb:hover{background:rgba(236,234,229,.6)}
-  ::-webkit-scrollbar-corner{background:transparent}
-
-  /* progress through the story, along the top edge */
-  #progress{position:fixed; top:0; left:0; height:1px; width:0; z-index:7;
-    background:#ECEAE5; opacity:.85; pointer-events:none; transition:width .12s linear}
-  body[data-mode="explore"] #progress{display:none}
-
-  /* pull quotes: no box, large type. Width comes from #cardhost; a ch max-width
-     here would be measured in the small body font and squeeze the big type. */
-  .card.quote p{font-family:var(--disp); font-weight:500;
-       line-height:1.24; letter-spacing:-.018em;
-       text-shadow:0 2px 26px rgba(5,8,14,.96), 0 0 70px rgba(5,8,14,.85)}
-  .card.q-s{max-width:38vw}
-  .card.q-s p{font-size:clamp(1.5rem,3.2vw,2.4rem)}
-  .card.q-m{max-width:38vw}
-  .card.q-m p{font-size:clamp(1.2rem,2.2vw,1.7rem); line-height:1.28}
-  .card.q-l{max-width:40vw}
-  .card.q-l p{font-size:clamp(1rem,1.7vw,1.35rem); line-height:1.38; letter-spacing:-.008em}
-  .card.quote p.src{font-family:var(--sans); font-weight:400;
-       font-size:.9rem; letter-spacing:0; margin-top:1.15rem; text-shadow:none;
-       line-height:1.6; max-width:46ch}
-
-  /* square instrument photo, duotoned to the layer colour */
-  .photo{width:132px; height:132px; border-radius:2px; overflow:hidden;
-       position:relative; margin:0 0 1rem}
-  .photo img{width:100%; height:100%; object-fit:cover; display:block;
-       filter:grayscale(1) contrast(1.12) brightness(1.05); mix-blend-mode:luminosity}
-
-  /* per-scene legend */
-  .legend{display:flex; flex-wrap:wrap; gap:.55rem 1.05rem; margin-top:1.1rem;
-        padding-top:.85rem; border-top:1px solid rgba(236,234,229,.10);
-        font-size:10.5px; font-weight:600; letter-spacing:.07em; text-transform:uppercase;
-        color:#8B95A1}
-  .legend span{display:inline-flex; align-items:center; gap:.4rem}
-  .legend i{width:16px; height:6px; border-radius:1px; flex:none}
-  .legend i.line{width:14px; height:3px; border-radius:2px}
-
-  /* on-globe wipe frame */
-  #cmp{position:fixed; z-index:2; opacity:0; pointer-events:none; display:none;
-       transition:opacity .45s ease; border:1px solid rgba(236,234,229,.7); border-radius:2px}
+  /* the before/after wipe, framed on the globe: a white frame, a white handle */
+  #cmp{position:fixed; z-index:var(--wm-z-card); opacity:0; pointer-events:none; display:none;
+     transition:opacity var(--wm-med) ease; border:1px solid var(--wm-frame); border-radius:var(--wm-r-control)}
   #cmp.on{opacity:1; pointer-events:auto}
-  #cmp .bar{position:absolute; top:-1px; bottom:-1px; width:2px; background:#ECEAE5; left:50%;
-       transform:translateX(-1px)}
+  #cmp .bar{position:absolute; top:-1px; bottom:-1px; width:1px; background:var(--wm-frame); left:50%}
   #cmp .knob{position:absolute; top:50%; left:50%; width:26px; height:26px; margin:-13px 0 0 -13px;
-       border-radius:50%; background:#ECEAE5; color:#05080E; display:flex; align-items:center;
-       justify-content:center; font:13px/1 var(--sans); cursor:ew-resize; user-select:none}
-  #cmp input[type=range]{position:absolute; inset:0; width:100%; height:100%; opacity:0;
-       cursor:ew-resize; margin:0}
-  #cmp .lab{position:absolute; top:100%; margin-top:6px; font:11px var(--sans);
-       color:#ECEAE5; white-space:nowrap; opacity:.9}
+     border-radius:var(--wm-r-round); background:var(--wm-text); color:var(--wm-bg); display:flex; align-items:center;
+     justify-content:center; font:13px/1 var(--wm-sans); cursor:ew-resize; user-select:none}
+  #cmp input[type=range]{position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:ew-resize; margin:0}
+  #cmp .lab{position:absolute; top:100%; margin-top:6px; font:var(--wm-fs-caption) var(--wm-sans); color:var(--wm-text-2); white-space:nowrap}
   #cmp .lab.l{left:0} #cmp .lab.r{right:0}
   #cmp.narrow .lab{display:none}
-  #cmp .msg{position:absolute; left:0; right:0; top:50%; transform:translateY(-50%);
-       text-align:center; font:11.5px var(--sans); color:#7C8794}
-  #cmp .note{position:absolute; left:0; right:0; top:100%; margin:1.7rem 0 0;
-       font:11px/1.5 var(--sans); color:#8B95A1}
+  #cmp .msg{position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); text-align:center;
+     font:var(--wm-fs-caption) var(--wm-sans); color:var(--wm-muted)}
+  #cmp .note:empty{display:none}
   #cmp .imgs{position:absolute; inset:0; overflow:hidden}
-  #cmp .imgs img{position:absolute; inset:0; width:100%; height:100%;
-       object-fit:fill; display:block; image-rendering:auto}
+  #cmp .imgs img{position:absolute; inset:0; width:100%; height:100%; object-fit:fill; display:block}
   #cmp .imgs .clip{position:absolute; inset:0; overflow:hidden; width:50%}
   #cmp .imgs .clip img{width:auto; height:100%; max-width:none}
-  #cmp.broken .knob{background:#3A4450; color:#8B95A1; cursor:not-allowed}
-  #cmp.broken .bar{background:#3A4450}
+  #cmp.broken .knob{background:var(--wm-faint); color:var(--wm-bg); cursor:not-allowed}
+  #cmp.broken .bar{background:var(--wm-faint)}
   #cmp.broken input[type=range]{pointer-events:none}
-  #yearTag{position:fixed; right:5vw; top:12vh; z-index:3; pointer-events:none;
-     font:500 clamp(2.2rem,6vw,4.6rem)/1 var(--disp); color:#FFB547; opacity:0;
-     transition:opacity .4s ease; font-variant-numeric:tabular-nums}
-  #hintbar{position:fixed; left:12px; bottom:12px; z-index:9; color:#8B95A1;
-    font:11.5px var(--sans); opacity:.6}
+  /* a locked wipe is often narrow (Mozambique): the left label above the frame, the right one below, and the
+     message under the handle, wrapping inside the frame, so nothing overlaps */
+  #cmp.broken .lab.l{top:auto; bottom:100%; margin:0 0 6px}
+  #cmp.broken .msg{top:calc(50% + 26px); transform:none; padding:0 10px; white-space:normal; line-height:1.35}
 
   @media (max-width:760px){
-    body{font-size:16px}
-    #stage{position:fixed; top:0; left:0; right:0; height:50vh; bottom:auto}
-    #cardhost{left:5vw; right:5vw; width:auto; top:auto; bottom:4vh; transform:none}
+    #stage{position:fixed; top:0; left:0; right:0; height:52vh; bottom:auto}
+    #fade{background:linear-gradient(0deg, var(--wm-bg) 0, var(--wm-bg) 46vh, rgba(5,8,14,0) 56vh)}
     #explore{width:100%; border-right:none}
-    #topbar{padding:.7rem 5vw}
-    body[data-mode="explore"] #topbar{padding-left:var(--pad-x)}
-    .card{max-height:42vh}
-    .card.q-s, .card.q-m, .card.q-l{max-width:none}
-    .card.q-s p{font-size:clamp(1.4rem,6vw,1.9rem)}
-    .card.q-l p{font-size:1.02rem}
-    #panel{width:100%; }
+    #hintbar{display:none}
+    .step.is-flow{padding:54vh var(--wm-gutter) 16px}
+    .step.is-flow .wm-slide > *{max-width:none !important; width:auto !important}
   }
-  @media (prefers-reduced-motion:reduce){ .card{transition:none} }
 </style>
 
 <div id="progress"></div>
 <header id="topbar">
-  <span class="brand">The Gaps in the Weather Machine</span>
-  <nav>
-    <button id="navStory" class="on">Story</button>
-    <button id="navExplore">Explore</button>
+  <span class="wm-label">The Gaps in the Weather Machine</span>
+  <nav class="wm-seg">
+    <button id="navStory" class="wm-btn is-on">Story</button>
+    <button id="navExplore" class="wm-btn">Explore</button>
   </nav>
 </header>
 
 <div id="stage"><canvas id="relief"></canvas><canvas id="globe"></canvas></div>
+<div id="fade"></div>
 
 <aside id="explore">
-  <h3>Layers</h3>
+  <span class="wm-label">Layers</span>
   <div id="expLayers"></div>
-  <h3>View</h3>
+  <span class="wm-label">View</span>
   <div class="row"><label>Longitude</label><output id="expLon"></output></div>
-  <input type="range" id="expLonR" min="-180" max="180" step="1">
+  <input type="range" class="wm-range" id="expLonR" min="-180" max="180" step="1">
   <div class="row"><label>Latitude</label><output id="expLat"></output></div>
-  <input type="range" id="expLatR" min="-90" max="90" step="1">
+  <input type="range" class="wm-range" id="expLatR" min="-90" max="90" step="1">
   <div class="row"><label>Zoom</label><output id="expZ"></output></div>
-  <input type="range" id="expZR" min="0.6" max="60" step="0.1">
-  <h3>Jump to</h3>
-  <select id="expJump">
+  <input type="range" class="wm-range" id="expZR" min="0.6" max="60" step="0.1">
+  <span class="wm-label">Jump to</span>
+  <select id="expJump" class="wm-field">
     <option value="">&mdash;</option>
     <option value="-40,12,0.86">Whole Earth</option>
     <option value="-98,39,1.9">United States</option>
@@ -695,11 +681,15 @@ const SETTINGS = {
     <option value="-68,34,1.4">Gulf Stream</option>
     <option value="33.44,-24.87,52">Lower Limpopo</option>
   </select>
-  <button id="expReset">Reset view</button>
-  <p class="tip">Drag the globe to spin it. Scroll or pinch to zoom.</p>
+  <button id="expReset" class="wm-btn">Reset view</button>
+  <p class="wm-note">Drag the globe to spin it. Scroll or pinch to zoom.</p>
 </aside>
-<div id="cardhost"><div class="inner"></div></div>
-<main id="story"></main>
+<div id="slide" class="wm-slide" aria-live="polite"></div>
+<figure id="photo" class="wm-figure is-side" aria-hidden="true"><div class="wm-frame"><img alt=""></div><figcaption class="wm-credit">Credit to come</figcaption></figure>
+<div id="gtools"><button id="greset" class="wm-btn" type="button">Reset view</button></div>
+<main id="story">
+__ORDER__
+</main>
 <div id="cmp">
   <div class="imgs"></div>
   <div class="bar"></div><div class="knob">&#8596;</div>
@@ -709,8 +699,7 @@ const SETTINGS = {
   <p class="note"></p>
 </div>
 <aside id="panel"></aside>
-<div id="yearTag"></div>
-<div id="hintbar">press D for controls</div>
+<div id="hintbar" class="wm-hint">Scroll or press space</div>
 
 <!-- d3-array and d3-geo (BSD licence, Mike Bostock) inlined so this file works offline -->
 <script id="D3A">// https://d3js.org/d3-array/ v3.2.4 Copyright 2010-2023 Mike Bostock
@@ -721,19 +710,18 @@ const SETTINGS = {
 </script>
 
 <!-- ======================= ENGINE — you shouldn't need to edit ============= -->
+<script id="WM">/*__WM_JS__*/</script>
+
 <script id="ENGINE">
+// set by scripts/build_all.py from the sections file: nav = show the slide navigator; partial = a mock or
+// test build that places only some slides (no warnings for the rest)
+const PAGE = __PAGE__;
 function START(){
  try {
   const cv=document.getElementById('globe'), ctx=cv.getContext('2d');
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // apply LOOK
   document.body.style.background=LOOK.background;
-  document.body.style.color=LOOK.text;
-  const sheet=document.createElement('style');
-  sheet.textContent=`.card{background:${LOOK.cardBg};border-color:${LOOK.cardBorder}}
-    .note,.card em{color:${LOOK.textMuted}}`;
-  document.head.appendChild(sheet);
 
   // live state, editable from the panel
   const live={ layers:{}, look:Object.assign({},LOOK) };
@@ -751,6 +739,7 @@ function START(){
   }
   const L={}, MAXN={}, ISPT={};
   for(const k in LAYERS){
+    if(LAYERS[k].plugin) continue;                     // drawn by a prototype's plugin, from the prototype's own data
     if(!DATA[k]){ console.warn('no data for layer "'+k+'"'); continue; }
     if(DATA[k].type==='points'){ L[k]=Float32Array.from(DATA[k].xy); ISPT[k]=true; continue; }
     if(DATA[k].type==='tracks'||DATA[k].type==='bubbles'||DATA[k].type==='shell'||DATA[k].type==='timeline'){
@@ -758,68 +747,281 @@ function START(){
     L[k]=decode(DATA[k]); let m=0;
     for(let i=2;i<L[k].length;i+=3) if(L[k][i]>m)m=L[k][i];
     MAXN[k]=m;
+    if(LAYERS[k].maxOf) MAXN[k]=-1;                    // set below, from the layer it is a part of
   }
 
-  // build the scroll sections from SCENES
-  const story=document.getElementById('story');
-  function legendFor(s){
-    if(s.legend===false || s.quote) return '';
-    let keys = Array.isArray(s.legend) ? s.legend
-      : Object.keys(s.layers||{}).filter(k=>(s.layers[k]||0)>=0.5 && LAYERS[k]);
-    if(!keys.length) return '';
-    return '<div class="legend">'+keys.map(k=>{
-      const c=LAYERS[k]; if(!c) return '';
-      const col = c.color || (c.ramp && c.ramp[c.ramp.length-1]) || '#ECEAE5';
-      const cls = c.ramp ? ' class="line"' : '';
-      return '<span><i'+cls+' style="background:'+col+'"></i>'+c.label+'</span>';
-    }).join('')+'</div>';
+  // ---------------- the slide text: one fixed place (design system, .wm-slide) ----------------
+  const story=document.getElementById('story'), slideEl=document.getElementById('slide');
+  const esc=s=>String(s).replace(/&(?!\w+;|#\d+;)/g,'&amp;');
+  const swatch=(col,line)=>'<i class="wm-swatch'+(line?' is-line':'')+'" style="background:'+col+'"></i>';
+  const RAMP=['Tropical storm','Category 1','Category 2','Category 3','Category 4','Category 5'];
+  function legendHTML(s){
+    const b=s.below||{};
+    let keys;
+    if(b.legend===false || s.cards) keys=[];          // instrument cards are the legend
+    else if(Array.isArray(b.legend)) keys=b.legend;
+    else { const on=new Set(); (s.views||[]).forEach(v=>Object.keys(v.layers||{}).forEach(k=>{ if((v.layers[k]||0)>=0.5 && LAYERS[k]) on.add(k); })); keys=[...on]; }
+    let items=keys.filter(k=>LAYERS[k] && !LAYERS[k].classes).map(k=>{ const c=LAYERS[k];
+      return '<span>'+swatch(c.color||(c.ramp&&c.ramp[c.ramp.length-1])||'#ECEAE5', !!c.ramp)+esc(c.label)+'</span>'; });
+    let classes='';
+    if(keys.includes('gauges')){
+      const LBL=['no gauge','under 0.1','0.1 to 0.5','0.5 to 1','1 to 2','2 to 5','5 to 10','10 or more'];
+      classes='<span class="wm-label">'+esc(LAYERS.gauges.label)+'</span><div class="wm-legend">'+
+        LBL.map((l,i)=>'<span>'+swatch(WM.GAUGE[i])+l+'</span>').reverse().join('')+'</div>';
+    }
+    if(b.ramp) items=items.concat(LAYERS.storms.ramp.map((c,i)=>'<span>'+swatch(c,true)+RAMP[i]+'</span>'));
+    if(b.key) items=items.concat(b.key.map(x=>'<span>'+swatch(x.color,!!x.line)+esc(x.label)+'</span>'));
+    return classes+(items.length ? '<div class="wm-legend">'+items.join('')+'</div>' : '');
   }
-  const host=document.getElementById('cardhost'), inner=host.querySelector('.inner');
-  const CARD=SCENES.map(s=>{
-    let cls='card';
-    if(s.quote){
-      const tmp=document.createElement('div'); tmp.innerHTML=s.html;
-      tmp.querySelectorAll('.src,.ttl,.sub').forEach(n=>n.remove());
-      const n=tmp.textContent.trim().length;
-      cls+=' quote '+(n<110?'q-s':n<260?'q-m':'q-l');
-    } else if(s.bare) cls+=' bare';
-    let ph='';
-    if(s.photo && s.photo.src)
-      ph='<div class="photo" style="background:'+(s.photo.tint||'#888')+'">'+
-         '<img src="'+s.photo.src+'" alt=""></div>';
-    return '<div class="'+cls+'">'+ph+s.html+legendFor(s)+'</div>';
-  });
-  SCENES.forEach((s,i)=>{
-    const sec=document.createElement('section');
-    sec.className='step'; sec.dataset.i=i;
-    story.appendChild(sec);
-  });
-  let shownCard=-1;
-  function showCard(i){
-    if(i===shownCard) return; shownCard=i;
-    host.classList.remove('on');
-    setTimeout(()=>{ inner.innerHTML=CARD[i]||''; host.classList.add('on'); },140);
+  // a thin timeline (design system .wm-events): one tick a year; events above the line (side 'up') and below
+  // ('down') on tiers, each with a hairline down (or up) to its date. Up labels end at their tick, down labels
+  // start at theirs, so the tiers are set so no hairline crosses a label.
+  function eventsHTML(E){
+    if(E.vertical) return eventsVertical(E);
+    const pc=y=>((y-E.from)/(E.to-E.from)*100).toFixed(2)+'%';
+    let ticks='';
+    // a tick at each year's start, its label centred in the year (clear of the events' hairlines)
+    for(let y=Math.ceil(E.from);y<E.to;y++) ticks+='<i class="tk" style="left:'+pc(y)+'"></i><span class="yr" style="left:'+pc(y+0.5)+'">'+y+'</span>';
+    const ev=E.items.map(x=>'<div class="ev is-'+x.side+'" style="left:'+pc(x.at)+'; --tier:'+x.tier+'">'+
+      '<span class="lb"><b>'+esc(x.when)+'</b> '+esc(x.text)+'</span></div>').join('');
+    const up=Math.max(0,...E.items.filter(x=>x.side==='up').map(x=>x.tier)), dn=Math.max(0,...E.items.filter(x=>x.side==='down').map(x=>x.tier));
+    return '<div class="wm-events" style="--up:'+up+'; --down:'+dn+'">'+
+      (E.upLabel?'<span class="side up">'+esc(E.upLabel)+'</span>':'')+(E.downLabel?'<span class="side down">'+esc(E.downLabel)+'</span>':'')+
+      '<div class="axis">'+ticks+ev+'</div></div>';
   }
-  // colour the .stat helpers from the layer palette
-  const st=document.createElement('style');
-  st.textContent=`.stat.lamp{color:${LAYERS.stations.color}}.stat.float{color:${LAYERS.argo.color}}
-    .stat.seal{color:${LAYERS.seals.color}}.stat.shark{color:${LAYERS.sharks.color}}
-    .stat.tele{color:${LAYERS.telemetry.color}}.stat.cold{color:${LAYERS.coldspots.color}}
-    .stat.warn{color:${LAYERS.mhews_2025.color}}.stat.turtle{color:${LAYERS.turtles.color}}`;
-  document.head.appendChild(st);
+  // the vertical form (design system .wm-events.is-vertical): every event on its own row in date order, evenly
+  // spaced, a dot on one vertical line; filled for one side (the US), hollow for the other (the wider world)
+  function eventsVertical(E){
+    const items=E.items.slice().sort((a,b)=>a.at-b.at);
+    return '<div class="wm-events is-vertical"><div class="key">'+
+      '<span><i class="dot is-up"></i>'+esc(E.upLabel||'')+'</span><span><i class="dot is-down"></i>'+esc(E.downLabel||'')+'</span>'+
+      (E.shortNote?'<span class="ill">'+esc(E.shortNote)+'</span>':'')+'</div>'+
+      '<ol>'+items.map(x=>'<li class="is-'+x.side+'"><span class="when">'+esc(x.when)+'</span><i class="dot is-'+x.side+'"></i><span class="lb">'+esc(x.text)+'</span></li>').join('')+'</ol></div>';
+  }
+  // a thin-line dial (design system .wm-dial): the ring is one unit (an hour); the value sweeps round it,
+  // laps past the first go on an inner ring. Two large numbers beside it.
+  function dialHTML(D){
+    const laps=D.value/D.unit, R1=44, R2=37, C=r=>2*Math.PI*r;
+    const arc=(r,frac,cls)=>'<circle class="'+cls+'" cx="50" cy="50" r="'+r+'" style="--len:'+C(r).toFixed(2)+'; --to:'+(C(r)*(1-Math.min(1,frac))).toFixed(2)+'"/>';
+    let rings='<circle class="track" cx="50" cy="50" r="'+R1+'"/>'+arc(R1,laps,'val');
+    if(laps>1) rings+=arc(R2,laps-1,'val lap');
+    return '<div class="wm-dial"><div class="ring"><svg viewBox="0 0 100 100" aria-hidden="true">'+rings+'</svg>'+
+      (D.caption?'<span class="wm-note cap">'+esc(D.caption)+'</span>':'')+'</div>'+
+      '<div class="nums">'+D.stats.map(x=>'<div><span class="wm-stat">'+esc(x.v)+'</span><span class="wm-note">'+esc(x.note)+'</span></div>').join('')+'</div></div>';
+  }
+  function barsHTML(B){
+    const mx=Math.max(...B.rows.map(r=>r.v));
+    return '<div class="wm-bars">'+(B.caption?'<span class="wm-label">'+esc(B.caption)+'</span>':'')+B.rows.map(r=>
+      '<div class="wm-bar'+(r.ref?' is-ref':'')+'"'+(r.color?' style="--c:'+r.color+'"':'')+'>'+
+        '<span class="k">'+esc(r.k)+'</span><span class="v">'+esc(r.label||r.v.toLocaleString('en-US'))+(r.note?'<small>'+esc(r.note)+'</small>':'')+'</span>'+
+        '<span class="track"><span class="fill" style="width:'+(100*r.v/mx).toFixed(2)+'%"></span></span></div>').join('')+'</div>';
+  }
+  // the narration: label, title, subtitle, quote, paragraphs. Prototype sections get only this
+  // part (their [data-slide-text] slot); what goes below it is theirs.
+  function narrationHTML(s){
+    const b=s.below||{};
+    let h='<p class="wm-label">'+esc(s.act||'')+'</p><h2 class="wm-display">'+esc(s.title)+'</h2>';
+    if(s.sub) h+='<p class="wm-sub">'+esc(s.sub)+'</p>';
+    h+='<div class="text">';
+    if(s.quote) h+='<p class="wm-quote">'+esc(s.quote.text)+'</p><p class="wm-note">'+esc(s.quote.by)+'</p>';
+    (s.text||[]).forEach(par=>{
+      if(typeof par==='string'){ h+='<p class="wm-lead">'+esc(par)+'</p>'; return; }
+      // a beat: appears at its time (s after the slide arrives), with its number set large above it
+      h+='<p class="wm-lead beat" style="--at:'+(par.at||0)+'s">'+(par.stat?'<span class="wm-stat"'+(par.color?' style="color:'+par.color+'"':'')+'>'+esc(par.stat)+'</span>':'')+esc(par.text||'')+'</p>';
+    });
+    if(b.end) h+='<div class="end">'+b.end.map(x=>'<p class="wm-quote">'+esc(x)+'</p>').join('')+'</div>';
+    return h+'</div>';
+  }
+  function slideHTML(s){
+    const b=s.below||{};
+    let h=narrationHTML(s)+'<div class="below">';
+    if(s.plugin) h+='<div data-plugin-panel="'+esc(s.plugin)+'"></div>';
+    if(b.stats) h+='<div class="stats">'+b.stats.map(x=>'<div><span class="wm-stat">'+esc(x.v)+'</span><span class="wm-note">'+esc(x.note)+'</span></div>').join('')+'</div>';
+    if(b.bars) h+=barsHTML(b.bars);
+    h+=legendHTML(s);
+    if(b.grow) h+='<span class="wm-note">Storm seasons 2006 to <span data-year="grow">2026</span></span>';
+    if((s.views||[]).some(v=>Object.keys(v.layers||{}).some(k=>LAYERS[k]&&LAYERS[k].sweep&&v.layers[k]>0)))
+      h+='<div class="wm-readout sweep"><b data-year="sweep">1970</b><span data-count="sweep"></span></div>';
+    if(b.events) h+=eventsHTML(b.events);
+    if(b.dial) h+=dialHTML(b.dial);
+    if(b.note) h+='<span class="wm-note">'+esc(b.note)+'</span>';
+    if(s.module) h+='<span class="wm-note">The '+esc(s.module)+' section will carry this slide; it is built in a later step.</span>';
+    h+='</div>';
+    if(s.source) h+='<p class="wm-source">'+s.source+'</p>';
+    return h;
+  }
+  const SLIDE=SCENES.map(slideHTML);
+  // prototype sections carry their slide's words in a [data-slide-text] slot: fill it from SCENES, so the
+  // words live in one place. A slot can stand in for a slide that has no story step of its own.
+  const inSection=new Set();
+  story.querySelectorAll('.mod [data-slide-text]').forEach(slot=>{
+    const s=SCENES.find(x=>x.id===slot.dataset.slideText);
+    if(!s){ console.warn('a section asks for slide "'+slot.dataset.slideText+'", which is not in SCENES'); return; }
+    slot.innerHTML=narrationHTML(s); inSection.add(s.id);
+  });
+
+  // one scroll step per view; a slide's text stays put while its views change the camera
+  const STEPS=[];
+  // scripts/build_all.py leaves one .story-slot per run of slides, in the order of
+  // final/sections.json, with module sections between them. Each slot names its slides by
+  // id (or "*" for all); the steps go in just before the slot.
+  const placed=new Set();
+  const sceneIx=key=>{ const i=SCENES.findIndex(s=>s.id===key); return i>=0?i:(/^\d+$/.test(key)?+key:-1); };
+  story.querySelectorAll('.story-slot').forEach(slot=>{
+    const want=slot.dataset.scenes==='*' ? SCENES.map((s,i)=>i) : slot.dataset.scenes.split(',').map(k=>sceneIx(k.trim()));
+    want.forEach(i=>{
+      if(i<0||i>=SCENES.length){ console.warn('sections.json names a slide that is not in SCENES: '+slot.dataset.scenes); return; }
+      (SCENES[i].views||[{center:[0,10],zoom:1,layers:{}}]).forEach((v,j)=>{
+        const sec=document.createElement('section'); sec.className='step'; sec.dataset.i=STEPS.length;
+        sec.dataset.slide=SCENES[i].id||i; STEPS.push({s:i,v,j});
+        if(SCENES[i].flow && j===0){ sec.classList.add('is-flow'); sec.innerHTML='<div class="wm-slide is-flow">'+SLIDE[i]+'</div>'; }
+        story.insertBefore(sec,slot);
+      });
+      placed.add(i);
+    });
+  });
+  SCENES.forEach((s,i)=>{ if(!placed.has(i) && !inSection.has(s.id) && !PAGE.partial) console.warn('slide '+(s.id||i)+' is not placed by sections.json or any section'); });
+  // while a module section covers the middle of the screen, hide the story's slide text, hint
+  // and wipe handle (a centre-line test, so a section taller than the screen still counts)
+  { const on=new Set(), mio=new IntersectionObserver(es=>{
+      es.forEach(e=>e.isIntersecting?on.add(e.target):on.delete(e.target));
+      document.body.toggleAttribute('data-mod',on.size>0); },{rootMargin:'-50% 0px -50% 0px'});
+    story.querySelectorAll('.mod').forEach(m=>mio.observe(m)); }
+  // ---------------- the slide navigator (design system: .wm-nav) ----------------
+  // One line per slide of the narrative, in SCENES order, grouped by act; only lines and numerals on screen.
+  const NAV=PAGE.nav ? (function(){
+    document.body.classList.add('has-wm-nav');
+    const numOf=i=>(SCENES[i].act||'').split(' · ')[0];
+    const stopOf=i=>{ const id=SCENES[i].id, st=story.querySelector('.step[data-slide="'+id+'"]');
+      if(st) return st; const slot=story.querySelector('.mod [data-slide-text="'+id+'"]'); return slot ? slot.closest('section') : null; };
+    const acts=[]; SCENES.forEach((s,i)=>{ const n=numOf(i); if(!acts.length||acts[acts.length-1].num!==n) acts.push({num:n,slides:[]}); acts[acts.length-1].slides.push(i); });
+    const nav=document.createElement('nav'); nav.className='wm-nav'; nav.setAttribute('aria-label','Slides');
+    nav.innerHTML='<ol>'+acts.map(a=>'<li class="act"><span class="num" aria-hidden="true">'+esc(a.num)+'</span><ol>'+
+      a.slides.map(i=>'<li><button class="ln" type="button" tabindex="-1" data-i="'+i+'" aria-label="'+esc(SCENES[i].title)+'"'+(stopOf(i)?'':' disabled')+'></button></li>').join('')+
+      '</ol></li>').join('')+'</ol>';
+    document.body.appendChild(nav);
+    const mini=document.createElement('span'); mini.className='wm-label wm-nav-mini'; mini.setAttribute('aria-hidden','true'); document.body.appendChild(mini);
+    const btns=[...nav.querySelectorAll('.ln')], actEls=[...nav.querySelectorAll('.act')];
+    nav.addEventListener('click',e=>{ const b=e.target.closest('.ln'); if(!b||b.disabled) return;
+      const el=stopOf(+b.dataset.i); if(el) scrollTo({top:el.getBoundingClientRect().top+scrollY, behavior:reduce?'auto':'smooth'}); });
+    // keyboard: Tab reaches the current line; Up and Down (Home, End) move between lines; Enter or Space jumps
+    nav.addEventListener('keydown',e=>{ const k={ArrowDown:1,ArrowUp:-1,Home:-1e3,End:1e3}[e.key]; if(!k) return; e.preventDefault();
+      const live=btns.filter(b=>!b.disabled), j=live.indexOf(document.activeElement);
+      live[Math.max(0,Math.min(live.length-1,(j<0?0:j)+k))].focus(); });
+    return { set(i){
+      btns.forEach(b=>{ const n=+b.dataset.i; b.classList.toggle('is-past',n<i);
+        if(n===i){ b.setAttribute('aria-current','step'); b.tabIndex=0; } else { b.removeAttribute('aria-current'); b.tabIndex=-1; } });
+      actEls.forEach((a,k)=>a.classList.toggle('is-on',acts[k].num===numOf(i)));
+      mini.textContent=numOf(i)+' · '+(i+1)+' / '+SCENES.length; } };
+  })() : null;
+
+  // The fixed slide block is built once, one element per part. Moving to another slide redraws only the
+  // parts whose content changes (a shared title or the same words stay perfectly still), and the
+  // instrument stack grows card by card instead of being redrawn.
+  slideEl.innerHTML='<p class="wm-label" data-p="label"></p><h2 class="wm-display" data-p="title"></h2><p class="wm-sub" data-p="sub"></p>'+
+    '<div class="text" data-p="text"></div><div class="below"><div class="wm-instruments" data-p="cards"></div><div class="wm-timeline era" data-p="era" aria-hidden="true"></div><div class="rest" data-p="rest"></div></div>'+
+    '<p class="wm-source" data-p="source"></p>';
+  const part=k=>slideEl.querySelector('[data-p="'+k+'"]');
+  function partsOf(s){
+    const full=document.createElement('div'); full.innerHTML=slideHTML(s);
+    const pick=sel=>{ const n=full.querySelector(sel); return n ? n.innerHTML : ''; };
+    const below=full.querySelector('.below');
+    return { label:pick(':scope > .wm-label'), title:pick(':scope > .wm-display'), sub:pick(':scope > .wm-sub'),
+             text:pick(':scope > .text'), rest:below?below.innerHTML:'', source:pick(':scope > .wm-source') };
+  }
+  const PARTS=SCENES.map(partsOf);
+  function mountPanels(el){
+    if(SCENES[shownSlide] && SCENES[shownSlide].flow) return;   // a flow slide carries its own text block, and its panel there
+    el.querySelectorAll('[data-plugin-panel]').forEach(x=>{ const P=(window.WMSTORY&&WMSTORY.plugins[x.dataset.pluginPanel]); if(P&&P.mount) P.mount(x); });
+  }
+  function cardHTML(k,row){
+    const P=(INSTRUMENT_PHOTOS||{})[k]||{}, I=INSTRUMENTS[k]||{};
+    return '<div class="wm-instrument'+(row?' is-row':'')+'" data-k="'+k+'" style="--tint:var('+(P.tint||'--wm-text')+')">'+
+      '<div class="ph">'+(P.src?'<img src="'+P.src+'" alt="" style="object-position:'+(P.focus||'50% 50%')+'">':'')+'</div>'+
+      '<span class="name">'+esc(P.name||k)+'</span><p class="desc">'+esc(I.line||'')+'</p></div>';
+  }
+  // the stack grows one card per slide: the newest arrives as the 16:9 card, the earlier ones shrink to rows
+  function setCards(list){
+    const box=part('cards'), have=[...box.children].map(c=>c.dataset.k);
+    if(have.join()===list.join()) return;
+    const grows = have.length<list.length && have.every((k,j)=>k===list[j]);
+    if(!grows){ box.innerHTML=list.map((k,j)=>cardHTML(k,j<list.length-1)).join(''); return; }
+    [...box.children].forEach(c=>c.classList.add('is-row'));
+    list.slice(have.length).forEach((k,j,arr)=>box.insertAdjacentHTML('beforeend',cardHTML(k,j<arr.length-1)));
+  }
+  // ---- the era timeline: built once; a slide with an era moves the handle across it ----
+  const eraEl=part('era');
+  { const pct=y=>((y-ERAS.start)/(ERAS.end-ERAS.start)*100)+'%';
+    eraEl.innerHTML='<input class="wm-range" type="range" min="'+ERAS.start+'" max="'+ERAS.end+'" step="0.1" value="'+ERAS.start+'" tabindex="-1" disabled>'+
+      '<div class="ticks">'+ERAS.labels.map(l=>'<span class="c" data-k="'+l.k+'" style="left:'+pct((l.from+l.to)/2)+'">'+esc(l.text)+'</span>').join('')+
+      [1900,1960,1990,2025].map(y=>'<span class="t" style="left:'+pct(y)+'">'+(y===ERAS.end?'Today':y)+'</span>').join('')+'</div>'; }
+  const eraRange=eraEl.querySelector('input');
+  let eraYear=ERAS.start, eraRaf=0;
+  function eraDraw(){ eraRange.value=eraYear; eraRange.style.setProperty('--p',((eraYear-ERAS.start)/(ERAS.end-ERAS.start)*100)+'%');
+    const H=window.WMSTORY&&WMSTORY.plugins.history; if(H&&H.setYear) H.setYear(eraYear); }
+  function setEra(e){
+    cancelAnimationFrame(eraRaf); eraEl.hidden=!e; if(!e) return;
+    eraEl.querySelectorAll('.c').forEach(c=>c.classList.toggle('is-on', c.dataset.k===e.on));
+    if(reduce || e.to===e.from){ eraYear=e.to; eraDraw(); return; }
+    // across this era at 1.5 s per decade (going forward, the last era ended where this one starts)
+    const start=performance.now(), y0=e.from, dur=(e.to-y0)/10*ERAS.secondsPerDecade*1000;
+    const step=now=>{ const f=Math.min(1,(now-start)/dur); eraYear=y0+(e.to-y0)*f; eraDraw(); if(f<1) eraRaf=requestAnimationFrame(step); };
+    eraRaf=requestAnimationFrame(step);
+  }
+  eraDraw();
+  let shownSlide=-1;
+  // Two ways to move to the next slide's words:
+  //  - the same title (a continuation, e.g. the four weather-machine slides): only the parts that change
+  //    fade (0.18 s out, swap, back in); the rest stays perfectly still;
+  //  - a new title: the whole block fades out as one (0.25 s), everything is swapped at once (no half-old,
+  //    half-new moment, no layout jump), and it fades back in as the camera settles: the eye follows the
+  //    globe, then lands on the words.
+  let swapGen=0;
+  const PART_KEYS=['label','title','sub','text','rest','source'];
+  function finishSwap(i){
+    setCards(SCENES[i].cards||[]); setEra(SCENES[i].era);
+    slideEl.querySelector('.below').classList.toggle('is-empty', !(SCENES[i].cards||[]).length && !PARTS[i].rest && !SCENES[i].era);
+  }
+  function showCard(stepI, camMs){
+    const i=STEPS[stepI] ? STEPS[stepI].s : 0;
+    if(i===shownSlide) return; shownSlide=i;           // same slide, new view: the words stay
+    if(NAV) NAV.set(i);
+    const P=PARTS[i], g=++swapGen, titleEl=part('title');
+    const whole = !reduce && titleEl.dataset.html!==undefined && titleEl.dataset.html!==P.title;
+    if(whole){
+      slideEl.classList.add('is-out');
+      setTimeout(()=>{ if(g!==swapGen) return;
+        for(const k of PART_KEYS){ const el=part(k); el.classList.remove('is-swap'); el.dataset.html=P[k]; el.innerHTML=P[k]; }
+        part('cards').innerHTML=''; finishSwap(i); mountPanels(part('rest'));
+      },250);
+      setTimeout(()=>{ if(g===swapGen) slideEl.classList.remove('is-out'); }, Math.max(300, (camMs||0)*0.6));
+      return;
+    }
+    slideEl.classList.remove('is-out');
+    for(const k of PART_KEYS){
+      const el=part(k); if(el.dataset.html===P[k]) continue;
+      el.dataset.html=P[k];
+      if(reduce || !el.innerHTML){ el.innerHTML=P[k]; mountPanels(el); continue; }
+      el.classList.add('is-swap');
+      setTimeout(()=>{ if(g!==swapGen) return; el.innerHTML=el.dataset.html; mountPanels(el); el.classList.remove('is-swap'); },180);
+    }
+    finishSwap(i);
+  }
 
   const proj=d3.geoOrthographic().translate([0,0]).clipAngle(90);
+  const PLUGINS=(window.WMSTORY&&WMSTORY.plugins)||{};
   const path=d3.geoPath(proj,ctx), grat=d3.geoGraticule10(), sph={type:'Sphere'};
   let W=0,H=0,R=1,dirty=true,sceneIdx=0;
 
   function zero(){ const o={}; for(const k in LAYERS) o[k]=0; return o; }
   function target(i){
-    const s=SCENES[i]||SCENES[0];
-    return { rot:[-s.center[0],-s.center[1]], z:s.zoom, sats:(s.sats||0),
-             wipe:(s.wipe||null), a:Object.assign(zero(),s.layers) };
+    const v=(STEPS[i]||STEPS[0]).v;
+    return { rot:WM.rotateFor(v.center), z:v.zoom, sats:(v.sats||0), grow:!!v.grow, spin:(v.spin||0), base:v.center.join()+'@'+v.zoom,
+             mini:(v.photo?1:0), photo:(v.photo||null),
+             wipe:(v.wipe||null), pulse:(v.pulse||null), a:Object.assign(zero(),v.layers) };
   }
-  let cur=target(0), tgt=target(0);
-  cur={rot:cur.rot.slice(),z:cur.z,a:Object.assign({},cur.a)};
+  let cur=target(0), tgt=target(0), growT=0, animUntil=0, activePlugin=null, stepped=null;
+  cur={rot:cur.rot.slice(),z:cur.z,a:Object.assign({},cur.a),mini:cur.mini||0};
 
   function resize(){
     const r=cv.getBoundingClientRect(), dpr=Math.min(devicePixelRatio||1,2);
@@ -844,6 +1046,7 @@ function START(){
     const FS=`#version 300 es
       precision highp float;
       uniform vec2 uT; uniform float uK, uDpr, uH, uLam, uPhi, uEdge;
+      uniform vec3 uClip;                                       // the corner lens: centre (CSS px) and radius; radius 0 = none
       uniform vec3 uOcean, uLow, uHigh;
       uniform sampler2D uTex;
       out vec4 o;
@@ -852,6 +1055,7 @@ function START(){
         vec2 sc=vec2(gl_FragCoord.x, uH-gl_FragCoord.y)/uDpr;    // CSS px, y down
         float x=(sc.x-uT.x)/uK, y=(uT.y-sc.y)/uK, r=sqrt(x*x+y*y);
         float aa=1.5/(uK*uDpr), inside=1.-smoothstep(1.-aa, 1.+aa, r);
+        if(uClip.z>0.){ float d=length(sc-uClip.xy); inside*=1.-smoothstep(uClip.z-1., uClip.z+.5, d); }
         if(inside<=0.){ o=vec4(0.); return; }
         float z=sqrt(max(0.,1.-r*r));
         // point in the rotated frame, d3's cartesian convention: (z, x, y)
@@ -884,7 +1088,7 @@ function START(){
     const buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
     gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
     const loc=gl.getAttribLocation(prog,'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
-    const U={}; for(const n of ['uT','uK','uDpr','uH','uLam','uPhi','uEdge','uOcean','uLow','uHigh','uTex']) U[n]=gl.getUniformLocation(prog,n);
+    const U={}; for(const n of ['uT','uK','uDpr','uH','uLam','uPhi','uEdge','uOcean','uLow','uHigh','uTex','uClip']) U[n]=gl.getUniformLocation(prog,n);
     const rgb=h=>hex2rgb(h).map(v=>v/255);
     let ready=false, dpr=1;
     const img=new Image();
@@ -914,12 +1118,17 @@ function START(){
         gl.uniform1f(U.uEdge,lk.reliefEdge===undefined?0.55:lk.reliefEdge);
         gl.uniform3fv(U.uOcean,rgb(lk.ocean)); gl.uniform3fv(U.uLow,rgb(lk.reliefLow||'#14171B'));
         gl.uniform3fv(U.uHigh,rgb(lk.reliefHigh||'#40454B'));
+        gl.uniform3f(U.uClip, lens.cx, lens.cy, isFinite(lens.r) ? lens.r : 0);
         gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
       }
     };
   })();
 
+  for(const k in LAYERS) if(LAYERS[k].maxOf && MAXN[k]===-1){   // a part of a layer is as bright as the whole
+    const src=DATA[LAYERS[k].maxOf]; let m=0; if(src&&src.n) for(const v of src.n) if(v>m) m=v; MAXN[k]=m; }
   function drawLayer(key,alpha){
+    if(LAYERS[key].plugin){ if(alpha<=.012) return;
+      const P=PLUGINS[LAYERS[key].plugin]; if(P&&P.layers&&P.layers[key]) P.layers[key](ctx,proj,alpha); return; }
     if(alpha<=.012||!L[key]) return;
     const cfg=live.layers[key];
     if(ISPT[key]==='shell')    return drawShell(key,cfg,alpha);
@@ -948,6 +1157,13 @@ function START(){
   // plain dots: one small circle each, drawn normally. ~9,000 of them, cheap.
   function drawPoints(key,cfg,alpha){
     const arr=L[key], c=proj.rotate(), ctr=[-c[0],-c[1]];
+    if(cfg.square){                                         // one square per cell, sized like the density grids
+      const sz=Math.max(0.3,(proj.scale()/210)*SETTINGS.dotScale*(cfg.size===undefined?1:cfg.size)), h=sz/2;
+      ctx.fillStyle=cfg.color; ctx.globalAlpha=alpha*(cfg.alpha===undefined?0.95:cfg.alpha);
+      for(let i=0;i<arr.length;i+=2){ const lo=arr[i],la=arr[i+1];
+        if(d3.geoDistance([lo,la],ctr)>1.5533) continue; const xy=proj([lo,la]); if(xy) ctx.fillRect(xy[0]-h,xy[1]-h,sz,sz); }
+      ctx.globalAlpha=1; return;
+    }
     // grow gently with zoom (fourth root) so close-ups don't turn into blobs
     const g=Math.min(2.6,Math.max(0.6,Math.pow(proj.scale()/520,0.25)));
     const r=Math.max(0.5,(cfg.dot===undefined?1.3:cfg.dot)*g*SETTINGS.dotScale);
@@ -965,15 +1181,16 @@ function START(){
 
   // storm tracks: one polyline per storm, coloured by peak category,
   // with a bright pulse travelling along each track.
-  let pulse=0;
+  let pulse=0, growYear=Infinity;
   function drawTracks(key,cfg,alpha){
-    const D=L[key], xy=D.xy, lens=D.len, cats=D.cat, ramp=cfg.ramp||['#FFFFFF'];
+    const D=L[key], xy=D.xy, lens=D.len, cats=D.cat, ramp=cfg.ramp||['#FFFFFF'], yrs=D.yr;
     const c=proj.rotate(), ctr=[-c[0],-c[1]], s=proj.scale();
     const lw=Math.max(0.5,(cfg.width||1)*Math.min(2.2,Math.max(0.55,Math.pow(s/520,0.28))));
     let p=0;
     ctx.lineCap='round'; ctx.lineJoin='round';
     for(let k=0;k<lens.length;k++){
       const n=lens[k], col=ramp[Math.min(ramp.length-1,cats[k])];
+      if(yrs && yrs[k]>growYear){ p+=n; continue; }      // not yet: tracks build up season by season
       // base line
       ctx.strokeStyle=col; ctx.lineWidth=lw; ctx.globalAlpha=alpha*0.55;
       ctx.beginPath(); let started=false;
@@ -1050,35 +1267,70 @@ function START(){
     const r=Math.max(0.5,(cfg.dot||1)*Math.min(2.4,Math.max(0.6,Math.pow(proj.scale()/520,0.25))));
     ctx.fillStyle=cfg.color; ctx.globalAlpha=alpha;
     ctx.beginPath();
-    let live=0;
+    let live=0; const y0=D.y0;
     for(let i=0;i<yr.length;i++){
       if(yr[i]<year) continue;                        // this one has already stopped
+      if(y0 && y0[i]>year) continue;                  // ... or has not started yet
+      live++;
       const lo=xy[i*2],la=xy[i*2+1];
       if(d3.geoDistance([lo,la],ctr)>1.5533) continue;
-      const q=proj([lo,la]); if(!q) continue; live++;
+      const q=proj([lo,la]); if(!q) continue;
       ctx.moveTo(q[0]+r,q[1]); ctx.arc(q[0],q[1],r,0,6.2832);
     }
     ctx.fill(); ctx.globalAlpha=1;
-    const el=document.getElementById('yearTag');
-    if(el){ el.textContent=Math.round(year); el.style.opacity=alpha>0.1?1:0; }
+    const el=slideEl.querySelector('[data-year="sweep"]');
+    if(el){ el.textContent=Math.floor(year); const ro=el.closest('.wm-readout'); if(ro) ro.style.display=LAYERS[key].yearAt?'none':''; }   // on the map instead
+    // the year on the map itself (design system display type), when the layer names a place for it
+    if(LAYERS[key].yearAt && d3.geoDistance(LAYERS[key].yearAt,ctr)<1.45){ const yq=proj(LAYERS[key].yearAt);
+      if(yq){ ctx.save(); ctx.globalAlpha=alpha; ctx.fillStyle=WM.LOOK.text; ctx.textAlign='left'; ctx.textBaseline='alphabetic';
+        ctx.font='500 '+Math.round(Math.max(30,Math.min(56,W*0.034)))+'px '+getComputedStyle(document.documentElement).getPropertyValue('--wm-disp');
+        // and under it, the count rising and falling with the year (the author, 5 Oct); both kept inside the screen
+        const fs=Math.round(Math.max(12,Math.min(15,W*0.0105))), sans=getComputedStyle(document.documentElement).getPropertyValue('--wm-sans');
+        const line2=live.toLocaleString('en-US')+(y0?' cells with a station reporting':' stations still reporting');
+        ctx.save(); ctx.font='500 '+fs+'px '+sans; const w2=ctx.measureText(line2).width; ctx.restore();
+        const x=Math.min(yq[0], W-24-Math.max(w2, ctx.measureText(String(Math.floor(year))).width));
+        ctx.shadowColor='rgba(5,8,14,.9)'; ctx.shadowBlur=12; ctx.fillText(String(Math.floor(year)),x,yq[1]);
+        ctx.font='500 '+fs+'px '+sans; ctx.fillStyle=WM.LOOK.text2||WM.LOOK.text;
+        ctx.fillText(line2,x+2,yq[1]+fs*1.7); ctx.restore(); } }
+    const ce=slideEl.querySelector('[data-count="sweep"]');
+    if(ce) ce.textContent=live.toLocaleString('en-US')+(y0?' cells with a station reporting':' stations still reporting');
   }
 
+  // The globe's frame: full size (centred at 70% across, radius R) or, while a big photo shows, the round
+  // lens in the top-right corner, centred on the photo's corner (design system: WM.miniView). cur.mini goes
+  // 0 (full) to 1 (corner); in between, the centre, the radius and a circular clip move together.
+  let lens={cx:0, cy:0, r:Infinity};
+  function frameNow(){
+    const m=cur.mini||0, full={cx:W<760?W/2:W*SETTINGS.globeX, cy:H*.5, r:R}, mv=WM.miniView(W,H);
+    const L=(a,b)=>a+(b-a)*m;
+    lens = m>0.001 ? { cx:L(full.cx,mv.cx), cy:L(full.cy,mv.cy), r:L(Math.hypot(W,H), mv.r) } : { cx:full.cx, cy:full.cy, r:Infinity };
+    return { cx:L(full.cx,mv.cx), cy:L(full.cy,mv.cy), r:L(full.r,mv.r), m };
+  }
   function render(){
     ctx.clearRect(0,0,W,H);
-    proj.translate([W<760?W/2:W*SETTINGS.globeX,H*.5]).scale(R*cur.z).rotate(cur.rot);
+    const F=frameNow();
+    proj.translate([F.cx,F.cy]).scale(F.r*cur.z).rotate(cur.rot);
+    const clipped=isFinite(lens.r);
+    ctx.save();
+    if(clipped){ ctx.beginPath(); ctx.arc(lens.cx,lens.cy,lens.r,0,6.2832); ctx.clip(); }
     const shaded=relief && relief.ok();
     if(shaded) relief.draw();
     else{ ctx.beginPath(); path(sph); ctx.fillStyle=live.look.ocean; ctx.fill(); }
-    ctx.beginPath(); path(grat); ctx.strokeStyle=live.look.graticule; ctx.lineWidth=.5;
-    ctx.globalAlpha=shaded?0.55:1; ctx.stroke(); ctx.globalAlpha=1;
+    ctx.beginPath(); path(grat); ctx.strokeStyle=F.m>0.5 ? WM.GLOBE.mini.grat : live.look.graticule; ctx.lineWidth=WM.GLOBE.gratWidth; ctx.stroke();
     if(!shaded){
       ctx.beginPath(); path(DATA.land); ctx.fillStyle=live.look.land; ctx.fill();
       ctx.strokeStyle=live.look.coastline; ctx.lineWidth=.6; ctx.stroke();
     }
-    for(const k in LAYERS) drawLayer(k,cur.a[k]||0);
+    const pl=(!reduce && tgt.pulse) ? 0.6+0.4*Math.cos(performance.now()/1000*2*Math.PI/4) : 1;   // 4 s, gently
+    for(const k in LAYERS) drawLayer(k,(cur.a[k]||0)*(pl<1 && tgt.pulse.includes(k) ? pl : 1));
+    if(activePlugin && !exp.on) activePlugin.draw(ctx,proj);
     drawSats(cur.sats||0);
     placeFrame(); drawWipe();
-    ctx.beginPath(); path(sph); ctx.strokeStyle=live.look.coastline; ctx.lineWidth=1; ctx.stroke();
+    ctx.restore();
+    // the edge: the lens's circle while it is smaller than the sphere, otherwise the sphere's own rim
+    if(clipped && lens.r < proj.scale()*0.995){ ctx.beginPath(); ctx.arc(lens.cx,lens.cy,lens.r-.5,0,6.2832);
+      ctx.strokeStyle=WM.GLOBE.mini.rim; ctx.lineWidth=WM.GLOBE.mini.rimWidth; ctx.stroke(); }
+    else { ctx.beginPath(); path(sph); ctx.strokeStyle=F.m>0.5 ? WM.GLOBE.mini.rim : live.look.rim; ctx.lineWidth=WM.GLOBE.rimWidth; ctx.stroke(); }
   }
 
   // geostationary footprints: a circle on the sphere around each sub-satellite point
@@ -1116,8 +1368,9 @@ function START(){
     cmp.classList.toggle('broken',!!c.broken);
     const fr=cmp.querySelector('.imgs');
     if(c.img){
-      fr.innerHTML='<img class="r" src="'+c.img.right+'" alt="">'+
-                   '<div class="clip"><img class="l" src="'+c.img.left+'" alt=""></div>';
+      const src=x=>(typeof x==='string' && x.startsWith('photo:')) ? ((window.WMSTORY&&WMSTORY.photos)||{})[x.slice(6)]||'' : x;
+      fr.innerHTML='<img class="r" src="'+src(c.img.right)+'" alt="">'+
+                   '<div class="clip"><img class="l" src="'+src(c.img.left)+'" alt=""></div>';
       cmp.classList.add('hasimg');
     } else { fr.innerHTML=''; cmp.classList.remove('hasimg'); }
     cmp.querySelector('.note').innerHTML=c.note||'';
@@ -1166,8 +1419,41 @@ function START(){
   }
 
   function sh(a,b){ let d=(b-a)%360; if(d>180)d-=360; if(d<-180)d+=360; return a+d; }
+  // A camera move (design system, Motion): ease in and out (WM.ease), 0.5 to 1.2 s depending on how far it
+  // goes and how much it zooms, along the great circle between the two centres; layers fade over 0.6 s.
+  let tween=null;
+  function moveTo(t2,msOver){
+    if(t2.spin && tgt.spin && t2.base===tgt.base) t2=Object.assign({},t2,{ rot:cur.rot.slice() });
+    tgt=t2; dirty=true;
+    const c0=[-cur.rot[0],-cur.rot[1]], c1=[-t2.rot[0],-t2.rot[1]], ang=d3.geoDistance(c0,c1);
+    const toLens=(t2.mini||0)!==(cur.mini||0);
+    let ms=reduce ? 0 : Math.max(500, Math.min(1200, 500 + 700*ang/Math.PI + 250*Math.min(2,Math.abs(Math.log(t2.z/cur.z)))));
+    if(toLens && !reduce) ms=Math.max(ms, 900);                // into or out of the corner: about 0.9 s (design system)
+    if(msOver && !reduce) ms=msOver;
+    tween={ t0:performance.now(), ms, ip:d3.geoInterpolate(c0,c1), z0:cur.z, z1:t2.z, s0:cur.sats||0, a0:Object.assign({},cur.a), m0:cur.mini||0 };
+    showPhoto(t2.photo);
+    return ms;
+  }
+  let lastTick=0;
   function tick(){
-    if(dirty){
+    const nowT=performance.now(), dtT=lastTick ? Math.min(0.1,(nowT-lastTick)/1000) : 0; lastTick=nowT;
+    // a spinning view turns eastward, once no camera move is running (and never with reduced motion)
+    let spinning=false;
+    if(tgt.spin && !reduce && !exp.on && !tween){
+      cur.rot[0]=((cur.rot[0]+tgt.spin*dtT+540)%360)-180; tgt.rot=cur.rot.slice(); spinning=true;
+    }
+    if(tween){
+      const now=performance.now(), f=tween.ms ? Math.min(1,(now-tween.t0)/tween.ms) : 1, e=WM.ease(f);
+      const fa=reduce ? 1 : WM.ease(Math.min(1,(now-tween.t0)/600));
+      const c=tween.ip(e); cur.rot=[-c[0],-c[1]];
+      cur.z=tween.z0*Math.pow(tween.z1/tween.z0,e);
+      cur.mini=tween.m0+((tgt.mini||0)-tween.m0)*e;
+      cur.sats=tween.s0+((tgt.sats||0)-tween.s0)*fa;
+      for(const k in tgt.a){ const a0=tween.a0[k]||0; cur.a[k]=a0+(tgt.a[k]-a0)*fa; }
+      render();
+      if(f>=1 && fa>=1){ const nx=tween.next; tween=null; cur.rot=tgt.rot.slice(); cur.z=tgt.z; cur.sats=tgt.sats||0; cur.a=Object.assign({},tgt.a); cur.mini=tgt.mini||0; dirty=false; render();
+        if(nx) moveTo(nx.t, nx.ms); }                             // a chained move: the slow zoom out of the last slide
+    } else if(dirty){
       const e=reduce?1:SETTINGS.easing; let mv=0;
       const dl=sh(cur.rot[0],tgt.rot[0])-cur.rot[0]; cur.rot[0]+=dl*e; mv+=Math.abs(dl);
       const dp=tgt.rot[1]-cur.rot[1]; cur.rot[1]+=dp*e; mv+=Math.abs(dp);
@@ -1183,8 +1469,17 @@ function START(){
       if(ISPT[k]==='tracks' && (cur.a[k]||0)>0.02 && LAYERS[k].animate!==false) anim=true;
       if(ISPT[k]==='timeline' && (cur.a[k]||0)>0.02) sweeping=true;
     }
-    if(sweeping && !reduce){ sweepT=Math.min(1,sweepT+0.0018); anim=true; }
+    if(sweeping){ sweepT=reduce?1:Math.min(1,sweepT+0.0018); if(!reduce) anim=true; }
     if(!sweeping) sweepT=0;
+    // slide 1: storm seasons appear one by one, 2006 to 2026, about 0.45 s each
+    if(tgt.grow && !reduce){ if(growT<1){ growT=Math.min(1,growT+1/(21*27)); anim=true; } }
+    else growT=1;
+    const gy=2006+Math.floor(growT*20.999), want=tgt.grow?gy:Infinity;
+    if(want!==growYear){ growYear=want; dirty=true;
+      const el=slideEl.querySelector('[data-year="grow"]'); if(el) el.textContent=gy; }
+    if(performance.now()<animUntil){ anim=true; }
+    if(tgt.pulse && !reduce) anim=true;
+    if(spinning && !anim){ render(); }
     if(anim && !reduce){ pulse=(pulse+0.0032)%1; render();
       if(panelOpen) syncPanel();
     }
@@ -1193,8 +1488,16 @@ function START(){
 
   const io=new IntersectionObserver(es=>es.forEach(en=>{
     if(en.isIntersecting && document.body.dataset.mode!=='explore'){
-      sceneIdx=+en.target.dataset.i; tgt=target(sceneIdx);
-      showWipe(tgt.wipe); showCard(sceneIdx); dirty=true; }
+      const was=tgt.grow; sceneIdx=+en.target.dataset.i; const v=STEPS[sceneIdx].v;
+      // a view with zoomFrom arrives zoomed in, then pulls slowly out to its own zoom over `slow` ms
+      const camMs = (v.zoomFrom && !reduce) ? moveTo(Object.assign(target(sceneIdx),{ z:v.zoomFrom })) : moveTo(target(sceneIdx));
+      if(v.zoomFrom && !reduce && tween) tween.next={ t:target(sceneIdx), ms:v.slow||8000 };
+      if(tgt.grow && !was) growT=0;
+      const sc=SCENES[STEPS[sceneIdx].s];
+      document.body.toggleAttribute('data-flow', !!sc.flow);
+      setActivePlugin(sc.plugin && PLUGINS[sc.plugin] && PLUGINS[sc.plugin].draw ? PLUGINS[sc.plugin] : null);
+      showWipe(tgt.wipe); showCard(sceneIdx, camMs); dirty=true;
+      stepPlugin(sc); }
   }),{rootMargin:'-42% 0px -42% 0px'});
   document.querySelectorAll('.step').forEach(s=>io.observe(s));
 
@@ -1308,7 +1611,7 @@ function START(){
       if(panelOpen) syncPanel();
     }
   });
-  if(SETTINGS.showPanel) buildPanel(); else document.getElementById('hintbar').style.display='none';
+  if(SETTINGS.showPanel) buildPanel();
 
   function syncWipeUI(v){
     cmp.querySelector('.bar').style.left=v+'%';
@@ -1339,14 +1642,16 @@ function START(){
     let s='';
     for(const k in LAYERS){
       const c=LAYERS[k];
+      if(c.explore===false) continue;
       const col=c.color || (c.ramp && c.ramp[c.ramp.length-1]) || '#ECEAE5';
-      s+=`<div class="lrow"><input type="checkbox" id="x_${k}"><i style="background:${col}"></i>`+
+      s+=`<div class="lrow"><input type="checkbox" class="wm-check" id="x_${k}"><i class="wm-swatch${c.ramp?' is-line':''}" style="background:${col}"></i>`+
          `<span>${c.label}</span><output id="xo_${k}"></output></div>`+
-         `<input type="range" id="xr_${k}" min="0" max="1" step="0.05">`;
+         `<input type="range" class="wm-range" id="xr_${k}" min="0" max="1" step="0.05">`;
     }
     document.getElementById('expLayers').innerHTML=s;
     for(const k in LAYERS){
       const cb=document.getElementById('x_'+k), rg=document.getElementById('xr_'+k);
+      if(!cb) continue;                                   // a layer Explore does not offer
       cb.checked = exp.a[k]>0.02; rg.value = exp.a[k]||1;
       const upd=()=>{ exp.a[k]= cb.checked ? (+rg.value||1) : 0;
         document.getElementById('xo_'+k).textContent = exp.a[k] ? exp.a[k].toFixed(2) : 'off';
@@ -1366,6 +1671,7 @@ function START(){
     document.getElementById('expZR').value=Math.min(60,cur.z);
   }
   function setView(lon,lat,z){
+    tween=null;
     cur.rot=[-lon,-Math.max(-90,Math.min(90,lat))]; tgt.rot=cur.rot.slice();
     if(z!==undefined){ cur.z=z; tgt.z=z; }
     dirty=true; render(); syncExploreView();
@@ -1398,14 +1704,15 @@ function START(){
   function setMode(m){
     exp.on = (m==='explore');
     document.body.dataset.mode=m;
-    nStory.classList.toggle('on',!exp.on); nExp.classList.toggle('on',exp.on);
+    nStory.classList.toggle('is-on',!exp.on); nExp.classList.toggle('is-on',exp.on);
     if(exp.on){
-      showWipe(null);
+      showWipe(null); if(stepped && stepped.stop){ stepped.stop(); stepped=null; }
+      if(PLUGINS.history && PLUGINS.history.run) PLUGINS.history.run(false);
       tgt.a=Object.assign({},exp.a); cur.a=Object.assign({},exp.a);
       tgt.sats=0; cur.sats=0;
       syncExploreView();
     } else {
-      tgt=target(sceneIdx); showCard(sceneIdx);
+      moveTo(target(sceneIdx)); showCard(sceneIdx); stepPlugin(SCENES[STEPS[sceneIdx].s]);
     }
     dirty=true; render();
   }
@@ -1413,6 +1720,105 @@ function START(){
   nExp.addEventListener('click',()=>setMode('explore'));
   buildExploreLayers();
   setMode(location.hash==='#explore'?'explore':'story');
+
+  // ---------------- the big photo beside the text (design system .wm-figure.is-side) ----------------
+  // (looked up when called: the first camera move runs before this part of the engine)
+  var photoShown=null;
+  function showPhoto(id){
+    const photoEl=document.getElementById('photo'), photoImg=photoEl.querySelector('img');
+    if(id===photoShown) return; photoShown=id;
+    const src=id && window.WMSTORY && WMSTORY.photos && WMSTORY.photos[id];
+    document.body.toggleAttribute('data-photo', !!src);
+    if(!src){ photoEl.classList.remove('on'); return; }
+    if(photoEl.classList.contains('on') && !reduce){                 // one photo to the next: fade through
+      photoEl.classList.remove('on'); setTimeout(()=>{ if(photoShown===id){ photoImg.src=src; photoEl.classList.add('on'); } },300);
+    } else { photoImg.src=src; photoEl.classList.add('on'); }
+  }
+
+  // ---------------- plugins: prototypes drawing on this globe ----------------
+  const api={
+    canvas:cv, reduce,
+    R:()=>R,                                                   // the globe's radius at zoom 1, in CSS pixels
+    flyTo(lon,lat,z){ moveTo(Object.assign({},tgt,{ rot:WM.rotateFor([lon,lat]), z:(z!=null?z:tgt.z), a:Object.assign({},tgt.a) })); },
+    // move the camera and set the layers in one go: the step's own layers, plus or overridden by these (they fade)
+    view(o){ const v=(STEPS[sceneIdx]||STEPS[0]).v;
+      moveTo(Object.assign({},tgt,{ rot:WM.rotateFor([o.lon,o.lat]), z:(o.z!=null?o.z:tgt.z), spin:0, base:'plugin',
+        a:Object.assign(zero(), v.layers||{}, o.layers||{}) })); },
+    redraw(){ dirty=true; },                                   // drawn on the next frame, once
+    animate(ms){ animUntil=Math.max(animUntil, performance.now()+ms); },
+    moving:()=>!!tween
+  };
+  for(const name in PLUGINS) if(PLUGINS[name].attach) PLUGINS[name].attach(api);
+  // read-only, for tests: where the globe is pointing and how far it is zoomed
+  if(window.WMSTORY) WMSTORY.view=()=>({ centre:[-cur.rot[0],-cur.rot[1]], zoom:cur.z, moving:!!tween });
+  story.querySelectorAll('[data-plugin-panel]').forEach(el=>{
+    const P=PLUGINS[el.dataset.pluginPanel];
+    if(P && P.mount) P.mount(el); else console.warn('no plugin panel for "'+el.dataset.pluginPanel+'"');
+  });
+  // the history layers follow the era timeline: on while a step shows them, off otherwise
+  function followHistory(){
+    const H=PLUGINS.history; if(!H||!H.run) return;
+    const v=STEPS[sceneIdx]&&STEPS[sceneIdx].v, on=!exp.on && !!v && Object.keys(v.layers||{}).some(k=>k.startsWith('hist_'));
+    H.run(on);
+  }
+  function stepPlugin(sc){
+    followHistory();
+    const P=sc && sc.plugin && PLUGINS[sc.plugin] && PLUGINS[sc.plugin].step ? PLUGINS[sc.plugin] : null;
+    if(stepped && stepped!==P && stepped.stop) stepped.stop();
+    stepped=P; if(P) P.step(STEPS[sceneIdx].v, STEPS[sceneIdx].j);
+  }
+  function setActivePlugin(P){
+    if(P===activePlugin) return;
+    if(activePlugin && activePlugin.leave) activePlugin.leave();
+    activePlugin=P; document.body.toggleAttribute('data-interactive', !!P); dirty=true;
+  }
+  // drag turns the globe (after 5 px), double-click (or double-tap) goes to the plugin, Ctrl/⌘ + wheel zooms
+  { let dg=null, lastTap=null;
+    const pt=e=>{ const r=cv.getBoundingClientRect(); return [e.clientX-r.left, e.clientY-r.top]; };
+    const turn=(dx,dy,rot)=>{ tween=null; const k=62/(R*cur.z); cur.rot=[rot[0]+dx*k, Math.max(-90,Math.min(90,rot[1]-dy*k))]; tgt.rot=cur.rot.slice(); dirty=true; };
+    const zoomBy=f=>{ tween=null; cur.z=tgt.z=Math.max(0.8,Math.min(14,cur.z*f)); dirty=true; };
+    cv.addEventListener('pointerdown',e=>{ if(!activePlugin||exp.on) return; dg={x:e.clientX,y:e.clientY,rot:cur.rot.slice(),turning:false}; cv.setPointerCapture(e.pointerId); if(activePlugin.leave) activePlugin.leave(); });
+    cv.addEventListener('pointermove',e=>{ if(!activePlugin||exp.on) return;
+      if(dg){ const dx=e.clientX-dg.x, dy=e.clientY-dg.y; if(Math.hypot(dx,dy)>5) dg.turning=true; if(dg.turning) turn(dx,dy,dg.rot); return; }
+      if(activePlugin.hover) activePlugin.hover(e); });
+    cv.addEventListener('pointerup',e=>{ const d=dg; dg=null; if(!activePlugin||exp.on||!d) return;
+      const [x,y]=pt(e), now=e.timeStamp;
+      if(!d.turning && activePlugin.click) activePlugin.click(x,y);   // a click (or tap) that did not turn the globe
+      if(d.turning || e.pointerType==='mouse'){ lastTap=null; return; }
+      if(lastTap && now-lastTap.t<450 && Math.hypot(x-lastTap.x,y-lastTap.y)<26){ lastTap=null; if(activePlugin.doubletap) activePlugin.doubletap(x,y); }
+      else lastTap={t:now,x,y}; });
+    cv.addEventListener('pointercancel',()=>{ dg=null; lastTap=null; });
+    cv.addEventListener('pointerleave',()=>{ if(activePlugin && activePlugin.leave) activePlugin.leave(); });
+    cv.addEventListener('dblclick',e=>{ if(!activePlugin||exp.on) return; const [x,y]=pt(e); if(activePlugin.dblclick) activePlugin.dblclick(x,y); });
+    cv.addEventListener('wheel',e=>{ if(!activePlugin||exp.on||!(e.ctrlKey||e.metaKey)) return; e.preventDefault(); zoomBy(e.deltaY>0?0.92:1.087); },{passive:false});
+    document.getElementById('greset').onclick=()=>{ const h=activePlugin&&activePlugin.home; if(h) api.flyTo(h.lon,h.lat,h.z); else moveTo(target(sceneIdx)); };
+  }
+
+  // ---------------- keyboard: one press, one slide ----------------
+  // Space, Page Down or Down moves to the next stop (a slide's step, or a prototype
+  // section); Shift+Space, Page Up or Up goes back. Keys typed into a field, a tab strip
+  // or a focused globe belong to that control, not to the page.
+  const hint=document.getElementById('hintbar');
+  function stops(){ return [...story.querySelectorAll(':scope > .step, :scope > .mod')]; }
+  addEventListener('keydown',e=>{
+    if(exp.on || e.metaKey || e.ctrlKey || e.altKey) return;
+    const t=e.target, tag=(t.tagName||'').toLowerCase();
+    if(/^(input|textarea|select|button|canvas)$/.test(tag) || t.isContentEditable || t.closest('[role=tablist]')) return;
+    const fwd = (e.key===' '&&!e.shiftKey) || e.key==='PageDown' || e.key==='ArrowDown';
+    const back= (e.key===' '&& e.shiftKey) || e.key==='PageUp'   || e.key==='ArrowUp';
+    if(!fwd && !back) return;
+    e.preventDefault();
+    const S=stops(), y=scrollY, top=el=>el.getBoundingClientRect().top+y, bot=el=>el.getBoundingClientRect().bottom+y;
+    // a section taller than the screen: first show the rest of it, then move on
+    const here=S.find(el=>top(el)<=y+4 && bot(el)>y+4);
+    let dest;
+    if(fwd && here && bot(here)>y+innerHeight+4) dest=bot(here)-innerHeight;
+    else if(back && here && top(here)<y-4 && bot(here)-innerHeight>=y-4 && top(here)>=y-innerHeight) dest=top(here);
+    else if(fwd){ const to=S.find(el=>top(el)>y+4); if(to) dest=top(to); }
+    else { const prev=S.filter(el=>top(el)<y-4); const to=prev[prev.length-1]; if(to) dest=Math.max(top(to), bot(to)-innerHeight>top(to)&&bot(to)-innerHeight<y-4 ? bot(to)-innerHeight : top(to)); }
+    if(dest!==undefined) scrollTo({top:dest, behavior:reduce?'auto':'smooth'});
+  });
+  addEventListener('scroll',()=>hint.classList.toggle('is-done', scrollY > innerHeight*0.5),{passive:true});
 
   const prog=document.getElementById('progress');
   function updateProgress(){
@@ -1437,5 +1843,12 @@ if(document.readyState==='loading') addEventListener('DOMContentLoaded',START); 
 
 <!-- ======================= DATA — generated, don't hand-edit =============== -->
 <script id="DATA">const DATA = __DATA__;</script>
+
+<!-- Prototype plugins: each prototype's code registers here (layers it draws on the story's globe, and the
+     interactive slide it owns); the story wires them up when it starts. -->
+<script id="WMSTORY">window.WMSTORY={plugins:{},register(name,p){this.plugins[name]=Object.assign(this.plugins[name]||{},p);}};</script>
+
+__MODULE_DATA__
+__MODULE_JS__
 </body>
 </html>

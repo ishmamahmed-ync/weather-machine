@@ -1,0 +1,9 @@
+{
+  "_about": "A mock build to try the slide navigator on two slides before it goes on the whole page. python3 scripts/build_all.py final/mock-navigator.json writes mock-navigator.html. The navigator shows all 24 lines; slides not in this mock are drawn but cannot be clicked.",
+  "output": "mock-navigator.html",
+  "nav": true,
+  "partial": true,
+  "order": [
+    { "story": ["title", "stations"] }
+  ]
+}

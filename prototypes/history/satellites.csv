@@ -1,0 +1,864 @@
+acronym,programme,orbit,status,launch,eol,weather,count
+Explorer-VII,Explorer-VII,DRIFT,Inactive,1959,1961,0,1
+TIROS-1,Television and Infra-Red Observation Satellite,DRIFT,Inactive,1960,1960,1,1
+TIROS-2,Television and Infra-Red Observation Satellite,DRIFT,Inactive,1960,1961,1,1
+TIROS-3,Television and Infra-Red Observation Satellite,DRIFT,Inactive,1961,1962,1,1
+Alouette-1,Alouette (French for Skylark),DRIFT,Inactive,1962,1972,0,1
+TIROS-4,Television and Infra-Red Observation Satellite,DRIFT,Inactive,1962,1962,1,1
+TIROS-5,Television and Infra-Red Observation Satellite,DRIFT,Inactive,1962,1963,1,1
+TIROS-6,Television and Infra-Red Observation Satellite,DRIFT,Inactive,1962,1963,1,1
+TIROS-7,Television and Infra-Red Observation Satellite,DRIFT,Inactive,1963,1968,1,1
+TIROS-8,Television and Infra-Red Observation Satellite,DRIFT,Inactive,1963,1967,1,1
+Nimbus-1,Nimbus,SunSync,Inactive,1964,1964,1,1
+Alouette-2,Alouette (French for Skylark),DRIFT,Inactive,1965,1975,0,1
+TIROS-10,Television and Infra-Red Observation Satellite,SunSync,Inactive,1965,1967,1,1
+TIROS-9,Television and Infra-Red Observation Satellite,SunSync,Inactive,1965,1968,1,1
+ATS-1,Application Technology Satellite,GEO,Inactive,1966,1978,0,1
+ESSA-1,TIROS Operational System,SunSync,Inactive,1966,1967,1,1
+ESSA-2,TIROS Operational System,SunSync,Inactive,1966,1970,1,1
+ESSA-3,TIROS Operational System,SunSync,Inactive,1966,1968,1,1
+Nimbus-2,Nimbus,SunSync,Inactive,1966,1969,1,1
+ATS-3,Application Technology Satellite,GEO,Inactive,1967,1978,0,1
+Diadéme-1,Diadéme,DRIFT,Operational,1967,,0,1
+Diadéme-2,Diadéme,DRIFT,Operational,1967,,0,1
+ESSA-4,TIROS Operational System,SunSync,Inactive,1967,1968,1,1
+ESSA-5,TIROS Operational System,SunSync,Inactive,1967,1970,1,1
+ESSA-6,TIROS Operational System,SunSync,Inactive,1967,1969,1,1
+ESSA-7,TIROS Operational System,SunSync,Inactive,1968,1970,1,1
+ESSA-8,TIROS Operational System,SunSync,Inactive,1968,1976,1,1
+ESSA-9,TIROS Operational System,SunSync,Inactive,1969,1972,1,1
+Meteor-1-1,Meteor-1,DRIFT,Inactive,1969,1970,1,1
+Meteor-1-2,Meteor-1,DRIFT,Inactive,1969,1970,1,1
+Nimbus-3,Nimbus,SunSync,Inactive,1969,1972,1,1
+ITOS-1 (TIROS-M),NOAA 3rd generation / Improved TIROS Operational System,SunSync,Inactive,1970,1971,1,1
+Meteor-1-3,Meteor-1,DRIFT,Inactive,1970,1970,1,1
+Meteor-1-4,Meteor-1,DRIFT,Inactive,1970,1971,1,1
+Meteor-1-5,Meteor-1,DRIFT,Inactive,1970,1971,1,1
+Meteor-1-6,Meteor-1,DRIFT,Inactive,1970,1971,1,1
+NOAA-1,NOAA 3rd generation / Improved TIROS Operational System,SunSync,Inactive,1970,1971,1,1
+Nimbus-4,Nimbus,SunSync,Inactive,1970,1980,1,1
+Meteor-1-10,Meteor-1,DRIFT,Inactive,1971,1972,1,1
+Meteor-1-7,Meteor-1,DRIFT,Inactive,1971,1971,1,1
+Meteor-1-8,Meteor-1,DRIFT,Inactive,1971,1972,1,1
+Meteor-1-9,Meteor-1,DRIFT,Inactive,1971,1972,1,1
+Landsat-1 (ERTS),Landsat,SunSync,Inactive,1972,1978,0,1
+Meteor-1-11,Meteor-1,DRIFT,Inactive,1972,1972,1,1
+Meteor-1-12,Meteor-1,DRIFT,Inactive,1972,1973,1,1
+Meteor-1-13,Meteor-1,DRIFT,Inactive,1972,1973,1,1
+NOAA-2,NOAA 3rd generation / Improved TIROS Operational System,SunSync,Inactive,1972,1975,1,1
+Nimbus-5,Nimbus,SunSync,Inactive,1972,1983,1,1
+Meteor-1-14,Meteor-1,DRIFT,Inactive,1973,1973,1,1
+Meteor-1-15,Meteor-1,DRIFT,Inactive,1973,1974,1,1
+NOAA-3,NOAA 3rd generation / Improved TIROS Operational System,SunSync,Inactive,1973,1976,1,1
+ATS-6,Application Technology Satellite,GEO,Inactive,1974,1979,0,1
+Meteor-1-16,Meteor-1,DRIFT,Inactive,1974,1974,1,1
+Meteor-1-17,Meteor-1,DRIFT,Inactive,1974,1975,1,1
+Meteor-1-19,Meteor-1,DRIFT,Inactive,1974,1975,1,1
+Meteor-1-20,Meteor-1,DRIFT,Inactive,1974,1975,1,1
+Meteor-P1,Meteor-Priroda,DRIFT,Inactive,1974,1976,0,1
+NOAA-4,NOAA 3rd generation / Improved TIROS Operational System,SunSync,Inactive,1974,1978,1,1
+SMS-1,Synchronous Meteorological Satellite,GEO,Inactive,1974,1981,1,1
+GOES-1,Geostationary Operational Environmental Satellite - 1st generation,GEO,Inactive,1975,1985,1,1
+Landsat-2,Landsat,SunSync,Inactive,1975,1982,0,1
+Meteor-1-21,Meteor-1,DRIFT,Inactive,1975,1976,1,1
+Meteor-1-22,Meteor-1,DRIFT,Inactive,1975,1976,1,1
+Meteor-1-23,Meteor-1,DRIFT,Inactive,1975,1976,1,1
+Meteor-2-1,Meteor-2,DRIFT,Inactive,1975,1977,1,1
+Nimbus-6,Nimbus,SunSync,Inactive,1975,1983,1,1
+SMS-2,Synchronous Meteorological Satellite,GEO,Inactive,1975,1982,1,1
+STARLETTE,Satellite de Taille Adaptée avec Réflecteurs Laser pour les Etudes de la Terre,DRIFT,Operational,1975,,0,1
+DMSP-F01,Defense Meteorological Satellite Program - Block 5D-1,SunSync,Inactive,1976,1979,1,1
+LAGEOS-1,Laser Geodynamics Satellite,DRIFT,Operational,1976,,0,1
+Meteor-1-24,Meteor-1,DRIFT,Inactive,1976,1977,1,1
+Meteor-1-26,Meteor-1,DRIFT,Inactive,1976,1977,1,1
+Meteor-P2,Meteor-Priroda,DRIFT,Inactive,1976,1978,0,1
+NOAA-5,NOAA 3rd generation / Improved TIROS Operational System,SunSync,Inactive,1976,1979,1,1
+DMSP-F02,Defense Meteorological Satellite Program - Block 5D-1,SunSync,Inactive,1977,1978,1,1
+GOES-2,Geostationary Operational Environmental Satellite - 1st generation,GEO,Inactive,1977,1993,1,1
+Himawari-1 (GMS-1),Himawari 1st generation (Geostationary Meteorological Satellite),GEO,Inactive,1977,1989,1,1
+Meteor-1-27,Meteor-1,DRIFT,Inactive,1977,1978,1,1
+Meteor-2-2,Meteor-2,DRIFT,Inactive,1977,1978,1,1
+Meteor-2-3,Meteor-2,DRIFT,Inactive,1977,1979,1,1
+Meteor-P3,Meteor-Priroda,SunSync,Inactive,1977,1979,0,1
+Meteosat-1,Meteosat First Generation,GEO,Inactive,1977,1979,1,1
+DMSP-F03,Defense Meteorological Satellite Program - Block 5D-1,SunSync,Inactive,1978,1979,1,1
+GOES-3,Geostationary Operational Environmental Satellite - 1st generation,GEO,Inactive,1978,1993,1,1
+HCMM,Heat Capacity Mapping Mission,SunSync,Inactive,1978,1980,0,1
+Landsat-3,Landsat,SunSync,Inactive,1978,1983,0,1
+Nimbus-7,Nimbus,SunSync,Inactive,1978,1994,1,1
+SeaSat,SeaSat,DRIFT,Inactive,1978,1978,0,1
+TIROS-N,National Oceanic and Atmospheric Administration - 4th generation,SunSync,Inactive,1978,1981,1,1
+AEM-2 (SAGE),Stratospheric Aerosol and Gas Experiment ,DRIFT,Inactive,1979,1981,0,1
+DMSP-F04,Defense Meteorological Satellite Program - Block 5D-1,SunSync,Inactive,1979,1980,1,1
+Meteor-2-4,Meteor-2,DRIFT,Inactive,1979,1980,1,1
+Meteor-2-5,Meteor-2,DRIFT,Inactive,1979,1981,1,1
+Meteor-P4,Meteor-Priroda,SunSync,Inactive,1979,1981,0,1
+NOAA-6,National Oceanic and Atmospheric Administration - 4th generation,SunSync,Inactive,1979,1987,1,1
+DMSP-F05,Defense Meteorological Satellite Program - Block 5D-1,SunSync,Inactive,1980,1980,1,1
+GOES-4,Geostationary Operational Environmental Satellite - 1st generation,GEO,Inactive,1980,1988,1,1
+Meteor-2-6,Meteor-2,DRIFT,Inactive,1980,1982,1,1
+Meteor-P5,Meteor-Priroda,SunSync,Inactive,1980,1982,0,1
+SMM,Solar Maximum Mission,DRIFT,Inactive,1980,1989,0,1
+GOES-5,Geostationary Operational Environmental Satellite - 1st generation,GEO,Inactive,1981,1990,1,1
+Himawari-2 (GMS-2),Himawari 1st generation (Geostationary Meteorological Satellite),GEO,Inactive,1981,1987,1,1
+Meteor-2-7,Meteor-2,DRIFT,Inactive,1981,1982,1,1
+Meteor-P6,Meteor-Priroda,SunSync,Inactive,1981,1983,0,1
+Meteosat-2,Meteosat First Generation,GEO,Inactive,1981,1991,1,1
+NOAA-7,National Oceanic and Atmospheric Administration - 4th generation,SunSync,Inactive,1981,1986,1,1
+SME,Solar Mesosphere Explorer,SunSync,Inactive,1981,1989,0,1
+DMSP-F06,Defense Meteorological Satellite Program - Block 5D-2,SunSync,Inactive,1982,1997,1,1
+INSAT-1A,Indian National Satellite - 1,GEO,Inactive,1982,1982,1,1
+Landsat-4,Landsat,SunSync,Inactive,1982,1993,0,1
+Meteor-2-8,Meteor-2,DRIFT,Inactive,1982,1983,1,1
+Meteor-2-9,Meteor-2,DRIFT,Inactive,1982,1984,1,1
+DMSP-F07,Defense Meteorological Satellite Program - Block 5D-2,SunSync,Inactive,1983,1988,1,1
+GOES-6,Geostationary Operational Environmental Satellite - 1st generation,GEO,Inactive,1983,1989,1,1
+INSAT-1B,Indian National Satellite - 1,GEO,Inactive,1983,1993,1,1
+Meteor-2-10,Meteor-2,DRIFT,Inactive,1983,1985,1,1
+NOAA-8,NOAA 4th generation / Polar Operational Environmental Satellites,SunSync,Inactive,1983,1985,1,1
+ERBS,Earth Radiation Budget Satellite,DRIFT,Inactive,1984,2005,0,1
+Himawari-3 (GMS-3),Himawari 1st generation (Geostationary Meteorological Satellite),GEO,Inactive,1984,1995,1,1
+Landsat-5,Landsat,SunSync,Inactive,1984,2011,0,1
+Meteor-2-11,Meteor-2,DRIFT,Inactive,1984,1986,1,1
+NOAA-9,NOAA 4th generation / Polar Operational Environmental Satellites,SunSync,Inactive,1984,1998,1,1
+GEOSat,Geodetic Satellite,DRIFT,Inactive,1985,1990,0,1
+Meteor-2-12,Meteor-2,DRIFT,Inactive,1985,1986,1,1
+Meteor-2-13,Meteor-2,DRIFT,Inactive,1985,1987,1,1
+Meteor-3-1,Meteor-3,DRIFT,Inactive,1985,1987,1,1
+Resurs-O1-1,Resurs Operational - 1,SunSync,Inactive,1985,1986,0,1
+Meteor-2-14,Meteor-2,DRIFT,Inactive,1986,1987,1,1
+NOAA-10,NOAA 4th generation / Polar Operational Environmental Satellites,SunSync,Inactive,1986,2001,1,1
+Okean-O1-1,Okean Operational 1,DRIFT,Inactive,1986,1988,0,1
+SPOT-1,Satellite Pour l’Observation de la Terre,SunSync,Inactive,1986,2003,0,1
+DMSP-F08,Defense Meteorological Satellite Program - Block 5D-2,SunSync,Inactive,1987,2006,1,1
+GOES-7,Geostationary Operational Environmental Satellite - 1st generation,GEO,Inactive,1987,1996,1,1
+MOS-1,Marine Observatory Satellite ,SunSync,Inactive,1987,1995,0,1
+Meteor-2-15,Meteor-2,DRIFT,Inactive,1987,1988,1,1
+Meteor-2-16,Meteor-2,DRIFT,Inactive,1987,1989,1,1
+Okean-O1-2,Okean Operational 1,DRIFT,Inactive,1987,1989,0,1
+DMSP-F09,Defense Meteorological Satellite Program - Block 5D-2,SunSync,Inactive,1988,1994,1,1
+FY-1A,Feng-Yun - 1,SunSync,Inactive,1988,1988,1,1
+INSAT-1C,Indian National Satellite - 1,GEO,Inactive,1988,1989,1,1
+IRS-1A,Indian Remote-sensing Satellite,SunSync,Inactive,1988,1992,0,1
+Meteor-2-17,Meteor-2,DRIFT,Inactive,1988,1990,1,1
+Meteor-3-2,Meteor-3,DRIFT,Inactive,1988,1990,1,1
+Meteosat-3,Meteosat First Generation,GEO,Inactive,1988,1995,1,1
+NOAA-11,NOAA 4th generation / Polar Operational Environmental Satellites,SunSync,Inactive,1988,2004,1,1
+Okean-O1-3,Okean Operational 1,DRIFT,Inactive,1988,1990,0,1
+Resurs-O1-2,Resurs Operational - 1,SunSync,Inactive,1988,1999,0,1
+Himawari-4 (GMS-4),Himawari 1st generation (Geostationary Meteorological Satellite),GEO,Inactive,1989,2000,1,1
+Meteor-2-18,Meteor-2,DRIFT,Inactive,1989,1990,1,1
+Meteor-3-3,Meteor-3,DRIFT,Inactive,1989,1991,1,1
+Meteosat-4,Meteosat First Generation,GEO,Inactive,1989,1995,1,1
+Okean-O1-4,Okean Operational 1,DRIFT,Inactive,1989,1989,0,1
+CRRES,Combined Release and Radiation Effects Satellite,DRIFT,Inactive,1990,1991,0,1
+DMSP-F10,Defense Meteorological Satellite Program - Block 5D-2,SunSync,Inactive,1990,1997,1,1
+FY-1B,Feng-Yun - 1,SunSync,Inactive,1990,1991,1,1
+INSAT-1D,Indian National Satellite - 1,GEO,Inactive,1990,2002,1,1
+MOS-1B,Marine Observatory Satellite ,SunSync,Inactive,1990,1996,0,1
+Meteor-2-19,Meteor-2,DRIFT,Inactive,1990,1991,1,1
+Meteor-2-20,Meteor-2,DRIFT,Inactive,1990,1992,1,1
+Okean-O1-5,Okean Operational 1,DRIFT,Inactive,1990,1992,0,1
+SPOT-2,Satellite Pour l’Observation de la Terre,SunSync,Inactive,1990,2009,0,1
+DMSP-F11,Defense Meteorological Satellite Program - Block 5D-2,SunSync,Inactive,1991,2000,1,1
+ERS-1,European Remote-sensing Satellite,SunSync,Inactive,1991,2000,0,1
+IRS-1B,Indian Remote-sensing Satellite,SunSync,Inactive,1991,2001,0,1
+Meteor-3-4,Meteor-3,DRIFT,Inactive,1991,1993,1,1
+Meteor-3-5,Meteor-3,DRIFT,Inactive,1991,1993,1,1
+Meteosat-5,Meteosat First Generation,GEO,Inactive,1991,2007,1,1
+NOAA-12,NOAA 4th generation / Polar Operational Environmental Satellites,SunSync,Inactive,1991,2007,1,1
+Okean-O1-6,Okean Operational 1,DRIFT,Inactive,1991,1993,0,1
+Solar-A (Yohkoh),Solar,DRIFT,Inactive,1991,2001,0,1
+UARS,Upper Atmosphere Research Satellite,DRIFT,Inactive,1991,2005,0,1
+GEOTAIL,GEOTAIL,MAG,Inactive,1992,2022,0,1
+INSAT-2A,Indian National Satellite - 2,GEO,Inactive,1992,2002,1,1
+JERS,Japanese Earth Resources Satellite,SunSync,Inactive,1992,1998,0,1
+LAGEOS-2,Laser Geodynamics Satellite,DRIFT,Operational,1992,,0,1
+SAMPEX,Solar Anomalous and Magnetospheric Particle Explorer,DRIFT,Inactive,1992,2012,0,1
+TOPEX-Poseidon,Topography Experiment + Poseidon,DRIFT,Inactive,1992,2005,0,1
+INSAT-2B,Indian National Satellite - 2,GEO,Inactive,1993,2004,1,1
+Meteor-2-21,Meteor-2,DRIFT,Inactive,1993,1995,1,1
+Meteosat-6,Meteosat First Generation,GEO,Inactive,1993,2011,1,1
+NOAA-13,NOAA 4th generation / Polar Operational Environmental Satellites,SunSync,Inactive,1993,1993,1,1
+SCD-1,Satélite de Coleta de Dados,DRIFT,Operational,1993,,0,1
+SPOT-3,Satellite Pour l’Observation de la Terre,SunSync,Inactive,1993,1996,0,1
+STELLA,Satellite de Taille Adaptée avec Réflecteurs Laser pour les Etudes de la Terre,DRIFT,Operational,1993,,0,1
+Coronas-I,Complex Orbital Observations Near-Earth of Activity of the Sun,DRIFT,Inactive,1994,1994,0,1
+DMSP-F12,Defense Meteorological Satellite Program - Block 5D-2,SunSync,Inactive,1994,2008,1,1
+Electro-GOMS,Electro,GEO,Inactive,1994,2000,1,1
+GOES-8,Geostationary Operational Environmental Satellite - 2nd generation,GEO,Inactive,1994,2004,1,1
+IRS-P2,Indian Remote-sensing Satellite,SunSync,Inactive,1994,1997,0,1
+Meteor-3-6,Meteor-3,DRIFT,Inactive,1994,1996,1,1
+NOAA-14,NOAA 4th generation / Polar Operational Environmental Satellites,SunSync,Inactive,1994,2007,1,1
+Okean-O1-7,Okean Operational 1,DRIFT,Inactive,1994,1996,0,1
+Resurs-O1-3,Resurs Operational - 1,SunSync,Inactive,1994,2001,0,1
+WIND,Wind ,L1,Operational,1994,,0,1
+DMSP-F13,Defense Meteorological Satellite Program - Block 5D-2,SunSync,Inactive,1995,2015,1,1
+ERS-2,European Remote-sensing Satellite,SunSync,Inactive,1995,2011,0,1
+GFZ-1,GeoForschungsZentrum-1 Geodesy Satellite,DRIFT,Inactive,1995,1999,0,1
+GOES-9,Geostationary Operational Environmental Satellite - 2nd generation,GEO,Inactive,1995,2006,1,1
+Himawari-5 (GMS-5),Himawari 1st generation (Geostationary Meteorological Satellite),GEO,Inactive,1995,2003,1,1
+INSAT-2C,Indian National Satellite - 2,GEO,Inactive,1995,2002,0,1
+IRS-1C,Indian Remote-sensing Satellite,SunSync,Inactive,1995,2005,0,1
+OrbView-1/MicroLab,Orbview-1 (former: MicroLab),DRIFT,Inactive,1995,2000,0,1
+RadarSat-1,RadarSat,SunSync,Inactive,1995,2013,0,1
+SICH-1,Okean Operational 1,DRIFT,Inactive,1995,2001,0,1
+SOHO,Solar and Heliospheric Observatory,L1,Operational,1995,,0,1
+ADEOS,Advanced Earth Observing Satellite (original name: “Midori”),SunSync,Inactive,1996,1997,0,1
+IRS-P3,Indian Remote-sensing Satellite,SunSync,Inactive,1996,2004,0,1
+Polar,Polar,MAG,Inactive,1996,2008,0,1
+TOMS Earth Probe,Total Ozone Mapping Spectrometer - Earth Probe,SunSync,Inactive,1996,2006,0,1
+ACE,Advanced Composition Explorer,L1,Operational,1997,,0,1
+DMSP-F14,Defense Meteorological Satellite Program - Block 5D-2,SunSync,Inactive,1997,2020,1,1
+FY-2A,Feng-Yun - 2,GEO,Inactive,1997,1998,1,1
+GOES-10,Geostationary Operational Environmental Satellite - 2nd generation,GEO,Inactive,1997,2009,1,1
+INSAT-2D,Indian National Satellite - 2,GEO,Inactive,1997,1997,1,1
+IRS-1D,Indian Remote-sensing Satellite,SunSync,Inactive,1997,2010,0,1
+Meteosat-7,Meteosat First Generation,GEO,Inactive,1997,2017,1,1
+OrbView-2/SeaStar,OrbView-2 (former: SeaStar),SunSync,Inactive,1997,2010,0,1
+TRMM,Tropical Rainfall Measuring Mission,DRIFT,Inactive,1997,2015,0,1
+GFO,Geodetic Satellite,DRIFT,Inactive,1998,2008,0,1
+NOAA-15,NOAA 5th generation / Polar Operational Environmental Satellites,SunSync,Inactive,1998,2025,1,1
+Resurs-O1-4,Resurs Operational - 1,SunSync,Inactive,1998,2002,0,1
+SAC-A,Satélite de Aplicaciones Cientificas,DRIFT,Inactive,1998,1999,0,1
+SCD-2,Satélite de Coleta de Dados,DRIFT,Operational,1998,,0,1
+SPOT-4,Satellite Pour l’Observation de la Terre,SunSync,Inactive,1998,2013,0,1
+TRACE,Transition Region and Coronal Explorer,SunSync,Inactive,1998,2010,0,1
+ACRIMSat,Active Cavity Radiometer Irradiance Monitor Satellite,SunSync,Inactive,1999,2013,0,1
+CBERS-1,China-Brazil Earth Resources Satellite,SunSync,Inactive,1999,2003,0,1
+DMSP-F15,Defense Meteorological Satellite Program - Block 5D-3,SunSync,Inactive,1999,2020,1,1
+FORMOSAT-1,FORMOSAT,DRIFT,Inactive,1999,2004,0,1
+FY-1C,Feng-Yun - 1,SunSync,Inactive,1999,2004,1,1
+INSAT-2E,Indian National Satellite - 2,GEO,Inactive,1999,2012,1,1
+Ikonos,GeoEye,SunSync,Inactive,1999,2015,0,1
+KOMPSAT-1,Korea Multi-Purpose Satellite,SunSync,Inactive,1999,2008,0,1
+Landsat-7,Landsat,SunSync,Inactive,1999,2024,0,1
+OceanSat-1 (IRS-P4),Satellite for the Ocean,SunSync,Inactive,1999,2010,0,1
+Okean-O-1,Okean-O,DRIFT,Inactive,1999,2000,0,1
+QuikSCAT,Quick Scatterometer Mission,SunSync,Inactive,1999,2009,0,1
+Terra,Earth Observation System,SunSync,Operational,1999,,0,1
+XMM-Newton,X-ray Multi-Mirror Mission Observatory - Newton,DRIFT,Operational,1999,,0,1
+Ørsted,Ørsted (Oersted),DRIFT,Inactive,1999,2014,0,1
+CHAMP,Challenging Mini-Satellite Payload,DRIFT,Inactive,2000,2010,0,1
+CLUSTER-1,Cluster,MAG,Inactive,2000,2025,0,1
+CLUSTER-2,Cluster,MAG,Inactive,2000,2024,0,1
+CLUSTER-3,Cluster,MAG,Inactive,2000,2024,0,1
+CLUSTER-4,Cluster,MAG,Inactive,2000,2024,0,1
+FY-2B,Feng-Yun - 2,GEO,Inactive,2000,2004,1,1
+GOES-11,Geostationary Operational Environmental Satellite - 2nd generation,GEO,Inactive,2000,2011,1,1
+IMAGE,Imager for Magnetopause-to-Aurora Global Exploration,MAG,Inactive,2000,2005,0,1
+INSAT-3B,Indian National Satellite - 3,GEO,Inactive,2000,2010,0,1
+NMP-EO-1,New Millennium Program - Earth Observing -1,SunSync,Inactive,2000,2017,0,1
+NOAA-16,NOAA 5th generation / Polar Operational Environmental Satellites,SunSync,Inactive,2000,2014,1,1
+SAC-C,Satélite de Aplicaciones Cientificas,SunSync,Inactive,2000,2013,0,1
+BIRD,Bi-spectral Infra-Red Detection,SunSync,Inactive,2001,2007,0,1
+Coronas-F,Complex Orbital Observations Near-Earth of Activity of the Sun,DRIFT,Inactive,2001,2005,0,1
+GOES-12,Geostationary Operational Environmental Satellite - 2nd generation,GEO,Inactive,2001,2013,1,1
+JASON-1,Joint Altimetry Satellite Oceanography Network,DRIFT,Inactive,2001,2013,0,1
+Meteor-3M,Meteor-3M,SunSync,Inactive,2001,2006,1,1
+Odin,Odin,SunSync,Inactive,2001,2026,0,1
+PROBA-1,Project for On-Board Autonomy,SunSync,Operational,2001,,0,1
+QuickBird,WorldView,SunSync,Inactive,2001,2015,0,1
+TIMED,"Thermosphere, Ionosphere, Mesosphere Energetics and Dynamics mission",DRIFT,Operational,2001,,0,1
+ADEOS-2,Advanced Earth Observing Satellite (original name: “Midori”),SunSync,Inactive,2002,2003,0,1
+AlSat-1,Algeria Satellite,SunSync,Inactive,2002,2010,0,1
+Aqua,Earth Observation System,SunSync,Operational,2002,,0,1
+Envisat,Environmental Satellite,SunSync,Inactive,2002,2012,0,1
+FY-1D,Feng-Yun - 1,SunSync,Inactive,2002,2012,1,1
+GRACE A,Gravity Recovery and Climate Experiment,DRIFT,Inactive,2002,2017,0,1
+GRACE B,Gravity Recovery and Climate Experiment,DRIFT,Inactive,2002,2017,0,1
+HY-1A,Hai Yang 1,SunSync,Inactive,2002,2004,0,1
+INSAT-3C,Indian National Satellite - 3,GEO,Inactive,2002,2014,0,1
+Kalpana-1,Kalpana,GEO,Inactive,2002,2017,1,1
+Meteosat-8,Meteosat Second Generation (MSG),GEO,Inactive,2002,2022,1,1
+NOAA-17,NOAA 5th generation / Polar Operational Environmental Satellites,SunSync,Inactive,2002,2013,1,1
+RHESSI,Reuven Ramaty High Energy Solar Spectroscopic Imager,DRIFT,Inactive,2002,2018,0,1
+SPOT-5,Satellite Pour l’Observation de la Terre,SunSync,Inactive,2002,2015,0,1
+BILSat,BILTEN Satellte,SunSync,Inactive,2003,2006,0,1
+CBERS-2,China-Brazil Earth Resources Satellite,SunSync,Inactive,2003,2007,0,1
+Coriolis,Coriolis,SunSync,Inactive,2003,2020,0,1
+DMSP-F16,Defense Meteorological Satellite Program - Block 5D-3,SunSync,Inactive,2003,2023,1,1
+ICESat,"Ice, Cloud and land Elevation Satellite",DRIFT,Inactive,2003,2010,0,1
+INSAT-3A,Indian National Satellite - 3,GEO,Inactive,2003,2016,1,1
+NigeriaSat-1,NigeriaSat,SunSync,Inactive,2003,2011,0,1
+OrbView-3,GeoEye,SunSync,Inactive,2003,2007,0,1
+ResourceSat-1 (IRS-P6),Satellite for Earth Resources,SunSync,Inactive,2003,2013,0,1
+SCISAT-1,Science Satellite / Atmospheric Chemistry Experiment,DRIFT,Operational,2003,,0,1
+SORCE,Solar Radiation and Climate Experiment,DRIFT,Inactive,2003,2020,0,1
+STSat-1,Science and Technology Satellite,SunSync,Inactive,2003,2005,0,1
+UK-DMC-1,UK contribution to the Disaster Monitoring Constellation,SunSync,Inactive,2003,2011,0,1
+Aura,Earth Observation System,SunSync,Operational,2004,,0,1
+FORMOSAT-2,FORMOSAT,SunSync,Inactive,2004,2016,0,1
+FY-2C,Feng-Yun - 2,GEO,Inactive,2004,2009,1,1
+PARASOL,"Polarisation et Anisotropie des Réflectances au sommet de l'Atmosphère, couplées avec un Satellite d'Observation emportant un Lidar",SunSync,Inactive,2004,2013,0,1
+SICH-1M,Okean Operational 1,DRIFT,Inactive,2004,2006,0,1
+Beijing-1,Beijing,SunSync,Presumably inactive,2005,2010,0,1
+CartoSat-1 (IRS-P5),Satellite for Cartography,SunSync,Inactive,2005,2019,0,1
+CryoSat,CryoSat,SunSync,Inactive,2005,2005,0,1
+Himawari-6 (MTSAT-1R),Himawari 2nd generation (Multifunction Transport Satellite),GEO,Inactive,2005,2015,1,1
+Meteosat-9,Meteosat Second Generation (MSG),GEO,Inactive,2005,,1,1
+Monitor-E,Monitor - Experimental,SunSync,Inactive,2005,2008,0,1
+NOAA-18,NOAA 5th generation / Polar Operational Environmental Satellites,SunSync,Inactive,2005,2025,1,1
+TopSat,TopSat,SunSync,Inactive,2005,2008,0,1
+ALOS,Advanced Land Observing Satellite,SunSync,Inactive,2006,2011,0,1
+CALIPSO,Cloud-Aerosol Lidar and Infrared Pathfinder Satellite Observations,SunSync,Inactive,2006,2023,0,1
+COSMIC-1,"Constellation Observing System for Meteorology, Ionosphere & Climate",DRIFT,Inactive,2006,2020,0,1
+CloudSat,CloudSat,SunSync,Inactive,2006,2023,0,1
+DMSP-F17,Defense Meteorological Satellite Program - Block 5D-3,SunSync,Operational,2006,,1,1
+FY-2D,Feng-Yun - 2,GEO,Inactive,2006,2015,1,1
+GOES-13,Geostationary Operational Environmental Satellite - 2nd generation,GEO,Inactive,2006,2019,1,1
+Himawari-7 (MTSAT-2),Himawari 2nd generation (Multifunction Transport Satellite),GEO,Inactive,2006,2016,1,1
+KOMPSAT-2,Korea Multi-Purpose Satellite,SunSync,Operational,2006,,0,1
+Metop-A,EUMETSAT Polar System,SunSync,Inactive,2006,2021,1,1
+Resurs-DK,Resurs-P,DRIFT,Inactive,2006,2016,0,1
+STEREO-A,Solar-TErrestrial RElations Observatory,Ecliptic,Operational,2006,,0,1
+STEREO-B,Solar-TErrestrial RElations Observatory,Ecliptic,Inactive,2006,2014,0,1
+Solar-B (Hinode),Solar,SunSync,Operational,2006,,0,1
+TWINS (2 sats),Two Wide-angle Imaging Neutral-atom Spectrometers,Molniya,Inactive,2006,2020,0,2
+TacSat-2,Tactical Satellite,DRIFT,Inactive,2006,2007,0,1
+CBERS-2B,China-Brazil Earth Resources Satellite,SunSync,Inactive,2007,2010,0,1
+CSK-1,COSMO-SkyMed,SunSync,Operational,2007,,0,1
+CSK-2,COSMO-SkyMed,SunSync,Operational,2007,,0,1
+CartoSat-2,Satellite for Cartography,SunSync,Inactive,2007,2019,0,1
+EgyptSat-1,EgyptSat,SunSync,Inactive,2007,2010,0,1
+HY-1B,Hai Yang 1,SunSync,Inactive,2007,2016,0,1
+RadarSat-2,RadarSat,SunSync,Operational,2007,,0,1
+STPSat-1,Space Test Program Satellite,DRIFT,Inactive,2007,2009,0,1
+THEMIS-A,Time History of Events and Macroscale Interactions during Substorms,MAG,Operational,2007,,0,1
+THEMIS-D,Time History of Events and Macroscale Interactions during Substorms,MAG,Operational,2007,,0,1
+THEMIS-E,Time History of Events and Macroscale Interactions during Substorms,MAG,Operational,2007,,0,1
+TerraSAR-X,TerraSAR,SunSync,Operational,2007,,0,1
+WorldView-1,WorldView,SunSync,Operational,2007,,0,1
+C/NOFS,Communication/Navigation Outage Forecasting System,DRIFT,Inactive,2008,2015,0,1
+CSK-3,COSMO-SkyMed,SunSync,Operational,2008,,0,1
+CartoSat-2A,Satellite for Cartography,SunSync,Operational,2008,,0,1
+FY-2E,Feng-Yun - 2,GEO,Inactive,2008,2018,1,1
+FY-3A,Feng-Yun - 3,SunSync,Inactive,2008,2015,1,1
+GeoEye-1,GeoEye,SunSync,Unclear,2008,2026,0,1
+HJ-1A,Huan Jing,SunSync,Inactive,2008,2018,0,1
+HJ-1B,Huan Jing,SunSync,Presumably inactive,2008,2018,0,1
+IBEX,Interstellar Boundary Explorer,MAG,Unclear,2008,2023,0,1
+IMS-1,Indian Mini-Satellite,SunSync,Inactive,2008,2012,0,1
+JASON-2,Joint Altimetry Satellite Oceanography Network,DRIFT,Inactive,2008,2019,0,1
+RapidEye (5 sats),RapidEye,SunSync,Presumably inactive,2008,2020,0,5
+THEOS-1,Thailand Earth Observation System,SunSync,Operational,2008,,0,1
+Coronas-Photon,Complex Orbital Observations Near-Earth of Activity of the Sun,DRIFT,Inactive,2009,2009,0,1
+DMSP-F18,Defense Meteorological Satellite Program - Block 5D-3,SunSync,Operational,2009,,1,1
+Deimos-1,Deimos,SunSync,Presumably inactive,2009,2019,0,1
+DubaiSat-1,DubaiSat,SunSync,Inactive,2009,2016,0,1
+GOCE,Gravity Field and Steady-State Ocean Circulation Explorer,SunSync,Inactive,2009,2013,0,1
+GOES-14,Geostationary Operational Environmental Satellite - 2nd generation,GEO,Stand-by,2009,,1,1
+GOSAT,Greenhouse gas Observing Satellite,SunSync,Operational,2009,,0,1
+ISS HICO,International Space Station,DRIFT,Inactive,2009,2014,0,1
+Meteor-M N1,Meteor-3M,SunSync,Inactive,2009,2014,1,1
+NOAA-19,NOAA 5th generation / Polar Operational Environmental Satellites,SunSync,Inactive,2009,2025,1,1
+OceanSat-2,Satellite for the Ocean,SunSync,Inactive,2009,2023,0,1
+PROBA-2,Project for On-Board Autonomy,SunSync,Operational,2009,,0,1
+RISAT-2,Radar Imaging Satellite,DRIFT,Inactive,2009,2022,0,1
+SMOS,Soil Moisture and Ocean Salinity,SunSync,Operational,2009,,0,1
+SumbandilaSat,SumbandilaSat,SunSync,Inactive,2009,2011,0,1
+UK-DMC-2,UK contribution to the Disaster Monitoring Constellation,SunSync,Presumably inactive,2009,2019,0,1
+WorldView-2,WorldView,SunSync,Operational,2009,,0,1
+AlSat-2,Algeria Satellite,SunSync,Presumably inactive,2010,2019,0,1
+COMS,"Communication, Oceanography and Meteorology Satellite",GEO,Inactive,2010,2021,1,1
+CSK-4,COSMO-SkyMed,SunSync,Operational,2010,,0,1
+CartoSat-2B,Satellite for Cartography,SunSync,Operational,2010,,0,1
+CryoSat-2,CryoSat,DRIFT,Operational,2010,,0,1
+FY-3B,Feng-Yun - 3,SunSync,Inactive,2010,2021,1,1
+GOES-15,Geostationary Operational Environmental Satellite - 2nd generation,GEO,Inactive,2010,2023,1,1
+Picard,Picard,SunSync,Inactive,2010,2014,0,1
+SDO,Solar Dynamics Observatory,GeoSync,Operational,2010,,0,1
+STPSat-2,Space Test Program Satellite,DRIFT,Presumably inactive,2010,2019,0,1
+TH-1A,Tian Hui - 1,SunSync,Presumably inactive,2010,2018,0,1
+TanDEM-X,TerraSAR,SunSync,Operational,2010,,0,1
+ARTEMIS-P1,"Acceleration, Reconnection, Turbulence, and Electrodynamics of the Moon's Interaction with the Sun",Moon,Operational,2011,,0,1
+ARTEMIS-P2,"Acceleration, Reconnection, Turbulence, and Electrodynamics of the Moon's Interaction with the Sun",Moon,Operational,2011,,0,1
+Electro-L N1,Electro,GEO,Inactive,2011,2016,1,1
+Galileo,Galileo,DRIFT,Operational,2011,,0,1
+HY-2A,Hai Yang 2,SunSync,Presumably inactive,2011,2022,0,1
+Megha-Tropiques,Megha-Tropiques,DRIFT,Inactive,2011,2022,0,1
+NigeriaSat-2,NigeriaSat,SunSync,Unclear,2011,2023,0,1
+NigeriaSat-X,NigeriaSat,SunSync,Unclear,2011,2023,0,1
+Pléiades-1A,Pléiades,SunSync,Operational,2011,,0,1
+RASAT,Remote Sensing Satellite,SunSync,Operational,2011,,0,1
+ResourceSat-2,Satellite for Earth Resources,SunSync,Operational,2011,,0,1
+SAC-D,Satélite de Aplicaciones Cientificas,SunSync,Inactive,2011,2015,0,1
+SICH-2,SICH 2,SunSync,Inactive,2011,2012,0,1
+SNPP,Joint Polar Satellite System,SunSync,Operational,2011,,1,1
+SSOT,Sistema Satellital para Observation de la Tierra,SunSync,Unclear,2011,2022,0,1
+X-Sat,X-Sat,SunSync,Presumably inactive,2011,2019,0,1
+ZY-1-2C,Zi Yuan 1-2,SunSync,Presumably inactive,2011,2019,0,1
+FY-2F,Feng-Yun - 2,GEO,Inactive,2012,2022,1,1
+GCOM-W,Global Change Observation Mission,SunSync,Operational,2012,,0,1
+Göktürk-2,Göktürk,SunSync,Unclear,2012,2023,0,1
+HJ-1C,Huan Jing,SunSync,Inactive,2012,2023,0,1
+KANOPUS-V1,KANOPUS Vulkan,SunSync,Inactive,2012,2020,0,1
+KOMPSAT-3,Korea Multi-Purpose Satellite,SunSync,Operational,2012,,0,1
+LARES-1,Laser RElativity Satellite,DRIFT,Operational,2012,,0,1
+Meteosat-10,Meteosat Second Generation (MSG),GEO,Operational,2012,,1,1
+Metop-B,EUMETSAT Polar System,SunSync,Operational,2012,,1,1
+Pléiades-1B,Pléiades,SunSync,Operational,2012,,0,1
+RISAT-1,Radar Imaging Satellite,SunSync,Inactive,2012,2017,0,1
+SJ-9A,Shijian 9,SunSync,Unclear,2012,2022,0,1
+SJ-9B,Shijian 9,SunSync,Unclear,2012,2022,0,1
+SPOT-6,Satellite Pour l’Observation de la Terre - Follow-on,SunSync,Operational,2012,,0,1
+TH-1B,Tian Hui - 1,SunSync,Unclear,2012,2023,0,1
+VAP (2 sat),Van Allen Probes,MAG,Inactive,2012,2019,0,2
+VRSS-1,Venezuelan Remote Sensing Satellite,SunSync,Unclear,2012,2022,0,1
+ZY-3-01,Zi Yuan - 3,SunSync,Inactive,2012,2022,0,1
+CASSIOPE,CASSIOPE,MAG,Inactive,2013,2021,0,1
+DubaiSat-2,DubaiSat,SunSync,Inactive,2013,2022,0,1
+FY-3C,Feng-Yun - 3,SunSync,Inactive,2013,2024,1,1
+GF-1,Gao Fen,SunSync,Unclear,2013,2023,0,1
+INSAT-3D,Indian National Satellite - 3,GEO,Back-up,2013,2024,1,1
+IRIS,Interface Region Imaging Spectrograph,SunSync,Operational,2013,,0,1
+KOMPSAT-5,Korea Multi-Purpose Satellite,SunSync,Operational,2013,,0,1
+Kondor-E,Kondor-Experimental SAR Spacecraft,DRIFT,Inactive,2013,2014,0,1
+Landsat-8,Landsat Data Continuity Mission,SunSync,Operational,2013,,0,1
+PROBA-V,Project for On-Board Autonomy,SunSync,Unclear,2013,2021,0,1
+Resurs-P1,Resurs-P,SunSync,Inactive,2013,2021,0,1
+SARAL,Satellite with ARgos and ALtiKa,SunSync,Operational,2013,,0,1
+STPSat-3,Space Test Program Satellite,DRIFT,Unclear,2013,2022,0,1
+STSat-2C,Science and Technology Satellite,MAG,Inactive,2013,2014,0,1
+STSat-3,Science and Technology Satellite,SunSync,Unclear,2013,2023,0,1
+SWARM-A,The Earth’s Magnetic Field and Environment Explorers,DRIFT,Operational,2013,,0,1
+SWARM-B,The Earth’s Magnetic Field and Environment Explorers,DRIFT,Operational,2013,,0,1
+SWARM-C,The Earth’s Magnetic Field and Environment Explorers,DRIFT,Operational,2013,,0,1
+SkySat-1,Sky Satellite,SunSync,Unclear,2013,2023,0,1
+VNREDSat-1,"Vietnam Natural Resources, Environment and Disaster-monitoring Satellite
+
+",SunSync,Unclear,2013,2022,0,1
+ALOS-2,Advanced Land Observing Satellite,SunSync,Operational,2014,,0,1
+ASNARO-1,Advanced Satellite with new system ARchitecture for Observation,SunSync,Operational,2014,,0,1
+CBERS-4,China-Brazil Earth Resources Satellite,SunSync,Operational,2014,,0,1
+DMSP-F19,Defense Meteorological Satellite Program - Block 5D-3,SunSync,Inactive,2014,2016,1,1
+Deimos-2,Deimos,SunSync,Operational,2014,,0,1
+EgyptSat-2,EgyptSat,DRIFT,Inactive,2014,2015,0,1
+FLOCK,Planetscope,SunSync,Operational,2014,,0,1
+FY-2G,Feng-Yun - 2,GEO,Operational,2014,,1,1
+GF-2,Gao Fen,SunSync,Operational,2014,,0,1
+GPM Core Observatory,Global Precipitation Measurement mission,DRIFT,Operational,2014,,0,1
+Himawari-8,Himawari 3rd generation,GEO,Stand-by,2014,,1,1
+ISS RapidScat,International Space Station,DRIFT,Inactive,2014,2016,0,1
+KazEOSat-1,Kazakhstan Earth Observation Satellite,SunSync,Unclear,2014,2022,0,1
+KazEOSat-2,Kazakhstan Earth Observation Satellite,SunSync,Unclear,2014,2022,0,1
+Kondor-E1,Kondor-Experimental SAR Spacecraft,DRIFT,Presumably inactive,2014,2019,0,1
+Meteor-M N2,Meteor-3M,SunSync,Inactive,2014,2024,1,1
+OCO-2,Orbiting Carbon Observatory ,SunSync,Operational,2014,,0,1
+Resurs-P2,Resurs-P,SunSync,Inactive,2014,2018,0,1
+SPOT-7,Satellite Pour l’Observation de la Terre - Follow-on,SunSync,Operational,2014,,0,1
+Sentinel-1A,Sentinel-1,SunSync,Inactive,2014,2026,0,1
+SkySat-2,Sky Satellite,SunSync,Operational,2014,,0,1
+WorldView-3,WorldView,SunSync,Operational,2014,,0,1
+DSCOVR,Deep Space Climate Observatory,L1,Operational,2015,,0,1
+Electro-L N2,Electro,GEO,Operational,2015,,1,1
+GF-4,Gao Fen,GEO,Operational,2015,,0,1
+GF-8,Gao Fen,SunSync,Operational,2015,,0,1
+GF-9,Gao Fen,SunSync,Operational,2015,,0,1
+ISS CATS,International Space Station,DRIFT,Inactive,2015,2017,0,1
+KOMPSAT-3A,Korea Multi-Purpose Satellite,SunSync,Operational,2015,,0,1
+Lemur-2,Low Earth Multi-Use Receiver,SunSync,Operational,2015,,0,1
+MMS-A,Magnetospheric MultiScale mission,MAG,Operational,2015,,0,1
+MMS-B,Magnetospheric MultiScale mission,MAG,Operational,2015,,0,1
+MMS-C,Magnetospheric MultiScale mission,MAG,Operational,2015,,0,1
+MMS-D,Magnetospheric MultiScale mission,MAG,Operational,2015,,0,1
+Meteosat-11,Meteosat Second Generation (MSG),GEO,Operational,2015,,1,1
+SMAP,Soil Moisture Active-Passive,SunSync,Operational,2015,,0,1
+SSTL-S1 1,Beijing-2 Constellation,SunSync,Operational,2015,,0,1
+SSTL-S1 2,Beijing-2 Constellation,SunSync,Operational,2015,,0,1
+SSTL-S1 3,Beijing-2 Constellation,SunSync,Operational,2015,,0,1
+Sentinel-2A,Sentinel-2,SunSync,Unclear,2015,2026,0,1
+TH-1C,Tian Hui - 1,SunSync,Operational,2015,,0,1
+AlSat-1B,Algeria Satellite,SunSync,Operational,2016,,0,1
+AlSat-2B,Algeria Satellite,SunSync,Operational,2016,,0,1
+Arase (ERG),Exploration of energization and Radiation in Geospace,MAG,Operational,2016,,0,1
+CYGNSS (8 sats),Cyclone Global Navigation Satellite System,DRIFT,Operational,2016,,0,8
+CartoSat-2C,Satellite for Cartography,SunSync,Operational,2016,,0,1
+FY-4A,Feng-Yun - 4,GEO,Operational,2016,,1,1
+GF-3,Gao Fen,SunSync,Operational,2016,,0,1
+GHGSat,Greenhouse Gas Satellite,SunSync,Operational,2016,,0,1
+GOES-16,Geostationary Operational Environmental Satellite - 3rd generation,GEO,Back-up,2016,,1,1
+Göktürk-1A,Göktürk,SunSync,Operational,2016,,0,1
+Himawari-9,Himawari 3rd generation,GEO,Operational,2016,,1,1
+INSAT-3DR,Indian National Satellite - 3,GEO,Operational,2016,,1,1
+JASON-3,Joint Altimetry Satellite Oceanography Network,DRIFT,Operational,2016,,0,1
+PeruSat-1,PeruSat,SunSync,Operational,2016,,0,1
+ResourceSat-2A,Satellite for Earth Resources,SunSync,Operational,2016,,0,1
+Resurs-P3,Resurs-P,SunSync,Inactive,2016,2017,0,1
+ScatSat-1,Satellite for the Ocean,SunSync,Inactive,2016,2021,0,1
+Sentinel-1B,Sentinel-1,SunSync,Inactive,2016,2022,0,1
+Sentinel-3A,Sentinel-3,SunSync,Operational,2016,,0,1
+SkySat-3,Sky Satellite,SunSync,Operational,2016,,0,1
+SkySat-4,Sky Satellite,SunSync,Operational,2016,,0,1
+SkySat-5,Sky Satellite,SunSync,Operational,2016,,0,1
+SkySat-6,Sky Satellite,SunSync,Operational,2016,,0,1
+SkySat-7,Sky Satellite,SunSync,Operational,2016,,0,1
+SuperView-1,SuperView also known as GaoJing,SunSync,Operational,2016,,0,1
+SuperView-2,SuperView also known as GaoJing,SunSync,Operational,2016,,0,1
+TANSAT,Scientific Exploratory Satellite for Atmospheric CO2,SunSync,Inactive,2016,2022,0,1
+WorldView-4,WorldView,SunSync,Inactive,2016,2019,0,1
+Yunhai-1,Yunhai,SunSync,Operational,2016,,0,1
+ZY-3-02,Zi Yuan - 3,SunSync,Operational,2016,,0,1
+ÑuSat     ,ÑuSat Earth Observation Microsatellite Constellation,DRIFT,Operational,2016,,0,1
+CICERO,Community Initiative for Continuing Earth Radio Occultation,SunSync,Operational,2017,,0,1
+CartoSat-2D,Satellite for Cartography,SunSync,Operational,2017,,0,1
+CartoSat-2E,Satellite for Cartography,SunSync,Operational,2017,,0,1
+FORMOSAT-5,FORMOSAT,SunSync,Operational,2017,,0,1
+FY-3D,Feng-Yun - 3,SunSync,Operational,2017,,1,1
+GCOM-C,Global Change Observation Mission,SunSync,Operational,2017,,0,1
+ISS LIS,International Space Station,DRIFT,Inactive,2017,2023,0,1
+ISS SAGE-III,International Space Station,DRIFT,Operational,2017,,0,1
+ISS TSIS-1,International Space Station,DRIFT,Operational,2017,,0,1
+KANOPUS-V-IK-1,KANOPUS Vulkan,SunSync,Operational,2017,,0,1
+Meteor-M N2-1,Meteor-3M,SunSync,Inactive,2017,2017,1,1
+Mohammed VI-A,Mohammed VI,SunSync,Operational,2017,,0,1
+NOAA-20,Joint Polar Satellite System,SunSync,Operational,2017,,1,1
+Sentinel-2B,Sentinel-2,SunSync,Operational,2017,,0,1
+Sentinel-5P,Sentinel-5 precursor,SunSync,Operational,2017,,0,1
+SkySat-10,Sky Satellite,SunSync,Operational,2017,,0,1
+SkySat-11,Sky Satellite,SunSync,Operational,2017,,0,1
+SkySat-12,Sky Satellite,SunSync,Operational,2017,,0,1
+SkySat-13,Sky Satellite,SunSync,Operational,2017,,0,1
+SkySat-8,Sky Satellite,SunSync,Operational,2017,,0,1
+SkySat-9,Sky Satellite,SunSync,Operational,2017,,0,1
+VENµS,Vegetation and Environment monitoring on a New Micro-Satellite,SunSync,Operational,2017,,0,1
+VRSS-2,Venezuelan Remote Sensing Satellite,SunSync,Unclear,2017,2023,0,1
+ASNARO-2,Advanced Satellite with new system ARchitecture for Observation,SunSync,Operational,2018,,0,1
+Aeolus, Aeolus,SunSync,Inactive,2018,2023,0,1
+BlackSky-1,BlackSky Global Commercial Imaging Constellation,SunSync,Operational,2018,,0,1
+BlackSky-2,BlackSky Global Commercial Imaging Constellation,SunSync,Operational,2018,,0,1
+CFOSAT,Chinese-French Oceanography Satellite,SunSync,Operational,2018,,0,1
+CSIM,Compact Spectral Irradiance Monitor,DRIFT,Inactive,2018,2022,0,1
+Capella,Capella,SunSync,Operational,2018,,0,1
+CartoSat-2F,Satellite for Cartography,SunSync,Operational,2018,,0,1
+DubaiSat-3,DubaiSat,SunSync,Operational,2018,,0,1
+FY-2H,Feng-Yun - 2,GEO,Operational,2018,,1,1
+GEO-KOMPSAT-2A,"Communication, Oceanography and Meteorology Satellite",GEO,Operational,2018,,1,1
+GF-1-02,Gao Fen,SunSync,Operational,2018,,0,1
+GF-1-03,Gao Fen,SunSync,Operational,2018,,0,1
+GF-1-04,Gao Fen,SunSync,Operational,2018,,0,1
+GF-11,Gao Fen,SunSync,Operational,2018,,0,1
+GF-5,Gao Fen,SunSync,Inactive,2018,2020,0,1
+GF-6,Gao Fen,SunSync,Operational,2018,,0,1
+GOES-17,Geostationary Operational Environmental Satellite - 3rd generation,GEO,Stand-by,2018,,1,1
+GOSAT-2,Greenhouse gas Observing Satellite,SunSync,Operational,2018,,0,1
+GRACE C (GRACE-FO),Gravity Recovery and Climate Experiment,DRIFT,Operational,2018,,0,1
+GRACE D (GRACE-FO),Gravity Recovery and Climate Experiment,DRIFT,Operational,2018,,0,1
+HY-1C,Hai Yang 1,SunSync,Operational,2018,,0,1
+HY-2B,Hai Yang 2,SunSync,Operational,2018,,0,1
+HySIS,Hyper Spectral Imaging Spectrometer,SunSync,Operational,2018,,0,1
+ICESat-2,"Ice, Cloud and land Elevation Satellite",DRIFT,Operational,2018,,0,1
+ICEYE,ICEYE,SunSync,Operational,2018,,0,1
+ISS ASIM,International Space Station,DRIFT,Operational,2018,,0,1
+ISS DESIS,International Space Station,DRIFT,Operational,2018,,0,1
+ISS ECOSTRESS,International Space Station,DRIFT,Operational,2018,,0,1
+ISS GEDI,International Space Station,DRIFT,Operational,2018,,0,1
+ISS RainCube,International Space Station,DRIFT,Inactive,2018,2020,0,1
+ISS TEMPEST-D,International Space Station,DRIFT,Inactive,2018,2021,0,1
+KANOPUS-V3,KANOPUS Vulkan,SunSync,Operational,2018,,0,1
+KANOPUS-V4,KANOPUS Vulkan,SunSync,Operational,2018,,0,1
+KANOPUS-V5,KANOPUS Vulkan,SunSync,Operational,2018,,0,1
+KANOPUS-V6,KANOPUS Vulkan,SunSync,Operational,2018,,0,1
+Metop-C,EUMETSAT Polar System,SunSync,Operational,2018,,1,1
+Mohammed VI-B,Mohammed VI,SunSync,Operational,2018,,0,1
+NovaSAR-S,NovaSAR-S,SunSync,Operational,2018,,0,1
+Parker Solar Probe,Parker Solar Probe,Solar,Operational,2018,,0,1
+SAOCOM-1A,SAtélite Argentino de Observación COn Microondas,SunSync,Operational,2018,,0,1
+SEOSAR/Paz,Satélite Español de Observación SAR (also Paz),SunSync,Operational,2018,,0,1
+SES-14,Société Européenne des Satellites,GEO,Presumably inactive,2018,2022,0,1
+SSTL-S1 4,Beijing-2 Constellation,SunSync,Operational,2018,,0,1
+Sentinel-3B,Sentinel-3,SunSync,Operational,2018,,0,1
+SkySat-14,Sky Satellite,SunSync,Operational,2018,,0,1
+SkySat-15,Sky Satellite,SunSync,Operational,2018,,0,1
+SuperView-3,SuperView also known as GaoJing,SunSync,Operational,2018,,0,1
+SuperView-4,SuperView also known as GaoJing,SunSync,Operational,2018,,0,1
+Yunhai-2,Yunhai,DRIFT,Operational,2018,,0,1
+BlackSky-3,BlackSky Global Commercial Imaging Constellation,SunSync,Operational,2019,,0,1
+BlackSky-4,BlackSky Global Commercial Imaging Constellation,SunSync,Operational,2019,,0,1
+CBERS-4B,China-Brazil Earth Resources Satellite,SunSync,Operational,2019,,0,1
+COSMIC-2,"Constellation Observing System for Meteorology, Ionosphere & Climate",DRIFT,Operational,2019,,0,1
+CSG-1,COSMO-SkyMed Second Generation,SunSync,Operational,2019,,0,1
+CartoSat-3,Satellite for Cartography,SunSync,Operational,2019,,0,1
+EDRS-C,European Data Relay System,GEO,Operational,2019,,0,1
+EWS-G1,Electro-optical Infrared Weather System-Geostationary mission,GEO,Inactive,2019,2024,1,1
+EgyptSat-A,EgyptSat,SunSync,Operational,2019,,0,1
+Electro-L N3,Electro,GEO,Operational,2019,,1,1
+Falcon-Eye 1,Falcon-Eye,SunSync,Inactive,2019,2019,0,1
+GF-10,Gao Fen,SunSync,Operational,2019,,0,1
+GF-12,Gao Fen,SunSync,Operational,2019,,0,1
+GF-7,Gao Fen,SunSync,Operational,2019,,0,1
+ICON, Ionospheric Connection Explorer ,DRIFT,Inactive,2019,2022,0,1
+ISS HISUI,International Space Station,DRIFT,Operational,2019,,0,1
+ISS OCO-3,Orbiting Carbon Observatory ,DRIFT,Operational,2019,,0,1
+Jilin-1,Jilin,SunSync,Operational,2019,,0,1
+Meteor-M N2-2,Meteor-3M,SunSync,Inactive,2019,2025,1,1
+PRISMA,PRecursore IperSpettrale della Missione Applicativa,SunSync,Operational,2019,,0,1
+RCM-1,RadarSat Constellation Mission,SunSync,Operational,2019,,0,1
+RCM-2,RadarSat Constellation Mission,SunSync,Operational,2019,,0,1
+RCM-3,RadarSat Constellation Mission,SunSync,Operational,2019,,0,1
+RISAT-2B,Radar Imaging Satellite,DRIFT,Operational,2019,,0,1
+RISAT-2BR1,Radar Imaging Satellite,DRIFT,Operational,2019,,0,1
+ZY-1-2D,Zi Yuan 1-2,SunSync,Operational,2019,,0,1
+BlackSky-5,BlackSky Global Commercial Imaging Constellation,SunSync,Operational,2020,,0,1
+BlackSky-6,BlackSky Global Commercial Imaging Constellation,SunSync,Operational,2020,,0,1
+EOS-01,Radar Imaging Satellite,DRIFT,Operational,2020,,0,1
+Falcon-Eye 2,Falcon-Eye,SunSync,Operational,2020,,0,1
+GEO-KOMPSAT-2B,"Communication, Oceanography and Meteorology Satellite",GEO,Operational,2020,,0,1
+GF-11-02,Gao Fen,SunSync,Operational,2020,,0,1
+GF-13,Gao Fen,GEO,Operational,2020,,0,1
+GF-14,Gao Fen,SunSync,Operational,2020,,0,1
+GF-9-02,Gao Fen,SunSync,Operational,2020,,0,1
+GF-9-03,Gao Fen,SunSync,Operational,2020,,0,1
+GF-9-04,Gao Fen,SunSync,Operational,2020,,0,1
+GF-9-05,Gao Fen,SunSync,Operational,2020,,0,1
+GNOMES-1,GNSS Navigation and Occultation Measurement Satellites,SunSync,Inactive,2020,2021,0,1
+HJ-2A,Huan Jing,SunSync,Operational,2020,,0,1
+HJ-2B,Huan Jing,SunSync,Operational,2020,,0,1
+HRMIS,High Resolution Multi-mode Imaging Satellite,SunSync,Operational,2020,,0,1
+HY-1D,Hai Yang 1,SunSync,Operational,2020,,0,1
+HY-2C,Hai Yang 2,DRIFT,Operational,2020,,0,1
+SAOCOM-1B,SAtélite Argentino de Observación COn Microondas,SunSync,Operational,2020,,0,1
+Sentinel-6A,Sentinel-6,DRIFT,Operational,2020,,0,1
+SkySat-16,Sky Satellite,SunSync,Operational,2020,,0,1
+SkySat-17,Sky Satellite,SunSync,Operational,2020,,0,1
+SkySat-18,Sky Satellite,SunSync,Operational,2020,,0,1
+SkySat-19,Sky Satellite,SunSync,Operational,2020,,0,1
+SkySat-20,Sky Satellite,SunSync,Operational,2020,,0,1
+SkySat-21,Sky Satellite,SunSync,Operational,2020,,0,1
+Solar Orbiter,Solar Orbiter,Solar,Operational,2020,,0,1
+StriX-α,StriX,SunSync,Inactive,2020,2024,0,1
+ZY-3-03,Zi Yuan - 3,SunSync,Operational,2020,,0,1
+Amazônia-1,Amazônia,SunSync,Operational,2021,,0,1
+Arctica-M N1,Arctica in Molniya orbit,Molniya,Operational,2021,,1,1
+Aurora,Global Hyperspectral Observation Satellite,SunSync,Operational,2021,,0,1
+BlackSky-10,BlackSky Global Commercial Imaging Constellation,SunSync,Operational,2021,,0,1
+BlackSky-11,BlackSky Global Commercial Imaging Constellation,SunSync,Operational,2021,,0,1
+BlackSky-12,BlackSky Global Commercial Imaging Constellation,SunSync,Operational,2021,,0,1
+BlackSky-13,BlackSky Global Commercial Imaging Constellation,SunSync,Operational,2021,,0,1
+BlackSky-14,BlackSky Global Commercial Imaging Constellation,DRIFT,Operational,2021,,0,1
+BlackSky-15,BlackSky Global Commercial Imaging Constellation,DRIFT,Operational,2021,,0,1
+BlackSky-7,BlackSky Global Commercial Imaging Constellation,SunSync,Operational,2021,,0,1
+CAS 500-1,Korea Multi-Purpose Satellite,SunSync,Operational,2021,,0,1
+FY-3E,Feng-Yun - 3,SunSync,Operational,2021,,1,1
+FY-4B,Feng-Yun - 4,GEO,Operational,2021,,1,1
+GF-11-03,Gao Fen,SunSync,Operational,2021,,0,1
+GF-12-02,Gao Fen,SunSync,Operational,2021,,0,1
+GF-3(02) or CSAR-01,Gao Fen,SunSync,Operational,2021,,0,1
+GF-5-02,Gao Fen,SunSync,Operational,2021,,0,1
+GNOMES-2,GNSS Navigation and Occultation Measurement Satellites,SunSync,Presumably inactive,2021,2026,0,1
+HY-2D,Hai Yang 2,DRIFT,Operational,2021,,0,1
+ISS COWVR,International Space Station,DRIFT,Operational,2021,,0,1
+ISS GARI,International Space Station,DRIFT,Inactive,2021,2023,0,1
+ISS TEMPEST-1,International Space Station,DRIFT,Inactive,2021,2024,0,1
+Landsat-9,Landsat Data Continuity Mission,SunSync,Operational,2021,,0,1
+Pléiades-Neo 3,Pléiades Neo,SunSync,Operational,2021,,0,1
+Pléiades-Neo 4,Pléiades Neo,SunSync,Operational,2021,,0,1
+SDGSAT-1,Sustainable Development Science Satellite,SunSync,Operational,2021,,0,1
+TROPICS-01 (Pathfinder),Time-Resolved Observations of Precipitation structure and storm Intensity with a Constellation of Smallsats,SunSync,Inactive,2021,2023,0,1
+ASO-S (Kuafu-1),Advanced Space-based Solar Observatory,SunSync,Operational,2022,,0,1
+Argos-4 (GAzelle),Argos Data Collection System,SunSync,Operational,2022,,0,1
+BlackSky-16,BlackSky Global Commercial Imaging Constellation,DRIFT,Operational,2022,,0,1
+BlackSky-17,BlackSky Global Commercial Imaging Constellation,DRIFT,Operational,2022,,0,1
+CICERO-2,Community Initiative for Continuing Earth Radio Occultation,SunSync,Operational,2022,,0,1
+CSG-2,COSMO-SkyMed Second Generation,SunSync,Operational,2022,,0,1
+CTIM-FD,Compact Total Irradiance Monitor-Flight Demonstration,DRIFT,Inactive,2022,2024,0,1
+DQ-1,Gao Fen,SunSync,Operational,2022,,0,1
+EOS-04,Radar Imaging Satellite,SunSync,Operational,2022,,0,1
+EnMAP,Environmental Mapping and Analysis Programme,SunSync,Operational,2022,,0,1
+GF-11-04,Gao Fen,SunSync,Operational,2022,,0,1
+GF-12-03,Gao Fen,SunSync,Operational,2022,,0,1
+GF-3(03) or CSAR-02,Gao Fen,SunSync,Operational,2022,,0,1
+GF-5-01A,Gao Fen,SunSync,Operational,2022,,0,1
+GNOMES-3,GNSS Navigation and Occultation Measurement Satellites,SunSync,Presumably inactive,2022,2027,0,1
+GOES-18,Geostationary Operational Environmental Satellite - 3rd generation,GEO,Operational,2022,,1,1
+HJ-2E,Huan Jing,SunSync,Operational,2022,,0,1
+HOTBIRD 13F,European Data Relay System,GEO,Operational,2022,,0,1
+HOTBIRD 13G,European Data Relay System,GEO,Operational,2022,,0,1
+ISS EMIT,International Space Station,DRIFT,Operational,2022,,0,1
+LARES-2,Laser RElativity Satellite,DRIFT,Operational,2022,,0,1
+Ludi-Tance 1 01A,L-band differential interferometric synthetic aperture radar satellites,SunSync,Operational,2022,,0,1
+Ludi-Tance 1 01B,L-band differential interferometric synthetic aperture radar satellites,SunSync,Operational,2022,,0,1
+MATS,Mesospheric Airglow/Aerosol Tomography and Spectroscopy,SunSync,Operational,2022,,0,1
+MIMAN,Monochrome Imaging for Monitoring Aerosol by Nanosatellite (Cubesatyonsei),SunSync,Operational,2022,,0,1
+Meteosat-12,"Meteosat Third Generation (MTG) - “I” imaging, “S” sounding",GEO,Operational,2022,,1,1
+NACHOS-1,Nano-satellite Atmospheric Chemistry Hyperspectral Observation System,DRIFT,Inactive,2022,2024,0,1
+NACHOS-2,Nano-satellite Atmospheric Chemistry Hyperspectral Observation System,DRIFT,Operational,2022,,0,1
+NOAA-21,Joint Polar Satellite System,SunSync,Operational,2022,,1,1
+OceanSat-3 (EOS-06),Satellite for the Ocean,SunSync,Operational,2022,,0,1
+SICH-2-30,SICH 2,SunSync,Operational,2022,,0,1
+SWOT,Surface Water and Ocean Topography,DRIFT,Operational,2022,,0,1
+StriX-1,StriX,SunSync,Operational,2022,,0,1
+StriX-β,StriX,SunSync,Operational,2022,,0,1
+SuperView Neo-1 01,SuperView also known as GaoJing,SunSync,Operational,2022,,0,1
+SuperView Neo-1 02,SuperView also known as GaoJing,SunSync,Operational,2022,,0,1
+SuperView Neo-2 01,SuperView also known as GaoJing,SunSync,Operational,2022,,0,1
+SuperView Neo-2 02,SuperView also known as GaoJing,SunSync,Operational,2022,,0,1
+Yunhai-3,Yunhai,SunSync,Operational,2022,,0,1
+Aditya-1,"Aditya
+",L1,Operational,2023,,0,1
+Arctica-M N2,Arctica in Molniya orbit,Molniya,Operational,2023,,1,1
+BlackSky-18,BlackSky Global Commercial Imaging Constellation,DRIFT,Operational,2023,,0,1
+BlackSky-19,BlackSky Global Commercial Imaging Constellation,DRIFT,Operational,2023,,0,1
+EOS-07,Indian Microsat,DRIFT,Operational,2023,,0,1
+EWS-G2,Electro-optical Infrared Weather System-Geostationary mission,GEO,Operational,2023,,1,1
+Electro-L N4,Electro,GEO,Operational,2023,,1,1
+FY-3F,Feng-Yun - 3,SunSync,Operational,2023,,1,1
+FY-3G,Feng-Yun - 3,DRIFT,Operational,2023,,1,1
+GF-12-04,Gao Fen,SunSync,Operational,2023,,0,1
+GF-13-02,Gao Fen,GEO,Operational,2023,,0,1
+GHOSt-1,Global Hyperspectral Observation Satellite,SunSync,Operational,2023,,0,1
+GHOSt-2,Global Hyperspectral Observation Satellite,SunSync,Operational,2023,,0,1
+GHOSt-3,Global Hyperspectral Observation Satellite,SunSync,Operational,2023,,0,1
+GNOMES-4,GNSS Navigation and Occultation Measurement Satellites,SunSync,Operational,2023,,0,1
+HJ-2F,Huan Jing,SunSync,Operational,2023,,0,1
+HOTSAT-1,HOTSAT,SunSync,Inactive,2023,2023,0,1
+HY-3A (HY-1E),Hai Yang 3,SunSync,Operational,2023,,0,1
+Kondor-FKA 1,Kondor-Experimental SAR Spacecraft,SunSync,Operational,2023,,0,1
+Ludi-Tance 4 01A,L-band differential interferometric synthetic aperture radar satellites,GeoSync,Operational,2023,,0,1
+Meteor-M N2-3,Meteor-3M,SunSync,Operational,2023,,1,1
+MuSat-1,MuSat Constellation,SunSync,Inactive,2023,2024,0,1
+PIESAT-1,NUWA-1 SAR Constellation,SunSync,Operational,2023,,0,1
+PRETTY,Passive Reflectometry and Dosimetry,SunSync,Operational,2023,,0,1
+PROBA-V-CC,Project for On-Board Autonomy,SunSync,Operational,2023,,0,1
+Pelican,Pelican,SunSync,Operational,2023,,0,1
+QPS-SAR 5,Q-shu Pioneers of Space - Synthetic Aperture Radar,DRIFT,Operational,2023,,0,1
+QPS-SAR 6,Q-shu Pioneers of Space - Synthetic Aperture Radar,SunSync,Operational,2023,,0,1
+TEMPO,"Tropospheric Emissions: Monitoring of Pollution
+
+",GEO,Operational,2023,,0,1
+THEOS-2 Main,Thailand Earth Observation System,SunSync,Operational,2023,,0,1
+TRITON ,"Constellation Observing System for Meteorology, Ionosphere & Climate",SunSync,Operational,2023,,0,1
+TROPICS-03,Time-Resolved Observations of Precipitation structure and storm Intensity with a Constellation of Smallsats,DRIFT,Inactive,2023,2025,0,1
+TROPICS-05,Time-Resolved Observations of Precipitation structure and storm Intensity with a Constellation of Smallsats,DRIFT,Inactive,2023,2025,0,1
+TROPICS-06,Time-Resolved Observations of Precipitation structure and storm Intensity with a Constellation of Smallsats,DRIFT,Inactive,2023,2025,0,1
+TROPICS-07,Time-Resolved Observations of Precipitation structure and storm Intensity with a Constellation of Smallsats,DRIFT,Inactive,2023,2023,0,1
+Tianmu-1,Tianmu Beidou radio occultation programme.,SunSync,Operational,2023,,0,1
+Tomorrow-R1,Tomorrow.io constellation,SunSync,Inactive,2023,2023,0,1
+Tomorrow-R2,Tomorrow.io constellation,SunSync,Inactive,2023,2026,0,1
+ALOS-4 (DAICHI-4),Advanced Land Observing Satellite,SunSync,Operational,2024,,0,1
+AWS PFM,Arctic Weather Satellite,SunSync,Operational,2024,,1,1
+EOS-08,Indian Microsat,DRIFT,Operational,2024,,0,1
+EarthCARE,"Earth Clouds, Aerosol and Radiation Explorer",SunSync,Operational,2024,,0,1
+GF-11-05,Gao Fen,SunSync,Operational,2024,,0,1
+GF-12-05,Gao Fen,SunSync,Operational,2024,,0,1
+GHOSt-4,Global Hyperspectral Observation Satellite,SunSync,Operational,2024,,0,1
+GHOSt-5,Global Hyperspectral Observation Satellite,SunSync,Operational,2024,,0,1
+GNOMES-5,GNSS Navigation and Occultation Measurement Satellites,SunSync,Operational,2024,,0,1
+GOES-19,Geostationary Operational Environmental Satellite - 3rd generation,GEO,Operational,2024,,1,1
+HY-4A (or HY-2S),Hai Yang 4,SunSync,Operational,2024,,0,1
+INSAT-3DS,Indian National Satellite - 3,GEO,Operational,2024,,1,1
+Ionosfera-M N1 & N2,Ionozond,SunSync,Operational,2024,,0,1
+Kondor-FKA 2,Kondor-Experimental SAR Spacecraft,SunSync,Operational,2024,,0,1
+Meteor-M N2-4,Meteor-3M,SunSync,Operational,2024,,1,1
+MethaneSAT,MethaneSAT,SunSync,Inactive,2024,2025,0,1
+MuSat-2,MuSat Constellation,SunSync,Operational,2024,,0,1
+NEONSAT-1,New-space Earth Observation Satellite,SunSync,Commissioning,2024,,0,1
+PACE,Pre-ACE (ACE = Aerosol-Cloud Ecosystems),SunSync,Operational,2024,,0,1
+PIESAT-2,NUWA-1 SAR Constellation,SunSync,Operational,2024,,0,1
+PREFIRE-1,Polar Radiant Energy in the Far-InfraRed Experiment,SunSync,Operational,2024,,0,1
+PREFIRE-2,Polar Radiant Energy in the Far-InfraRed Experiment,SunSync,Operational,2024,,0,1
+PROBA-3C,Project for On-Board Autonomy,Molniya,Operational,2024,,0,1
+PROBA-3O,Project for On-Board Autonomy,Molniya,Operational,2024,,0,1
+QPS-SAR 7,Q-shu Pioneers of Space - Synthetic Aperture Radar,DRIFT,Operational,2024,,0,1
+QPS-SAR 8,Q-shu Pioneers of Space - Synthetic Aperture Radar,SunSync,Operational,2024,,0,1
+Resurs-P4,Resurs-P,SunSync,Operational,2024,,0,1
+Resurs-P5,Resurs-P,SunSync,Operational,2024,,0,1
+Sentinel-1C,Sentinel-1,SunSync,Operational,2024,,0,1
+Sentinel-2C,Sentinel-2,SunSync,Operational,2024,,0,1
+StriX-2,StriX,SunSync,Operational,2024,,0,1
+StriX-3,StriX,SunSync,Operational,2024,,0,1
+StriX-4,StriX,DRIFT,Operational,2024,,0,1
+SuperView Neo-2 03,SuperView also known as GaoJing,SunSync,Operational,2024,,0,1
+SuperView Neo-2 04,SuperView also known as GaoJing,SunSync,Operational,2024,,0,1
+SuperView Neo-3-01,SuperView also known as GaoJing,SunSync,Operational,2024,,0,1
+Tanager-1,Tanager,SunSync,Operational,2024,,0,1
+Tomorrow-S1,Tomorrow.io constellation,SunSync,Operational,2024,,0,1
+Tomorrow-S2,Tomorrow.io constellation,SunSync,Operational,2024,,0,1
+Tomorrow-S3,Tomorrow.io constellation,DRIFT,Operational,2024,,0,1
+Tomorrow-S4,Tomorrow.io constellation,DRIFT,Operational,2024,,0,1
+WSF-M1,Weather System Follow-on,SunSync,Operational,2024,,1,1
+WorldView Legion-1,WorldView,SunSync,Operational,2024,,0,1
+WorldView Legion-2,WorldView,SunSync,Operational,2024,,0,1
+WorldView Legion-3,WorldView,DRIFT,Operational,2024,,0,1
+WorldView Legion-4,WorldView,DRIFT,Operational,2024,,0,1
+XCUBE-1,XCUBE,DRIFT,Operational,2024,,0,1
+YunYao-1,YunYao Aerospace Constellation,SunSync,Operational,2024,,0,1
+Φsat-2,Development of innovative technologies,SunSync,Operational,2024,,0,1
+BIOMASS,BIOMASS,SunSync,Operational,2025,,0,1
+BlackSky-20 (Gen3-1),BlackSky Global Commercial Imaging Constellation,DRIFT,Operational,2025,,0,1
+BlackSky-21 (Gen3-2),BlackSky Global Commercial Imaging Constellation,DRIFT,Operational,2025,,0,1
+BlackSky-22 (Gen3-3),BlackSky Global Commercial Imaging Constellation,DRIFT,Operational,2025,,0,1
+Carruthers,Carruthers Geocorona Observatory,L1,Commissioning,2025,,0,1
+EAGLET-II,IRIDE,SunSync,Commissioning,2025,,0,1
+EDC,EarthDaily,SunSync,Commissioning,2025,,0,1
+FY-3H,Feng-Yun - 3,SunSync,Commissioning,2025,,1,1
+FY-4C,Feng-Yun - 4,GEO,Commissioning,2025,,1,1
+FireSat-Pathfinder,MuSat Constellation,SunSync,Operational,2025,,0,1
+GF-14-02,Gao Fen,SunSync,Operational,2025,,0,1
+GOSAT-GW,Greenhouse gas Observing Satellite,SunSync,Operational,2025,,0,1
+HEO,IRIDE,SunSync,Operational,2025,,0,1
+HydroGNSS-1,Hydro Global Navigation Satellite System,SunSync,Commissioning,2025,,0,1
+HydroGNSS-2,Hydro Global Navigation Satellite System,SunSync,Commissioning,2025,,0,1
+IMAP,Interstellar Mapping and Acceleration Probe,L1,Commissioning,2025,,0,1
+Ionosfera-M N3 & N4,Ionozond,SunSync,Operational,2025,,0,1
+KOMPSAT-7,Korea Multi-Purpose Satellite,SunSync,Commissioning,2025,,0,1
+MTG-S1,"Meteosat Third Generation (MTG) - “I” imaging, “S” sounding",GEO,Commissioning,2025,,1,1
+Metop-SG-A1,EPS Second Generation,SunSync,Commissioning,2025,,1,1
+MicroCarb,MicroCarb,SunSync,Operational,2025,,0,1
+NISAR,NASA-ISRO Synthetic Aperture Radar,SunSync,Operational,2025,,0,1
+Obzor-R N1,Operative Monitoring Satellite - Radar,SunSync,Commissioning,2025,,0,1
+PUNCH,Polarimeter to UNify the Corona and Heliosphere,SunSync,Operational,2025,,0,1
+QPS-SAR 10,Q-shu Pioneers of Space - Synthetic Aperture Radar,DRIFT,Operational,2025,,0,1
+QPS-SAR 11,Q-shu Pioneers of Space - Synthetic Aperture Radar,DRIFT,Operational,2025,,0,1
+QPS-SAR 12,Q-shu Pioneers of Space - Synthetic Aperture Radar,DRIFT,Operational,2025,,0,1
+QPS-SAR 14,Q-shu Pioneers of Space - Synthetic Aperture Radar,DRIFT,Operational,2025,,0,1
+QPS-SAR 15,Q-shu Pioneers of Space - Synthetic Aperture Radar,DRIFT,Operational,2025,,0,1
+QPS-SAR 9,Q-shu Pioneers of Space - Synthetic Aperture Radar,DRIFT,Operational,2025,,0,1
+SOLAR-L1,Space Weather Follow-On,L1,Operational,2025,,0,1
+Sentinel-1D,Sentinel-1,SunSync,Operational,2025,,0,1
+Sentinel-6B,Sentinel-6,DRIFT,Operational,2025,,0,1
+StriX-5,StriX,DRIFT,Operational,2025,,0,1
+TRACERS,Tandem Reconnection and Cusp Electrodynamics Reconnaissance Satellites,SunSync,Operational,2025,,0,1
+Tomorrow-S5,Tomorrow.io constellation,SunSync,Operational,2025,,0,1
+Tomorrow-S6,Tomorrow.io constellation,SunSync,Operational,2025,,0,1
+Tomorrow-S7,Tomorrow.io constellation,DRIFT,Operational,2025,,0,1
+Tomorrow-S8,Tomorrow.io constellation,DRIFT,Operational,2025,,0,1
+Tomorrow-S9,Tomorrow.io constellation,DRIFT,Operational,2025,,0,1
+UVSQ-NG,International Satellite Program in Research and Education ,SunSync,Operational,2025,,0,1
+WorldView Legion-5,WorldView,DRIFT,Operational,2025,,0,1
+WorldView Legion-6,WorldView,DRIFT,Operational,2025,,0,1
+YAM-8,GNSS Navigation and Occultation Measurement Satellites,SunSync,Operational,2025,,0,1
+AlSat-3A,Algeria Satellite,SunSync,Commissioning,2026,,0,1
+AlSat-3B,Algeria Satellite,SunSync,Commissioning,2026,,0,1
+BlackSky-23 (Gen3-4),BlackSky Global Commercial Imaging Constellation,DRIFT,Operational,2026,,0,1
+BlackSky-24 (Gen3-5),BlackSky Global Commercial Imaging Constellation,DRIFT,Commissioning,2026,,0,1
+CAS 500-2,Korea Multi-Purpose Satellite,SunSync,Commissioning,2026,,0,1
+CAS 500-4,Korea Multi-Purpose Satellite,SunSync,Commissioning,2026,,0,1
+CSG-3,COSMO-SkyMed Second Generation,SunSync,Operational,2026,,0,1
+DQ-2,Gao Fen,SunSync,Commissioning,2026,,0,1
+EOS 05 (GISAT-1A),Geostationary High Resolution Imager,GEO,Commissioning,2026,,0,1
+Electro-L N5,Electro,GEO,Commissioning,2026,,1,1
+FLEX,FLuorescence EXplorer,SunSync,Commissioning,2026,,0,1
+FireSat-1,MuSat Constellation,SunSync,Commissioning,2026,,0,1
+FireSat-2,MuSat Constellation,SunSync,Commissioning,2026,,0,1
+FireSat-3,MuSat Constellation,SunSync,Commissioning,2026,,0,1
+GEMS2- Amethyst,Global Environmental Monitoring System – 2nd Generation,SunSync,Commissioning,2026,,0,1
+GF-3D-55,Jilin,SunSync,Commissioning,2026,,0,1
+HOTSAT-2,HOTSAT,SunSync,Operational,2026,,0,1
+HY-2E,Hai Yang 2,SunSync,Commissioning,2026,,0,1
+HYMS IOD,Hyperspectral Microwave Sounder,SunSync,Commissioning,2026,,0,1
+ISS CLARREO-PF,International Space Station,DRIFT,Commissioning,2026,,0,1
+MTG-I2,"Meteosat Third Generation (MTG) - “I” imaging, “S” sounding",GEO,Commissioning,2026,,1,1
+NEONSAT-1A,New-space Earth Observation Satellite,SunSync,Operational,2026,,0,1
+QPS-SAR 13,Q-shu Pioneers of Space - Synthetic Aperture Radar,DRIFT,Commissioning,2026,,0,1
+QPS-SAR 18,Q-shu Pioneers of Space - Synthetic Aperture Radar,DRIFT,Commissioning,2026,,0,1
+SMILE,Solar Wind Magnetosphere Ionosphere Link Explorer ,MAG,Commissioning,2026,,0,1
+Sentinel-3C,Sentinel-3,SunSync,Commissioning,2026,,0,1
+StriX-10,StriX,DRIFT,Commissioning,2026,,0,1
+StriX-12,StriX,DRIFT,Commissioning,2026,,0,1
+StriX-6,StriX,DRIFT,Operational,2026,,0,1
+StriX-7,StriX,DRIFT,Operational,2026,,0,1
+StriX-8,StriX,DRIFT,Operational,2026,,0,1
+StriX-9,StriX,DRIFT,Commissioning,2026,,0,1
+Tomorrow-S10,Tomorrow.io constellation,SunSync,Operational,2026,,0,1
+Tomorrow-S11,Tomorrow.io constellation,SunSync,Operational,2026,,0,1

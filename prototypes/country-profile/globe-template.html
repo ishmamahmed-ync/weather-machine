@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Lifetime of Weather</title>
+<style>
+  /* same palette and type as the main site (site-src/template.html, LOOK) */
+  :root{
+    --bg:#05080E; --text:#ECEAE5; --muted:#8B95A1; --faint:#5C6773; --line:rgba(236,234,229,.55); --hair:rgba(236,234,229,.14);
+    --red:#E8433F; --yellow:#F2C744; --violet:#B98CE0; --blue:#45B0CE; --amber:#FFB547; --teal:#3FB6A8;
+    --sans:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+    --disp:"Space Grotesk","IBM Plex Sans",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0; background:var(--bg); color:var(--text); font:15px/1.55 var(--sans); overflow:hidden}
+
+  .stage{height:100%; display:grid; grid-template-columns:minmax(0,45fr) minmax(0,55fr); padding:6vh 4vw 5vh}
+
+  /* ---------- left: title, sentence, four bars on one scale ---------- */
+  .left{display:flex; flex-direction:column; min-height:0; padding-right:3vw}
+  h1{font:400 clamp(2rem,3.6vw,3.6rem)/1.12 var(--disp); letter-spacing:-.02em; margin:0}
+  .say{font-size:clamp(.92rem,1.05vw,1.05rem); line-height:1.5; max-width:46ch; margin:2.4vh 0 0; color:#D9D6CF}
+  .say b{font-weight:500; color:var(--text)}
+  .fine{color:var(--faint); font-size:.74rem; margin:.8vh 0 0; max-width:60ch}
+
+  /* every bar shares one scale: the largest of the eight values fills the width */
+  .bars{display:flex; flex-direction:column; gap:2.6vh; margin-top:3.6vh; width:100%; max-width:560px}
+  .bar h2{font:600 10.5px var(--sans); letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin:0}
+  .bar .nums{display:flex; align-items:baseline; flex-wrap:wrap; gap:.15rem .7rem; margin:.2rem 0 .5rem}
+  .bar .v{font:500 clamp(1.1rem,1.6vw,1.45rem)/1.1 var(--disp); letter-spacing:-.015em; font-variant-numeric:tabular-nums}
+  .bar .v small{font-size:.6em; margin-left:.15em; opacity:.85}
+  .bar .r, .bar .f{color:var(--muted); font-size:.78rem; font-variant-numeric:tabular-nums}
+  .btrack{position:relative; display:flex; flex-direction:column; gap:3px; padding-bottom:4px}
+  .btrack::after{content:""; position:absolute; left:0; right:0; bottom:0; height:1px; background:rgba(236,234,229,.14)}   /* 100% */
+  .btrack .mine, .btrack .ref{height:10px; min-width:0; border-radius:1px; transition:width .5s ease; position:relative; overflow:hidden}
+  .btrack .ref{height:6px; border:1px solid #ECEAE5; box-sizing:border-box}
+  .btrack .fl{position:absolute; left:0; top:0; bottom:0; transition:width .5s ease}
+  .scale{color:var(--faint); font-size:.74rem; margin:1.4vh 0 0; max-width:60ch}
+
+  .key{display:flex; gap:1.4rem; justify-content:flex-start; flex-wrap:wrap; font:600 10px var(--sans); letter-spacing:.08em;
+    text-transform:uppercase; color:var(--muted); margin-top:1.4vh}
+  .key span{display:flex; align-items:center; gap:.45rem}
+  .key i{width:18px; height:8px; border-radius:1px; flex:none; box-sizing:border-box}
+
+  /* ---------- right: inputs, toggle, globe, threshold bar ---------- */
+  .right{display:grid; grid-template-columns:minmax(0,1fr) 120px; grid-template-rows:auto auto minmax(0,1fr); min-height:0}
+  /* three fields, each just a white line underneath; the placeholder IS the label */
+  .inputs{grid-column:1 / -1; display:grid; grid-template-columns:1.3fr 1fr 1.3fr; gap:2vw}
+  .inputs select, .inputs input{-webkit-appearance:none; appearance:none; background:transparent; color:var(--text);
+    border:0; border-bottom:1px solid var(--line); border-radius:0; padding:.5rem 0 .55rem; font:400 1.05rem var(--sans);
+    color-scheme:dark; outline:none; min-width:0; width:100%; cursor:pointer}
+  .inputs select:focus, .inputs input:focus{border-bottom-color:var(--text)}
+  .inputs select:invalid, .inputs input:placeholder-shown{color:var(--muted)}
+  .inputs input::placeholder{color:var(--muted); opacity:1}
+  .inputs select option{background:#0B111A; color:var(--text)}
+  .inputs input.bad{border-bottom-color:var(--red)}
+  .toggle{grid-column:1 / -1; justify-self:end; display:flex; gap:6px; margin-top:1.6vh}
+  /* same as the main site's Story / Explore switch */
+  .toggle button{background:none; color:var(--muted); border:1px solid var(--line); border-radius:2px;
+    padding:.38rem .95rem; font:500 .82rem var(--sans); cursor:pointer}
+  .toggle button.on{background:#ECEAE5; color:#0B111A; border-color:#ECEAE5}
+
+  .globewrap{grid-column:1; grid-row:3; position:relative; min-height:0}
+  .globewrap canvas{position:absolute; inset:0; width:100%; height:100%; display:block}
+  #globe{cursor:grab} #globe:active{cursor:grabbing}
+  #relief{pointer-events:none}
+  .legend{position:absolute; left:0; bottom:0; display:flex; gap:1.2rem; font:600 9.5px var(--sans);
+    letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+  .legend span{display:flex; align-items:center; gap:.4rem}
+  .legend i{width:6px; height:6px; border-radius:50%}
+
+  .meter{grid-column:2; grid-row:3; position:relative; display:flex; justify-content:flex-end; padding:5vh 0 4vh}
+  .track{position:relative; width:10px; height:100%; border:1px solid var(--line)}
+  .fill{position:absolute; left:0; right:0; bottom:0; transition:height .7s ease, background .3s}
+  .mark{position:absolute; right:-6px; width:20px; height:1px; background:var(--text); transition:bottom .7s ease}
+  .mark span{position:absolute; right:26px; bottom:4px; text-align:right; white-space:nowrap;
+    font:600 9.5px/1.35 var(--sans); letter-spacing:.08em; text-transform:uppercase; color:var(--text)}
+  .have{position:absolute; right:24px; transform:translateY(50%); text-align:right; white-space:nowrap; transition:bottom .7s ease}
+  .have b{display:block; font:500 1.25rem/1 var(--disp)}
+  .have span{font-size:.7rem; color:var(--muted); line-height:1.35; display:block; margin-top:.2rem}
+
+  @media (max-width:900px){
+    body{overflow:auto} .stage{height:auto; grid-template-columns:1fr; padding:24px 16px}
+    .left{padding:0} .right{height:90vh; margin-top:24px}
+  }
+</style>
+</head>
+<body>
+<main class="stage">
+  <section class="left">
+    <h1>Pick your country<br>and year of birth</h1>
+    <p class="say" id="say"></p>
+    <p class="fine" id="fine"></p>
+    <div class="bars" id="bars"></div>
+    <p class="scale" id="scale"></p>
+    <div class="key" id="key"></div>
+  </section>
+
+  <section class="right">
+    <div class="inputs">
+      <select id="country" required aria-label="Your country"></select>
+      <input id="born" type="text" inputmode="numeric" maxlength="4" placeholder="Year of birth" aria-label="Year of birth" autocomplete="bday-year">
+      <select id="ref" required aria-label="Reference country"></select>
+    </div>
+    <div class="toggle" role="group" aria-label="Disaster type">
+      <button data-mode="flood" class="on">Flood</button><button data-mode="all">Others</button>
+    </div>
+    <div class="globewrap">
+      <canvas id="relief"></canvas>
+      <canvas id="globe" aria-label="Globe centred on your country, with rain gauges and weather stations"></canvas>
+      <div class="legend">
+        <span><i style="background:var(--blue)"></i>Rain gauges</span>
+        <span><i style="background:var(--amber)"></i>Weather stations</span>
+      </div>
+    </div>
+    <div class="meter">
+      <div class="track"><div class="fill" id="mFill"></div>
+        <div class="mark" id="mMark"><span id="mMarkL"></span></div>
+        <div class="have" id="mHave"><b id="mHaveV"></b><span id="mHaveL"></span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+__D3__
+<script>const RELIEF = "data:image/webp;base64,__RELIEF__";</script>
+<script id="DATA">const DATA = __DATA__;</script>
+<script>
+(function(){
+  const M = DATA.meta, C = DATA.countries, by = {};
+  C.forEach(c => by[c.iso] = c);
+  const LAST = M.em[1];
+  const state = { iso:null, ref:null, born:null, mode:'flood' };    // ref null = the US, shown as "Reference country"
+  try{ Object.assign(state, JSON.parse(localStorage.getItem('wm-profile3') || '{}')); }catch(e){}
+  if(!state.born && state.dob) state.born = +String(state.dob).slice(0, 4);   // earlier versions stored a full date
+  delete state.dob;
+  if(location.hash.length > 1){ const h = location.hash.slice(1).split(','); if(by[h[0]]) state.iso = h[0]; if(by[h[1]]) state.ref = h[1]; }
+  const DEFAULT_REF = 'USA', refIso = () => state.ref || DEFAULT_REF;
+
+  // ---------- controls ----------
+  const selC = document.getElementById('country'), selR = document.getElementById('ref'), yob = document.getElementById('born');
+  const opts = C.map(c => `<option value="${c.iso}">${c.name}</option>`).join('');
+  // the first option is the placeholder: shown until a country is picked, never pickable
+  selC.innerHTML = `<option value="" disabled hidden>Your country</option>` + opts;
+  selR.innerHTML = `<option value="" disabled hidden>Reference country</option>` + opts;
+  selC.value = state.iso || ''; selR.value = state.ref || '';
+  // year of birth: four digits, 1920 to this year. A plain text field: no spinner, no picker.
+  const thisYear = new Date().getFullYear();
+  if(state.born) yob.value = state.born;
+  yob.addEventListener('focus', () => yob.placeholder = 'YYYY');
+  yob.addEventListener('blur',  () => yob.placeholder = 'Year of birth');
+  yob.addEventListener('input', () => {
+    const d = yob.value.replace(/\D/g, '').slice(0, 4);
+    yob.value = d; yob.classList.remove('bad');
+    if(d.length < 4) return;
+    const y = +d;
+    if(y < 1920 || y > thisYear){ yob.classList.add('bad'); return; }
+    state.born = y; update(false);
+  });
+  selC.onchange = () => { state.iso = selC.value; update(true); };
+  selR.onchange = () => { state.ref = selR.value; update(false); };
+  const btns = document.querySelectorAll('.toggle button');
+  btns.forEach(b => b.onclick = () => { state.mode = b.dataset.mode; update(false); });
+
+  // ---------- numbers ----------
+  const fmt = n => Math.round(n).toLocaleString('en-US');
+  const compact = n => n >= 1e9 ? (n/1e9).toFixed(n >= 1e10 ? 0 : 1) + ' billion'
+                    : n >= 1e6 ? (n/1e6).toFixed(n >= 1e7 ? 0 : 1) + ' million' : fmt(n);
+  const big = n => compact(n).replace(/ (million|billion)$/, '<small>$1</small>');
+  // with only a year, the age is this year minus the birth year (it may be one more than
+  // the reader's age before their birthday); the totals count whole calendar years from it
+  function life(){ return { age:Math.max(0, thisYear - state.born), born:state.born }; }
+  const sum = (s, y0, from) => { if(!s) return 0; let t = 0; for(let i = Math.max(0, from - y0); i < s.length; i++) t += s[i]; return t; };
+  function stats(c, born){
+    const fe = Math.max(born, M.em[0]), fd = Math.max(born, M.disp[0]), em = c.em, dp = c.disp, fl = state.mode === 'flood';
+    return {
+      deaths: sum(em && em[fl ? 2 : 0], M.em[0], fe), affected: sum(em && em[fl ? 3 : 1], M.em[0], fe),
+      disp: sum(dp && dp[fl ? 1 : 0], M.disp[0], fd), risk: c.risk || 0,
+      fDeaths: sum(em && em[2], M.em[0], fe), fAffected: sum(em && em[3], M.em[0], fe), fDisp: sum(dp && dp[1], M.disp[0], fd)
+    };
+  }
+
+  // ---------- four bars on ONE scale: the largest of the eight values (four measures x two
+  // countries) fills the width. Solid bar = your country, white outline = the reference.
+  // In "Others" mode the flood part of your bar is solid and the rest faded. ----------
+  const MEASURES = [['deaths', 'Deaths', 'var(--red)'], ['affected', 'Affected', 'var(--yellow)'],
+                    ['risk', 'At risk of a 1-in-100-year flood', 'var(--blue)'], ['disp', 'Displacements', 'var(--violet)']];
+  const pct = (v, m) => v > 0 ? `max(2px, ${(v / m * 100).toFixed(3)}%)` : '0px';      // anything above zero stays visible
+  function bars(s, t, all, cName, rName){
+    const vals = MEASURES.flatMap(([k]) => [s[k], t[k]]), m = Math.max(1, ...vals);
+    const top = MEASURES.flatMap(([k, title]) => [[s[k], title, cName], [t[k], title, rName]]).reduce((a, b) => b[0] > a[0] ? b : a);
+    document.getElementById('bars').innerHTML = MEASURES.map(([k, title, color]) => {
+      const v = s[k], ref = t[k], f = all && k !== 'risk' ? s['f' + k[0].toUpperCase() + k.slice(1)] : null;
+      const fill = f != null ? `color-mix(in srgb, ${color} 42%, transparent)` : color;
+      const share = f != null && v > 0 ? `<span class="f">${Math.round(f / v * 100)}% floods</span>` : '';
+      return `<div class="bar"><h2>${title}</h2>` +
+        `<div class="nums"><span class="v" style="color:${color}">${big(v)}</span>${share}<span class="r">vs ${compact(ref)} in ${rName}</span></div>` +
+        `<div class="btrack"><div class="mine" style="width:${pct(v, m)}; background:${fill}">` +
+        (f != null ? `<div class="fl" style="width:${v > 0 ? (f / v * 100).toFixed(2) : 0}%; background:${color}"></div>` : '') +
+        `</div><div class="ref" style="width:${pct(ref, m)}"></div></div></div>`;
+    }).join('');
+    document.getElementById('scale').textContent =
+      `All bars share one scale: the longest, ${compact(top[0])} (${top[1].toLowerCase()}, ${top[2]}), fills the width.`;
+  }
+
+  function empty(){
+    document.getElementById('say').innerHTML = 'Choose your country and year of birth to see what floods have cost the people around you in your lifetime, and how well your country can see them coming.';
+    document.getElementById('fine').textContent = '';
+    document.getElementById('bars').innerHTML = MEASURES.map(([k, title]) =>
+      `<div class="bar"><h2>${title}</h2><div class="nums"><span class="r">–</span></div><div class="btrack"></div></div>`).join('');
+    document.getElementById('scale').textContent = '';
+    document.getElementById('key').innerHTML = '';
+  }
+
+  function update(move){
+    btns.forEach(x => x.classList.toggle('on', x.dataset.mode === state.mode));
+    document.querySelector('.meter').style.visibility = state.iso ? 'visible' : 'hidden';
+    if(state.iso){ meter(by[state.iso]); focus(state.iso, move); } else draw();
+    try{ localStorage.setItem('wm-profile3', JSON.stringify(state)); }catch(e){}
+    if(state.iso) history.replaceState(null, '', '#' + state.iso + (state.ref ? ',' + state.ref : ''));
+    if(!state.iso || !state.born) return empty();
+    const c = by[state.iso], R = by[refIso()], { age, born } = life(), all = state.mode === 'all';
+    const s = stats(c, born), t = stats(R, born);
+    const kind = all ? 'floods, storms, heat, drought and wildfires' : 'floods';
+    const lead = born < M.em[0] ? `Since ${M.em[0]}, the first year on record in your ${age}-year life,`
+                                : `In the ${age} ${age === 1 ? 'year' : 'years'} since you were born,`;
+    document.getElementById('say').innerHTML =
+      `${lead} ${kind} have killed <b>${compact(s.deaths)}</b> people in ${c.name}, affected <b>${compact(s.affected)}</b> ` +
+      `and forced people from their homes <b>${compact(s.disp)}</b> times.`;
+    document.getElementById('fine').textContent =
+      (born < M.disp[0] ? `Displacement is counted from ${M.disp[0]}, when IDMC's records begin. ` : '') +
+      `Records to ${LAST}. EM-DAT, IDMC GIDD, Rentschler et al. 2022, GHCN-Daily, WMO-No. 168.`;
+
+    bars(s, t, all, c.name, R.name);
+    document.getElementById('key').innerHTML =
+      `<span><i style="background:var(--muted)"></i>${c.name}</span>` +
+      `<span><i style="height:6px; border:1px solid #ECEAE5"></i>${R.name}</span>` +
+      (all ? `<span><i style="background:color-mix(in srgb, var(--muted) 42%, transparent)"></i>Other disasters (faded)</span>` : '');
+
+  }
+
+  // ---------- vertical bar: gauges shared vs the WMO minimum ----------
+  function meter(c){
+    const have = c.gauges, need = c.need, top = Math.max(have, need) * 1.15, ok = have >= need;
+    const fill = document.getElementById('mFill');
+    fill.style.height = (have / top * 100) + '%'; fill.style.background = ok ? 'var(--teal)' : 'var(--amber)';
+    const markPct = need / top * 100;
+    document.getElementById('mMark').style.bottom = markPct + '%';
+    document.getElementById('mMarkL').innerHTML = `WMO threshold<br>${fmt(need)} gauges`;
+    let havePct = Math.min(90, Math.max(5, have / top * 100));
+    if(Math.abs(havePct - markPct) < 14) havePct = markPct > 50 ? markPct - 16 : markPct + 16;   // keep clear of the threshold label
+    document.getElementById('mHave').style.bottom = havePct + '%';
+    document.getElementById('mHaveV').textContent = fmt(have);
+    document.getElementById('mHaveV').style.color = ok ? 'var(--teal)' : 'var(--amber)';
+    const pct = have / need * 100;
+    document.getElementById('mHaveL').innerHTML = `shared<br>${pct > 0 && pct < 1 ? '&lt;1' : fmt(pct)}% of threshold`;
+  }
+
+  // ---------- globe: the main site's sphere (shaded relief, faint graticule, white rim) ----------
+  const cv = document.getElementById('globe'), ctx = cv.getContext('2d');
+  const proj = d3.geoOrthographic().clipAngle(90).precision(0.4), path = d3.geoPath(proj, ctx);
+  const grat = d3.geoGraticule10(), sphere = { type:'Sphere' };
+  const feats = Object.entries(DATA.shapes).map(([iso, polys]) => {
+    const coords = polys.map(p => p.map(r => r.map(([x, y]) => [x / 100, y / 100])));
+    coords.forEach(p => { if(d3.geoArea({type:'Polygon', coordinates:[p[0]]}) > 2 * Math.PI) p.forEach(r => r.reverse()); });
+    return { type:'Feature', id:iso, geometry:{ type:'MultiPolygon', coordinates:coords } };
+  });
+  const featBy = {}; feats.forEach(f => featBy[f.id] = f);
+  const cells = a => { const o = new Float32Array(a.length); for(let i = 0; i < a.length; i++) o[i] = a[i] / 10; return o; };
+  const G = cells(DATA.gaugeCells), S = cells(DATA.stationCells);
+
+  // WebGL relief under the 2D canvas: same shader and tones as the main site
+  const relief = (function(){
+    const el = document.getElementById('relief'), gl = el.getContext('webgl2', { premultipliedAlpha:true, alpha:true });
+    if(!gl) return null;
+    const VS = `#version 300 es
+      in vec2 p; void main(){ gl_Position=vec4(p,0.,1.); }`;
+    const FS = `#version 300 es
+      precision highp float;
+      uniform vec2 uT; uniform float uK, uDpr, uH, uLam, uPhi;
+      uniform sampler2D uTex; out vec4 o;
+      const float PI=3.14159265359;
+      void main(){
+        vec2 sc=vec2(gl_FragCoord.x, uH-gl_FragCoord.y)/uDpr;
+        float x=(sc.x-uT.x)/uK, y=(uT.y-sc.y)/uK, r=sqrt(x*x+y*y);
+        float aa=1.5/(uK*uDpr), inside=1.-smoothstep(1.-aa,1.+aa,r);
+        if(inside<=0.){ o=vec4(0.); return; }
+        float z=sqrt(max(0.,1.-r*r)), cp=cos(uPhi), sp=sin(uPhi);
+        float lam=atan(x, z*cp+y*sp)-uLam, phi=asin(clamp(y*cp-z*sp,-1.,1.));
+        float u=lam/(2.*PI)+.5, v=.5-phi/PI, u2=fract(u+.5);
+        float ux=dFdx(u), ux2=dFdx(u2), uy=dFdy(u), uy2=dFdy(u2);
+        vec2 gx=vec2(abs(ux)<abs(ux2)?ux:ux2, dFdx(v)), gy=vec2(abs(uy)<abs(uy2)?uy:uy2, dFdy(v));
+        float g=textureGrad(uTex, vec2(u,v), gx, gy).r;
+        float land=smoothstep(.43,.50,g), t=clamp((g-.50)/(.84-.50),0.,1.);
+        vec3 ocean=vec3(11.,18.,27.)/255., lo=vec3(20.,23.,27.)/255., hi=vec3(64.,69.,75.)/255.;
+        vec3 col=mix(ocean, mix(lo,hi,t), land)*mix(.45,1.,pow(z,.6));
+        o=vec4(col*inside, inside);
+      }`;
+    const sh = (type, src) => { const x = gl.createShader(type); gl.shaderSource(x, src); gl.compileShader(x);
+      if(!gl.getShaderParameter(x, gl.COMPILE_STATUS)) throw gl.getShaderInfoLog(x); return x; };
+    let prog;
+    try{ prog = gl.createProgram(); gl.attachShader(prog, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(prog);
+         if(!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw gl.getProgramInfoLog(prog); }
+    catch(e){ console.warn('relief off, using flat land:', e); return null; }
+    gl.useProgram(prog);
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    const U = {}; ['uT','uK','uDpr','uH','uLam','uPhi','uTex'].forEach(n => U[n] = gl.getUniformLocation(prog, n));
+    let ready = false, dpr = 1;
+    const img = new Image();
+    img.onload = () => {
+      gl.bindTexture(gl.TEXTURE_2D, gl.createTexture()); gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.R8, gl.RED, gl.UNSIGNED_BYTE, img); gl.generateMipmap(gl.TEXTURE_2D);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.uniform1i(U.uTex, 0); ready = true; draw();
+    };
+    img.src = RELIEF;
+    return {
+      ok: () => ready,
+      size(w, h, d){ dpr = d; el.width = Math.round(w * d); el.height = Math.round(h * d); gl.viewport(0, 0, el.width, el.height); },
+      draw(){
+        const t = proj.translate(), r = proj.rotate();
+        gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.uniform2f(U.uT, t[0], t[1]); gl.uniform1f(U.uK, proj.scale()); gl.uniform1f(U.uDpr, dpr); gl.uniform1f(U.uH, el.height);
+        gl.uniform1f(U.uLam, r[0] * Math.PI / 180); gl.uniform1f(U.uPhi, r[1] * Math.PI / 180);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      }
+    };
+  })();
+
+  let W = 0, H = 0, base = 1, cur = { rot:[-80, -20], k:1, iso:null }, anim = null;
+  function resize(){
+    const r = cv.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
+    W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if(relief) relief.size(W, H, dpr);
+    base = Math.min(W, H) * 0.47; draw();
+  }
+  function fitScale(f){
+    const ctr = d3.geoCentroid(f), b = d3.geoBounds(f); let d = 0;
+    for(const p of [[b[0][0], b[0][1]], [b[1][0], b[1][1]], [b[0][0], b[1][1]], [b[1][0], b[0][1]]]) d = Math.max(d, d3.geoDistance(ctr, p));
+    const want = Math.min(W, H) * 0.24 / Math.sin(Math.min(Math.max(d, 0.02), 1.2));
+    return { ctr, k:1 };   // always the whole sphere, as in the Figma frame; the country is centred and outlined
+  }
+  function focus(iso, move){
+    const f = featBy[iso];
+    if(!f || (!move && cur.iso === iso)){ draw(); return; }
+    const { ctr, k } = fitScale(f); cur.iso = iso;
+    const k0 = cur.k, ir = d3.geoInterpolate([-cur.rot[0], -cur.rot[1]], ctr), t0 = performance.now(), dur = 1200;
+    cancelAnimationFrame(anim);
+    const step = now => {
+      const t = Math.min(1, (now - t0) / dur), e = t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+      const p = ir(e); cur.rot = [-p[0], -p[1]]; cur.k = k0 + (k - k0) * e; draw();
+      anim = t < 1 ? requestAnimationFrame(step) : null;
+    };
+    anim = requestAnimationFrame(step);
+  }
+  function dots(a, color, rad){
+    const c = proj.rotate(), ctr = [-c[0], -c[1]];
+    ctx.fillStyle = color; ctx.beginPath();
+    for(let i = 0; i < a.length; i += 2){
+      const p = [a[i], a[i+1]]; if(d3.geoDistance(p, ctr) > 1.55) continue;
+      const q = proj(p); ctx.moveTo(q[0] + rad, q[1]); ctx.arc(q[0], q[1], rad, 0, 6.2832);
+    }
+    ctx.fill();
+  }
+  function draw(){
+    if(!W) return;
+    proj.translate([W / 2, H / 2]).scale(base * cur.k).rotate(cur.rot);
+    ctx.clearRect(0, 0, W, H);
+    if(relief && relief.ok()) relief.draw();
+    else{ ctx.beginPath(); path(sphere); ctx.fillStyle = '#0B121B'; ctx.fill();
+          ctx.fillStyle = '#161D26'; for(const f of feats){ ctx.beginPath(); path(f); ctx.fill(); } }
+    ctx.beginPath(); path(grat); ctx.strokeStyle = 'rgba(236,234,229,.07)'; ctx.lineWidth = .5; ctx.stroke();
+    const rad = Math.max(.6, Math.min(1.8, Math.pow(cur.k, .3) * .8));
+    dots(G, 'rgba(69,176,206,.8)', rad);
+    dots(S, 'rgba(255,181,71,.9)', rad * .85);
+    const f = state.iso && featBy[state.iso];
+    if(f){ ctx.beginPath(); path(f); ctx.strokeStyle = '#ECEAE5'; ctx.lineWidth = 1.2; ctx.stroke(); }
+    ctx.beginPath(); path(sphere); ctx.strokeStyle = 'rgba(236,234,229,.35)'; ctx.lineWidth = 1; ctx.stroke();
+  }
+  let drag = null;
+  cv.addEventListener('pointerdown', e => { drag = { x:e.clientX, y:e.clientY, rot:cur.rot.slice() }; cancelAnimationFrame(anim); anim = null; cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener('pointermove', e => { if(!drag) return; const s = .25 / cur.k;
+    cur.rot = [drag.rot[0] + (e.clientX - drag.x) * s, Math.max(-85, Math.min(85, drag.rot[1] - (e.clientY - drag.y) * s))]; draw(); });
+  cv.addEventListener('pointerup', () => drag = null);
+  addEventListener('resize', resize);
+  // redraw whenever the globe's box changes size (also covers loading in a hidden tab)
+  if(window.ResizeObserver) new ResizeObserver(resize).observe(cv);
+  document.addEventListener('visibilitychange', () => { if(!document.hidden) draw(); });
+
+  resize();
+  update(true);
+})();
+</script>
+</body>
+</html>

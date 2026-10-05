@@ -12,3 +12,13 @@ venv/
 # os
 .DS_Store
 Thumbs.db
+
+# photos whose licences are not cleared yet (HANDOVER.md section 9); remove these lines once credited
+prototypes/idai/photos/
+assets/instruments/
+
+# test tools (jsdom, Playwright): reinstall with `npm install`
+node_modules/
+
+# the stories' article photos (credits in stories.json, licences not cleared)
+prototypes/stories/photos/

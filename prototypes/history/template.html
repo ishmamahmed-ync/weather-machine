@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Century of Watching</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  /* same palette and type as the main site (site-src/template.html, LOOK) */
+  :root{
+    --bg:#05080E; --text:#ECEAE5; --muted:#8B95A1; --faint:#5C6773; --line:#222C38;
+    --amber:#FFB547; --blue:#45B0CE; --sat:#CBD6E2;
+    --sans:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+    --disp:"Space Grotesk","IBM Plex Sans",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0; background:var(--bg); color:var(--text); font:15px/1.55 var(--sans); overflow:hidden}
+
+  canvas{position:fixed; inset:0; width:100%; height:100%; display:block}
+  #globe{cursor:grab} #globe:active{cursor:grabbing}
+  #relief{pointer-events:none}
+
+  /* ---------- left column: chapter, year, counts, fine print ---------- */
+  .panel{position:fixed; left:4vw; top:9vh; width:min(380px,34vw); pointer-events:none}
+  .kicker{font:600 10.5px var(--sans); letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+  .year{font:500 clamp(4rem,9vw,7.5rem)/1 var(--disp); letter-spacing:-.04em; margin:.6rem 0 .2rem;
+    font-variant-numeric:tabular-nums}
+  h1{font:400 1.35rem/1.25 var(--disp); margin:0; color:#D9D6CF}
+  .sub{color:var(--muted); font-size:.86rem; line-height:1.45; margin:.4rem 0 2rem; min-height:2.6em; max-width:40ch}
+  .row{display:grid; grid-template-columns:auto 1fr; gap:.15rem 1rem; align-items:baseline;
+    border-top:1px solid var(--line); padding:.8rem 0; transition:opacity .6s}
+  .row b{font:500 1.6rem/1.1 var(--disp); letter-spacing:-.02em; font-variant-numeric:tabular-nums}
+  .row span{color:var(--muted); font-size:.82rem; line-height:1.35}
+  .row i{grid-row:1 / 3; width:8px; height:8px; border-radius:50%; align-self:center}
+  .row .n{grid-column:2}
+  .hint{font:600 10.5px var(--sans); letter-spacing:.12em; text-transform:uppercase; color:var(--text);
+    margin-top:1.4rem; opacity:0; transition:opacity .5s}
+  .hint.on{opacity:.8}
+  .fine{color:var(--faint); font-size:.72rem; line-height:1.45; margin-top:1.4rem; max-width:44ch}
+
+  /* ---------- bottom: play button and slider, marked in three chapters ---------- */
+  .bar{position:fixed; left:4vw; right:4vw; bottom:5vh; display:flex; align-items:center; gap:1.2rem}
+  .bar button{flex:none; width:34px; height:34px; border-radius:50%; border:1px solid rgba(236,234,229,.55);
+    background:none; color:var(--text); cursor:pointer; display:grid; place-items:center; padding:0}
+  .bar button:hover{border-color:var(--text)}
+  .bar button svg{width:12px; height:12px; fill:currentColor}
+  .track{position:relative; flex:1; height:34px}
+  input[type=range]{-webkit-appearance:none; appearance:none; position:absolute; inset:0; width:100%; height:34px;
+    margin:0; background:transparent; cursor:pointer}
+  input[type=range]:focus{outline:none}
+  input[type=range]::-webkit-slider-runnable-track{height:1px; background:linear-gradient(90deg,
+    var(--text) var(--p,0%), rgba(236,234,229,.22) var(--p,0%))}
+  input[type=range]::-moz-range-track{height:1px; background:rgba(236,234,229,.22)}
+  input[type=range]::-moz-range-progress{height:1px; background:var(--text)}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:11px; height:11px; border-radius:50%;
+    background:var(--text); border:0; margin-top:-5px}
+  input[type=range]::-moz-range-thumb{width:11px; height:11px; border-radius:50%; background:var(--text); border:0}
+  .ticks{position:absolute; left:5.5px; right:5.5px; top:0; height:34px; pointer-events:none}
+  .ticks .t{position:absolute; top:24px; transform:translateX(-50%); font:600 9.5px var(--sans); letter-spacing:.08em;
+    color:var(--faint); font-variant-numeric:tabular-nums}
+  .ticks .t::before{content:""; position:absolute; left:50%; top:-14px; width:1px; height:9px; background:rgba(236,234,229,.35)}
+  .ticks .c{position:absolute; top:0; transform:translateX(-50%); font:600 9.5px var(--sans); letter-spacing:.1em;
+    text-transform:uppercase; color:var(--faint); white-space:nowrap; transition:color .5s}
+  .ticks .c.on{color:var(--text)}
+
+  @media (max-width:760px){
+    .panel{left:16px; right:16px; top:auto; bottom:calc(5vh + 52px); width:auto}
+    .year{font-size:3.4rem} .sub{margin-bottom:1rem} .fine{display:none}
+    .bar{left:16px; right:16px}
+  }
+</style>
+</head>
+<body>
+<canvas id="relief"></canvas>
+<canvas id="globe" aria-label="Globe showing weather stations, satellites and Argo floats appearing from 1900 to the present"></canvas>
+
+<section class="panel">
+  <div class="kicker" id="kicker"></div>
+  <div class="year" id="year">1900</div>
+  <h1 id="title"></h1>
+  <p class="sub" id="sub"></p>
+
+  <div class="row" id="rSt"><i style="background:var(--amber)"></i><b id="nSt">0</b>
+    <span class="n" id="lSt">weather stations with data in the 1900s</span></div>
+  <div class="row" id="rSat"><i style="background:var(--sat)"></i><b id="nSat">–</b>
+    <span class="n">Earth-observing satellites in operation</span></div>
+  <div class="row" id="rAr"><i style="background:var(--blue)"></i><b id="nAr">–</b>
+    <span class="n" id="lAr">Argo floats: none yet</span></div>
+
+  <div class="hint" id="hint"></div>
+
+  <p class="fine">Stations: GHCN-Daily stations whose records reached the global archive in
+    each decade. This is the archive's history, not the instruments': many stations measured
+    for years whose data was never shared. Ocean: Argo profiling floats only. Ships, buoys and
+    other ocean measurements before Argo are not shown. Satellites: all meteorological and
+    Earth-observation satellites in WMO OSCAR/Space, counted from launch to end of life;
+    positions on the globe are illustrative.</p>
+</section>
+
+<div class="bar">
+  <button id="play" aria-label="Pause"></button>
+  <div class="track">
+    <input id="slider" type="range" min="1900" max="2025" step="0.1" value="1900" aria-label="Year">
+    <div class="ticks" id="ticks"></div>
+  </div>
+</div>
+
+__D3__
+<script>const RELIEF = "data:image/webp;base64,__RELIEF__";</script>
+<script id="DATA">const DATA = __DATA__;</script>
+<script>__LAYERS_JS__</script>
+<script>
+(function(){
+  // ---------- settings ----------
+  // Three chapters. Each plays its span, then waits for space / scroll / the button.
+  const CHAPTERS = [
+    { key:'st',  from:1900, to:1960, kicker:'1 of 3 · On the ground', title:'Weather stations',
+      sub:'Stations whose daily records reached the global archive, decade by decade.' },
+    { key:'sat', from:1960, to:1990, kicker:'2 of 3 · From orbit', title:'Satellites',
+      sub:'Every weather and Earth-observation satellite in the WMO catalogue, from TIROS-1 in 1960. The number is real; the positions are not.' },
+    { key:'ar',  from:1990, to:2025, kicker:'3 of 3 · In the ocean', title:'Argo floats',
+      sub:'Robotic floats that drift with the currents and dive to measure the ocean below the surface.' },
+  ];
+  const Y0 = CHAPTERS[0].from, Y1 = CHAPTERS[CHAPTERS.length - 1].to;
+  const SECONDS_PER_DECADE = 1.5;                      // 60 + 30 + 35 years = 18.75 s in all
+  const RATE = 10 / SECONDS_PER_DECADE;                // years per second
+  const POWER = 0.85, FLOOR = 0.13, GAIN = 7;          // main site's grid brightness defaults
+
+  const fmt = n => Math.round(n).toLocaleString('en-US');
+  const $ = id => document.getElementById(id);
+
+  // ---------- data ----------
+  const DEC = DATA.decades, ND = DEC.length;
+  const LAYERS = HistoryLayers(DATA);                     // history-layers.js: the same drawing as the final page
+
+  // ---------- globe: the main site's sphere (shaded relief, faint graticule, white rim) ----------
+  const cv = $('globe'), ctx = cv.getContext('2d');
+  const proj = d3.geoOrthographic().clipAngle(90).precision(0.4), path = d3.geoPath(proj, ctx);
+  const grat = d3.geoGraticule10(), sphere = { type:'Sphere' };
+
+  const relief = (function(){
+    const el = $('relief'), gl = el.getContext('webgl2', { premultipliedAlpha:true, alpha:true });
+    if(!gl) return null;
+    const VS = `#version 300 es
+      in vec2 p; void main(){ gl_Position=vec4(p,0.,1.); }`;
+    const FS = `#version 300 es
+      precision highp float;
+      uniform vec2 uT; uniform float uK, uDpr, uH, uLam, uPhi;
+      uniform sampler2D uTex; out vec4 o;
+      const float PI=3.14159265359;
+      void main(){
+        vec2 sc=vec2(gl_FragCoord.x, uH-gl_FragCoord.y)/uDpr;
+        float x=(sc.x-uT.x)/uK, y=(uT.y-sc.y)/uK, r=sqrt(x*x+y*y);
+        float aa=1.5/(uK*uDpr), inside=1.-smoothstep(1.-aa,1.+aa,r);
+        if(inside<=0.){ o=vec4(0.); return; }
+        float z=sqrt(max(0.,1.-r*r)), cp=cos(uPhi), sp=sin(uPhi);
+        float lam=atan(x, z*cp+y*sp)-uLam, phi=asin(clamp(y*cp-z*sp,-1.,1.));
+        float u=lam/(2.*PI)+.5, v=.5-phi/PI, u2=fract(u+.5);
+        float ux=dFdx(u), ux2=dFdx(u2), uy=dFdy(u), uy2=dFdy(u2);
+        vec2 gx=vec2(abs(ux)<abs(ux2)?ux:ux2, dFdx(v)), gy=vec2(abs(uy)<abs(uy2)?uy:uy2, dFdy(v));
+        float g=textureGrad(uTex, vec2(u,v), gx, gy).r;
+        float land=smoothstep(.43,.50,g), t=clamp((g-.50)/(.84-.50),0.,1.);
+        vec3 ocean=vec3(11.,18.,27.)/255., lo=vec3(20.,23.,27.)/255., hi=vec3(64.,69.,75.)/255.;
+        vec3 col=mix(ocean, mix(lo,hi,t), land)*mix(.45,1.,pow(z,.6));
+        o=vec4(col*inside, inside);
+      }`;
+    const sh = (type, src) => { const x = gl.createShader(type); gl.shaderSource(x, src); gl.compileShader(x);
+      if(!gl.getShaderParameter(x, gl.COMPILE_STATUS)) throw gl.getShaderInfoLog(x); return x; };
+    let prog;
+    try{ prog = gl.createProgram(); gl.attachShader(prog, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(prog);
+         if(!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw gl.getProgramInfoLog(prog); }
+    catch(e){ console.warn('relief off, using plain sphere:', e); return null; }
+    gl.useProgram(prog);
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    const U = {}; ['uT','uK','uDpr','uH','uLam','uPhi','uTex'].forEach(n => U[n] = gl.getUniformLocation(prog, n));
+    let ready = false, dpr = 1;
+    const img = new Image();
+    img.onload = () => {
+      gl.bindTexture(gl.TEXTURE_2D, gl.createTexture()); gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.R8, gl.RED, gl.UNSIGNED_BYTE, img); gl.generateMipmap(gl.TEXTURE_2D);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.uniform1i(U.uTex, 0); ready = true; draw();
+    };
+    img.src = RELIEF;
+    return {
+      ok: () => ready,
+      size(w, h, d){ dpr = d; el.width = Math.round(w * d); el.height = Math.round(h * d); gl.viewport(0, 0, el.width, el.height); },
+      draw(){
+        const t = proj.translate(), r = proj.rotate();
+        gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.uniform2f(U.uT, t[0], t[1]); gl.uniform1f(U.uK, proj.scale()); gl.uniform1f(U.uDpr, dpr); gl.uniform1f(U.uH, el.height);
+        gl.uniform1f(U.uLam, r[0] * Math.PI / 180); gl.uniform1f(U.uPhi, r[1] * Math.PI / 180);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      }
+    };
+  })();
+
+  // ---------- state ----------
+  let W = 0, H = 0, rot = [20, -18];                   // centre on 20W, 18N: Americas, Europe, Africa, Atlantic
+  let year = Y0, ch = 0, playing = false, clock = 0, last = 0;
+
+  function resize(){
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if(relief) relief.size(W, H, dpr);
+    draw();
+  }
+
+  function draw(){
+    if(!W) return;
+    const narrow = W < 760;
+    const R = narrow ? Math.min(W * 0.44, H * 0.3) : Math.min(W * 0.3, H * 0.4);
+    proj.translate(narrow ? [W / 2, H * 0.3] : [W * 0.64, H * 0.46]).scale(R).rotate(rot);
+    ctx.clearRect(0, 0, W, H);
+    if(relief && relief.ok()) relief.draw();
+    else{ ctx.beginPath(); path(sphere); ctx.fillStyle = '#0B121B'; ctx.fill(); }
+    ctx.beginPath(); path(grat); ctx.strokeStyle = 'rgba(236,234,229,.07)'; ctx.lineWidth = .5; ctx.stroke();
+    LAYERS.stations(ctx, proj, year);
+    LAYERS.argo(ctx, proj, year);
+    ctx.beginPath(); path(sphere); ctx.strokeStyle = 'rgba(236,234,229,.35)'; ctx.lineWidth = 1; ctx.stroke();
+    LAYERS.sats(ctx, proj, year, clock);
+    const n = LAYERS.counts(year), nSt = n.stations, nAr = n.argo, nSat = n.sats;
+
+    // read-outs
+    const y = Math.floor(year + 1e-6), dec = Math.min(DEC[ND - 1], Math.floor(y / 10) * 10);
+    $('year').textContent = y;
+    $('nSt').textContent = fmt(nSt);
+    $('lSt').textContent = 'weather stations with data in the ' + dec + 's';
+    $('nSat').textContent = nSat ? fmt(nSat) : '–';
+    $('nAr').textContent = nAr ? fmt(nAr) : '–';
+    $('lAr').textContent = nAr ? 'ocean squares (1°) with an Argo float' : 'Argo floats: none yet';
+    slider.value = year;
+    slider.style.setProperty('--p', ((year - Y0) / (Y1 - Y0) * 100).toFixed(2) + '%');
+  }
+
+  // ---------- chapters ----------
+  const slider = $('slider'), btn = $('play'), hint = $('hint');
+  const pct = y => ((y - Y0) / (Y1 - Y0) * 100) + '%';
+  const labels = CHAPTERS.map(c => {
+    const l = document.createElement('span'); l.className = 'c'; l.textContent = c.title;
+    l.style.left = pct((c.from + c.to) / 2); $('ticks').appendChild(l); return l;
+  });
+  [...new Set(CHAPTERS.flatMap(c => [c.from, c.to]))].forEach(y => {
+    const t = document.createElement('span'); t.className = 't'; t.textContent = y;
+    t.style.left = pct(y); $('ticks').appendChild(t);
+  });
+
+  function showChapter(){
+    const c = CHAPTERS[ch];
+    $('kicker').textContent = c.kicker; $('title').textContent = c.title; $('sub').textContent = c.sub;
+    labels.forEach((l, i) => l.classList.toggle('on', i === ch));
+  }
+  const ICON = { pause:'<svg viewBox="0 0 12 12"><rect x="2" y="1" width="3" height="10"/><rect x="7" y="1" width="3" height="10"/></svg>',
+                 play:'<svg viewBox="0 0 12 12"><path d="M3 1l8 5-8 5z"/></svg>',
+                 next:'<svg viewBox="0 0 12 12"><path d="M1 2l5 4-5 4zM6 2l5 4-5 4z"/></svg>',
+                 replay:'<svg viewBox="0 0 12 12"><path d="M6 1.5a4.5 4.5 0 1 1-4.3 3.2l1.4.4A3 3 0 1 0 6 3v1.8L3 2.2 6 -.3z"/></svg>' };
+  function setPlaying(p){
+    playing = p;
+    const done = year >= CHAPTERS[ch].to - 1e-6, end = done && ch === CHAPTERS.length - 1;
+    const k = p ? 'pause' : end ? 'replay' : done ? 'next' : 'play';
+    btn.innerHTML = ICON[k]; btn.setAttribute('aria-label', k[0].toUpperCase() + k.slice(1));
+    hint.textContent = end ? 'Space to replay' : 'Space or scroll to continue';
+    hint.classList.toggle('on', done && !p);
+  }
+  function goTo(i){
+    ch = (i + CHAPTERS.length) % CHAPTERS.length; year = CHAPTERS[ch].from;
+    showChapter(); setPlaying(true);
+  }
+  function next(){
+    if(ch === CHAPTERS.length - 1 && year < Y1 - 1e-6){ year = Y1; setPlaying(false); return; }   // last chapter: skip to its end
+    goTo(ch + 1);                                                                                // from the end, wraps to replay
+  }
+  function prev(){ goTo(Math.max(0, year > CHAPTERS[ch].from + 1 ? ch : ch - 1)); }
+
+  btn.addEventListener('click', () => {
+    const done = year >= CHAPTERS[ch].to - 1e-6;
+    if(playing) setPlaying(false); else if(done) next(); else setPlaying(true);
+  });
+  slider.addEventListener('input', () => {
+    year = +slider.value;
+    ch = Math.max(0, CHAPTERS.findIndex(c => year < c.to)); if(year >= Y1) ch = CHAPTERS.length - 1;
+    showChapter(); setPlaying(false); draw();
+  });
+  document.addEventListener('keydown', e => {
+    if(e.code === 'Space' || e.code === 'ArrowDown' || e.code === 'PageDown'){ e.preventDefault(); next(); }
+    else if(e.code === 'ArrowUp' || e.code === 'PageUp'){ e.preventDefault(); prev(); }
+  });
+  // scroll and swipe step one chapter at a time; a trackpad flick fires dozens of wheel events, so lock briefly
+  let lock = 0;
+  const step = dir => { const now = performance.now(); if(now < lock) return; lock = now + 900; dir > 0 ? next() : prev(); };
+  addEventListener('wheel', e => { if(Math.abs(e.deltaY) > 8) step(e.deltaY); }, { passive:true });
+  let ty = null;
+  addEventListener('touchstart', e => { ty = e.touches[0].clientY; }, { passive:true });
+  addEventListener('touchend', e => { if(ty === null) return; const d = ty - e.changedTouches[0].clientY; ty = null;
+    if(Math.abs(d) > 40) step(d); }, { passive:true });
+
+  function tick(now){
+    const dt = last ? Math.min(0.1, (now - last) / 1000) : 0; last = now;   // clamp, so a hidden tab doesn't jump
+    clock += dt;
+    if(playing){
+      year = Math.min(CHAPTERS[ch].to, year + dt * RATE);
+      if(year >= CHAPTERS[ch].to) setPlaying(false);
+    }
+    draw();
+    requestAnimationFrame(tick);
+  }
+
+  // ---------- drag to rotate ----------
+  let drag = null;
+  cv.addEventListener('pointerdown', e => { drag = { x:e.clientX, y:e.clientY, rot:rot.slice() }; cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener('pointermove', e => { if(!drag) return; const s = 0.25;
+    rot = [drag.rot[0] + (e.clientX - drag.x) * s, Math.max(-85, Math.min(85, drag.rot[1] - (e.clientY - drag.y) * s))]; });
+  cv.addEventListener('pointerup', () => drag = null);
+
+  addEventListener('resize', resize);
+  showChapter();
+  resize();
+  setPlaying(false);
+  setTimeout(() => { if(!playing && year === Y0) setPlaying(true); }, 700);   // starts on its own, after a beat
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>

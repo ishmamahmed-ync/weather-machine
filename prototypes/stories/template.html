@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stories of Resilience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  /* same palette and type as the main site (site-src/template.html, LOOK) */
+  :root{
+    --bg:#05080E; --text:#ECEAE5; --muted:#8B95A1; --faint:#5C6773; --line:#222C38;
+    --card:rgba(5,8,14,.84);
+    --sans:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+    --disp:"Space Grotesk","IBM Plex Sans",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0; background:var(--bg); color:var(--text); font:15px/1.55 var(--sans); overflow:hidden}
+
+  .stage{height:100%; display:grid; grid-template-columns:minmax(0,40fr) minmax(0,60fr)}
+  /* the globe lives behind the whole page (as on the main site), so a zoomed globe isn't cut at the column edge;
+     the left column fades from the background so the text stays readable */
+
+  /* ---------- left: title, subtitle, story card ---------- */
+  .panel{position:relative; z-index:1; padding:9vh 2vw 5vh 4vw; overflow-y:auto; scrollbar-width:none;
+    background:linear-gradient(90deg, rgba(5,8,14,.96) 0%, rgba(5,8,14,.9) 70%, rgba(5,8,14,0) 100%)}
+  .panel::-webkit-scrollbar{display:none}
+  h1{font:400 clamp(1.8rem,2.7vw,2.6rem)/1.13 var(--disp); letter-spacing:-.02em; margin:0; max-width:18ch}
+  .sub{color:var(--muted); font-size:1rem; line-height:1.5; margin:1.1rem 0 0; max-width:42ch}
+  .hint{font:600 10.5px var(--sans); letter-spacing:.12em; text-transform:uppercase; color:var(--muted);
+    margin-top:3.5vh; display:flex; align-items:center; gap:.6rem}
+  .hint[hidden]{display:none}
+  .hint i{width:9px; height:9px; border-radius:50%; border:1.2px solid var(--text); background:rgba(236,234,229,.16)}
+
+  .card{margin-top:3.5vh; max-width:440px; background:var(--card); border:1px solid var(--line); border-radius:3px;
+    padding:14px 14px 16px; position:relative; animation:in .35s ease}
+  @keyframes in{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+  .card[hidden]{display:none}
+  .photo{position:relative; aspect-ratio:16/9; border-radius:2px}
+  .meta{font:600 10px var(--sans); letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin:14px 0 6px}
+  .card h2{font:500 1.2rem/1.25 var(--disp); letter-spacing:-.01em; margin:0}
+  /* inline link: the design system's .wm-link (underlined, the text's own colour) */
+  .card p a.link{color:inherit; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:2px; text-decoration-color:var(--muted)}
+  .card p a.link:hover, .card p a.link:focus-visible{text-decoration-color:currentColor}
+  .card p{color:#D9D6CF; font-size:.9rem; line-height:1.55; margin:.6rem 0 0}
+  .legend{display:flex; flex-direction:column; gap:.35rem; margin-top:12px; font-size:.78rem; color:var(--muted); line-height:1.35}
+  .legend[hidden]{display:none}
+  .legend span{display:flex; align-items:baseline; gap:.55rem}
+  .legend i{width:7px; height:7px; border-radius:50%; flex:none; transform:translateY(-1px)}
+  .foot{display:flex; justify-content:space-between; align-items:center; margin-top:14px}
+  .src{color:var(--faint); font-size:.75rem}
+  /* link to the source: bottom-right corner of the photo */
+  .more{position:absolute; right:10px; bottom:10px; width:34px; height:34px; border-radius:50%;
+    border:1px solid rgba(236,234,229,.6); background:rgba(5,8,14,.55); display:grid; place-items:center;
+    color:var(--text); text-decoration:none}
+  .more:hover{border-color:var(--text); background:rgba(5,8,14,.8)}
+  /* next story: bottom-right corner of the card */
+  /* the design system's .wm-btn: an outlined rectangle with 2px corners */
+  .next{flex:none; display:inline-flex; align-items:center; gap:.5rem; background:none; color:var(--text); cursor:pointer;
+    border:1px solid rgba(236,234,229,.55); border-radius:2px; padding:.42rem .9rem; font:500 .8rem var(--sans);
+    transition:background .15s, border-color .15s}
+  .next:hover{border-color:var(--text); background:rgba(236,234,229,.08)}
+  .next svg{width:12px; height:12px}
+  .src{margin-right:1rem}
+  .more svg{width:13px; height:13px}
+  .close{position:absolute; top:20px; right:20px; width:26px; height:26px; border-radius:50%; border:0; cursor:pointer;
+    background:rgba(5,8,14,.6); color:var(--text); font:400 16px/26px var(--sans); padding:0}
+
+  /* ---------- right: globe ---------- */
+  .globewrap{position:fixed; inset:0; z-index:0}
+  .globewrap canvas{position:absolute; inset:0; width:100%; height:100%; display:block}
+  #globe{cursor:grab} #globe.hot{cursor:pointer} #globe:active{cursor:grabbing}
+  #relief{pointer-events:none}
+  .tip{position:absolute; pointer-events:none; max-width:260px; font:500 12.5px/1.35 var(--sans); color:var(--text);
+    background:var(--card); border:1px solid var(--line); border-radius:3px; padding:6px 9px; opacity:0;
+    transform:translate(14px,-50%); transition:opacity .15s}
+  .tip.on{opacity:1}
+  .tip small{display:block; color:var(--muted); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; margin-top:2px}
+
+  @media (max-width:760px){
+    body{overflow:auto}
+    .stage{grid-template-columns:1fr; grid-template-rows:auto 70vh; height:auto}
+    .panel{padding:32px 16px 8px; overflow:visible}
+    .panel{background:none}
+    .globewrap{position:relative; inset:auto; grid-row:2}
+  }
+</style>
+</head>
+<body>
+<main class="stage">
+  <section class="panel">
+    <h1 id="title"></h1>
+    <p class="sub" id="subtitle"></p>
+    <div class="hint" id="hint"><i></i><span id="hintText"></span></div>
+    <article class="card" id="card" hidden>
+      <button class="close" id="close" aria-label="Close story">×</button>
+      <div class="photo" id="photo" role="img" aria-label="Photo placeholder">
+        <a class="more" id="more" target="_blank" rel="noopener" aria-label="Read the full story">
+          <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 10L10 3M4.5 3H10v5.5"/></svg>
+        </a>
+      </div>
+      <div class="meta" id="meta"></div>
+      <h2 id="ctitle"></h2>
+      <p id="cdesc"></p>
+      <div class="legend" id="legend" hidden></div>
+      <div class="foot">
+        <span class="src" id="csrc"></span>
+        <button class="next" id="next" aria-label="Next story">Next
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1.5 6h9M7 2.5L10.5 6 7 9.5"/></svg>
+        </button>
+      </div>
+    </article>
+  </section>
+  <section class="globewrap" id="wrap">
+    <canvas id="relief"></canvas>
+    <canvas id="globe" aria-label="Globe with story locations; click a circle to read the story"></canvas>
+    <div class="tip" id="tip"></div>
+  </section>
+</main>
+
+__D3__
+<script>const RELIEF = "data:image/webp;base64,__RELIEF__";</script>
+<script id="DATA">const DATA = __DATA__;</script>
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const S = DATA.stories;
+  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const fmtDate = d => { const p = String(d).split('-'); return p.length === 3 ? (+p[2]) + ' ' + MONTHS[p[1] - 1] + ' ' + p[0] : p[0]; };
+
+  $('title').textContent = DATA.title;
+  $('subtitle').textContent = DATA.subtitle;
+  $('hintText').textContent = S.length + ' stories · select a circle on the globe';
+
+  // ---------- globe: the main site's sphere (shaded relief, faint graticule, white rim) ----------
+  const cv = $('globe'), ctx = cv.getContext('2d'), wrap = $('wrap');
+  const proj = d3.geoOrthographic().clipAngle(90).precision(0.4), path = d3.geoPath(proj, ctx);
+  const grat = d3.geoGraticule10(), sphere = { type:'Sphere' };
+
+  const relief = (function(){
+    const el = document.getElementById('relief'), gl = el.getContext('webgl2', { premultipliedAlpha:true, alpha:true });
+    if(!gl) return null;
+    const VS = `#version 300 es
+      in vec2 p; void main(){ gl_Position=vec4(p,0.,1.); }`;
+    const FS = `#version 300 es
+      precision highp float;
+      uniform vec2 uT; uniform float uK, uDpr, uH, uLam, uPhi;
+      uniform sampler2D uTex; out vec4 o;
+      const float PI=3.14159265359;
+      void main(){
+        vec2 sc=vec2(gl_FragCoord.x, uH-gl_FragCoord.y)/uDpr;
+        float x=(sc.x-uT.x)/uK, y=(uT.y-sc.y)/uK, r=sqrt(x*x+y*y);
+        float aa=1.5/(uK*uDpr), inside=1.-smoothstep(1.-aa,1.+aa,r);
+        if(inside<=0.){ o=vec4(0.); return; }
+        float z=sqrt(max(0.,1.-r*r)), cp=cos(uPhi), sp=sin(uPhi);
+        float lam=atan(x, z*cp+y*sp)-uLam, phi=asin(clamp(y*cp-z*sp,-1.,1.));
+        float u=lam/(2.*PI)+.5, v=.5-phi/PI, u2=fract(u+.5);
+        float ux=dFdx(u), ux2=dFdx(u2), uy=dFdy(u), uy2=dFdy(u2);
+        vec2 gx=vec2(abs(ux)<abs(ux2)?ux:ux2, dFdx(v)), gy=vec2(abs(uy)<abs(uy2)?uy:uy2, dFdy(v));
+        float g=textureGrad(uTex, vec2(u,v), gx, gy).r;
+        float land=smoothstep(.43,.50,g), t=clamp((g-.50)/(.84-.50),0.,1.);
+        vec3 ocean=vec3(11.,18.,27.)/255., lo=vec3(20.,23.,27.)/255., hi=vec3(64.,69.,75.)/255.;
+        vec3 col=mix(ocean, mix(lo,hi,t), land)*mix(.45,1.,pow(z,.6));
+        o=vec4(col*inside, inside);
+      }`;
+    const sh = (type, src) => { const x = gl.createShader(type); gl.shaderSource(x, src); gl.compileShader(x);
+      if(!gl.getShaderParameter(x, gl.COMPILE_STATUS)) throw gl.getShaderInfoLog(x); return x; };
+    let prog;
+    try{ prog = gl.createProgram(); gl.attachShader(prog, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(prog);
+         if(!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw gl.getProgramInfoLog(prog); }
+    catch(e){ console.warn('relief off, using plain sphere:', e); return null; }
+    gl.useProgram(prog);
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    const U = {}; ['uT','uK','uDpr','uH','uLam','uPhi','uTex'].forEach(n => U[n] = gl.getUniformLocation(prog, n));
+    let ready = false, dpr = 1;
+    const img = new Image();
+    img.onload = () => {
+      gl.bindTexture(gl.TEXTURE_2D, gl.createTexture()); gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.R8, gl.RED, gl.UNSIGNED_BYTE, img); gl.generateMipmap(gl.TEXTURE_2D);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.uniform1i(U.uTex, 0); ready = true; draw();
+    };
+    img.src = RELIEF;
+    return {
+      ok: () => ready,
+      size(w, h, d){ dpr = d; el.width = Math.round(w * d); el.height = Math.round(h * d); gl.viewport(0, 0, el.width, el.height); },
+      draw(){
+        const t = proj.translate(), r = proj.rotate();
+        gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.uniform2f(U.uT, t[0], t[1]); gl.uniform1f(U.uK, proj.scale()); gl.uniform1f(U.uDpr, dpr); gl.uniform1f(U.uH, el.height);
+        gl.uniform1f(U.uLam, r[0] * Math.PI / 180); gl.uniform1f(U.uPhi, r[1] * Math.PI / 180);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      }
+    };
+  })();
+
+  // ---------- state ----------
+  let W = 0, H = 0, R = 1, CX = 0, rot = [-30, -8], k = 1;     // start over Africa and the Indian Ocean
+  let active = -1, hover = -1, spin = true, anim = null;
+
+  // ---------- map layers (only for stories that list them) ----------
+  const STY = DATA.layerStyles || {}, LD = DATA.layerData || {}, LAY = {};
+  for(const key in LD){
+    const L = LD[key];
+    if(L.type === 'points'){ LAY[key] = { pts:Float32Array.from(L.xy) }; continue; }
+    const st = L.s, N = Math.round(360 / st), la0 = Math.round(90 / st), lo0 = Math.round(180 / st);
+    const a = new Float32Array(L.n.length * 3); let idx = 0, mx = 0;
+    for(let i = 0; i < L.n.length; i++){ idx += L.d[i];
+      const la = Math.floor(idx / N) - la0, lo = idx - (la + la0) * N - lo0;
+      a[i*3] = lo * st + st / 2; a[i*3+1] = la * st + st / 2; a[i*3+2] = L.n[i]; if(L.n[i] > mx) mx = L.n[i]; }
+    LAY[key] = { grid:a, norm:Math.pow(mx, 0.85) };
+  }
+  const shown = {}, want = {};                         // current and target opacity per layer
+  for(const key in LAY){ shown[key] = 0; want[key] = 0; }
+  const rgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16)).join(',');
+
+  function drawLayer(key, alpha){
+    const L = LAY[key], col = rgb(STY[key].color), ctr = [-rot[0], -rot[1]];
+    if(L.grid){                                        // main site's grid look: additive squares, density as brightness
+      const a = L.grid, sz = Math.max(0.3, proj.scale() / 210), h = sz / 2;
+      ctx.globalCompositeOperation = 'lighter';
+      for(let i = 0; i < a.length; i += 3){
+        const p = [a[i], a[i+1]]; if(d3.geoDistance(p, ctr) > 1.5533) continue;
+        const q = proj(p), v = 0.13 + 0.87 * Math.min(1, Math.pow(a[i+2], 0.85) / L.norm * 7);
+        ctx.fillStyle = 'rgba(' + col + ',' + (v * alpha).toFixed(3) + ')'; ctx.fillRect(q[0] - h, q[1] - h, sz, sz);
+      }
+      ctx.globalCompositeOperation = 'source-over';
+    } else {                                           // plain dots, fourth-root growth with zoom as on the main site
+      const a = L.pts, r = Math.max(0.6, 1.2 * Math.min(2.6, Math.max(0.6, Math.pow(proj.scale() / 520, 0.25))));
+      ctx.fillStyle = 'rgb(' + col + ')'; ctx.globalAlpha = 0.9 * alpha; ctx.beginPath();
+      for(let i = 0; i < a.length; i += 2){
+        const p = [a[i], a[i+1]]; if(d3.geoDistance(p, ctr) > 1.5533) continue;
+        const q = proj(p); ctx.moveTo(q[0] + r, q[1]); ctx.arc(q[0], q[1], r, 0, 6.2832);
+      }
+      ctx.fill(); ctx.globalAlpha = 1;
+    }
+  }
+
+  function resize(){
+    const r = wrap.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
+    W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if(relief) relief.size(W, H, dpr);
+    const narrow = W < 760;
+    CX = narrow ? W / 2 : W * 0.7;                     // globe centred in the right 60%
+    R = narrow ? Math.min(W * 0.44, H * 0.42) : Math.min(W * 0.26, H * 0.42);
+    draw();
+  }
+
+  // screen positions of the visible stories, refreshed every frame
+  let pts = [];
+  function draw(){
+    if(!W) return;
+    proj.translate([CX, H / 2]).scale(R * k).rotate(rot);
+    ctx.clearRect(0, 0, W, H);
+    if(relief && relief.ok()) relief.draw();
+    else{ ctx.beginPath(); path(sphere); ctx.fillStyle = '#0B121B'; ctx.fill(); }
+    ctx.beginPath(); path(grat); ctx.strokeStyle = 'rgba(236,234,229,.07)'; ctx.lineWidth = .5; ctx.stroke();
+    for(const key in LAY) if(shown[key] > 0.01) drawLayer(key, shown[key]);
+    ctx.beginPath(); path(sphere); ctx.strokeStyle = 'rgba(236,234,229,.35)'; ctx.lineWidth = 1; ctx.stroke();
+
+    const ctr = [-rot[0], -rot[1]], r = 5.5 * Math.pow(k, 0.25);
+    pts = [];
+    S.forEach((s, i) => {
+      const p = [s.lon, s.lat];
+      if(d3.geoDistance(p, ctr) > 1.52) return;          // round the back
+      const q = proj(p); pts.push({ i, x:q[0], y:q[1] });
+    });
+    // draw the selected one last, so it sits on top of any neighbour
+    pts.slice().sort((a, b) => (a.i === active) - (b.i === active)).forEach(({ i, x, y }) => {
+      const on = i === active, hot = i === hover;
+      if(on){ ctx.beginPath(); ctx.arc(x, y, r + 6, 0, 6.2832); ctx.strokeStyle = 'rgba(236,234,229,.45)'; ctx.lineWidth = 1; ctx.stroke(); }
+      ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832);
+      ctx.fillStyle = on ? '#ECEAE5' : hot ? 'rgba(236,234,229,.5)' : 'rgba(236,234,229,.16)'; ctx.fill();
+      ctx.strokeStyle = '#ECEAE5'; ctx.lineWidth = 1.2; ctx.stroke();
+    });
+  }
+
+  function hit(x, y){
+    let best = -1, bd = 14 * 14;                         // generous target for small circles
+    for(const p of pts){ const d = (p.x - x) ** 2 + (p.y - y) ** 2; if(d < bd){ bd = d; best = p.i; } }
+    return best;
+  }
+
+  // ---------- story card ----------
+  function show(i){
+    active = i; spin = false;
+    const s = S[i];
+    $('photo').style.background = s.color || '#2E3A4A';
+    $('meta').textContent = s.place;
+    $('ctitle').textContent = s.title;
+    // the description, with one optional inline link (e.g. "elephant seals" -> the seal data)
+    const desc = $('cdesc'); desc.textContent = '';
+    const L = s.link, at = L ? s.description.indexOf(L.text) : -1;
+    if(at < 0) desc.textContent = s.description;
+    else{
+      const a = document.createElement('a');
+      a.className = 'link'; a.href = L.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = L.text;
+      if(L.note) a.title = L.note;
+      desc.append(s.description.slice(0, at), a, s.description.slice(at + L.text.length));
+    }
+    $('csrc').textContent = s.source + (s.date ? ', ' + fmtDate(s.date) : '');
+    $('more').href = s.url;
+    for(const key in want) want[key] = 0;
+    (s.layers || []).forEach(l => { if(l.key in LAY) want[l.key] = l.alpha; });
+    const lg = $('legend'); lg.innerHTML = '';
+    (s.layers || []).forEach(l => {
+      const row = document.createElement('span'), dot = document.createElement('i');
+      dot.style.background = STY[l.key].color; row.append(dot, STY[l.key].label); lg.append(row);
+    });
+    lg.hidden = !(s.layers || []).length;
+    const card = $('card'); card.hidden = true; void card.offsetWidth; card.hidden = false;   // replay the fade-in
+    $('hint').hidden = true;
+    turnTo([s.lon, s.lat], s.zoom || 1);
+  }
+  function hide(){ for(const key in want) want[key] = 0; active = -1; $('card').hidden = true; $('hint').hidden = false; draw(); }
+  $('close').addEventListener('click', hide);
+  $('next').addEventListener('click', () => show((active + 1) % S.length));
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape') hide();
+    if(e.key === 'ArrowRight' || e.key === 'ArrowLeft'){                // step through the stories
+      const n = S.length, step = e.key === 'ArrowRight' ? 1 : -1;
+      show(active < 0 ? (step > 0 ? 0 : n - 1) : (active + step + n) % n);
+    }
+  });
+
+  // ease the globe round so the story faces the viewer
+  function turnTo(lonlat, kTo){
+    const from = [-rot[0], -rot[1]], ip = d3.geoInterpolate(from, lonlat), k0 = k;
+    let t0 = null;                                     // clock starts on the animation's first frame
+    const dur = Math.min(1200, 400 + d3.geoDistance(from, lonlat) * 400);
+    anim = now => {
+      if(t0 === null) t0 = now;
+      const t = Math.min(1, Math.max(0, (now - t0) / dur)), e = t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      const p = ip(e); rot = [-p[0], -p[1]]; k = k0 + (kTo - k0) * e;
+      if(t >= 1) anim = null;
+    };
+  }
+
+  // ---------- pointer: hover, click, drag, wheel zoom ----------
+  const tip = $('tip');
+  let drag = null;
+  cv.addEventListener('pointerdown', e => {
+    drag = { x:e.clientX, y:e.clientY, rot:rot.slice(), moved:false }; cv.setPointerCapture(e.pointerId);
+  });
+  cv.addEventListener('pointermove', e => {
+    const b = cv.getBoundingClientRect(), x = e.clientX - b.left, y = e.clientY - b.top;
+    if(drag){
+      const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+      if(Math.abs(dx) + Math.abs(dy) > 4){ drag.moved = true; spin = false; anim = null; }
+      if(drag.moved){ const s = 0.25 / k; rot = [drag.rot[0] + dx * s, Math.max(-85, Math.min(85, drag.rot[1] - dy * s))]; }
+      tip.classList.remove('on'); return;
+    }
+    hover = hit(x, y);
+    cv.classList.toggle('hot', hover >= 0);
+    if(hover >= 0){
+      const s = S[hover]; tip.innerHTML = ''; tip.append(s.title); const sm = document.createElement('small'); sm.textContent = s.place; tip.append(sm);
+      tip.style.left = x + 'px'; tip.style.top = y + 'px'; tip.classList.add('on');
+    } else tip.classList.remove('on');
+  });
+  cv.addEventListener('pointerleave', () => { hover = -1; tip.classList.remove('on'); cv.classList.remove('hot'); });
+  cv.addEventListener('pointerup', e => {
+    const was = drag; drag = null;
+    if(was && !was.moved){
+      const b = cv.getBoundingClientRect(), i = hit(e.clientX - b.left, e.clientY - b.top);
+      if(i >= 0) show(i);
+    }
+  });
+  cv.addEventListener('wheel', e => { e.preventDefault(); k = Math.max(1, Math.min(4, k * Math.exp(-e.deltaY * 0.0015))); spin = false; }, { passive:false });
+
+  // ---------- loop ----------
+  let last = 0;
+  function tick(now){
+    const dt = last ? Math.min(0.1, (now - last) / 1000) : 0; last = now;
+    for(const key in shown) shown[key] += (want[key] - shown[key]) * (1 - Math.pow(0.03, dt));   // ~0.6 s fade
+    if(anim) anim(now);
+    else if(spin) rot = [rot[0] + dt * 4, rot[1]];                    // slow drift until the first interaction
+    draw();
+    requestAnimationFrame(tick);
+  }
+  addEventListener('resize', resize);
+  if(window.ResizeObserver) new ResizeObserver(resize).observe(wrap);
+  resize();
+  // open on the first story (Malawi's flood detectors), already facing it rather than flying there
+  { const s0 = S[0]; rot = [-s0.lon, -s0.lat]; k = s0.zoom || 1; show(0);
+    for(const key in want) shown[key] = want[key]; anim = null; }
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
