@@ -1,0 +1,127 @@
+THE GAPS IN THE WEATHER MACHINE: your revised text, grammar-checked and polished
+Your wording and your order (slides 23 and 24 are swapped: pulling back now comes before the money).
+Changes are listed under each slide as  >> what changed. Five slides have a FIX that needs your decision.
+
+
+[Slide 1 : The Gaps in the Weather Machine]
+Title: The Gaps in the Weather Machine
+Description: How a planetary constellation of sensors helps us stay ahead of the forces of nature, and what the cracks in its design reveal about a world in polycrisis.
+>> "artificial sensing infrastructure" to "sensors" (lighter); "the state of a world" to "a world".
+
+[Slide 2 : The weather machine]
+Title: The weather machine
+Description: Our weather machine is built on a global network of sensors on land, in the atmosphere and in the oceans. Together, they help us observe and predict the climatic rhythms and disruptions of Earth's planetary skin.
+>> "climactic" is a typo for "climatic" (climactic means "of a climax"). "in our earth, in our atmosphere, and our oceans" made parallel. "Earth" capitalised.
+
+[Slide 3 : The weather machine]  (same as slide 2)
+[Slide 4 : The weather machine]  (same as slide 2)
+[Slide 5 : The weather machine]  (same as slide 2)
+>> Your slide 5 said "our earth's planetary skin" and 2-4 said "earth's planetary skin"; made all four the same, so the text stays still while the cards change.
+
+[Slide 6 : The Gaps]
+Title: The Gaps
+Description: On land, the eyes and ears of the weather machine are spread unevenly across natural and political boundaries. Some regions see the storm far more clearly than others, and are better prepared to face it.
+>> "the eyes and ears ... sits" to "are spread" (plural). Second sentence shortened.
+
+[Slide 7 : The Gaps]
+Title: The Gaps
+Description: The ocean has gaps too. Argo floats drift with the currents, so they miss shallow shelves and enclosed seas, and cannot surface through ice. These "cold spots" keep us from seeing how conditions are shifting beneath the surface, which often shapes the weather above.
+>> FIX (accuracy): floats do not get "trapped under shelves". They drift away from shallow shelves and enclosed seas, and cannot surface under sea ice. Also "The argo floats ... gets" to "Argo floats ... (plural)".
+
+[Slide 8 : The Gaps: at a resolution of 1°]
+Title: The Gaps, one degree at a time
+Description: Only a small fraction of the world's land, 13.4%, has enough rain gauges by WMO standards to measure rainfall and watch for floods.
+>> FIX (accuracy): the 13.4% is all of the world's land, not just plains and coasts, and "tiny" undersells it. Title suggestion reads more naturally; keep yours ("The Gaps: at a resolution of 1°") if you prefer.
+
+[Slide 9 : What happens when we can't predict a storm?]
+Title: What happens when we can't predict what a storm will do?
+Subtitle: A case study of Cyclone Idai in Mozambique
+>> FIX (contradiction): slide 12 says forecasters saw Idai coming five days ahead. "Can't predict a storm" contradicts it; "what a storm will do" is what failed (the flood).
+
+[Slide 10 : Mozambique, 2019]
+Title: Mozambique, 2019
+Description: One of the world's least developed countries, and among the most exposed to climate change. Over 60% of its people live in low-lying coastal areas. Just 19 of its weather stations reach the global archive, and much of the water that floods its rivers falls in its neighbours' highlands.
+>> No change.
+
+[Slide 11 : One season, three storms]
+Title: One season, three storms
+Description: 21 January 2019: Tropical Storm Desmond brings severe flooding. 52 days later: Cyclone Idai. 42 days after that: Cyclone Kenneth. Mozambique had never been hit by so many cyclones in one season. Climate change was no longer intangible.
+>> No change.
+
+[Slide 12 : The storm was expected. The flood was not.]
+Title: The storm was expected. The flood was not.
+Description: Forecasters saw Idai coming five days ahead, and warnings went out. The flood was another matter. Idai moved inland, dumped torrential rain over Zimbabwe, and the rivers carried it back. The Pungwe–Buzi plain became an inland sea. Seeing a storm takes satellites. Knowing what its rain will do takes gauges on the ground.
+>> No change.
+
+[Slide 13 : Before and after]
+Title: Before and after
+Description: Drag the handle: the same plain on 24 February and 21 March 2019. Water is dark blue, vegetation green, cloud cyan.
+>> No change.
+
+[Slide 14 : Idai in numbers]
+Title: Idai in numbers
+Description: 1.85 million people affected. 603 deaths in Mozambique; more than 1,000 across three countries. 122,700 houses destroyed and 111,200 damaged. 77 health facilities severely damaged. 400,000 people in shelters.
+>> No change.
+
+[Slide 15 : Beyond people]
+Title: Beyond people
+Description: 124,498 birds killed. 10,305 sheep and goats. 5,428 cows. 3,191 pigs. US$3.1 million lost, in places where families depend on their animals.
+>> No change.
+
+[Slide 16 : Beyond people]
+Title: Beyond people
+Description: 1,345 km of transmission lines damaged. 10,216 km of distribution lines. 3,990 transformers. 30 substations. The damage cascades: lost herds and a broken grid keep costing families long after the water goes down.
+>> No change.
+
+[Slide 17 : Who lives and who dies]
+Title: Who lives and who dies
+Description: This is part of a wider pattern. Since 2016, Africa has had 27% of the world's recorded flood deaths, and Europe 1.5%.
+>> "has" to "has had" (since 2016); "the world's" added so the share is clear.
+
+[Slide 18 : How about the place you were born?]
+Title: How about the place you were born?
+Description: Enter your country and birth year to see how many people floods have killed, affected and displaced there since you were born, compared with another country.
+>> Two sentences joined.
+
+[Slide 19 : The frontlines are responding]
+Title: The frontlines are responding
+Description: Stories of adaptation, resilience and ingenuity around the world.
+>> No change (the comma before "and" dropped, to match the rest of the site).
+
+[Slide 20 : Why have we not collectively filled the gap in the weather machine?]
+Title: Why haven't we filled the gaps in the weather machine together?
+Description: The technology exists in many forms, but ...
+>> FIX (unfinished): your description stops mid-sentence. Suggested ending: "The technology exists in many forms, but it has not reached the places that need it most." Also "technologies exists" to "technology exists".
+
+[Slide 21 : Early warning systems save lives, but half of the world have yet to adopt them.]
+Title: Early warning systems save lives, but nearly half the world's countries have yet to report one
+Description: "Early warnings are not an abstraction. They give farmers the power to protect their crops and livestock. Enable families to evacuate safely. And protect entire communities from devastation. We know that disaster-related mortality is at least six times lower in countries with good early-warning systems in place. And just 24 hours' notice before a hazardous event can reduce damage by up to 30 per cent." (António Guterres, UN Secretary-General, 22 October 2025)
+Yet about 90 countries still haven't reported a multi-hazard warning system.
+>> Quote checked word for word against the UN transcript of 22 Oct 2025.
+>> FIX (accuracy): "half of the world have yet to adopt them". About 90 of 195 countries (46%) haven't REPORTED one; that is not the same as not having one, and "half the world" reads as half of all people. The same speech says over 60% of countries now report one. "have" to "has" too.
+>> Layout: the quote is now six sentences. Set as a large pull quote it will not fit on a laptop screen with the title; it would go in at normal reading size, in quotation marks.
+
+[Slide 22 : Some regions do not have the means to have or keep them]
+Title: Some regions lack the means to build them, or to keep them running
+Description: The poorest countries and small island states provide only 9% of the surface data WMO requires. African weather-balloon reports reaching global models fell by half between 2015 and 2020. Stations get installed, then fall silent, because many states lack the money, staff or technical know-how to keep them running.
+>> "do not have the means to have" repeats "have". "reaching global models" put back: the drop was in reports reaching the models, not balloons launched.
+
+[Slide 23 : Great powers stepping away from international cooperation and stewardship]
+Title: Great powers are stepping away from international cooperation
+Description: The US, long the machine's biggest backer, is pulling back: fewer weather balloons, a suspended famine-warning system, exit from 66 international bodies, proposals to cut NOAA by a quarter. Elsewhere, war has destroyed or cut off a quarter of Ukraine's observing network, and Europe's weather-satellite agency and the Arctic Council have suspended cooperation with Russia.
+>> Title made a full sentence. Note: Ukraine lost its network to war, and Europe suspended cooperation with Russia in response to the invasion; neither is quite a great power "stepping away", so you may prefer "International cooperation is breaking down".
+
+[Slide 24 : We have the means to fund planetary defence]
+Title: We can afford to close the gaps
+Description: The UN fund for the poorest countries' missing weather data is seeking US$400 million. The world spends that on its militaries in just over an hour. Every dollar invested returns more than 25.
+>> FIX (grammar): "their missing weather data" no longer has anyone to refer to, now the sentence before it is gone. "planetary defence" usually means defending Earth from asteroids; the suggested title avoids the mix-up (keep yours if you like the military contrast).
+
+[Slide 25 : There can be no gaps in our weather machine]
+Title: There can be no gaps in our weather machine
+Description: Every forecast on Earth is built from the same shared observations, so a blind spot anywhere can weaken forecasts far beyond it. It is a gap none of us can afford to ignore.
+>> "weakens the forecast everywhere" is stronger than the evidence (gaps in data-sparse regions do hurt forecasts elsewhere, but not equally everywhere). Last sentence reworded.
+
+[Slide 26 : Help close the gaps]
+Title: Help close the gaps
+Description: (the four link cards)
+>> No change.

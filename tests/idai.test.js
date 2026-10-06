@@ -13,12 +13,12 @@ const URL = process.argv[2];
     const go = async (id, n = 0) => { await p.evaluate(([id, n]) => { const s = [...document.querySelectorAll('.step[data-slide="' + id + '"]')][n]; scrollTo(0, s.getBoundingClientRect().top + scrollY); }, [id, n]); await p.waitForTimeout(700); };
     for (const [id, n, photo] of [['mozambique', 0, 'idai-floodplain'], ['beyond', 0, 'idai-cow'], ['beyond-grid', 0, 'idai-pylons']]) {
       await go(id, n);
-      const r = await p.evaluate(ph => { const f = document.querySelector('#photo .wm-frame').getBoundingClientRect(), mv = WM.miniView(innerWidth, innerHeight),
+      const r = await p.evaluate(ph => { const f = document.querySelector('#photo .wm-frame').getBoundingClientRect(), lab = document.querySelector('#slide .wm-label').getBoundingClientRect(),
         txt = Math.max(...[...document.querySelectorAll('#slide > *')].map(e => e.getBoundingClientRect().right)), img = document.querySelector('#photo img').src;
-        return { cornerX: Math.round(f.right - mv.cx), cornerY: Math.round(f.top - mv.cy), gap: Math.round(f.left - txt), shown: document.body.hasAttribute('data-photo'),
+        return { topToLabel: Math.round(f.top - lab.top), rightToMargin: Math.round(f.right - [...document.querySelectorAll('#topbar button, #topbar a')].pop().getBoundingClientRect().right), gap: Math.round(f.left - txt), shown: document.body.hasAttribute('data-photo'),
                  right: img === (WMSTORY.photos || {})[ph], fits: f.bottom <= innerHeight }; }, photo);
       check(`${w}x${h} ${id} ${n + 1}: the photo shows, framed, the right one`, r.shown && r.right, JSON.stringify(r));
-      check(`${w}x${h} ${id} ${n + 1}: the corner lens is centred on the photo's top-right corner`, Math.abs(r.cornerX) <= 1 && Math.abs(r.cornerY) <= 1, JSON.stringify(r));
+      check(`${w}x${h} ${id} ${n + 1}: the photo's top is on the label line and its right edge under the Explore button's`, Math.abs(r.topToLabel) <= 1 && Math.abs(r.rightToMargin) <= 1, JSON.stringify(r));
       check(`${w}x${h} ${id} ${n + 1}: the photo clears the words and fits the screen`, r.gap >= 16 && r.fits, JSON.stringify(r));
     }
     await go('three-storms');

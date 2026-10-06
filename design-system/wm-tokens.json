@@ -1,0 +1,556 @@
+{
+  "wm": {
+    "color": {
+      "bg": {
+        "$value": "#05080E",
+        "$description": "page, and space around the globe",
+        "$type": "color"
+      },
+      "raised": {
+        "$value": "#080C13",
+        "$description": "side panels (Explore, controls)",
+        "$type": "color"
+      },
+      "glass": {
+        "$value": "rgba(5,8,14,.84)",
+        "$description": "cards over the globe, with --wm-blur",
+        "$type": "color"
+      },
+      "ocean": {
+        "$value": "#0B121B",
+        "$description": "the sphere",
+        "$type": "color"
+      },
+      "land": {
+        "$value": "#161D26",
+        "$description": "flat land, when relief is off",
+        "$type": "color"
+      },
+      "coast": {
+        "$value": "#242E3A",
+        "$description": "coastlines on flat land (WM.LOOK.coast)",
+        "$type": "color"
+      },
+      "coast-2": {
+        "$value": "#4A5B6E",
+        "$description": "coastlines and borders once a map is zoomed in",
+        "$type": "color"
+      },
+      "relief-lo": {
+        "$value": "#14171B",
+        "$description": "shaded relief: valleys",
+        "$type": "color"
+      },
+      "relief-hi": {
+        "$value": "#40454B",
+        "$description": "shaded relief: ridges",
+        "$type": "color"
+      },
+      "text": {
+        "$value": "#ECEAE5",
+        "$description": "headings, numbers, primary text",
+        "$type": "color"
+      },
+      "text-2": {
+        "$value": "#D9D6CF",
+        "$description": "running text in cards",
+        "$type": "color"
+      },
+      "muted": {
+        "$value": "#8B95A1",
+        "$description": "subtitles, notes, secondary labels",
+        "$type": "color"
+      },
+      "faint": {
+        "$value": "#5C6773",
+        "$description": "sources, fine print, inactive ticks",
+        "$type": "color"
+      },
+      "line": {
+        "$value": "#222C38",
+        "$description": "card borders, rules between rows",
+        "$type": "color"
+      },
+      "line-soft": {
+        "$value": "#1B2531",
+        "$description": "dividers inside panels",
+        "$type": "color"
+      },
+      "outline": {
+        "$value": "rgba(236,234,229,.55)",
+        "$description": "buttons, chips, controls at rest",
+        "$type": "color"
+      },
+      "track": {
+        "$value": "rgba(236,234,229,.26)",
+        "$description": "slider tracks, unchecked boxes",
+        "$type": "color"
+      },
+      "hover": {
+        "$value": "rgba(236,234,229,.08)",
+        "$description": "hover fill on outlined controls",
+        "$type": "color"
+      },
+      "rim": {
+        "$value": "rgba(236,234,229,.6)",
+        "$description": "the globe's edge (stronger since 5 Oct)",
+        "$type": "color"
+      },
+      "grat": {
+        "$value": "rgba(236,234,229,.15)",
+        "$description": "the globe's lat/lon lines (stronger since 5 Oct)",
+        "$type": "color"
+      },
+      "rim-mini": {
+        "$value": "rgba(236,234,229,.75)",
+        "$description": "the corner globe's edge",
+        "$type": "color"
+      },
+      "grat-mini": {
+        "$value": "rgba(236,234,229,.3)",
+        "$description": "the corner globe's lat/lon lines",
+        "$type": "color"
+      },
+      "frame": {
+        "$value": "#ECEAE5",
+        "$description": "the white frame round every image",
+        "$type": "color"
+      },
+      "alert": {
+        "$value": "#E8433F",
+        "$description": "deaths, danger, invalid input",
+        "$type": "color"
+      },
+      "ok": {
+        "$value": "#3FB6A8",
+        "$description": "meets a threshold",
+        "$type": "color"
+      },
+      "station": {
+        "$value": "#FFB547",
+        "$description": "weather stations (GHCN-Daily)",
+        "$type": "color"
+      },
+      "station-2": {
+        "$value": "#FFD08A",
+        "$description": "stations by record length",
+        "$type": "color"
+      },
+      "gauge": {
+        "$value": "#3FD98A",
+        "$description": "rain gauges, the rain-gauge prototype's green; also \"meets the WMO minimum\"",
+        "$type": "color"
+      },
+      "gauge-lo": {
+        "$value": "#2A6B49",
+        "$description": "rain gauges below the WMO minimum",
+        "$type": "color"
+      },
+      "gauge-no": {
+        "$value": "#76818D",
+        "$description": "a cell with no rain gauge",
+        "$type": "color"
+      },
+      "gauge-wmo": {
+        "$value": "#58C48A",
+        "$description": "the WMO minimum line",
+        "$type": "color"
+      },
+      "gauge-0": {
+        "$value": "#2E3745",
+        "$type": "color"
+      },
+      "gauge-1": {
+        "$value": "#1E4D36",
+        "$type": "color"
+      },
+      "gauge-2": {
+        "$value": "#266B48",
+        "$type": "color"
+      },
+      "gauge-3": {
+        "$value": "#2F8C5C",
+        "$type": "color"
+      },
+      "gauge-4": {
+        "$value": "#3DB074",
+        "$type": "color"
+      },
+      "gauge-5": {
+        "$value": "#5FD394",
+        "$type": "color"
+      },
+      "gauge-6": {
+        "$value": "#A2EBC2",
+        "$type": "color"
+      },
+      "gauge-7": {
+        "$value": "#E3FFF0",
+        "$type": "color"
+      },
+      "argo": {
+        "$value": "#45B0CE",
+        "$description": "Argo floats",
+        "$type": "color"
+      },
+      "seal": {
+        "$value": "#6FD8B4",
+        "$description": "seal-borne profiles (MEOP)",
+        "$type": "color"
+      },
+      "shark": {
+        "$value": "#F07A55",
+        "$description": "sharks",
+        "$type": "color"
+      },
+      "tracked": {
+        "$value": "#B98CE0",
+        "$description": "tracked animals, no sensors",
+        "$type": "color"
+      },
+      "turtle": {
+        "$value": "#C6E377",
+        "$description": "leatherback and loggerhead turtles",
+        "$type": "color"
+      },
+      "sat": {
+        "$value": "#CBD6E2",
+        "$description": "satellites",
+        "$type": "color"
+      },
+      "gap": {
+        "$value": "#E4EEFF",
+        "$description": "coldspots: where nobody measures",
+        "$type": "color"
+      },
+      "deaths": {
+        "$value": "#E8433F",
+        "$type": "color"
+      },
+      "affected": {
+        "$value": "#F2C744",
+        "$type": "color"
+      },
+      "damage": {
+        "$value": "#5BC8A8",
+        "$type": "color"
+      },
+      "flood": {
+        "$value": "#7DB4D1",
+        "$description": "flood extent on maps; people at risk of a 1-in-100-year flood",
+        "$type": "color"
+      },
+      "displaced": {
+        "$value": "#B98CE0",
+        "$description": "displacements (movements, not people)",
+        "$type": "color"
+      },
+      "settle": {
+        "$value": "#E05CC8",
+        "$description": "settlements before",
+        "$type": "color"
+      },
+      "settle-x": {
+        "$value": "#FF3D6E",
+        "$description": "settlements gone",
+        "$type": "color"
+      },
+      "warn-22": {
+        "$value": "#F5D04A",
+        "$description": "reported an early warning system, 2022",
+        "$type": "color"
+      },
+      "dmg-3": {
+        "$value": "#E8433F",
+        "$description": "buildings destroyed (the worst grade: the impact red, as for deaths)",
+        "$type": "color"
+      },
+      "dmg-2": {
+        "$value": "#F29A3A",
+        "$description": "buildings damaged",
+        "$type": "color"
+      },
+      "dmg-1": {
+        "$value": "#5C6773",
+        "$description": "buildings possibly damaged",
+        "$type": "color"
+      },
+      "warn-25": {
+        "$value": "#F08A3E",
+        "$description": "... added by 2025",
+        "$type": "color"
+      },
+      "ts": {
+        "$value": "#F5E06A",
+        "$type": "color"
+      },
+      "c1": {
+        "$value": "#F6C243",
+        "$type": "color"
+      },
+      "c2": {
+        "$value": "#F09A3E",
+        "$type": "color"
+      },
+      "c3": {
+        "$value": "#E8703E",
+        "$type": "color"
+      },
+      "c4": {
+        "$value": "#DC4340",
+        "$type": "color"
+      },
+      "c5": {
+        "$value": "#B81D2C",
+        "$description": "Type",
+        "$type": "color"
+      }
+    },
+    "size": {
+      "fs-title": {
+        "$value": "1.25rem",
+        "$description": "card titles",
+        "$type": "dimension"
+      },
+      "fs-lead": {
+        "$value": "1.125rem",
+        "$description": "narration over the globe",
+        "$type": "dimension"
+      },
+      "fs-body": {
+        "$value": "1rem",
+        "$description": "running text",
+        "$type": "dimension"
+      },
+      "fs-small": {
+        "$value": ".875rem",
+        "$description": "card body, readouts",
+        "$type": "dimension"
+      },
+      "fs-caption": {
+        "$value": ".75rem",
+        "$description": "sources, legends, tooltips",
+        "$type": "dimension"
+      },
+      "fs-label": {
+        "$value": ".66rem",
+        "$description": "uppercase labels (about 10.5px)",
+        "$type": "dimension"
+      },
+      "track-tight": {
+        "$value": "-.02em",
+        "$description": "display and stat",
+        "$type": "dimension"
+      },
+      "track-title": {
+        "$value": "-.01em",
+        "$type": "dimension"
+      },
+      "track-label": {
+        "$value": ".1em",
+        "$description": "uppercase labels",
+        "$type": "dimension"
+      },
+      "track-place": {
+        "$value": ".32em",
+        "$description": "country names on maps",
+        "$type": "dimension"
+      },
+      "s1": {
+        "$value": "4px",
+        "$type": "dimension"
+      },
+      "s2": {
+        "$value": "8px",
+        "$type": "dimension"
+      },
+      "s3": {
+        "$value": "12px",
+        "$type": "dimension"
+      },
+      "s4": {
+        "$value": "16px",
+        "$type": "dimension"
+      },
+      "s5": {
+        "$value": "24px",
+        "$type": "dimension"
+      },
+      "s6": {
+        "$value": "32px",
+        "$type": "dimension"
+      },
+      "s7": {
+        "$value": "48px",
+        "$type": "dimension"
+      },
+      "s8": {
+        "$value": "64px",
+        "$type": "dimension"
+      },
+      "nav-line": {
+        "$value": "10px",
+        "$description": "a slide's line",
+        "$type": "dimension"
+      },
+      "nav-line-on": {
+        "$value": "26px",
+        "$description": "the current slide's line, extending to the right",
+        "$type": "dimension"
+      },
+      "nav-pitch": {
+        "$value": "11px",
+        "$description": "line to line, top to bottom (also each line's click height)",
+        "$type": "dimension"
+      },
+      "nav-gap": {
+        "$value": "9px",
+        "$description": "the extra space between two sections",
+        "$type": "dimension"
+      },
+      "nav-num": {
+        "$value": "22px",
+        "$description": "the column for the section numerals, left of the lines",
+        "$type": "dimension"
+      },
+      "frame-w": {
+        "$value": "1px",
+        "$type": "dimension"
+      },
+      "mini-right": {
+        "$value": "3vw",
+        "$description": "Shape: three radii, nothing else",
+        "$type": "dimension"
+      },
+      "r-control": {
+        "$value": "2px",
+        "$description": "buttons, inputs, checkboxes, photo corners",
+        "$type": "dimension"
+      },
+      "r-card": {
+        "$value": "3px",
+        "$description": "cards, tooltips",
+        "$type": "dimension"
+      }
+    },
+    "font": {
+      "sans": {
+        "$value": "\"IBM Plex Sans\", system-ui, -apple-system, sans-serif",
+        "$type": "fontFamily"
+      },
+      "disp": {
+        "$value": "\"Space Grotesk\", \"IBM Plex Sans\", system-ui, sans-serif",
+        "$type": "fontFamily"
+      },
+      "serif": {
+        "$value": "Georgia, \"Times New Roman\", serif",
+        "$description": "water names on maps, only",
+        "$type": "fontFamily"
+      }
+    },
+    "other": {
+      "blur": {
+        "$value": "blur(14px)"
+      },
+      "fs-hero": {
+        "$value": "clamp(4rem, 9vw, 7.5rem)",
+        "$description": "one number that is the page: a year"
+      },
+      "fs-display": {
+        "$value": "clamp(1.9rem, 3.2vw, 2.7rem)",
+        "$description": "page titles"
+      },
+      "fs-stat": {
+        "$value": "clamp(1.7rem, 3.8vw, 2.6rem)",
+        "$description": "the figure a card is about"
+      },
+      "gutter": {
+        "$value": "max(16px, 4vw)",
+        "$description": "page edge"
+      },
+      "measure": {
+        "$value": "62ch",
+        "$description": "longest line of running text"
+      },
+      "nav-x": {
+        "$value": "max(12px, 1.4vw)",
+        "$description": "its left edge: close to the window's edge, so it takes little room"
+      },
+      "nav-w": {
+        "$value": "calc(var(--wm-nav-num) + var(--wm-s2) + var(--wm-nav-line-on))",
+        "$description": "its whole width"
+      },
+      "slide-top": {
+        "$value": "clamp(4.75rem, 13vh, 9.5rem)",
+        "$description": "its top edge, the same on every slide"
+      },
+      "slide-left": {
+        "$value": "var(--wm-gutter)",
+        "$description": "its left edge; past the navigator when a page has one (.has-wm-nav)"
+      },
+      "slide-w": {
+        "$value": "min(31rem, 38vw, calc(70vw - 0.42 * min(100vw, 100vh) - var(--wm-slide-left) - 24px))",
+        "$description": "the left column, clear of the globe at 70%"
+      },
+      "ratio-card": {
+        "$value": "16 / 9",
+        "$description": "photos inside cards"
+      },
+      "ratio-side": {
+        "$value": "4 / 3",
+        "$description": "big images beside the text, e.g. Idai's devastation"
+      },
+      "mini-r": {
+        "$value": "clamp(80px, 8.7vw, 125px)",
+        "$description": "radius"
+      },
+      "mini-top": {
+        "$value": "max(4vh, 3.4rem)",
+        "$description": "clears the top bar"
+      },
+      "r-round": {
+        "$value": "50%",
+        "$description": "dots, round icon buttons"
+      },
+      "fast": {
+        "$value": ".15s",
+        "$description": "hover, press"
+      },
+      "med": {
+        "$value": ".4s",
+        "$description": "cards in and out"
+      },
+      "slow": {
+        "$value": ".6s",
+        "$description": "layers fading on the globe"
+      },
+      "ease": {
+        "$value": "cubic-bezier(.65,0,.35,1)",
+        "$description": "globe moves: ease in and out"
+      },
+      "halo": {
+        "$value": "0 2px 22px rgba(5,8,14,.95), 0 0 56px rgba(5,8,14,.8)",
+        "$description": "Layers"
+      },
+      "z-globe": {
+        "$value": "0"
+      },
+      "z-content": {
+        "$value": "1"
+      },
+      "z-card": {
+        "$value": "2"
+      },
+      "z-mini": {
+        "$value": "3"
+      },
+      "z-bar": {
+        "$value": "6"
+      },
+      "z-panel": {
+        "$value": "10",
+        "$description": "the corner globe sits above a side image"
+      }
+    }
+  }
+}

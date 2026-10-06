@@ -52,7 +52,7 @@ const URL = process.argv[2];
     // Space goes on to the next slide, even from the Next button
     await p.focus('.sto-next'); await p.keyboard.press(' '); await p.waitForTimeout(1500);
     const slide = await p.evaluate(() => document.querySelector('#slide .wm-display').textContent);
-    check(`${w}x${h}: Space on the Next button goes to the next slide`, /What can we do to support them/.test(slide), slide);
+    check(`${w}x${h}: Space on the Next button goes to the next slide`, /Why have we not collectively filled the gaps/.test(slide), slide);
     await ctx.close();
   }
   check('no JavaScript errors or warnings', errs.length === 0, errs.join(' | '));

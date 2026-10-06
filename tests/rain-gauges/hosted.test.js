@@ -22,7 +22,7 @@ const EXPECT_SQUARES = { 'Plains': 2320, 'Hilly': 1516, 'Mountains': 2306, 'Coas
     inSlide: !!document.querySelector('.step[data-slide="cells"] .below #rg-panel'), interactive: document.body.hasAttribute('data-interactive'),
     title: document.querySelector('.step[data-slide="cells"] .wm-display').textContent, tools: getComputedStyle(document.getElementById('gtools')).display, toolsBottom: Math.round(innerHeight - document.getElementById('gtools').getBoundingClientRect().bottom), zoomButtons: !!document.getElementById('gzin') }));
   check('one globe: the explorer brings no globe or section of its own', !L.ownGlobe && L.sections === 0, JSON.stringify(L));
-  check('its panel sits under the "Cell by cell" words', L.inSlide && /Cell by cell/.test(L.title), JSON.stringify(L));
+  check('its panel sits under the words of slide 8', L.inSlide && /The Gaps/.test(L.title), JSON.stringify(L));
   check('while the slide is on screen the story globe is interactive, with Reset view at the bottom right', L.interactive && L.tools === 'flex' && L.toolsBottom < 40 && !L.zoomButtons, JSON.stringify(L));
 
   // 2. the chart, as in smoke_scene.js

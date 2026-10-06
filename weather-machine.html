@@ -95,7 +95,7 @@ const LAYERS = {
   st_low:     { label:'Weather stations', color:'#FFB547', power:0.85, maxOf:'stations', explore:false },
   st_arctic:  { label:'Weather stations north of the Arctic Circle', color:'#FFB547', power:0.85, maxOf:'stations', explore:false },
   // "Yet the world is pulling back": stations in the countries it names, flickering like failing lights (illustrative)
-  st_flicker: { label:'Weather stations in the countries pulling back (flicker illustrative)', color:'#FFB547', dot:1.1, alpha:1, flicker:true, explore:false }
+  st_flicker: { label:'Weather stations in the countries pulling back (flicker illustrative)', color:'#FFB547', dot:0.9, alpha:0.55, flicker:true, explore:false }
 };
 
 // ---------------------------------------------------------------------------
@@ -209,7 +209,7 @@ const ERAS = { labels:[ { k:'stations', text:'Weather stations', from:1900, to:1
 // the weather-machine slides share one view: the globe stays put and turns slowly along the equator
 // (spin: 8 degrees a second, eastward like the Earth; the author, 5 Oct); moving between them never moves the camera
 const MACHINE_VIEW = [-20, 20];   // centred on 20°N: tilted toward the north, so more of the northern hemisphere shows
-const MACHINE_TEXT = 'Every forecast is built from millions of measurements from around the world. Put it all together and you have the weather machine. It runs on sharing: the US takes in three times the weather data it sends out. No country forecasts alone.';
+const MACHINE_TEXT = 'Our weather machine is built on a global network of sensors embedded in our earth, in our atmosphere and in our oceans. Collectively, they help us observe and predict the climatic rhythms and disruptions on Earth’s planetary skin.';
 const MACHINE_SOURCE = 'GHCN-Daily (NOAA NCEI); WMO OSCAR/Space, satellite positions illustrative; Argo GDAC; Su et al., <i>Nature</i> 652:119 (2026); NOAA NWS. Photos: credit to come.';
 // instrument cards (design system .wm-instrument): the name, then one line, the instrument's number of sensors.
 // A card first appears as the 16:9 card; when the next instrument arrives it shrinks to a row (square photo,
@@ -226,7 +226,7 @@ const SCENES = [
   // ============ I · The storm is changing ============
   { id:'title', act:'I · Setup',
     title:'The Gaps in the Weather Machine',
-    text:['For most of history we guessed at the weather. Now recorded disasters have risen nearly fivefold in fifty years. Yet deaths have fallen almost threefold, thanks to early warning. Our best defence is seeing the storm coming. That depends on a machine.'],
+    text:['How a planetary constellation of artificial sensing infrastructure helps us stay ahead of the forces of nature, and what the cracks in its design reveal about the state of a world in polycrisis.'],
     below:{ legend:false, ramp:true, grow:true },
     source:'Disasters and deaths: WMO and UNDRR, <i>Atlas of Mortality and Economic Losses, 1970–2019</i> (2021). Tracks: IBTrACS v04r01, NOAA NCEI.',
     views:[ { center:[-75, 18], zoom:0.86, layers:{ storms:1 }, grow:true } ] },
@@ -254,7 +254,7 @@ const SCENES = [
   // ============ III · The gaps ============
   { id:'view', act:'III · The gaps',
     title:'The Gaps',
-    text:['The United States has 78,567 weather stations, 59% of all on Earth. Africa, with more than three times the land, has 2,119. The US and EU share 636 weather radars among 1.1 billion people. Africa has 37 for 1.2 billion.'],
+    text:['On land, the eyes and ears of the weather machine sit unevenly across natural and political boundaries. Some regions have a better view of the storm than others, and are more prepared to face it.'],
     below:{ bars:{ caption:'Weather radars', rows:[
               { k:'United States and EU', v:636, note:'for 1.1 billion people' },
               { k:'Africa', v:37, note:'for 1.2 billion people' } ] } },
@@ -264,20 +264,20 @@ const SCENES = [
 
   { id:'coldspots', act:'III · The gaps',
     title:'The Gaps',
-    text:['The ocean has gaps too. Floats drift with the currents and miss shelves, enclosed seas and ice. One of these cold spots lies off Mozambique: the Channel gets a third of the global average density of Argo profiles. In March 2019, a cyclone gathered strength there.'],
+    text:['The ocean has gaps too. Argo floats drift with the currents and miss shallow shelves, enclosed seas and ice. These ‘cold spots’ keep us from understanding how conditions are shifting under the ocean surface, which often affects the weather above.'],
     source:'Argo GDAC index, downloaded 23 Sep 2026 (profiles per unit area, 35–45°E, 26–11°S). Cold spots: this project’s analysis of that index.',
     views:[ { center:[35, -18], zoom:1.3, layers:{ argo:1 } },
             { center:[35, -18], zoom:2.2, layers:{ coldspots:1 } } ] },
 
   { id:'cells', act:'III · The gaps', flow:true, plugin:'rain-gauges',   // the explorer: its panel under these words, its cells on this globe
-    title:'The Gaps: Cell by cell',
-    text:['WMO says open plains need about one rain gauge per 575 km², up to about 21 in every one-degree square. Tap any square to see how close it comes. Only 13.4% of the world’s land meets the standard. Europe has 2.4 gauges per 1,000 km². Africa has 0.09.'],
+    title:'The Gaps: at a resolution of 1°',
+    text:['Only a small fraction of Earth’s land is equipped with enough rain gauges, by WMO standards, to measure rainfall and monitor flooding.'],
     source:'Su et al., <i>Nature</i> 652:119 (2026), Fig. 2c data (CC BY 4.0); WMO-No. 168.',
     views:[ { center:[15, 22], zoom:1, layers:{} } ] },
 
   // ============ IV · Idai ============
   { id:'cant-see', act:'IV · Idai', plugin:'idai',
-    title:'What happens when we can’t predict what’s coming',
+    title:'What happens when we can’t predict what a storm will do?',
     sub:'A case study of Cyclone Idai in Mozambique',
     // the author, 5 Oct: Idai's track alone (IBTrACS, coloured by category as recorded), close on Mozambique and
     // the Channel: its loop over Malawi and back out to sea before Beira
@@ -361,8 +361,7 @@ const SCENES = [
   // ============ V · Who pays ============
   { id:'who-pays', act:'V · Who pays',
     title:'Who lives and who dies',
-    text:['This is a broader pattern across the world.',
-          'Since 2016, Africa has 27% of recorded flood deaths, Europe 1.5%. Count the damage in dollars and it flips: Europe 20.2%, Africa 2.9%. Counted in lives, they are not.'],
+    text:['This is a broader pattern across the world. Since 2016, Africa has had 27% of recorded flood deaths, Europe 1.5%.'],
     source:'EM-DAT, CRED (UCLouvain), floods 2016–2026, export 18 Sep 2026.',
     views:[ { center:[30, 14], zoom:0.86, layers:{ fl_affected:1, fl_deaths:1 } } ] },
 
@@ -387,23 +386,24 @@ const SCENES = [
     views:[ { center:[33.93, -9.93], zoom:0.8, stories:true, layers:{} } ] },
 
   { id:'question', act:'VI · Closing the gaps',
-    title:'What can we do to support them?',
+    title:'Why have we not collectively filled the gaps in the weather machine?',
+    text:['The technology exists in many forms, but it has not reached the places that need it most.'],
     // a pause: the question alone over the empty globe (no layers, so no source)
     below:{ legend:false },
     views:[ { center:[14, 8], zoom:0.84, layers:{} } ] },
 
   { id:'works', act:'VI · Closing the gaps',
-    title:'We know what works',
-    quote:{ text:'“Disaster-related mortality is at least six times lower in countries with good early-warning systems in place.”', by:'António Guterres, UN Secretary-General' },
-    text:['The technology exists, from Bangladesh’s volunteers to Malawi’s river sensors. Yet about 90 countries still haven’t reported a multi-hazard warning system.'],
+    title:'Early warning systems save lives, but nearly half of the world’s countries have yet to report one',
+    quote:{ long:true, text:'“Early warnings are not an abstraction. They give farmers the power to protect their crops and livestock. Enable families to evacuate safely. And protect entire communities from devastation. We know that disaster-related mortality is at least six times lower in countries with good early-warning systems in place. And just 24 hours’ notice before a hazardous event can reduce damage by up to 30 per cent.”', by:'António Guterres, UN Secretary-General, 22 October 2025' },
+    text:['Yet about 90 countries still haven’t reported a multi-hazard warning system.'],
     below:{ legend:['mhews_2022','mhews_2025'] },
     source:'A. Guterres, Early Warnings for All event, 22 Oct 2025; Sendai Framework Monitor, Target G-1, fetched 28 Sep 2026.',
     views:[ { center:[14, 10], zoom:0.9, layers:{ mhews_2022:1 } },
             { center:[14, 10], zoom:0.9, layers:{ mhews_2025:1, mhews_2022:1 } } ] },
 
   { id:'not-enough', act:'VI · Closing the gaps',
-    title:'But where it matters most, the sensors are missing',
-    text:['The poorest countries and small island states deliver 9% of the surface data WMO requires. African weather-balloon reports reaching global models fell by half from 2015 to 2020. Stations get installed, then fall silent, because nobody pays to keep them running.'],
+    title:'Some regions do not have the means to build or keep them',
+    text:['The poorest countries and small island states provide only 9% of the surface data the WMO needs from them. African weather-balloon reports reaching global models fell by half between 2015 and 2020. Stations get installed, then fall silent, because states often lack the resources, or the operational or technical know-how, to keep them running.'],
     below:{ bars:{ caption:'African balloon reports reaching global models (2015 = 100)', rows:[
               { k:'2015', v:100, label:'100' },
               { k:'2020', v:50,  label:'about 50' } ] } },
@@ -414,8 +414,8 @@ const SCENES = [
 
 
   { id:'money', act:'VI · Closing the gaps',
-    title:'We can afford to fix it',
-    text:['What’s missing is the money to build the instruments and keep them running, and the poorest countries can’t find it alone. The UN fund for their missing weather data is seeking US$400 million. The world spends that on its militaries in just over an hour. Every dollar invested returns more than 25.'],
+    title:'We have the means to fund planetary defence',
+    text:['The UN fund for the poorest countries’ missing weather data is seeking US$400 million. The world spends that on its militaries in just over an hour. Every dollar invested returns more than 25.'],
     // the dial: one ring = one hour of world military spending (US$2,887 billion / 8,760 hours = US$329.6 million);
     // US$400 million laps it once and 13 minutes more
     below:{ dial:{ value:400, unit:2887000/8760, caption:'One ring: an hour of world military spending, about US$330 million', stats:[ { v:'US$400 million', note:'sought by SOFF, the UN fund for basic weather observations' },
@@ -425,7 +425,7 @@ const SCENES = [
     views:[ { center:[10, 16], zoom:0.84, layers:{} } ] },   // no rain-gauge layer here (the author, 5 Oct: too heavy)
 
   { id:'fraying', act:'VI · Closing the gaps',
-    title:'Yet the world is pulling back',
+    title:'Great powers stepping away from international cooperation and stewardship',
     text:['The US, long the machine’s biggest backer, is pulling back: fewer weather balloons, a suspended famine-warning system, exit from 66 international bodies, proposals to cut NOAA by a quarter. Elsewhere, war has destroyed or cut off a quarter of Ukraine’s observing network, and Europe’s weather-satellite agency and the Arctic Council have suspended cooperation with Russia.'],
     // the timeline: US events above the line, the wider world below, each dated from its source (the research
     // dossier's chronology). The world's events are from 2022-23, so the line runs 2022 to 2026.
@@ -446,8 +446,7 @@ const SCENES = [
 
   { id:'end', act:'VI · Closing the gaps',
     title:'There can be no gaps in our weather machine',
-    text:['Climate change threatens every nation’s security, and it hits hardest where the sensors are fewest. The world’s highest court calls it “an existential problem of planetary proportions”. The Cold War moved rivals to build this machine together. This threat is greater.',
-          'Every forecast on Earth runs on one machine. No country can see the storm coming alone.'],
+    text:['Every forecast on Earth is built from the same shared observations, so a blind spot anywhere weakens forecasts far beyond it. This is a gap that cannot be ignored.'],
     below:{ legend:['hist_stations','hist_sats','hist_argo'], end:['Weather stations.','Rain gauges.','River gauges.','Radiosondes.','Collective Planetary Stewardship.'] },
     // the machine fills in again, as on slides 2-5 but 4.5x faster (0.33 s a decade, 1900 to today), with no bar
     era:{ from:1900, to:2025, perDecade:0.33, hidden:true },
@@ -755,6 +754,7 @@ const SETTINGS = {
 
 /* Pull quote: a quoted line set large, inside the slide text, attribution as a note below */
 .wm-quote{font:500 clamp(1.3rem, 2.1vw, 1.65rem)/1.3 var(--wm-disp); letter-spacing:-.015em; color:var(--wm-text); margin:0}
+.wm-quote.is-long{font:400 var(--wm-fs-lead)/1.55 var(--wm-sans); letter-spacing:0; color:var(--wm-text-2)}   /* a quote of several sentences: reading size */
 
 /* Bars on one shared scale (the country profile's style): the largest value fills the track.
    Solid = the subject, outlined = the comparison. Colour with --c, from a data token. */
@@ -804,9 +804,9 @@ const SETTINGS = {
 .wm-figure > .wm-frame{position:relative; aspect-ratio:var(--wm-ratio-side); border:var(--wm-frame-w) solid var(--wm-frame);
   border-radius:var(--wm-r-control); background:#2E3A4A center/cover no-repeat; overflow:hidden}
 .wm-figure.is-side{position:fixed; z-index:var(--wm-z-card);
-  right:calc(var(--wm-mini-right) + var(--wm-mini-r)); top:calc(var(--wm-mini-top) + var(--wm-mini-r));
-  width:min(56vw, calc((100vh - var(--wm-mini-top) - var(--wm-mini-r) - 7vh) * 4 / 3),
-            calc(100vw - var(--wm-mini-right) - var(--wm-mini-r) - var(--wm-slide-left) - var(--wm-slide-w) - var(--wm-s6)))}   /* as big as the screen allows, clear of the slide text */
+  right:var(--wm-gutter); top:var(--wm-slide-top);   /* right edge on the page margin (the Story / Explore buttons'), top on the slide label */
+  width:calc(0.85 * min(calc(100vw - var(--wm-gutter) - var(--wm-slide-left) - var(--wm-slide-w) - var(--wm-s6)),
+            calc((100vh - var(--wm-slide-top) - 3.2rem) * 4 / 3)))}   /* 85% of the space the screen allows (the author, 5 Oct), kept to the right margin, clear of the text */
 .wm-credit{font-size:var(--wm-fs-caption); line-height:1.4; color:var(--wm-faint)}
 @media (max-width:760px){ .wm-figure.is-side{position:relative; right:auto; top:auto; transform:none; width:100%} }
 .wm-photo .wm-icon-btn{position:absolute; right:10px; bottom:10px; background:rgba(5,8,14,.55)}
@@ -1052,7 +1052,10 @@ select.wm-field option{background:#0B111A; color:var(--wm-text)}
   @media (max-height:760px){ #slide .wm-readout.sweep b{font-size:1.15rem} }
   /* short screens: the timeline names what fades, so the layer legend steps aside; the illustrative note moves into
      the timeline's key (its .ill), so the caveat stays on screen */
-  @media (max-height:820px){ #slide .below:has(.wm-events) .wm-legend{display:none} }
+  @media (max-height:960px){ #slide .below:has(.wm-events) .wm-legend{display:none} }
+  /* short screens: a long quote at small reading size; the vertical timeline a touch tighter */
+  @media (max-height:820px){ #slide .wm-quote.is-long{font-size:var(--wm-fs-small); line-height:1.5} }
+  @media (max-height:760px){ #slide .wm-events.is-vertical li{padding:0; font-size:.68rem; line-height:1.2} #slide .wm-events.is-vertical .key{margin-bottom:2px} }
   @media (max-height:820px){ #slide .below:has(.wm-events.is-vertical) .rest > .wm-note{display:none} }
   #slide .stats{display:flex; flex-direction:column; gap:var(--wm-s4)}
   #slide .stats .wm-note{margin-top:var(--wm-s1); max-width:34ch}
@@ -1315,20 +1318,28 @@ body[data-stories] #slide .below > .rest > .wm-legend, body[data-stories] #slide
 
 
   /* Explore: the same globe, driven by the reader */
-  #explore{position:fixed; top:0; bottom:0; left:0; width:300px; z-index:5; background:var(--wm-raised);
-     border-right:1px solid var(--wm-line-soft); padding:4.6rem var(--wm-gutter) 2rem; overflow-y:auto; display:none;
+  /* a floating rectangle with a white border (the author, 5 Oct), clear of the top bar, as tall as it needs */
+  #explore{position:fixed; top:var(--wm-slide-top); left:var(--wm-slide-left); width:272px; max-height:calc(100vh - var(--wm-slide-top) - 1.5rem); z-index:5;
+     background:var(--wm-glass); backdrop-filter:var(--wm-blur); -webkit-backdrop-filter:var(--wm-blur);
+     border:1px solid var(--wm-frame); border-radius:var(--wm-r-card); padding:16px 18px 18px; overflow-y:auto; display:none;
      font-size:var(--wm-fs-small)}
+  /* sliders as a thin line: 1px, filled to the handle, the handle a short white tick */
+  #explore .wm-range{height:12px}
+  #explore .wm-range::-webkit-slider-runnable-track{height:1px}
+  #explore .wm-range::-webkit-slider-thumb{width:2px; height:10px; margin-top:-4.5px; border:0; border-radius:1px; background:var(--wm-text)}
+  #explore .wm-range::-moz-range-thumb{width:2px; height:10px; border:0; border-radius:1px; background:var(--wm-text)}
+  #explore .wm-range:hover::-webkit-slider-thumb, #explore .wm-range:focus-visible::-webkit-slider-thumb{background:var(--wm-text); height:12px}
   #explore .wm-label{display:block; margin:1.4rem 0 .6rem}
   #explore .wm-label:first-child{margin-top:0}
   #explore .lrow{display:flex; align-items:center; gap:.5rem; margin:.3rem 0}
   #explore .lrow span{flex:1; color:var(--wm-text-2); font-size:var(--wm-fs-caption); line-height:1.35}
   #explore .lrow output, #explore .row output, #explore .row label{color:var(--wm-muted); font-size:var(--wm-fs-caption)}
   #explore .row{display:flex; justify-content:space-between; align-items:baseline}
-  #explore .wm-range{margin:.15rem 0 .55rem}
+  #explore .wm-range{margin:.05rem 0 .45rem}
   #explore .wm-btn{width:100%; justify-content:center; margin-top:.8rem}
   #explore .wm-note{margin-top:1.4rem; font-size:var(--wm-fs-caption)}
   body[data-mode="explore"] #explore{display:block}
-  body[data-mode="explore"] #topbar{padding-left:var(--wm-gutter)}
+  /* Explore keeps Story's margins: the title, the panel and the slide text share one left edge and one top line */
   body[data-mode="explore"] #story, body[data-mode="explore"] #slide, body[data-mode="explore"] #hintbar,
   body[data-mode="explore"] #cmp, body[data-mode="explore"] #fade, body[data-mode="explore"] #progress,
   body[data-mode="explore"] .wm-nav, body[data-mode="explore"] .wm-nav-mini{display:none !important}
@@ -1365,7 +1376,7 @@ body[data-stories] #slide .below > .rest > .wm-legend, body[data-stories] #slide
   @media (max-width:760px){
     #stage{position:fixed; top:0; left:0; right:0; height:52vh; bottom:auto}
     #fade{background:linear-gradient(0deg, var(--wm-bg) 0, var(--wm-bg) 46vh, rgba(5,8,14,0) 56vh)}
-    #explore{width:100%; border-right:none}
+    #explore{left:16px; right:16px; width:auto; top:4rem; max-height:46vh}
     #hintbar{display:none}
     .step.is-flow{padding:54vh var(--wm-gutter) 16px}
     .step.is-flow .wm-slide > *{max-width:none !important; width:auto !important}
@@ -1413,7 +1424,7 @@ body[data-stories] #slide .below > .rest > .wm-legend, body[data-stories] #slide
 <figure id="photo" class="wm-figure is-side" aria-hidden="true"><div class="wm-frame"><img alt=""></div><figcaption class="wm-credit">Credit to come</figcaption></figure>
 <div id="gtools"><button id="greset" class="wm-btn" type="button">Reset view</button></div>
 <main id="story">
-<div class="story-slot" data-scenes="title,stations,satellites,argo,machine,view,coldspots,cells,cant-see,mozambique,three-storms,seen,before-after,numbers,beyond,beyond-grid,who-pays,born,frontline,question,works,not-enough,money,fraying,end,resources"></div>
+<div class="story-slot" data-scenes="title,stations,satellites,argo,machine,view,coldspots,cells,cant-see,mozambique,three-storms,seen,before-after,numbers,beyond,beyond-grid,who-pays,born,frontline,question,works,not-enough,fraying,money,end,resources"></div>
 <div id="plugin-panels" hidden>
 <div class="rg-scene rg-in-story" id="rg-scene" hidden>
 <div id="rg-gtip" class="wm-tip rg-tip" hidden></div>
@@ -1663,7 +1674,7 @@ function START(){
     let h='<p class="wm-label">'+esc(s.act||'')+'</p><h2 class="wm-display">'+esc(s.title)+'</h2>';
     if(s.sub) h+='<p class="wm-sub">'+esc(s.sub)+'</p>';
     h+='<div class="text">';
-    if(s.quote) h+='<p class="wm-quote">'+esc(s.quote.text)+'</p><p class="wm-note">'+esc(s.quote.by)+'</p>';
+    if(s.quote) h+='<p class="wm-quote'+(s.quote.long?' is-long':'')+'">'+esc(s.quote.text)+'</p><p class="wm-note">'+esc(s.quote.by)+'</p>';
     (s.text||[]).forEach(par=>{
       if(typeof par==='string'){ h+='<p class="wm-lead">'+esc(par)+'</p>'; return; }
       // a beat: appears at its time (s after the slide arrives), with its number set large above it
@@ -1999,7 +2010,9 @@ function START(){
   }
 
   // plain dots: one small circle each, drawn normally. ~9,000 of them, cheap.
-  const FLICKER=[1600,70, 90,60, 70,380, 900,110, 60,70, 50,900, 1300,60, 120,240, 70,60, 2200,500, 160,80, 60,1200];
+  // gentle (the author, 5 Oct): long steady stretches, a few slow stutters; small dips, never dark
+  const FLICKER=[2600,420, 900,300, 380,520, 3200,700, 1800,360, 420,300, 2400,900];
+  const FLICKER_LOW=0.62, FLICKER_FADE=420;   // dims to about 60%, eased over 0.42 s (subtler: the author, 5 Oct)
   const FLICKER_LEN=FLICKER.reduce((a,b)=>a+b,0);
   function drawPoints(key,cfg,alpha){
     const arr=L[key], c=proj.rotate(), ctr=[-c[0],-c[1]];
@@ -2014,10 +2027,12 @@ function START(){
     const g=Math.min(2.6,Math.max(0.6,Math.pow(proj.scale()/520,0.25)));
     const r=Math.max(0.5,(cfg.dot===undefined?1.3:cfg.dot)*g*SETTINGS.dotScale);
     if(cfg.flicker && !reduce){
-      // a failing bulb: every light switches on and off together, abruptly, in an irregular Morse-like rhythm of
-      // long and short bursts (ms; even entries on, odd entries off); off leaves a faint ghost of each dot
+      // a failing bulb, gently: every light dims and returns together in an irregular rhythm of long and short
+      // bursts (ms; even entries on, odd entries dim), each change eased over FLICKER_FADE ms
       const P=FLICKER, t=performance.now()%FLICKER_LEN; let k=0, acc=0; while(acc+P[k]<=t){ acc+=P[k]; k++; }
-      ctx.fillStyle=cfg.color; ctx.globalAlpha=alpha*(k%2===0 ? 1 : 0.07);
+      const lv=j=>(((j%P.length)+P.length)%P.length)%2===0 ? 1 : FLICKER_LOW, f=Math.min(1,(t-acc)/FLICKER_FADE);
+      const lvl=lv(k-1)+(lv(k)-lv(k-1))*(f*f*(3-2*f));           // eased from the last level to this one
+      ctx.fillStyle=cfg.color; ctx.globalAlpha=alpha*(cfg.alpha===undefined?1:cfg.alpha)*lvl;   // calm even when on
       ctx.beginPath();
       for(let i=0;i<arr.length;i+=2){ const lo=arr[i],la=arr[i+1];
         if(d3.geoDistance([lo,la],ctr)>1.5533) continue; const xy=proj([lo,la]); if(!xy) continue;
@@ -2157,8 +2172,16 @@ function START(){
   // lens in the top-right corner, centred on the photo's corner (design system: WM.miniView). cur.mini goes
   // 0 (full) to 1 (corner); in between, the centre, the radius and a circular clip move together.
   let lens={cx:0, cy:0, r:Infinity};
+  // the lens sits inside the side photo's top-right corner (the author, 5 Oct): read from where the photo is laid out,
+  // its radius about 12% of the photo's width (52 to 90 px), inset from the white frame
+  function photoLens(){
+    const fr=document.querySelector('#photo .wm-frame'); if(!fr || W<760) return null;
+    const b=fr.getBoundingClientRect(); if(!b.width) return null;
+    const r=Math.max(52,Math.min(90,b.width*0.12)), inset=Math.max(10,r*0.18);
+    return { cx:b.right-inset-r, cy:b.top+inset+r, r };
+  }
   function frameNow(){
-    const m=cur.mini||0, full={cx:W<760?W/2:W*SETTINGS.globeX, cy:H*.5, r:R}, mv=WM.miniView(W,H);
+    const m=cur.mini||0, full={cx:W<760?W/2:W*SETTINGS.globeX, cy:H*.5, r:R}, mv=photoLens()||WM.miniView(W,H);
     const L=(a,b)=>a+(b-a)*m;
     lens = m>0.001 ? { cx:L(full.cx,mv.cx), cy:L(full.cy,mv.cy), r:L(Math.hypot(W,H), mv.r) } : { cx:full.cx, cy:full.cy, r:Infinity };
     return { cx:L(full.cx,mv.cx), cy:L(full.cy,mv.cy), r:L(full.r,mv.r), m };
@@ -2496,14 +2519,17 @@ function START(){
   const nStory=document.getElementById('navStory'), nExp=document.getElementById('navExplore');
   const panel2=document.getElementById('explore');
 
+  // Explore offers only the layers that matter (the author, 5 Oct), in this order, with their own short labels
+  const EXPLORE=[['stations','Weather stations'],['sats_shell','Satellites (positions illustrative)'],['argo','Argo floats'],
+    ['gauges','Rain gauges per 1,000 km²'],['storms','Storm tracks, 2006–2026 (animated)'],['fl_deaths','Flood deaths, 2016–2026'],
+    ['fl_affected','People affected by floods, 2016–2026'],['telemetry','Animal telemetry (tracked, no sensors)'],['seals','Seal-borne ocean profiles']];
   function buildExploreLayers(){
     let s='';
-    for(const k in LAYERS){
-      const c=LAYERS[k];
-      if(c.explore===false) continue;
+    for(const [k,label] of EXPLORE){
+      const c=LAYERS[k]; if(!c) continue;
       const col=c.color || (c.ramp && c.ramp[c.ramp.length-1]) || '#ECEAE5';
       s+=`<div class="lrow"><input type="checkbox" class="wm-check" id="x_${k}"><i class="wm-swatch${c.ramp?' is-line':''}" style="background:${col}"></i>`+
-         `<span>${c.label}</span><output id="xo_${k}"></output></div>`+
+         `<span>${label}</span><output id="xo_${k}"></output></div>`+
          `<input type="range" class="wm-range" id="xr_${k}" min="0" max="1" step="0.05">`;
     }
     document.getElementById('expLayers').innerHTML=s;
@@ -2514,8 +2540,9 @@ function START(){
       const upd=()=>{ exp.a[k]= cb.checked ? (+rg.value||1) : 0;
         document.getElementById('xo_'+k).textContent = exp.a[k] ? exp.a[k].toFixed(2) : 'off';
         if(exp.on){ tgt.a=Object.assign({},exp.a); cur.a=Object.assign({},exp.a); dirty=true; render(); } };
-      cb.addEventListener('input',upd); rg.addEventListener('input',()=>{ cb.checked=+rg.value>0.02; upd(); });
-      upd();
+      const fill=()=>rg.style.setProperty('--p',(+rg.value*100)+'%');   // the line fills up to the handle
+      cb.addEventListener('input',upd); rg.addEventListener('input',()=>{ cb.checked=+rg.value>0.02; fill(); upd(); });
+      fill(); upd();
     }
   }
 
@@ -2527,6 +2554,8 @@ function START(){
     document.getElementById('expLonR').value=lon;
     document.getElementById('expLatR').value=lat;
     document.getElementById('expZR').value=Math.min(60,cur.z);
+    for(const id of ['expLonR','expLatR','expZR']){ const r=document.getElementById(id);   // fill each line up to its handle
+      r.style.setProperty('--p',((r.value-r.min)/(r.max-r.min)*100)+'%'); }
   }
   function setView(lon,lat,z){
     tween=null;

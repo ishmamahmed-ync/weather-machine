@@ -1,0 +1,104 @@
+[Slide 1 : The Gaps in the Weather Machine]
+Title: The Gaps in the Weather Machine
+Description: How a planetary constellation of artificial sensing infrastructure helps us stay ahead of the forces of nature, and what the cracks in its design reveal about the state of a world in polycrisis.
+
+[Slide 2 : The weather machine]
+Title: The weather machine
+Description: Our weather machine is built on a global network of sensors embedded in our earth, in our atmosphere and in our oceans. Collectively, they help us observe and predict the climatic rhythms and disruptions on Earth’s planetary skin.
+
+[Slide 3 : The weather machine]
+Title: The weather machine
+Description: Our weather machine is built on a global network of sensors embedded in our earth, in our atmosphere and in our oceans. Collectively, they help us observe and predict the climatic rhythms and disruptions on Earth’s planetary skin.
+
+[Slide 4 : The weather machine]
+Title: The weather machine
+Description: Our weather machine is built on a global network of sensors embedded in our earth, in our atmosphere and in our oceans. Collectively, they help us observe and predict the climatic rhythms and disruptions on Earth’s planetary skin.
+
+[Slide 5 : The weather machine]
+Title: The weather machine
+Description: Our weather machine is built on a global network of sensors embedded in our earth, in our atmosphere and in our oceans. Collectively, they help us observe and predict the climatic rhythms and disruptions on Earth’s planetary skin.
+
+[Slide 6 : The Gaps]
+Title: The Gaps
+Description: On land, the eyes and ears of the weather machine sit unevenly across natural and political boundaries. Some regions have a better view of the storm than others, and are more prepared to face it.
+
+[Slide 7 : The Gaps]
+Title: The Gaps
+Description: The ocean has gaps too. Argo floats drift with the currents and miss shallow shelves, enclosed seas and ice. These ‘cold spots’ keep us from understanding how conditions are shifting under the ocean surface, which often affects the weather above.
+
+[Slide 8 : The Gaps: at a resolution of 1°]
+Title: The Gaps: at a resolution of 1°
+Description: Only a small fraction of Earth’s land is equipped with enough rain gauges, by WMO standards, to measure rainfall and monitor flooding.
+
+[Slide 9 : What happens when we can’t predict what a storm will do?]
+Title: What happens when we can’t predict what a storm will do?
+Subtitle: A case study of Cyclone Idai in Mozambique
+Description: (none: the title alone)
+
+[Slide 10 : Mozambique, 2019]
+Title: Mozambique, 2019
+Description: One of the world’s least developed countries, and among the most exposed to climate change. Over 60% of its people live in low-lying coastal areas. Just 19 of its weather stations reach the global archive, and much of the water that floods its rivers falls in its neighbours’ highlands.
+
+[Slide 11 : One season, three storms]
+Title: One season, three storms
+Description: 21 January 2019: Tropical Storm Desmond brings severe flooding. 52 days later: Cyclone Idai. 42 days after that: Cyclone Kenneth. Mozambique had never been hit by so many cyclones in one season. Climate change was no longer intangible.
+
+[Slide 12 : The storm was expected. The flood was not.]
+Title: The storm was expected. The flood was not.
+Description: Forecasters saw Idai coming five days ahead, and warnings went out. The flood was another matter. Idai moved inland, dumped torrential rain over Zimbabwe, and the rivers carried it back. The Pungwe–Buzi plain became an inland sea. Seeing a storm takes satellites. Knowing what its rain will do takes gauges on the ground.
+
+[Slide 13 : Before and after]
+Title: Before and after
+Description: Drag the handle: the same plain on 24 February and 21 March 2019. Water is dark blue, vegetation green, cloud cyan.
+
+[Slide 14 : Idai in numbers]
+Title: Idai in numbers
+Description: 1.85 million people affected. 603 deaths in Mozambique; more than 1,000 across three countries. 122,700 houses destroyed and 111,200 damaged. 77 health facilities severely damaged. 400,000 people in shelters.
+
+[Slide 15 : Beyond people]
+Title: Beyond people
+Description: 124,498 birds killed. 10,305 sheep and goats. 5,428 cows. 3,191 pigs. US$3.1 million lost, in places where families depend on their animals.
+
+[Slide 16 : Beyond people]
+Title: Beyond people
+Description: 1,345 km of transmission lines damaged. 10,216 km of distribution lines. 3,990 transformers. 30 substations. The damage cascades: lost herds and a broken grid keep costing families long after the water goes down.
+
+[Slide 17 : Who lives and who dies]
+Title: Who lives and who dies
+Description: This is a broader pattern across the world. Since 2016, Africa has had 27% of recorded flood deaths, Europe 1.5%.
+
+[Slide 18 : How about the place you were born?]
+Title: How about the place you were born?
+Description: Enter your country and birth year. See how many people floods have killed, affected and displaced there since you were born, compared with another country.
+
+[Slide 19 : The frontlines are responding]
+Title: The frontlines are responding
+Description: Stories of adaptation, resilience, and ingenuity around the world.
+
+[Slide 20 : Why have we not collectively filled the gaps in the weather machine?]
+Title: Why have we not collectively filled the gaps in the weather machine?
+Description: The technology exists in many forms, but it has not reached the places that need it most.
+
+[Slide 21 : Early warning systems save lives, but nearly half of the world’s countries have yet to report one]
+Title: Early warning systems save lives, but nearly half of the world’s countries have yet to report one
+Description: “Early warnings are not an abstraction. They give farmers the power to protect their crops and livestock. Enable families to evacuate safely. And protect entire communities from devastation. We know that disaster-related mortality is at least six times lower in countries with good early-warning systems in place. And just 24 hours’ notice before a hazardous event can reduce damage by up to 30 per cent.” (António Guterres, UN Secretary-General, 22 October 2025) Yet about 90 countries still haven’t reported a multi-hazard warning system.
+
+[Slide 22 : Some regions do not have the means to build or keep them]
+Title: Some regions do not have the means to build or keep them
+Description: The poorest countries and small island states provide only 9% of the surface data the WMO needs from them. African weather-balloon reports reaching global models fell by half between 2015 and 2020. Stations get installed, then fall silent, because states often lack the resources, or the operational or technical know-how, to keep them running.
+
+[Slide 23 : We have the means to fund planetary defence]
+Title: We have the means to fund planetary defence
+Description: The UN fund for the poorest countries’ missing weather data is seeking US$400 million. The world spends that on its militaries in just over an hour. Every dollar invested returns more than 25.
+
+[Slide 24 : Great powers stepping away from international cooperation and stewardship]
+Title: Great powers stepping away from international cooperation and stewardship
+Description: The US, long the machine’s biggest backer, is pulling back: fewer weather balloons, a suspended famine-warning system, exit from 66 international bodies, proposals to cut NOAA by a quarter. Elsewhere, war has destroyed or cut off a quarter of Ukraine’s observing network, and Europe’s weather-satellite agency and the Arctic Council have suspended cooperation with Russia.
+
+[Slide 25 : There can be no gaps in our weather machine]
+Title: There can be no gaps in our weather machine
+Description: Every forecast on Earth is built from the same shared observations, so a blind spot anywhere weakens forecasts far beyond it. This is a gap that cannot be ignored.
+
+[Slide 26 : Help close the gaps]
+Title: Help close the gaps
+Description: (none: the title alone)

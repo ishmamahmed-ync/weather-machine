@@ -254,6 +254,7 @@
 
 /* Pull quote: a quoted line set large, inside the slide text, attribution as a note below */
 .wm-quote{font:500 clamp(1.3rem, 2.1vw, 1.65rem)/1.3 var(--wm-disp); letter-spacing:-.015em; color:var(--wm-text); margin:0}
+.wm-quote.is-long{font:400 var(--wm-fs-lead)/1.55 var(--wm-sans); letter-spacing:0; color:var(--wm-text-2)}   /* a quote of several sentences: reading size */
 
 /* Bars on one shared scale (the country profile's style): the largest value fills the track.
    Solid = the subject, outlined = the comparison. Colour with --c, from a data token. */
@@ -303,9 +304,9 @@
 .wm-figure > .wm-frame{position:relative; aspect-ratio:var(--wm-ratio-side); border:var(--wm-frame-w) solid var(--wm-frame);
   border-radius:var(--wm-r-control); background:#2E3A4A center/cover no-repeat; overflow:hidden}
 .wm-figure.is-side{position:fixed; z-index:var(--wm-z-card);
-  right:calc(var(--wm-mini-right) + var(--wm-mini-r)); top:calc(var(--wm-mini-top) + var(--wm-mini-r));
-  width:min(56vw, calc((100vh - var(--wm-mini-top) - var(--wm-mini-r) - 7vh) * 4 / 3),
-            calc(100vw - var(--wm-mini-right) - var(--wm-mini-r) - var(--wm-slide-left) - var(--wm-slide-w) - var(--wm-s6)))}   /* as big as the screen allows, clear of the slide text */
+  right:var(--wm-gutter); top:var(--wm-slide-top);   /* right edge on the page margin (the Story / Explore buttons'), top on the slide label */
+  width:calc(0.85 * min(calc(100vw - var(--wm-gutter) - var(--wm-slide-left) - var(--wm-slide-w) - var(--wm-s6)),
+            calc((100vh - var(--wm-slide-top) - 3.2rem) * 4 / 3)))}   /* 85% of the space the screen allows (the author, 5 Oct), kept to the right margin, clear of the text */
 .wm-credit{font-size:var(--wm-fs-caption); line-height:1.4; color:var(--wm-faint)}
 @media (max-width:760px){ .wm-figure.is-side{position:relative; right:auto; top:auto; transform:none; width:100%} }
 .wm-photo .wm-icon-btn{position:absolute; right:10px; bottom:10px; background:rgba(5,8,14,.55)}
@@ -890,7 +891,7 @@ td:first-child{color:var(--wm-text); white-space:nowrap; font-weight:500}
         <div class="tile"><div class="stage" style="align-items:flex-start">
             <ul class="rules" style="width:100%">
               <li><b>1px white frame, 2px corners</b><span>No unframed, full-bleed or background photographs.</span></li>
-              <li><b>Corner globe</b><span>Radius 80–125px, 3vw from the right, below the top bar, centred on the side image's top-right corner. Grid 30% white, edge 75%.</span></li>
+              <li><b>Corner globe</b><span>Inside the side image's top-right corner, its radius about 12% of the image's width (52–90px), inset from the frame. The image: top on the slide label, right edge on the page margin. Grid 30% white, edge 75%.</span></li>
               <li><b>Full globe</b><span>Grid 15% white, edge 60%. Lines always white, never dark.</span></li>
             </ul></div>
           <div class="cap"><span class="wm-label">Rules</span><code>--wm-frame · --wm-mini-*</code></div></div>

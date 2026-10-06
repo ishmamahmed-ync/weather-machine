@@ -130,11 +130,11 @@ today). Uppercase is only for labels, hints, keys and country names on maps.
 - **Instrument photos are tinted to the instrument's map colour** (grayscale image,
   luminosity blend over the colour: the main site's duotone), so the photo, its dot and
   its layer on the globe read as one thing.
-- A big side image fills most of the right side: up to 56vw wide, as tall as the screen
-  allows. **The corner globe is centred on the image's top-right corner**: the image is inset
-  by one globe radius from the right and from the top, so the corner point falls exactly on
-  the globe's centre and the frame's two edges run out from under it. On phones the image
-  drops into the flow, full width.
+- A big side image fills the right side, as large as the screen allows: **its top on the slide
+  label's line, its right edge on the page margin** (under the Story / Explore buttons), clear of
+  the slide text. **The globe sits inside its top-right corner** as a small lens, its radius about
+  12% of the image's width (52–90px), inset from the frame (the author, 5 Oct 2026; it used to be
+  centred on the corner). On phones the image drops into the flow, full width.
 - Every image carries a credit line underneath (`.wm-credit`). Instrument cards are the
   one exception: their photos are credited together in the scene's source line, so the
   legend stays compact. No credit, no image: photos whose licence is not cleared stay
@@ -160,7 +160,7 @@ today). Uppercase is only for labels, hints, keys and country names on maps.
 | Component | Class | Notes |
 |---|---|---|
 | Instrument card | `.wm-instruments` > `.wm-instrument` (`.is-row`) | First appearance: 16:9 tinted photo, dot + name + one line below. When the next instrument arrives the earlier ones become rows (64px square photo, name and its one line beside; 44px on screens under 820px tall, so a stack of four fits under a slide's words); the stack is the legend. `--tint` sets the colour. The line is the instrument's number of sensors (the final page, 5 Oct) |
-| Side image | `.wm-figure.is-side` > `.wm-frame` + `.wm-credit` | 4:3, white frame, most of the right side; the corner globe is centred on its top-right corner |
+| Side image | `.wm-figure.is-side` > `.wm-frame` + `.wm-credit` | 4:3, white frame; top on the slide label, right edge on the page margin; the globe a small lens inside its top-right corner |
 | Inline link | `.wm-link` | A word in running text that leads to its data or source: underlined, in the text's own colour (e.g. "seals" in the seal story links to the seal data) |
 | Slide text | `.wm-slide` > `.wm-label`, `.wm-display`, `.text` > `.wm-lead`, `.below`, `.wm-source` | One fixed place for every slide's narrative; everything else below it |
 | Slide navigator | `nav.wm-nav` > `ol` > `li.act` (`.is-on`) > `.num` + `ol` > `li` > `button.ln` (`.is-past`, `aria-current`); `.wm-nav-mini` on phones; `.has-wm-nav` on the body | One short line per slide in the left margin, following the scroll; the section's numeral left of its first line, lit for the current section; current line longer, in `--wm-text`; visited `--wm-muted`; upcoming `--wm-faint`. No names on screen: each line's `aria-label` is its slide's title. Click or Enter jumps; ↑ ↓ move between lines. Tokens `--wm-nav-*`; the slide text moves past it (`--wm-slide-left`). Phones: "III · 7 / 24" |
@@ -170,6 +170,7 @@ today). Uppercase is only for labels, hints, keys and country names on maps.
 | Events | `.wm-events` > `.axis` > `.yr`, `.ev.is-up` / `.ev.is-down` (`--tier`) > `.lb` | A thin dated timeline (slide 21): one hairline, a year label per year, events on tiers above (one side, e.g. the US) and below (the rest), each with a hairline to its date |
 | Events, vertical | `.wm-events.is-vertical` > `.key`, `ol` > `li.is-up` / `li.is-down` > `.when`, `.dot`, `.lb` | The dated timeline as a list (slide 23, the author's choice): one event a row in date order, evenly spaced, dots on one hairline; filled for one side, hollow for the other |
 | Link cards | `.wm-links` > `a` > `.wm-label`, `.name` (+ arrow), `.what` | Where to go next (the last slide): a 2 × 2 grid of outlined cards; the whole card is the link, opening in a new tab. The outline turns white on hover and focus |
+| Long quote | `.wm-quote.is-long` | A quote of several sentences (slide 21) at narration size, in quotation marks, the speaker below in `.wm-note` |
 | Dial | `.wm-dial` > `svg` (`.track`, `.val`, `.val.lap`) + `.nums` | A thin-line ring for a quantity against a unit (slide 23); no clock face. A value past one unit laps on an inner ring in a second colour. Draws in over 1.6 s; none with reduced motion |
 | Card | `.wm-card` (`.is-tight` for side cards) | Glass, 1px line, 3px. The only box |
 | Bare narration | `.wm-bare` | No box; title, sub, stat get the halo |
