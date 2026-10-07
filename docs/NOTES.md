@@ -378,3 +378,11 @@ vanished, so the stop now sits close on the Indus plain (zoom 4.4). Arctic stop:
 Arctic Council states; the seven other than Russia tinted; the Arctic Circle dashed; Russia and Ukraine labelled.
 Each stop has its own key under its year cards. No disputed borders drawn (Kashmir, Crimea). The flood file's own area
 (17,078 km²) differs from UNOSAT's headline (~39,200 km²), so no area is stated. Downloads logged in SOURCES.md.
+
+**Presentation clean-up (7 Oct 2026).** Placeholder wording removed from the page: "Photo(s): credit to come", "Credit to come",
+"Photo to come", "Other figures: source to come", "Source to come (likely the PDNA)". The animal and power-grid slides now
+say "2019 post-disaster reporting for Mozambique, compiled by the author": those figures came from the author's narrative
+and could not be checked against the PDNA in time (its PDF did not extract). Open question: a search summary of the PDNA
+mentions 9,710 animal deaths, far below the slide's 143,422 (which counts 124,498 birds); check the PDNA's livestock table
+before citing it. "Idai in numbers": 1.85 million affected, 603 deaths, 122,700 destroyed and 111,200 damaged match 2019
+reporting found via ReliefWeb/PreventionWeb; cited as "2019 situation reports, via ReliefWeb".

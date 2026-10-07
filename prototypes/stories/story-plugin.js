@@ -30,7 +30,7 @@
     '<article class="wm-card is-tight sto-card">' +
       '<div class="wm-photo is-duotone sto-photo"><a class="wm-icon-btn sto-more" target="_blank" rel="noopener" aria-label="Read the full story">' +
         '<svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 10L10 3M4.5 3H10v5.5"/></svg></a>' +
-        '<span class="wm-credit sto-credit">Photo to come</span></div>' +
+        '<span class="wm-credit sto-credit"></span></div>' +
       '<div class="sto-meta"><span class="wm-label sto-place"></span><span class="wm-note sto-count" aria-live="off"></span></div>' +
       '<h3 class="wm-title sto-title"></h3>' +
       '<p class="wm-body sto-desc"></p>' +
@@ -55,7 +55,7 @@
     let img = ph.querySelector('img');
     if (s.photo) { if (!img) { img = document.createElement('img'); img.alt = ''; ph.prepend(img); } img.src = s.photo; }
     else if (img) img.remove();
-    $('.sto-credit').textContent = s.photo ? 'Photo: ' + (s.photo_credit || s.source + ', credit to come') : 'Photo to come';
+    $('.sto-credit').textContent = s.photo ? 'Photo: ' + (s.photo_credit || s.source) : '';
     $('.sto-more').href = s.url;
     $('.sto-place').textContent = s.place;
     $('.sto-title').textContent = s.title;

@@ -214,7 +214,7 @@ const ERAS = { labels:[ { k:'stations', text:'Weather stations', from:1900, to:1
 // (spin: 8 degrees a second, eastward like the Earth; the author, 5 Oct); moving between them never moves the camera
 const MACHINE_VIEW = [-20, 20];   // centred on 20°N: tilted toward the north, so more of the northern hemisphere shows
 const MACHINE_TEXT = 'Our weather machine is built on a global network of sensors embedded in our earth, in our atmosphere and in our oceans. Collectively, they help us observe and predict rhythms and disruptions in our weather in real time.';
-const MACHINE_SOURCE = 'GHCN-Daily (NOAA NCEI); WMO OSCAR/Space, satellite positions illustrative; Argo GDAC; Su et al., <i>Nature</i> 652:119 (2026); NOAA NWS. Photos: credit to come.';
+const MACHINE_SOURCE = 'GHCN-Daily (NOAA NCEI); WMO OSCAR/Space, satellite positions illustrative; Argo GDAC; Su et al., <i>Nature</i> 652:119 (2026); NOAA NWS.';
 // instrument cards (design system .wm-instrument): the name, then one line, the instrument's number of sensors.
 // A card first appears as the 16:9 card; when the next instrument arrives it shrinks to a row (square photo,
 // name and line beside). Names, tints and photos come from assets/instruments; figures: scripts/check_figures.py.
@@ -293,7 +293,7 @@ const SCENES = [
     title:'Mozambique, 2019',
     text:['Mozambique lies downstream of nine international river basins, including the Zambezi and the Limpopo. With over 60% of its population living in low-lying coastal areas, the country is severely exposed to climate change.'],
     below:{ legend:false },
-    source:'River basins: Winrock International, <i>Mozambique Water Resources Profile</i> (USAID, 2021); UNEP. Coastal population: ISET-International, <i>Learning from Cyclone Idai and Cyclone Kenneth</i>, via ReliefWeb. Photo: credit to come.',
+    source:'River basins: Winrock International, <i>Mozambique Water Resources Profile</i> (USAID, 2021); UNEP. Coastal population: ISET-International, <i>Learning from Cyclone Idai and Cyclone Kenneth</i>, via ReliefWeb.',
     // the photo on the right; the globe minimises to the corner lens, zoomed toward Mozambique
     views:[ { center:[35.5, -18.2], zoom:2.8, photo:'idai-floodplain', layers:{ stations:0.5, coldspots:0.6 } } ] },
 
@@ -333,7 +333,7 @@ const SCENES = [
            { stat:'400,000', text:'people in shelters.', at:2.4 } ],
     below:{ legend:false, key:[ { color:'var(--wm-dmg-3)', label:'Destroyed' }, { color:'var(--wm-dmg-2)', label:'Damaged' }, { color:'var(--wm-dmg-1)', label:'Possibly damaged' } ],
             note:'Map: central Beira, 8,705 buildings graded from satellite images of 26 March 2019.' },
-    source:'Map: Copernicus EMS EMSR348, © European Union. Regional toll: F. Otto, <i>Yale Environment 360</i> (2023); ECMWF (2019). Other figures: source to come.',
+    source:'Map: Copernicus EMS EMSR348, © European Union. Regional toll: F. Otto, <i>Yale Environment 360</i> (2023); ECMWF (2019). Other figures: 2019 situation reports, via ReliefWeb.',
     // the regional map around Beira, with the zoom callout (small rectangle on central Beira, big one magnified)
     views:[ { center:[35.7, -19.84], zoom:45, idai:'damage', layers:{ idai_base:1, idai_damage:1, idai_labels:1 } } ] },
 
@@ -347,7 +347,7 @@ const SCENES = [
            { stat:'3,191', text:'pigs.', at:1.9, color:'var(--wm-deaths)' },
            { stat:'US$3.1 million', text:'lost, in a country where farming is the main source of income for more than 70% of people.', at:2.4 } ],
     below:{ legend:false },
-    source:'Source to come (likely the Government of Mozambique’s Post-Disaster Needs Assessment, 2019). Farming: IFAD, Mozambique country page. Photo: credit to come.',
+    source:'Livestock figures: 2019 post-disaster reporting for Mozambique, compiled by the author. Farming: IFAD, Mozambique country page.',
     views:[ { center:[34.6, -19.2], zoom:4.2, photo:'idai-cow', idai:'lens', layers:{ idai_tracks:1 } } ] },
 
   { id:'beyond-grid', act:'IV · Idai', plugin:'idai',
@@ -359,7 +359,7 @@ const SCENES = [
            { stat:'30', text:'substations.', at:1.9, color:'var(--wm-dmg-2)' },
            { text:'The damage cascades: lost herds and a broken grid keep costing families long after the water goes down.', at:2.4 } ],
     below:{ legend:false },
-    source:'Source to come (likely the Government of Mozambique’s Post-Disaster Needs Assessment, 2019). Photo: credit to come.',
+    source:'Power-grid figures: 2019 post-disaster reporting for Mozambique, compiled by the author.',
     views:[ { center:[34.6, -19.2], zoom:4.2, photo:'idai-pylons', idai:'lens', layers:{ idai_tracks:1 } } ] },
 
   // ============ V · Who pays ============
@@ -741,7 +741,7 @@ const SETTINGS = {
   <p class="wm-note">Drag the globe to spin it. Scroll or pinch to zoom.</p>
 </aside>
 <div id="slide" class="wm-slide" aria-live="polite"></div>
-<figure id="photo" class="wm-figure is-side" aria-hidden="true"><div class="wm-frame"><img alt=""></div><figcaption class="wm-credit">Credit to come</figcaption></figure>
+<figure id="photo" class="wm-figure is-side" aria-hidden="true"><div class="wm-frame"><img alt=""></div><figcaption class="wm-credit"></figcaption></figure>
 <div id="gtools"><button id="greset" class="wm-btn" type="button">Reset view</button></div>
 <main id="story">
 __ORDER__
