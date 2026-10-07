@@ -17,3 +17,5 @@ Expected files:
     list_tags.csv                       MEOP
     list_deployments.csv                MEOP
     obis_seamap_*_dist_sp_1deg.csv      OBIS-SEAMAP
+    geopolitics/FL20250818PAK_SHP.zip    UNOSAT via HDX, 19.5 MB (Pakistan flood water, 2025)
+    geopolitics/ne_10m_rivers_lake_centerlines.zip  Natural Earth, 2.1 MB

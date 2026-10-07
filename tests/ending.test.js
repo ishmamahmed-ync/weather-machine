@@ -1,4 +1,4 @@
-// The closing slides (20 to 23 since 5 Oct): the Africa decay map, the dial, the pulling-back timeline, the ending.   node tests/ending.test.js http://localhost:8766/weather-machine.html
+// The closing slides (22 to 27 since 7 Oct): the Africa decay map, the geopolitics stops, the US timeline, the dial, the ending.   node tests/ending.test.js http://localhost:8766/weather-machine.html
 const { chromium } = require('playwright');
 const URL = process.argv[2];
 (async () => {
@@ -16,11 +16,19 @@ const URL = process.argv[2];
     let r = await p.evaluate(() => ({ yr: document.querySelector('#slide [data-year="sweep"]').textContent, n: document.querySelector('#slide [data-count="sweep"]').textContent }));
     check(`${w}x${h} not enough: the counter ends in 2025 with 399 African cells reporting`, r.yr === '2025' && /^399 cells/.test(r.n), JSON.stringify(r));
 
-    for (const n of [0]) {   // one view since 5 Oct: the flicker replaces the fade sequence
-      await go(p, 'fraying', n); await p.waitForTimeout(900);
-      const a = await p.evaluate(() => [...document.querySelectorAll('#slide .wm-events li')].length);
-      if (n === 0) check(`${w}x${h} pulling back: the timeline has 6 dated events`, a === 6, a);
+    // slide 23 (7 Oct): two stops, the Indus then the Russian Arctic; each shows its own pair of year cards
+    const stops = [['1960,2025', 'st_flk_indus', 72], ['2022,2024', 'st_flk_ru', 45]];
+    for (const n of [0, 1]) {
+      await go(p, 'geopolitics', n); await p.waitForTimeout(1200);
+      r = await p.evaluate(() => ({ years: [...document.querySelectorAll('#slide .wm-yearset')].filter(x => getComputedStyle(x).display !== 'none')
+        .flatMap(x => [...x.querySelectorAll('.wm-stat')].map(y => y.textContent)).join(), lon: Math.round(WMSTORY.view().centre[0]) }));
+      check(`${w}x${h} geopolitics, stop ${n + 1}: only its two year cards (${stops[n][0]}), the globe on lon ${stops[n][2]}`,
+        r.years === stops[n][0] && Math.abs(r.lon - stops[n][2]) < 2, JSON.stringify(r));
+      check(`${w}x${h} geopolitics, stop ${n + 1} fits on screen`, await bottom() <= h - 8, await bottom());
     }
+    await go(p, 'fraying'); await p.waitForTimeout(900);
+    const a = await p.evaluate(() => [...document.querySelectorAll('#slide .wm-events li')].length);
+    check(`${w}x${h} decline in cooperation: the timeline has the 4 US events`, a === 4, a);
     // the vertical timeline: in date order, every row on its own line (no two rows overlap), inside the column
     r = await p.evaluate(() => { const li = [...document.querySelectorAll('#slide .wm-events li')], rs = li.map(x => x.getBoundingClientRect()), box = document.querySelector('#slide .below').getBoundingClientRect();
       const months = { Jan:1, Feb:2, Mar:3, Apr:4, Early:1, By:12 }, when = li.map(x => x.querySelector('.when').textContent);
@@ -59,7 +67,7 @@ const URL = process.argv[2];
   check('slide 19 with motion: the year counter advances', y1 < 1980 && y2 > y1 + 10, y1 + ' → ' + y2);
   // the end (since 5 Oct): no zooming; the globe turns back to the equator view at the same distance, rotates, and
   // the sensors fill in year by year (1 s a decade)
-  await go(p, 'fraying'); await p.waitForTimeout(1500);
+  await go(p, 'money'); await p.waitForTimeout(1500);   // the slide before the end since 7 Oct
   const z0 = await p.evaluate(() => WMSTORY.view().zoom);
   await go(p, 'end'); await p.waitForTimeout(1200);
   const v1 = await p.evaluate(() => WMSTORY.view()); await p.waitForTimeout(2500);

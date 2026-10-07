@@ -45,6 +45,8 @@ const LAYERS = {
   idai_damage: { label:'Building damage, central Beira', plugin:'idai', color:'#E8433F', explore:false },
   idai_labels: { label:'Labels', plugin:'idai', color:'#ECEAE5', explore:false },
   // the weather-machine slides: instruments filling in year by year with the era timeline (prototypes/history)
+  geo_indus:     { label:'The six rivers of the Indus Waters Treaty; flood water over Pakistan, 26 Aug–7 Sep 2025', plugin:'geopolitics', color:'#7DB4D1', explore:false },
+  geo_arctic:    { label:'The Arctic Council states other than Russia; the Arctic Circle', plugin:'geopolitics', color:'#ECEAE5', explore:false },
   cp_outline:    { label:'Your country', plugin:'country-profile', color:'#ECEAE5', explore:false },
   hist_stations: { label:'Weather stations, by decade', plugin:'history', color:'#FFB547', explore:false },
   hist_sats:     { label:'Satellites in operation', plugin:'history', color:'#CBD6E2', explore:false },
@@ -94,8 +96,10 @@ const LAYERS = {
   // slide 21: the weather stations split at the Arctic Circle, so the Arctic can fade on its own (same brightness as stations)
   st_low:     { label:'Weather stations', color:'#FFB547', power:0.85, maxOf:'stations', explore:false },
   st_arctic:  { label:'Weather stations north of the Arctic Circle', color:'#FFB547', power:0.85, maxOf:'stations', explore:false },
-  // "Yet the world is pulling back": stations in the countries it names, flickering like failing lights (illustrative)
-  st_flicker: { label:'Weather stations in the countries pulling back (flicker illustrative)', color:'#FFB547', dot:0.9, alpha:0.55, flicker:true, explore:false }
+  // slides 23 and 24: stations in the countries they name, flickering like failing lights (illustrative)
+  st_flk_indus: { label:'Weather stations in India and Pakistan (flicker illustrative)', color:'#FFB547', dot:0.9, alpha:0.55, flicker:true, explore:false },
+  st_flk_ru:    { label:'Weather stations in Russia (flicker illustrative)', color:'#FFB547', dot:0.9, alpha:0.55, flicker:true, explore:false },
+  st_flk_us:    { label:'Weather stations in the United States (flicker illustrative)', color:'#FFB547', dot:0.9, alpha:0.55, flicker:true, explore:false }
 };
 
 // ---------------------------------------------------------------------------
@@ -209,7 +213,7 @@ const ERAS = { labels:[ { k:'stations', text:'Weather stations', from:1900, to:1
 // the weather-machine slides share one view: the globe stays put and turns slowly along the equator
 // (spin: 8 degrees a second, eastward like the Earth; the author, 5 Oct); moving between them never moves the camera
 const MACHINE_VIEW = [-20, 20];   // centred on 20°N: tilted toward the north, so more of the northern hemisphere shows
-const MACHINE_TEXT = 'Our weather machine is built on a global network of sensors embedded in our earth, in our atmosphere and in our oceans. Collectively, they help us observe and predict the climatic rhythms and disruptions on Earth’s planetary skin.';
+const MACHINE_TEXT = 'Our weather machine is built on a global network of sensors embedded in our earth, in our atmosphere and in our oceans. Collectively, they help us observe and predict rhythms and disruptions in our weather in real time.';
 const MACHINE_SOURCE = 'GHCN-Daily (NOAA NCEI); WMO OSCAR/Space, satellite positions illustrative; Argo GDAC; Su et al., <i>Nature</i> 652:119 (2026); NOAA NWS. Photos: credit to come.';
 // instrument cards (design system .wm-instrument): the name, then one line, the instrument's number of sensors.
 // A card first appears as the 16:9 card; when the next instrument arrives it shrinks to a row (square photo,
@@ -226,7 +230,7 @@ const SCENES = [
   // ============ I · The storm is changing ============
   { id:'title', act:'I · Setup',
     title:'The Gaps in the Weather Machine',
-    text:['How a planetary constellation of artificial sensing infrastructure helps us stay ahead of the forces of nature, and what the cracks in its design reveal about the state of a world in polycrisis.'],
+    text:['How a planetary constellation of artificial sensing infrastructure helps us stay ahead of natural disasters, and what the cracks in its design reveal about the state of a world in polycrisis.'],
     below:{ legend:false, ramp:true, grow:true },
     source:'Disasters and deaths: WMO and UNDRR, <i>Atlas of Mortality and Economic Losses, 1970–2019</i> (2021). Tracks: IBTrACS v04r01, NOAA NCEI.',
     views:[ { center:[-75, 18], zoom:0.86, layers:{ storms:1 }, grow:true } ] },
@@ -254,7 +258,7 @@ const SCENES = [
   // ============ III · The gaps ============
   { id:'view', act:'III · The gaps',
     title:'The Gaps',
-    text:['On land, the eyes and ears of the weather machine sit unevenly across natural and political boundaries. Some regions have a better view of the storm than others, and are more prepared to face it.'],
+    text:['On land, weather stations sit unevenly across natural and political boundaries. This means that some regions have a better view of the storm than others, and are more prepared to face it.'],
     below:{ bars:{ caption:'Weather radars', rows:[
               { k:'United States and EU', v:636, note:'for 1.1 billion people' },
               { k:'Africa', v:37, note:'for 1.2 billion people' } ] } },
@@ -270,14 +274,14 @@ const SCENES = [
             { center:[35, -18], zoom:2.2, layers:{ coldspots:1 } } ] },
 
   { id:'cells', act:'III · The gaps', flow:true, plugin:'rain-gauges',   // the explorer: its panel under these words, its cells on this globe
-    title:'The Gaps: at a resolution of 1°',
-    text:['Only a small fraction of Earth’s land is equipped with enough rain gauges, by WMO standards, to measure rainfall and monitor flooding.'],
+    title:'The Gaps: Resolution of 1°',
+    text:['Only a small fraction of Earth’s land has enough rain gauges by WMO standards. Rain gauges are essential to measure rainfall and monitor flooding.'],
     source:'Su et al., <i>Nature</i> 652:119 (2026), Fig. 2c data (CC BY 4.0); WMO-No. 168.',
     views:[ { center:[15, 22], zoom:1, layers:{} } ] },
 
   // ============ IV · Idai ============
   { id:'cant-see', act:'IV · Idai', plugin:'idai',
-    title:'What happens when we can’t predict what a storm will do?',
+    title:'What happens when we can’t predict what’s coming?',
     sub:'A case study of Cyclone Idai in Mozambique',
     // the author, 5 Oct: Idai's track alone (IBTrACS, coloured by category as recorded), close on Mozambique and
     // the Channel: its loop over Malawi and back out to sea before Beira
@@ -287,9 +291,9 @@ const SCENES = [
 
   { id:'mozambique', act:'IV · Idai', plugin:'idai',
     title:'Mozambique, 2019',
-    text:['One of the world’s least developed countries, and among the most exposed to climate change. Over 60% of its people live in low-lying coastal areas. Just 19 of its weather stations reach the global archive, and much of the water that floods its rivers falls in its neighbours’ highlands.'],
+    text:['Mozambique lies downstream of nine international river basins, including the Zambezi and the Limpopo. With over 60% of its population living in low-lying coastal areas, the country is severely exposed to climate change.'],
     below:{ legend:false },
-    source:'Stations: GHCN-Daily. Rivers: ISET-International, <i>Learning from Cyclone Idai and Cyclone Kenneth</i>, via ReliefWeb. Photo: credit to come.',
+    source:'River basins: Winrock International, <i>Mozambique Water Resources Profile</i> (USAID, 2021); UNEP. Coastal population: ISET-International, <i>Learning from Cyclone Idai and Cyclone Kenneth</i>, via ReliefWeb. Photo: credit to come.',
     // the photo on the right; the globe minimises to the corner lens, zoomed toward Mozambique
     views:[ { center:[35.5, -18.2], zoom:2.8, photo:'idai-floodplain', layers:{ stations:0.5, coldspots:0.6 } } ] },
 
@@ -299,14 +303,14 @@ const SCENES = [
     text:[ { text:'21 January 2019: Tropical Storm Desmond brings severe flooding.', at:1 },
            { stat:'52', text:'days later: Cyclone Idai.', at:3 },
            { stat:'42', text:'days after that: Cyclone Kenneth.', at:5 },
-           { text:'Mozambique had never been hit by so many cyclones in one season. Climate change was no longer intangible.', at:7 } ],
+           { text:'Mozambique had never been hit by so many cyclones in a single season. Climate change was no longer intangible.', at:7 } ],
     below:{ legend:false, ramp:true },
     source:'IBTrACS v04r01, NOAA NCEI, categories as recorded; landfall dates: ISET-International, via ReliefWeb.',
     views:[ { center:[41.2, -17.5], zoom:4.6, idai:'season', layers:{ idai_base:1, idai_tracks:1, idai_labels:1 } } ] },
 
   { id:'seen', act:'IV · Idai', plugin:'idai',
     title:'The storm was expected. The flood was not.',
-    text:['Forecasters saw Idai coming five days ahead, and warnings went out. The flood was another matter. Idai moved inland, dumped torrential rain over Zimbabwe, and the rivers carried it back. The Pungwe–Buzi plain became an inland sea. Seeing a storm takes satellites. Knowing what its rain will do takes gauges on the ground.'],
+    text:['Forecasters saw Cyclone Idai coming and warned the population. The flooding was another matter. Idai moved inland, dumped torrential rain over Zimbabwe, and the already swollen rivers carried it downstream into Mozambique. The Pungwe–Buzi plain became an inland sea. Foreseeing a storm takes satellites. Knowing its effects takes gauges on the ground.'],
     below:{ legend:false, key:[ { color:'var(--wm-flood)', label:'Land that flooded, 13–20 March 2019 (Sentinel-1 radar)' },
                              { color:'var(--wm-text)', line:true, label:'Rain over Zimbabwe’s highlands, carried back down the rivers (schematic)' } ] },
     source:'ECMWF (2019); ISET-International, via ReliefWeb; flood extent: UNOSAT, Sentinel-1, 13–20 Mar 2019 (rapid mapping, not field-validated).',
@@ -314,7 +318,7 @@ const SCENES = [
 
   { id:'before-after', act:'IV · Idai', plugin:'idai',
     title:'Before and after',
-    text:['Drag the handle: the same plain on 24 February and 21 March 2019. Water is dark blue, vegetation green, cloud cyan.'],
+    text:['Drag the handle: the same plain on 24 February and again on 21 March 2019. Water is dark blue, vegetation green, cloud cyan.'],
     below:{ legend:false },
     source:'NASA MODIS (Aqua) corrected reflectance, bands 7-2-1, via NASA GIBS, 24 Feb and 21 Mar 2019 (public domain). Each pixel is 250 m.',
     views:[ { center:[34.55, -19.8], zoom:66, idai:'wipe', wipe:'idai', layers:{ idai_base:1 } } ] },   // the whole image on screen
@@ -341,9 +345,9 @@ const SCENES = [
            { stat:'10,305', text:'sheep and goats.', at:0.9, color:'var(--wm-deaths)' },
            { stat:'5,428', text:'cows.', at:1.4, color:'var(--wm-deaths)' },
            { stat:'3,191', text:'pigs.', at:1.9, color:'var(--wm-deaths)' },
-           { stat:'US$3.1 million', text:'lost, in places where families depend on their animals.', at:2.4 } ],
+           { stat:'US$3.1 million', text:'lost, in a country where farming is the main source of income for more than 70% of people.', at:2.4 } ],
     below:{ legend:false },
-    source:'Source to come (likely the Government of Mozambique’s Post-Disaster Needs Assessment, 2019). Photo: credit to come.',
+    source:'Source to come (likely the Government of Mozambique’s Post-Disaster Needs Assessment, 2019). Farming: IFAD, Mozambique country page. Photo: credit to come.',
     views:[ { center:[34.6, -19.2], zoom:4.2, photo:'idai-cow', idai:'lens', layers:{ idai_tracks:1 } } ] },
 
   { id:'beyond-grid', act:'IV · Idai', plugin:'idai',
@@ -369,7 +373,7 @@ const SCENES = [
     title:'How about the place you were born?',
     // the narration is replaced by the finding once a country and year are chosen (the plugin); the rain-gauge
     // half of the slide was dropped (the author, 5 Oct), so its clause is cut from the words
-    text:['Enter your country and birth year. See how many people floods have killed, affected and displaced there since you were born, compared with another country.'],
+    text:['Enter your country and birth year. See how many people floods have killed, affected or displaced there since you were born, compared with another country.'],
     source:'EM-DAT, CRED; IDMC GIDD; Rentschler et al., <i>Nature Communications</i> 13:3527 (2022).',
     below:{ legend:false },
     // the globe starts here; once a country is chosen the plugin turns it there (and back there on return)
@@ -387,13 +391,12 @@ const SCENES = [
 
   { id:'question', act:'VI · Closing the gaps',
     title:'Why have we not collectively filled the gaps in the weather machine?',
-    text:['The technology exists in many forms, but it has not reached the places that need it most.'],
     // a pause: the question alone over the empty globe (no layers, so no source)
     below:{ legend:false },
     views:[ { center:[14, 8], zoom:0.84, layers:{} } ] },
 
   { id:'works', act:'VI · Closing the gaps',
-    title:'Early warning systems save lives, but nearly half of the world’s countries have yet to report one',
+    title:'', name:'Early warning systems save lives',   // no title (the author, 7 Oct): the quote is the headline
     quote:{ long:true, text:'“Early warnings are not an abstraction. They give farmers the power to protect their crops and livestock. Enable families to evacuate safely. And protect entire communities from devastation. We know that disaster-related mortality is at least six times lower in countries with good early-warning systems in place. And just 24 hours’ notice before a hazardous event can reduce damage by up to 30 per cent.”', by:'António Guterres, UN Secretary-General, 22 October 2025' },
     text:['Yet about 90 countries still haven’t reported a multi-hazard warning system.'],
     below:{ legend:['mhews_2022','mhews_2025'] },
@@ -403,7 +406,7 @@ const SCENES = [
 
   { id:'not-enough', act:'VI · Closing the gaps',
     title:'Some regions do not have the means to build or keep them',
-    text:['The poorest countries and small island states provide only 9% of the surface data the WMO needs from them. African weather-balloon reports reaching global models fell by half between 2015 and 2020. Stations get installed, then fall silent, because states often lack the resources, or the operational or technical know-how, to keep them running.'],
+    text:['The poorest countries and small island states provide only 9% of the surface data the WMO needs from them. African weather-balloon reports reaching global models fell by half between 2015 and 2020.'],
     below:{ bars:{ caption:'African balloon reports reaching global models (2015 = 100)', rows:[
               { k:'2015', v:100, label:'100' },
               { k:'2020', v:50,  label:'about 50' } ] } },
@@ -415,34 +418,48 @@ const SCENES = [
 
   { id:'money', act:'VI · Closing the gaps',
     title:'We have the means to fund planetary defence',
-    text:['The UN fund for the poorest countries’ missing weather data is seeking US$400 million. The world spends that on its militaries in just over an hour. Every dollar invested returns more than 25.'],
+    text:['The UN fund for the poorest countries’ missing weather data is seeking US$400 million. The world collectively spends that on its militaries in just over an hour.'],
     // the dial: one ring = one hour of world military spending (US$2,887 billion / 8,760 hours = US$329.6 million);
     // US$400 million laps it once and 13 minutes more
     below:{ dial:{ value:400, unit:2887000/8760, caption:'One ring: an hour of world military spending, about US$330 million', stats:[ { v:'US$400 million', note:'sought by SOFF, the UN fund for basic weather observations' },
                     { v:'1 hour 13 minutes', note:'of world military spending, at US$2,887 billion a year (2025)' } ] },
             legend:false },
-    source:'SOFF, <i>Action Report 2025</i>; SIPRI, world military expenditure 2025 (27 Apr 2026); return on investment: World Bank, via WMO (2021).',
+    source:'SOFF, <i>Action Report 2025</i>; SIPRI, world military expenditure 2025 (27 Apr 2026).',
     views:[ { center:[10, 16], zoom:0.84, layers:{} } ] },   // no rain-gauge layer here (the author, 5 Oct: too heavy)
 
+  // slide 23 (the author, 7 Oct): two stops, each a pair of year cards (below.years, one set per view); the globe
+  // flies to the Indus, then to the Russian Arctic, and the named countries' stations flicker
+  { id:'geopolitics', act:'VI · Closing the gaps',
+    title:'Some regions withhold data because of geopolitical tensions',
+    // each stop: its two year cards, then its own key (below.years, one set per view)
+    below:{ legend:false, years:[
+              { cards:[ { y:'1960', text:'The Indus Waters Treaty is signed. It survives three wars.' },
+                        { y:'2025', text:'India stops sharing river and flood data with Pakistan.' } ],
+                key:[ { color:'rgba(236,234,229,.8)', line:true, label:'The six rivers of the Indus Waters Treaty' },
+                      { color:'var(--wm-flood)', label:'Flood water in Pakistan, 26 Aug–7 Sep 2025 (satellite, not field-validated)' },
+                      { color:'#FFB547', label:'Weather stations in India and Pakistan (flicker illustrative)' } ] },
+              { cards:[ { y:'2022', text:'The Arctic Council and Europe’s weather-satellite agency suspend cooperation with Russia.' },
+                        { y:'2024', text:'Data from half the Arctic’s land goes dark.' } ],
+                key:[ { color:'rgba(236,234,229,.35)', label:'The seven other Arctic Council states' },
+                      { color:'#FFB547', label:'Weather stations in Russia (flicker illustrative)' } ] } ] },
+    source:'Indus: <i>Deccan Herald</i> and New Security Beat (2025); <i>Arab News</i>, Geo News, <i>The Nation</i> (2025); flood water: UNOSAT FL20250818PAK, VIIRS, 26 Aug–7 Sep 2025 (CC BY-SA); rivers: Natural Earth. Arctic: joint statement of the Arctic Council states, 3 Mar 2022; EUMETSAT Council, 22 Mar 2022 (via Reuters); López-Blanco et al., <i>Nature Climate Change</i> 14 (2024). Stations: GHCN-Daily, reporting 2024 or later.',
+    views:[ { center:[72.2, 29.6], zoom:4.4, layers:{ geo_indus:1, st_flk_indus:1 } },   // close on the Indus plain, where the flood water is
+            { center:[45, 68], zoom:1.05, layers:{ geo_arctic:1, st_flk_ru:1 } } ] },
+
   { id:'fraying', act:'VI · Closing the gaps',
-    title:'Great powers stepping away from international cooperation and stewardship',
-    text:['The US, long the machine’s biggest backer, is pulling back: fewer weather balloons, a suspended famine-warning system, exit from 66 international bodies, proposals to cut NOAA by a quarter. Elsewhere, war has destroyed or cut off a quarter of Ukraine’s observing network, and Europe’s weather-satellite agency and the Arctic Council have suspended cooperation with Russia.'],
-    // the timeline: US events above the line, the wider world below, each dated from its source (the research
-    // dossier's chronology). The world's events are from 2022-23, so the line runs 2022 to 2026.
-    // the timeline, vertical (the author, 5 Oct): one event a row, in date order, evenly spaced
-    below:{ events:{ vertical:true, from:2022, to:2027, upLabel:'United States', downLabel:'The wider world', shortNote:'Globe: illustrative flicker', items:[
+    title:'Decline in international cooperation and stewardship',
+    text:['The USA is sharing less vital atmospheric and ocean data with the world, and leaving international bodies on scientific cooperation around climate change. Europe and Australia are now working to break their reliance on US data, building up their own infrastructure and networks.'],
+    // the timeline, vertical (the author, 5 Oct): one event a row, in date order; the US alone since 7 Oct (the
+    // world's events went to slide 23)
+    below:{ events:{ vertical:true, from:2025, to:2027, upLabel:'United States', shortNote:'Globe: illustrative flicker', items:[
               { side:'up',   at:2025.08, tier:1, when:'Early 2025', text:'FEWS NET famine warnings suspended' },
               { side:'up',   at:2025.23, tier:2, when:'Mar 2025', text:'Fewer weather balloons' },
               { side:'up',   at:2025.29, tier:3, when:'Apr 2025', text:'Plan to cut NOAA by a quarter' },
-              { side:'up',   at:2026.02, tier:4, when:'Jan 2026', text:'Exit from 66 international bodies' },
-              { side:'down', at:2022.2,  tier:2, when:'Mar 2022', text:'EUMETSAT and the Arctic Council suspend work with Russia' },
-              { side:'down', at:2023.0,  tier:1, when:'By 2023', text:'Ukraine: a quarter of its network lost (since 2014)' } ] },
-            note:'Illustrative: the flicker marks the countries above, not real station outages.' },
-    source:'NPR/AP (Jan 2026); NPR, FEWS NET (Sep 2026); Spectrum News (Mar 2025); NYT (Apr 2025); EAGE “Monitoring” (2023); Reuters (Mar 2022); <i>Scientific American</i>/E&amp;E News.',
-    // the countries pulling back (the US, Russia, Ukraine, and Finland, Sweden and Denmark, the EU members of the
-    // Arctic Council): their station lights flicker; the rest of the world's stations stay faint. Framed so the US,
-    // Europe and Russia are all in view (the author, 5 Oct)
-    views:[ { center:[-20, 70], zoom:0.84, layers:{ st_flicker:1 } } ] },
+              { side:'up',   at:2026.02, tier:4, when:'Jan 2026', text:'Exit from 66 international bodies' } ] },
+            note:'Illustrative: the flicker marks the United States, not real station outages.' },
+    source:'NPR/AP (Jan 2026); NPR, FEWS NET (Sep 2026); Spectrum News (Mar 2025); NYT (Apr 2025); Reuters, “Europe is breaking its reliance on American science” (1 Aug 2025); <i>Scientific American</i>/E&amp;E News.',
+    // the US stations flicker, the globe turned to the Americas
+    views:[ { center:[-96, 34], zoom:1.15, layers:{ st_flk_us:1 } } ] },
 
   { id:'end', act:'VI · Closing the gaps',
     title:'There can be no gaps in our weather machine',
@@ -549,6 +566,16 @@ const SETTINGS = {
   #slide .wm-timeline.era .wm-range:disabled{opacity:1; cursor:default}
   #slide .rest{display:flex; flex-direction:column; gap:var(--wm-s4)}
   .wm-slide .beat{animation:wm-in .5s ease both; animation-delay:var(--at,0s)}
+  /* year cards: only the set for the view on screen; its cards come in one after the other */
+  #slide .wm-yearset{display:flex; flex-direction:column; gap:var(--wm-s3)}
+  #slide .wm-yearset:not([data-view="0"]){display:none}
+  #slide[data-view="1"] .wm-yearset[data-view="0"], #slide[data-view="2"] .wm-yearset[data-view="0"]{display:none}
+  #slide[data-view="1"] .wm-yearset[data-view="1"], #slide[data-view="2"] .wm-yearset[data-view="2"]{display:flex}
+  #slide .wm-yearset .wm-legend{animation:wm-in .5s ease both; animation-delay:1.1s}
+  #slide .wm-years > div{animation:wm-in .5s ease both; animation-delay:.35s}
+  #slide .wm-years > div + div{animation-delay:.75s}
+  #slide .wm-display:empty{display:none}
+  @media (prefers-reduced-motion: reduce){ #slide .wm-years > div{animation:none} }
   .wm-slide .beat .wm-stat{margin-bottom:2px}
   @media (prefers-reduced-motion: reduce){ .wm-slide .beat{animation:none} }
   /* short screens: the beats' numbers a size smaller, so a list of five still fits */
@@ -823,7 +850,7 @@ function START(){
   function eventsVertical(E){
     const items=E.items.slice().sort((a,b)=>a.at-b.at);
     return '<div class="wm-events is-vertical"><div class="key">'+
-      '<span><i class="dot is-up"></i>'+esc(E.upLabel||'')+'</span><span><i class="dot is-down"></i>'+esc(E.downLabel||'')+'</span>'+
+      (E.upLabel?'<span><i class="dot is-up"></i>'+esc(E.upLabel)+'</span>':'')+(E.downLabel?'<span><i class="dot is-down"></i>'+esc(E.downLabel)+'</span>':'')+
       (E.shortNote?'<span class="ill">'+esc(E.shortNote)+'</span>':'')+'</div>'+
       '<ol>'+items.map(x=>'<li class="is-'+x.side+'"><span class="when">'+esc(x.when)+'</span><i class="dot is-'+x.side+'"></i><span class="lb">'+esc(x.text)+'</span></li>').join('')+'</ol></div>';
   }
@@ -838,6 +865,13 @@ function START(){
       (D.caption?'<span class="wm-note cap">'+esc(D.caption)+'</span>':'')+'</div>'+
       '<div class="nums">'+D.stats.map(x=>'<div><span class="wm-stat">'+esc(x.v)+'</span><span class="wm-note">'+esc(x.note)+'</span></div>').join('')+'</div></div>';
   }
+  // year cards (design system .wm-years): a large year and one short line, two side by side; a slide with several
+  // views has one set per view (the set for the view on screen shows: #slide[data-view])
+  function yearsHTML(sets){
+    return sets.map((set,j)=>'<div class="wm-yearset" data-view="'+j+'"><div class="wm-years">'+set.cards.map(x=>
+      '<div><span class="wm-stat">'+esc(x.y)+'</span><span class="what">'+esc(x.text)+'</span></div>').join('')+'</div>'+
+      (set.key?'<div class="wm-legend">'+set.key.map(x=>'<span>'+swatch(x.color,!!x.line)+esc(x.label)+'</span>').join('')+'</div>':'')+'</div>').join('');
+  }
   function barsHTML(B){
     const mx=Math.max(...B.rows.map(r=>r.v));
     return '<div class="wm-bars">'+(B.caption?'<span class="wm-label">'+esc(B.caption)+'</span>':'')+B.rows.map(r=>
@@ -849,7 +883,7 @@ function START(){
   // part (their [data-slide-text] slot); what goes below it is theirs.
   function narrationHTML(s){
     const b=s.below||{};
-    let h='<p class="wm-label">'+esc(s.act||'')+'</p><h2 class="wm-display">'+esc(s.title)+'</h2>';
+    let h='<p class="wm-label">'+esc(s.act||'')+'</p><h2 class="wm-display">'+esc(s.title||'')+'</h2>';
     if(s.sub) h+='<p class="wm-sub">'+esc(s.sub)+'</p>';
     h+='<div class="text">';
     if(s.quote) h+='<p class="wm-quote'+(s.quote.long?' is-long':'')+'">'+esc(s.quote.text)+'</p><p class="wm-note">'+esc(s.quote.by)+'</p>';
@@ -871,6 +905,7 @@ function START(){
     if(b.grow) h+='<span class="wm-note">Storm seasons 2006 to <span data-year="grow">2026</span></span>';
     if((s.views||[]).some(v=>Object.keys(v.layers||{}).some(k=>LAYERS[k]&&LAYERS[k].sweep&&v.layers[k]>0)))
       h+='<div class="wm-readout sweep"><b data-year="sweep">1970</b><span data-count="sweep"></span></div>';
+    if(b.years) h+=yearsHTML(b.years);
     if(b.events) h+=eventsHTML(b.events);
     if(b.dial) h+=dialHTML(b.dial);
     if(b.links) h+='<div class="wm-links">'+b.links.map(x=>'<a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+
@@ -930,7 +965,7 @@ function START(){
     const acts=[]; SCENES.forEach((s,i)=>{ const n=numOf(i); if(!acts.length||acts[acts.length-1].num!==n) acts.push({num:n,slides:[]}); acts[acts.length-1].slides.push(i); });
     const nav=document.createElement('nav'); nav.className='wm-nav'; nav.setAttribute('aria-label','Slides');
     nav.innerHTML='<ol>'+acts.map(a=>'<li class="act"><span class="num" aria-hidden="true">'+esc(a.num)+'</span><ol>'+
-      a.slides.map(i=>'<li><button class="ln" type="button" tabindex="-1" data-i="'+i+'" aria-label="'+esc(SCENES[i].title)+'"'+(stopOf(i)?'':' disabled')+'></button></li>').join('')+
+      a.slides.map(i=>'<li><button class="ln" type="button" tabindex="-1" data-i="'+i+'" aria-label="'+esc(SCENES[i].title||SCENES[i].name||'')+'"'+(stopOf(i)?'':' disabled')+'></button></li>').join('')+
       '</ol></li>').join('')+'</ol>';
     document.body.appendChild(nav);
     const mini=document.createElement('span'); mini.className='wm-label wm-nav-mini'; mini.setAttribute('aria-hidden','true'); document.body.appendChild(mini);
@@ -1017,6 +1052,7 @@ function START(){
   }
   function showCard(stepI, camMs){
     const i=STEPS[stepI] ? STEPS[stepI].s : 0;
+    slideEl.dataset.view=STEPS[stepI] ? STEPS[stepI].j : 0;   // year cards: the set for this view
     if(i===shownSlide) return; shownSlide=i;           // same slide, new view: the words stay
     if(NAV) NAV.set(i);
     const P=PARTS[i], g=++swapGen, titleEl=part('title');

@@ -240,6 +240,27 @@ territories. Admin-0 shapes include overseas territories (France includes
 French Guiana and Réunion).
 **These counts are lower than the published reports' figures** (see NOTES.md).
 
+## Geopolitics (slide 23)
+
+### UNOSAT, satellite-detected flood water over Pakistan, 26 August to 7 September 2025
+UNOSAT event FL20250818PAK, via HDX ("Satellite detected water extents from 26 August to 7 September 2025 over
+Pakistan"). `https://unosat.org/static/unosat_filesystem/4197/FL20250818PAK_SHP.zip`
+**Downloaded 7 October 2026**, 19.5 MB. CC BY-SA. Kept in `data/raw/geopolitics/flood2025/`.
+Used: `VIIRS_20250826_20250907_FloodWaterExtent_PAK` only (VIIRS, NOAA; one multipolygon, 10,622 rings, 137,791
+points; "New Water / Water Increase"; "Not yet field validated"). Its own area field is **17,078 km²**; UNOSAT's map
+text says about 39,200 km² appear flooded within the cloud-free analysed area, so the figure is not stated on the page.
+`prototypes/geopolitics/build_geopolitics.py` keeps the 2,560 rings over ~0.3 km² (94% of the area), simplified to
+18,041 points.
+
+### Natural Earth rivers and lake centrelines, 1:10m
+`https://naciscdn.org/naturalearth/10m/physical/ne_10m_rivers_lake_centerlines.zip`
+**Downloaded 7 October 2026**, 2.1 MB. Public domain. Kept in `data/raw/geopolitics/rivers/`. Only the six rivers of
+the Indus Waters Treaty are used: Indus, Jhelum, Chenab (western, to Pakistan), Ravi, Beas, Sutlej (eastern, to India).
+
+The Arctic stop tints the seven Arctic Council states other than Russia (United States, Canada, Denmark with
+Greenland, Iceland, Norway, Sweden, Finland) from the Natural Earth 1:50m countries above. No borders are drawn
+between India and Pakistan or Russia and Ukraine (Kashmir and Crimea are disputed): those countries are labels only.
+
 ---
 
 ## Literature cited in the piece

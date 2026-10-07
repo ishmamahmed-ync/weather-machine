@@ -490,6 +490,13 @@ select.wm-field option{background:#0B111A; color:var(--wm-text)}
 .wm-links .what{font-size:var(--wm-fs-small); line-height:1.45; color:var(--wm-text-2)}
 @media (max-height:820px){ .wm-links a{padding:10px 12px 12px} .wm-links .name{font-size:1.05rem} .wm-links .what{font-size:var(--wm-fs-caption)} }
 
+/* ---------- Year cards (.wm-years): evidence, very short. Two outlined cards side by side, each a large year
+   and one line of under ten words. */
+.wm-years{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:var(--wm-s3); width:100%; max-width:30rem}
+.wm-years > div{display:flex; flex-direction:column; gap:6px; padding:12px 14px 14px; border:1px solid var(--wm-line); border-radius:var(--wm-r-card); background:var(--wm-glass)}
+.wm-years .what{font-size:var(--wm-fs-small); line-height:1.45; color:var(--wm-text-2)}
+@media (max-height:820px){ .wm-years > div{padding:10px 12px 12px} .wm-years .what{font-size:var(--wm-fs-caption)} }
+
 
 
 /* ---- specimen page layout: a sticky index on the left, the sheets on the right ---- */
@@ -847,6 +854,16 @@ td:first-child{color:var(--wm-text); white-space:nowrap; font-weight:500}
             </div>
           </div>
           <div class="cap"><span class="wm-label">Link cards: where to go next</span><code>.wm-links</code></div>
+        </div>
+
+        <div class="tile">
+          <div class="stage">
+            <div class="wm-years">
+              <div><span class="wm-stat">1960</span><span class="what">The Indus Waters Treaty is signed. It survives three wars.</span></div>
+              <div><span class="wm-stat">2025</span><span class="what">India stops sharing river and flood data with Pakistan.</span></div>
+            </div>
+          </div>
+          <div class="cap"><span class="wm-label">Year cards: evidence, very short</span><code>.wm-years</code></div>
         </div>
 
         <div class="tile">

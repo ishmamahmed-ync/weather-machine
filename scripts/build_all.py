@@ -201,7 +201,21 @@ def stories():
             "prefixes": ("sto-",)}
 
 
-ADAPTERS = {"rain-gauges": rain_gauges, "history": history, "idai": idai, "country-profile": country_profile, "stories": stories}
+def geopolitics():
+    """prototypes/geopolitics: slide 23's two maps (the Indus rivers and Pakistan's 2025 flood water; the Arctic Council
+    states and the Arctic Circle), as a plugin of the shared globe. Its data (geopolitics-data.json, written by
+    build_geopolitics.py) and the plugin (story-plugin.js)."""
+    h = ROOT / "prototypes/geopolitics"
+    data_file = h / "geopolitics-data.json"
+    if not data_file.exists(): fail("run prototypes/geopolitics/build_geopolitics.py first (it writes geopolitics-data.json)")
+    return {"css": "", "parts": {}, "part_js": {},
+            "data": '<script id="geo-DATA" type="application/json">' + data_file.read_text() + "</script>",
+            "js": "<script id=\"geo-JS\">\n" + (h / "story-plugin.js").read_text() + "\n</script>",
+            "prefixes": ("geo-",)}
+
+
+ADAPTERS = {"rain-gauges": rain_gauges, "history": history, "idai": idai, "country-profile": country_profile, "stories": stories,
+            "geopolitics": geopolitics}
 
 
 # ---------------------------------------------------------------- checks

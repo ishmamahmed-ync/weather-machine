@@ -7,7 +7,7 @@ Status: **data** recomputed from the repo and must match · **arithmetic** redon
 **paper** quoted from the paper (the author's rule; the map's cleaned data differs slightly) ·
 **cited** from the named source, not checkable here · **unsourced** needs a source.
 
-Totals: data 16 · arithmetic 5 · paper 1 · cited 18 · unsourced 7 · **failed 0**
+Totals: data 15 · arithmetic 5 · paper 1 · cited 21 · unsourced 8 · **failed 0**
 
 | Slide | On the page | Value | Status | Source | Check |
 |---|---|---|---|---|---|
@@ -19,18 +19,19 @@ Totals: data 16 · arithmetic 5 · paper 1 · cited 18 · unsourced 7 · **faile
 | 22 | source line: 2,119 African stations | 2,119 | data | GHCN-Daily; Africa = African countries plus Western Sahara and six island territories | ✅ |
 | 6 | 636 radars for 1.1 bn (US and EU); 37 for 1.2 bn (Africa) | 636 / 37 | cited | WMO figures cited by F. Otto, Yale Environment 360, 31 Oct 2023 |  |
 | 10 | over 60% of its people live in low-lying coastal areas | 60% | unsourced | – | ⚠️ needs a source |
-| 10 | just 19 of its weather stations reach the global archive | 19 | data | GHCN-Daily | ✅ |
-| 10 | much of the water that floods its rivers falls in its neighbours' highlands | - | cited | ISET-International, Learning from Cyclones Idai and Kenneth (ReliefWeb) [W-4] |  |
+| 10 | downstream of nine international river basins, including the Zambezi and the Limpopo | 9 | cited | Winrock International, Mozambique Water Resources Profile (USAID, 2021): 13 major basins, 9 shared; UNEP |  |
 | 11 | Desmond 21 Jan 2019; Idai 52 days later | 52 | arithmetic | IBTrACS v04r01; landfall dates ISET [W-4] | ✅ |
 | 11 | Kenneth 42 days after that | 42 | arithmetic | IBTrACS v04r01; landfall dates ISET [W-4] | ✅ |
 | 11 | never hit by so many cyclones in one season | - | unsourced | – | ⚠️ needs a source |
-| 12 | forecasters saw Idai coming five days ahead | 5 | cited | ECMWF, 2019 [W-2] |  |
+| 12 | forecasters saw Idai coming and warned the population | - | cited | ECMWF, 2019 [W-2] |  |
+| 12 | the already swollen rivers | - | unsourced | rivers high from rain in the days before; source to add | ⚠️ needs a source |
 | 14 | 1.85 million people affected | 1,850,000 | unsourced | likely Government of Mozambique PDNA (2019) | ⚠️ needs a source |
 | 14 | 603 deaths in Mozambique | 603 | unsourced | likely Government of Mozambique PDNA (2019) | ⚠️ needs a source |
 | 14 | more than 1,000 across three countries | 1,000 | cited | Otto 2023 [I-17]; ECMWF [W-2] |  |
 | 14 | map: central Beira, 8,705 buildings graded | 8,705 | data | Copernicus EMS EMSR348, Beira Center (33 destroyed, 2,968 damaged, 5,704 possibly; Copernicus's table: 33, 2,968, 5,705) | ✅ |
 | 14 | 122,700 destroyed, 111,200 damaged, 77 health facilities, 400,000 in shelters | - | unsourced | likely Government of Mozambique PDNA (2019) | ⚠️ needs a source |
 | 15 | over 140,000 animals killed | 143,422 | arithmetic | 124,498 birds + 10,305 sheep and goats + 5,428 cows + 3,191 pigs (author's Idai text; likely PDNA) | ✅ |
+| 15 | farming is the main source of income for more than 70% of people | 70 | cited | IFAD, Mozambique country page ('more than 70 per cent of the population') |  |
 | 15 | 124,498 birds, 10,305 sheep and goats, 5,428 cows, 3,191 pigs; US$3.1 million | - | unsourced | likely Government of Mozambique PDNA (2019) | ⚠️ needs a source |
 | 16 | 1,345 km of transmission lines, 10,216 km of distribution lines, 3,990 transformers, 30 substations | - | unsourced | likely Government of Mozambique PDNA (2019) | ⚠️ needs a source |
 | 17 | Africa has 27% of recorded flood deaths | 27.0 | data | EM-DAT (CRED, UCLouvain), floods 2016–2026, export 18 Sep 2026 | ✅ |
@@ -48,13 +49,15 @@ Totals: data 16 · arithmetic 5 · paper 1 · cited 18 · unsourced 7 · **faile
 | 22 | African weather-balloon reports fell by half, 2015 to 2020 | 50 | cited | WMO 2021 [I-05]; SOFF |  |
 | 22 | map counter: 878 African 0.5° cells with a station reporting in 1970 | 878 | data | GHCN-Daily stations (pack_final_layers.py af_decay) | ✅ |
 | 22 | map counter: 399 in 2025 | 399 | data | GHCN-Daily stations (pack_final_layers.py af_decay) | ✅ |
-| 24 | the UN fund for the poorest countries' missing weather data is seeking US$400 million | 400,000,000 | cited | SOFF Action Report 2025 [E-41][E-42] |  |
-| 24 | the world spends that on its militaries in just over an hour | 1.2 | arithmetic | SIPRI: US$2,887 billion in 2025 [E-72] | ✅ |
-| 24 | dial: one hour of world military spending is about US$330 million | 330 | arithmetic | SIPRI: US$2,887 billion in 2025, over 8,760 hours | ✅ |
-| 24 | every dollar invested returns more than 25 | 25 | cited | World Bank, via WMO 2021 [I-05] |  |
-| 23 | US: fewer balloons, FEWS NET suspended, exit from 66 bodies, NOAA cut by a quarter proposed | - | cited | [E-13][E-14] balloons; [E-12] FEWS NET; [E-01]–[E-03] withdrawals; [I-16][E-17][E-18][E-20] budgets |  |
-| 23 | war has destroyed or cut off a quarter of Ukraine's observing network | 25% | cited | Proceedings, 15th Int. Conf. 'Monitoring', EAGE 2023 [W-6] (losses since 2014) |  |
-| 23 | EUMETSAT and the Arctic Council suspended cooperation with Russia | - | cited | Reuters, 22 Mar 2022 [W-5]; Scientific American / E&E News [W-7] |  |
-| 25 | 'an existential problem of planetary proportions' (ICJ) | - | cited | ICJ advisory opinion, 23 Jul 2025 [E-63][E-64] (quote via [E-65]; check the opinion's own text) |  |
-| 26 | TAHMO: more than 600 stations in over 20 African countries, aiming for 20,000 | 600 | cited | TU Delft; METER Group case study |  |
-| 26 | HOT volunteers mapped over 200,000 buildings after Idai | 200,000 | cited | HOT, 'Maps in action: how maps help the aid response for Cyclone Idai'; OSM wiki, Cyclone Idai |  |
+| 25 | the UN fund for the poorest countries' missing weather data is seeking US$400 million | 400,000,000 | cited | SOFF Action Report 2025 [E-41][E-42] |  |
+| 25 | the world spends that on its militaries in just over an hour | 1.2 | arithmetic | SIPRI: US$2,887 billion in 2025 [E-72] | ✅ |
+| 25 | dial: one hour of world military spending is about US$330 million | 330 | arithmetic | SIPRI: US$2,887 billion in 2025, over 8,760 hours | ✅ |
+| 24 | US: fewer balloons, FEWS NET suspended, exit from 66 bodies, NOAA cut by a quarter proposed | - | cited | [E-13][E-14] balloons; [E-12] FEWS NET; [E-01]–[E-03] withdrawals; [I-16][E-17][E-18][E-20] budgets |  |
+| 24 | Europe and Australia are working to break their reliance on US data | - | cited | Reuters, 'Europe is breaking its reliance on American science', 1 Aug 2025 (the author read the standfirst) |  |
+| 23 | 1960: the Indus Waters Treaty is signed; it survives three wars | 3 | cited | Deccan Herald, Apr 2025; New Security Beat, Jun 2025 (1965, 1971, 1999) |  |
+| 23 | 2025: India stops sharing river and flood data with Pakistan | - | cited | Arab News; Geo News; The Nation, 25 Nov 2025 (treaty 'in abeyance', 23 Apr 2025) |  |
+| 23 | 2022: the Arctic Council and EUMETSAT suspend cooperation with Russia | - | cited | Joint statement of the seven Arctic Council states, 3 Mar 2022; EUMETSAT Council, 22 Mar 2022 (Reuters [W-5]; Infosecurity) |  |
+| 23 | 2024: data from half the Arctic's land goes dark | half | cited | López-Blanco et al., Nature Climate Change 14 (2024), doi:10.1038/s41558-023-01903-1; ScienceDaily, 24 Jan 2024 |  |
+| 26 | 'an existential problem of planetary proportions' (ICJ) | - | cited | ICJ advisory opinion, 23 Jul 2025 [E-63][E-64] (quote via [E-65]; check the opinion's own text) |  |
+| 27 | TAHMO: more than 600 stations in over 20 African countries, aiming for 20,000 | 600 | cited | TU Delft; METER Group case study |  |
+| 27 | HOT volunteers mapped over 200,000 buildings after Idai | 200,000 | cited | HOT, 'Maps in action: how maps help the aid response for Cyclone Idai'; OSM wiki, Cyclone Idai |  |

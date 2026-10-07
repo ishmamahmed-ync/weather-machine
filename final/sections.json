@@ -21,6 +21,9 @@
       "plugin": "stories"
     },
     {
+      "plugin": "geopolitics"
+    },
+    {
       "story": [
         "title",
         "stations",
@@ -44,6 +47,7 @@
         "question",
         "works",
         "not-enough",
+        "geopolitics",
         "fraying",
         "money",
         "end",

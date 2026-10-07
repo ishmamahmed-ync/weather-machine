@@ -1,0 +1,100 @@
+PROPOSED: your 7 October text, checked. Nothing is on the site yet.
+Lines marked >> are my notes. FIX = untrue or ungrammatical, changed as little as possible. CHECK = your call.
+
+[Slide 1 : The Gaps in the Weather Machine]
+Title: The Gaps in the Weather Machine
+Description: How a planetary constellation of artificial sensing infrastructure helps us stay ahead of natural disasters, and what the cracks in its design reveal about the state of a world in polycrisis.
+
+[Slides 2–5 : The weather machine]
+Title: The weather machine
+Description: Our weather machine is built on a global network of sensors embedded in our earth, in our atmosphere and in our oceans. Collectively, they help us observe and predict rhythms and disruptions in our weather in real time.
+
+[Slide 6 : The Gaps]
+Title: The Gaps
+Description: On land, weather stations sit unevenly across natural and political boundaries. This means that some regions have a better view of the storm than others, and are more prepared to face it.
+
+[Slide 7 : The Gaps]
+Title: The Gaps
+Description: The ocean has gaps too. Argo floats drift with the currents and miss shallow shelves, enclosed seas and ice. These ‘cold spots’ keep us from understanding how conditions are shifting under the ocean surface, which often affects the weather above.
+
+[Slide 8 : The Gaps: Resolution of 1°]
+Title: The Gaps: Resolution of 1°
+Description: Only a small fraction of Earth’s land has enough rain gauges by WMO standards. Rain gauges are essential to measure rainfall and monitor flooding.
+>> FIX (grammar): in "by WMO standards, which are essential to measure rainfall", the "which" points at the standards, not the gauges. Split into two sentences.
+
+[Slide 9 : What happens when we can’t predict what’s coming?]
+Title: What happens when we can’t predict what’s coming?
+Subtitle: A case study of Cyclone Idai in Mozambique
+
+[Slide 10 : Mozambique, 2019]
+Title: Mozambique, 2019
+Description: Mozambique lies downstream of nine international river basins, including the Zambezi and the Limpopo. With over 60% of its population living in low-lying coastal areas, the country is severely exposed to climate change.
+>> Checked: Mozambique has 13 major river basins, nine of them shared with upstream countries (Winrock / USAID water profile; UNEP). "Nine major river basins" changed to "nine international river basins", which is what the sources say.
+
+[Slide 11 : One season, three storms]
+Title: One season, three storms
+Description: 21 January 2019: Tropical Storm Desmond brings severe flooding. 52 days later: Cyclone Idai. 42 days after that: Cyclone Kenneth. Mozambique had never been hit by so many cyclones in a single season. Climate change was no longer intangible.
+
+[Slide 12 : The storm was expected. The flood was not.]
+Title: The storm was expected. The flood was not.
+Description: Forecasters saw Cyclone Idai coming and warned the population. The flooding was another matter. Idai moved inland, dumped torrential rain over Zimbabwe, and the already swollen rivers carried it downstream into Mozambique. The Pungwe–Buzi plain became an inland sea. Foreseeing a storm takes satellites. Knowing its effects takes gauges on the ground.
+>> "cyclone Idai" capitalised. "Knowing the effects of it" to "Knowing its effects".
+>> CHECK: "already swollen" is new; the rivers were high from rain in the days before (the storm's earlier pass as a depression), so it holds, but it is not in your sources yet.
+
+[Slide 13 : Before and after]
+Title: Before and after
+Description: Drag the handle: the same plain on 24 February and again on 21 March 2019. Water is dark blue, vegetation green, cloud cyan.
+>> Dates written the way the rest of the site writes them (21 January 2019).
+
+[Slide 14 : Idai in numbers]  (unchanged)
+
+[Slide 15 : Beyond people]
+Title: Beyond people
+Description: 124,498 birds killed. 10,305 sheep and goats. 5,428 cows. 3,191 pigs. US$3.1 million lost, in a country where farming is the main source of income for more than 70% of people.
+>> FIX (accuracy): IFAD says agriculture is "the main source of income for more than 70 per cent of the population and provides employment for 80 per cent of the workforce". "80% of the population relies on subsistence farming" is not what it says.
+
+[Slide 16 : Beyond people]  (unchanged)
+
+[Slide 17 : Who lives and who dies]  (unchanged)
+
+[Slide 18 : How about the place you were born?]
+Title: How about the place you were born?
+Description: Enter your country and birth year. See how many people floods have killed, affected or displaced there since you were born, compared with another country.
+>> FIX (grammar): "floods have been killed" to "floods have killed".
+
+[Slide 19 : The frontlines are responding]  (unchanged)
+
+[Slide 20 : Why have we not collectively filled the gaps in the weather machine?]
+Title: Why have we not collectively filled the gaps in the weather machine?
+Description: (none: the title alone, over the empty globe)
+
+[Slide 21 : (no title)]
+Title: (none)
+Description: the Guterres quote, then "Yet about 90 countries still haven’t reported a multi-hazard warning system."
+>> CHECK: a slide with no title. I would let the quote stand as the headline (the label "VI · Closing the gaps" above it). The navigator would name the slide "Early warning systems save lives" for screen readers.
+
+[Slide 22 : Some regions do not have the means to build or keep them]
+Title: Some regions do not have the means to build or keep them
+Description: The poorest countries and small island states provide only 9% of the surface data the WMO needs from them. African weather-balloon reports reaching global models fell by half between 2015 and 2020.
+
+[Slide 23 : NEW]
+Title: Some regions withhold data because of geopolitical tensions
+Description: In 2025, India suspended the Indus Waters Treaty and stopped regularly sharing river-flow and flood data with Pakistan downstream, sending only occasional flood alerts. Europe’s weather-satellite agency and the Arctic Council have suspended cooperation with Russia.
+>> FIX (grammar): "withhold data for geopolitical tensions" to "because of".
+>> FIX (accuracy): "Regional rivals like India and Pakistan often withhold advanced warnings on rainfall, flooding, and water releases" is broader than the sources. In April 2025 India put the treaty "in abeyance" and suspended the regular exchange of hydrological data (flood warnings, river flow) with Pakistan; it still sent some flood alerts through diplomatic channels (Arab News; Geo News; The Nation, Nov 2025). Nothing found on rainfall warnings, or on Pakistan withholding from India.
+>> Visual (proposal): the globe frames Europe, Russia and the Indus basin; the station lights of India, Pakistan and Russia flicker.
+
+[Slide 24 : Decline in international cooperation and stewardship]
+Title: Decline in international cooperation and stewardship
+Description: The USA is sharing less vital atmospheric and ocean data with the world, and leaving international bodies on scientific cooperation around climate change. Europe and Australia warn that their own forecasts depend on it.
+>> FIX (accuracy): "Europe and Australia, in response, are breaking away to build their own regional systems." No source found. What the sources say: Europe's weather centre (ECMWF) reported fewer US observations reaching its models and warned the cuts hurt global science; Australian scientists warn their forecasting is at risk (phys.org Apr 2025; UNSW and ABC, Jul–Aug 2025). Your research dossier only says they "can partly substitute", marked as analysis.
+>> Checked: "sharing less data" (fewer weather balloons; the military satellite feed due to end) and "leaving international bodies" (the 66 withdrawals, including the UN climate convention and the IPCC, 7 January 2026) hold.
+>> Visual (proposal): the timeline keeps only its four US events (the world events move to slide 23's story); the globe turns to the Americas and only the US station lights flicker.
+
+[Slide 25 : We have the means to fund planetary defence]
+Title: We have the means to fund planetary defence
+Description: The UN fund for the poorest countries’ missing weather data is seeking US$400 million. The world collectively spends that on its militaries in just over an hour.
+
+[Slide 26 : There can be no gaps in our weather machine]  (unchanged)
+
+[Slide 27 : Help close the gaps]  (unchanged)
