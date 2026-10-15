@@ -3659,6 +3659,7 @@ function HistoryLayers(DATA){
   function track(ctx, proj) {                                   // note when the camera has just arrived
     const m = API ? API.moving() : false;
     if (wasMoving && !m) arrived = performance.now();
+    if (m && API) API.animate(250);   // keep frames coming past the camera's arrival, so the layers held back while it moves get drawn (on large screens the last frame could be the moving one)
     wasMoving = m;
   }
 
@@ -4122,7 +4123,7 @@ function HistoryLayers(DATA){
   const circle = { type: 'LineString', coordinates: d3.range(-180, 181, 2).map(x => [x, 66.56]) };
 
   let API = null, arrived = 0, wasMoving = true;
-  function track() { const m = API ? API.moving() : false; if (wasMoving && !m) arrived = performance.now(); wasMoving = m; }
+  function track() { const m = API ? API.moving() : false; if (wasMoving && !m) arrived = performance.now(); if (m && API) API.animate(250); wasMoving = m; }   // keep frames coming past arrival (see the Idai plugin)
   const fadeIn = ms => { const f = reduce ? 1 : Math.min(1, (performance.now() - arrived) / ms); if (f < 1 && API) API.animate(60); return WM.ease(f); };
   // a label only where it faces us (the Arctic view sees round the pole)
   function label(ctx, proj, text, ll, kind, opt = {}) {

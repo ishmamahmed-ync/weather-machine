@@ -114,6 +114,7 @@
   function track(ctx, proj) {                                   // note when the camera has just arrived
     const m = API ? API.moving() : false;
     if (wasMoving && !m) arrived = performance.now();
+    if (m && API) API.animate(250);   // keep frames coming past the camera's arrival, so the layers held back while it moves get drawn (on large screens the last frame could be the moving one)
     wasMoving = m;
   }
 

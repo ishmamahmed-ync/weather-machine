@@ -1,0 +1,110 @@
+[Slide 1 : The Gaps in the Weather Machine]
+Our project is an interactive website about how our planetary constellation of artificial sensing infrastructure, which we call the weather machine, helps us stay ahead of natural disasters and understand climate change,
+and what the cracks or gaps in its design reveal about the state of a world, and how it affects people around the world, in the middle of a polycrisis.
+
+[Slide 2 : The weather machine]
+Now, our weather machine is built on a global network of sensors embedded in our earth, in our atmosphere and in our oceans.
+On land, we have the weather stations – its sensors measure air temperature, humidity, pressure, precipitation – allowing us to understand atmospheric and environmental conditions at the ground level.
+
+[Slide 3 : The weather machine]
+In space, we have Earth-observing satellites (for example geostationary and polar orbiting satellites), that look at cloud formations, lightning activity, wind speed, and more – and spot developing storms and weather patterns at scale.
+
+[Slide 4 : The weather machine]
+In the ocean, we have deployed submersible sensors called argo floats, that collect temperature, water pressure, and salinity data from different layers of the ocean. They also help us monitor storms by tracking ocean currents.
+
+[Slide 5 : The weather machine]
+On land, we also have rain gauges, which helps us monitor precipitation and flooding in real time.
+Taken together, data from these different sensors collectively help us forecast the weather, and also help us prepare against floods, hurricanes, and other natural disasters.
+
+[Slide 6 : The Gaps]
+But this machine is not evenly built. You can see that the US is almost fully covered by weather stations, while over most of Africa the distribution is quite sparse.
+
+[Slide 7 : The Gaps]
+The ocean has gaps too. The argo floats we mentioned earlier aren’t effective in shallow coastal waters, or polar ice caps – which leads to cold spots in our oceans.
+
+[Slide 8 : The Gaps: Cell by cell]
+Same with the rain gauges. Only 13.4% of the world's land meets the recommended density of gauges set by the WMO.
+Here is a map that shows you the density of rain gauges around the world, and each square here is one square degree. The bright green squares are places where the number of sensors exceed the WMO minimum threshold, light green is where sensors exist but are below the WMO level, and grey is where we have no sensors at all.
+You can see that most of the flood plains in the US are above the WMO standard, but if you again look at Africa, no region on this continent meets that standard. Let’s zoom in on Mozambique, where we will see that certain parts of its plains do not have rain gauges at all.
+So what happens when a place like Mozambique, lacks this basic observational infrastructure?
+
+[Slide 9 : What happens when we can't predict what's coming]
+So what does a gap cost? Our case study is Cyclone Idai in Mozambique. This is Idai's real track: it formed over Malawi, drifted out into that same under-measured Channel, strengthened, and turned back towards the coast.
+
+[Slide 10 : Mozambique, 2019]
+Mozambique is one of the world's least developed countries, and among the most exposed to climate change.
+The country is located downstream of nine major river basins including the Zambezi and Limpopo Rivers. Over 60% of its people live in low-lying coastal areas.
+In contrast, only 19 of its weather stations reach the global archives.
+
+[Slide 11 : One season, three storms]
+In January 2019, Tropical Storm Desmond brought severe flooding. 52 days later came Idai. 42 days after that, Kenneth. Mozambique had never been hit by so many cyclones in one season.
+
+[Slide 12 : The storm was expected. The flood was not.]
+This is the key point.
+Forecasters saw Idai coming five days ahead of time and warned the population. The flooding, however, that’s another story.
+With rivers already swollen from tropical cyclone Desmond and soils overly saturated, as Idai dumped torrential rain over Zimbabwe and rivers carried it back down to Mozambique, severe flooding resulted. The Pungwe–Buzi plain became an inland sea.
+Foreseeing a storm takes satellites. Knowing the effects of it takes gauges on the ground.
+
+[Slide 13 : Before and after]
+The same plain, from satellite, on February 24th and, again, on March 21, 2019. The dark blue is water.
+
+[Slide 14 : Idai in numbers]
+1.85 million people were affected.
+603 deaths in Mozambique, more than 1,000 across three countries.
+122,700 houses destroyed.
+400,000 people in shelters.
+The map is central Beira: 8,705 buildings graded from satellite images, red for destroyed.
+
+[Slide 15 : Beyond people]
+The cascading effects are clear. More than 124,000 birds, 10,305 sheep and goats, 5,428 cows and 3,191 pigs were killed.
+A sum of about 3.1 million dollars in losses in a place where 80% of the population depends on subsistence farming and small-scale fishing to survive.
+
+[Slide 16 : Beyond people]
+And the power everything else runs on:
+1,345 kilometres of transmission lines
+3,990 transformers
+30 substations.
+Over 92K people were still displaced nine months after Idai, many of whom went months without electricity
+A flood doesn't stop at the people it kills, the cascading effects go on.
+
+[Slide 17 : Who lives and who dies]
+Idai is not an exception.
+Since 2016, Africa has had 27% of recorded flood deaths, and Europe 1.5%.
+
+[Slide 18 : How about the place you were born?]
+So we made it personal. We wanted our users to be able to see what climate change might be looking like in places where they are from.
+For example, in Bangladesh, where Ishmam is from, Since the year 2000, floods there have killed over 3,500 people and affected 114 million people. In our tool, you can compare that with the situation in any other country. We invite you to try it after our presentation.
+
+[Slide 19 : The frontlines are responding]
+But this is not only a story of loss.
+The places least responsible for climate change are not waiting and are taking matters into their own hands.
+In Malawi, river sensors now give families up to 72 hours' warning before danger is imminent.
+In the arctic, where argo floats have limited usability since these cannot go under the ice, scientists have developed a new way to observe the ocean by instrumenting seals which naturally dive under the ice, collect data which is reported back and as they shed their fur and skin, a natural process called molting, the device naturally and harmlessly falls off.
+There are 23 stories here, we invite you to explore and be inspired.
+
+[Slide 20]
+Now, we can see just how much is at stake, then why have we not collectively filled the gaps in our weather machine?
+
+[Slide 21]
+We know that early warning systems work. The UN found that disaster-related mortality is at least six times lower in countries with good early-warning systems in place.
+And even a 24 hour notice before a natural disaster can reduce damage and loss of lives by up to 30 per cent.
+Yet about 90 countries, around the world, still haven’t reported having a multi-hazard warning system, why is that?
+
+[Slide 22a]
+There are a few reasons, one is that some regions just do not have the means to build or keep this infrastructure. African weather-balloon reports reaching global models fell by half between 2015 and 2020, because weather balloons are expensive, and they were running out of the fuel and consumables required to deploy them.
+Same with the stations, they exist, but they’re just not sharing as much data compared to the 1980s, because they often lack the resources to keep reporting.
+
+[Slide 22b : Some regions withhold data for geopolitical tensions]
+Some regions, however, withhold data for geopolitical reasons. For example, India and Pakistan have long cooperated (since the 60s) over this Indus water system they share –
+but are now withholding advanced warnings on rainfall, flooding, and water releases, leaving millions vulnerable during floods downstream, like the one that happened in Pakistan last year.
+Similarly, following the invasion of Ukraine, Europe’s weather-satellite agency and the Arctic Council have suspended cooperation with Russia, leaving a dangerous data gap in the arctic as well.
+
+[Slide 24]
+There has also been a decline in international cooperation and stewardship, especially due to the withdrawal of the US’s support for the weather machine — which has sort of been carrying this network since the start of the Cold War.
+Today, it’s deploying fewer weather balloons, backing out from ocean sensing programs, leaving international bodies that are cooperating on mitigating the effects of the climate crisis, and has proposals to cut NOAA by a quarter.
+
+[Slide 23]
+Now, the technology, and the funding, exists. The UN fund for the poorest countries’ missing weather data needs around US$400 million, which is what the world collectively spends on its militaries in just over an hour, so I am not sure why we can't allocate the same towards the weather machine, which is essentially planetary defense infrastructure.
+
+[Slide 25 : There can be no gaps in the weather machine]
+During the Cold War, despite their differences, countries around the world agreed to build this machine together. Climate change is a greater threat, and it hits hardest where the sensors are fewest. Every forecast on Earth runs on one machine, and no country can see the storm coming alone, so a gap in the machine affects everyone. Thank you.
